@@ -1,29 +1,70 @@
 <!--my.wxml-->
 
-<import src='/pages/my/cell/address-cell.wxml' />
 <import src='/pages/my/cell/my-cell.wxml' />
 <import src='/pages/my/cell/orderStatus-cell.wxml' />
 
-<!--地址-->
-<view class="top-margin"></view>
-<template is="address-cell" data="{{...addressData}}"></template>
+<!--个人资料：头像／昵称／签名／-->
+<view class="top-view">
+  <view class="top-view-flex">
+    <image src="/res/img/my/my-message-icon.png" class="message-image" mode="aspectFit" catchtap="messageTap"></image>
 
-<!--订单-->
-<view class="allOrder-bgView-flex" bindtap="allOrderTap">
-  <view class="allOrder">全部订单</view>
-  <view class="allOrder-check">查看全部订单 ></view>
+    <view class="profile-view">
+      <image src="/res/img/common/common-avatar-default-icon.png" class="avatar-image"></image>
+      <text class="nickname-text">小美女</text>
+      <text class="introducion-text">他很懒，啥也没有留下！</text>
+    </view>
+
+    <image src="/res/img/my/my-setting-icon.png" class="setting-image" mode="aspectFit" catchtap="settingTap"></image>
+  </view>
+
+  <!--编辑资料按钮-->
+  <view class="edit-view" catchtap="editProfileTap">
+    <image src="/res/img/my/my-profile-edit-icon.png" class="edit-icon"></image>
+    <text class="edit-profile-text">编辑资料</text>
+  </view>
 </view>
 
-<view class="myOrder-bgView-flex">
+<!--身份描述／二维码-->
+<view class="desp-view">
+  <view class="left-desp-view">
+    <view class="line-one-view">
+      <text class="name-text">普艳芳</text>
+      <text class="identify-name-text">（城市合伙人）</text>
+    </view>
+    <text class="invite-code-text">分享码：1234567（可用于邀请好友！）</text>
+  </view>
+  <view class="qrcode-view">
+
+  </view>
+</view>
+
+<!--four cells-->
+<view class="four-cell-view">
   <!-- wx:key="unique"可以告诉编译器，重用(reuse) item 提高性能-->
   <block wx:for="{{orderStatusItems}}" wx:key="unique">
-    <template is="orderStatus-cell" data="{{...item}}"></template>
+    <template is="orderStatus-cell" data="{{...item,index:index}}"></template>
   </block>
 </view>
 
 <!--cell-->
 <view class="my-flex">
-  <block wx:for="{{myDatasItems}}" wx:key="unique">
+  <block wx:for="{{myDatasItems0}}" wx:key="unique">
+    <view class="my-cell-view" bindtap="cellSectionOneTap" data-index="{{index}}">
+      <template is="my-cell" data="{{...item}}"></template>
+    </view>
+  </block>
+</view>
+
+<view class="my-flex">
+  <block wx:for="{{myDatasItems1}}" wx:key="unique">
+    <view class="my-cell-view" bindtap="cellSectionOneTap" data-index="{{index}}">
+      <template is="my-cell" data="{{...item}}"></template>
+    </view>
+  </block>
+</view>
+
+<view class="my-flex">
+  <block wx:for="{{myDatasItems2}}" wx:key="unique">
     <view class="my-cell-view" bindtap="cellSectionOneTap" data-index="{{index}}">
       <template is="my-cell" data="{{...item}}"></template>
     </view>

@@ -1,9 +1,9 @@
 
 <template name="my-cell">
   <view class="myCell-flex">
-    <image class="icon" src="{{image}}" style="width:54rpx;height:54rpx"  mode="aspectFit"></image>
+    <image class="icon" src="{{image}}" style="width:22rpx;height:22rpx"  mode="aspectFit"></image>
     <view class="name">{{name}}</view>
     <view class="detail">{{detail}}</view>
-    <image class="arrow" src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit"></image>
+    <image class="{{arrowHidden==true?'arrow active':'arrow'}}" src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit"></image>
   </view>
 </template>

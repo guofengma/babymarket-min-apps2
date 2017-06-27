@@ -10,38 +10,72 @@ Page({
         addressData: {},
         orderStatusItems: [
             {
-                status: '待付款',
-                image: '/res/img/my/my-order-waitpay-icon.png',
+                status: '我的订单',
+                image: '/res/img/my/my-four-cell-order-icon.png',
             },
             {
-                status: '待发货',
-                image: '/res/img/my/my-order-waitdispach-icon.png',
+                status: '我的收藏',
+                image: '/res/img/my/my-four-cell-fav-icon.png',
             },
             {
-                status: '待收货',
-                image: '/res/img/my/my-order-waitreceive-icon.png'
-            }
+                status: '地址管理',
+                image: '/res/img/my/my-four-cell-address-icon.png'
+            },
+            {
+                status: '邀请好友',
+                image: '/res/img/my/my-four-cell-invite-icon.png'
+            },
         ],
-        myDatasItems: [
+        myDatasItems0: [
             {
-                image: '/res/img/my/my-cell-amount-icon.png',
-                name: '可提现金额'
+                image: '/res/img/my/my-cell-property-icon.png',
+                name: '我的资产',
+                detail:'余额2000元'
             },
             {
-                image: '/res/img/my/my-cell-agreement-icon.png',
-                name: '条款'
-            }
-        ],
-        settingDatasItems: [
-            {
-                image: '/res/img/my/my-cell-completeinfo-icon.png',
-                name: '信息完善'
+                image: '/res/img/my/my-cell-award-icon.png',
+                name: '收到奖励',
+                detail: '已收100元'
             },
             {
-                image: '/res/img/my/my-cell-aboutme-icon.png',
-                name: '关于我们'
-            }
+                image: '/res/img/my/my-cell-save-icon.png',
+                name: '已省金额',
+                detail: '已省150元'
+            },
+            {
+                image: '/res/img/my/my-cell-hehuoren-icon.png',
+                name: '城市合伙人',
+                detail: '待领230元'
+            },
         ],
+        myDatasItems1: [
+            {
+                image: '/res/img/my/my-cell-frist-friends-icon.png',
+                name: '我的好友',
+                detail: '共3人'
+            },
+            {
+                image: '/res/img/my/my-cell-employee-icon.png',
+                name: '我的店员',
+                detail: '共10人'
+            },
+            {
+                image: '/res/img/my/my-cell-second-friends-icon.png',
+                name: '好友的好友',
+                detail: '共5人',
+                arrowHidden:true
+            },
+        ],
+        myDatasItems2: [
+            {
+                image: '/res/img/my/my-cell-feedback-icon.png',
+                name: '意见和反馈'
+            },
+            // {
+            //     image: '/res/img/my/my-cell-agreement-icon.png',
+            //     name: '联系客服'
+            // }
+        ]
     },
 
     /**
@@ -191,8 +225,29 @@ Page({
     },
 
     /**
-       * 请求统一入口
-       */
+     * 消息
+     */
+    messageTap: function () {
+
+    },
+
+    /**
+     * 设置
+     */
+    settingTap: function () {
+
+    },
+
+    /**
+     * 编辑资料
+     */
+    editProfileTap: function () {
+
+    },
+
+    /**
+     * 请求统一入口
+     */
     requestData: function () {
         this.requestMemberInfo();
     },
@@ -201,30 +256,30 @@ Page({
      * 登录用户信息 
      */
     requestMemberInfo: function () {
-        let r = RequestReadFactory.memberInfoRead();
-        r.finishBlock = (req) => {
-            let datas = req.responseObject.Datas;
-            datas.forEach((item, index) => {
-                console.log('money1 :' + item.Money1);
-                console.log('name :' + item.KHMC);
+        // let r = RequestReadFactory.memberInfoRead();
+        // r.finishBlock = (req) => {
+        //     let datas = req.responseObject.Datas;
+        //     datas.forEach((item, index) => {
+        //         console.log('money1 :' + item.Money1);
+        //         console.log('name :' + item.KHMC);
 
-                wx.setStorage({
-                    key: 'memberInfo',
-                    data: item,
-                })
+        //         wx.setStorage({
+        //             key: 'memberInfo',
+        //             data: item,
+        //         })
 
-                this.setData({
-                    addressData: {
-                        name: item.KHMC,
-                        mobile: item.LXFS,
-                        detail: item.BGDZ,
-                        leftIconShow: false,
-                    },
-                    'myDatasItems[0].detail': item.Balance,
-                });
+        //         this.setData({
+        //             addressData: {
+        //                 name: item.KHMC,
+        //                 mobile: item.LXFS,
+        //                 detail: item.BGDZ,
+        //                 leftIconShow: false,
+        //             },
+        //             'myDatasItems[0].detail': item.Balance,
+        //         });
 
-            });
-        };
-        r.addToQueue();
+        //     });
+        // };
+        // r.addToQueue();
     },
 })

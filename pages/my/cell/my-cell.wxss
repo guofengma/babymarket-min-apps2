@@ -8,7 +8,7 @@
 .myCell-flex{
   display: flex;
   align-items: center;
-  height: 100rpx;
+  height: 86rpx;
   border-bottom: 2rpx solid #f3f3f4;
 }
 
@@ -18,15 +18,15 @@
 }
 
 .name{
-  font-size: 32rpx;
-  color: #000406;
+  font-size: 28rpx;
+  color: #1a1c1f;
   margin-left: 20rpx;
   flex: 5 0 auto;
   /*background-color: cornflowerblue;*/
 }
 
 .detail{
-  font-size: 30rpx;
+  font-size: 26rpx;
   color: #9b9a9b;
   margin-right: 20rpx;
   flex: 1 0 auto;
@@ -38,6 +38,10 @@
 .arrow{
   margin-right: 22rpx;
   align-items: flex-end;
+}
+
+.arrow.active{
+    display: none
 }
 
 .sepline{
