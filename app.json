@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/home/home",
+        "pages/product-detail/product-detail",
         "pages/my/my",
         "pages/product-lib/product-lib",
         "pages/product-lib/search/search",
@@ -12,7 +13,6 @@
         "pages/my/orderDetail/orderDetail",
         "pages/my/delivery-info/delivery-info",
         "pages/pay-success/pay-success",
-        "pages/product-detail/product-detail",
         "pages/my/complete-info/complete-info",
         "pages/pay-method/pay-method",
         "pages/my/agreement/agreement",

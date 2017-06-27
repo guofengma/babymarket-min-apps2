@@ -47,13 +47,17 @@ export default class Request {
 
         this.count = 20;
 
+        /**
+         * 分页查询时的起始位置
+         * @type {number}
+         */
         this.index = 0;
 
         //当前尝试的次数
         this.tryCount = 0;
 
         //最多尝试重发请求的次数
-        this.maxTryCount = 3;
+        this.maxTryCount = 2;
 
         //用于标记请求
         this.tag = 0;
@@ -70,6 +74,11 @@ export default class Request {
         //下一页的起始位置
         this.nextIndex = 20;
 
+        /**
+         * 调用finishBlock前的预处理，可作为factory中的统一处理
+         */
+        this.preprocessCallback = (req,firstData) => {};
+
         //要返回的字段
         this.items = [];
 
@@ -85,11 +94,6 @@ export default class Request {
         // ]
         //appendixes键值对:{$DataKey前缀:data中对应的属性名} eg. {Employee:'CreatorId',ZDSD:'ShopId'}
         this.appendixesKeyMap = {};
-
-        /**
-         * successCallback前的预处理，处理相同逻
-         */
-        this.preprocessCallback = (responseObject,req) => {};
 
         /**
          * 匹配成功回调
@@ -132,15 +136,17 @@ export default class Request {
                 'content-type': 'application/json'
             },
             success: function (res) {
+
+                if (that.managerLoadingPrompt) {
+                    Tool.hideLoading();
+                }
+
                 console.debug('<============================== 请求结束：' + that.name);
                 console.debug('result:');
                 console.debug(JSON.stringify(res.data));
                 console.debug(res.data);
                 console.debug('==============================\n\n\n');
                 that.responseObject = res.data;
-
-                //预处理，可以重新组织请求结果
-                that.preprocessCallback(that.responseObject,that);
 
                 //成功
                 if (res.data.exception === undefined) {
@@ -197,6 +203,9 @@ export default class Request {
                     else{
                         that.nextIndex = currentCount;
                     }
+
+                    //预处理，可以重新组织请求结果
+                    that.preprocessCallback(that,firstData)
                     that.finishBlock(that,firstData)
                 }
 
@@ -229,6 +238,7 @@ export default class Request {
                 else
                 {
                     //弹窗，提示服务器错误
+                    that.failBlock(that);
                     Tool.showAlert('请求失败，请稍后重试')
                 }
             },

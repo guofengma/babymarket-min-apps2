@@ -1,5 +1,5 @@
 /**
- * Created by coin on 1/13/17.
+ * Created by Patrick on 1/13/17.
  */
 
 'use strict';
@@ -47,10 +47,23 @@ export default class Tool {
         return n[1] ? n : '0' + n;
     }
 
+    static timeStringFromInterval(interval,format){
+        let date = new Date(interval * 1000);
+        return this.timeStringForDate(date,format);
+    }
+
     static timeIntervalFromString(string) {
         let date = Tool.dateFromString(string);
-        let timeInterval = date.getTime() / 1000;
+        let timeInterval = parseInt(date.getTime() / 1000);
         return timeInterval;
+    }
+
+    static timeIntervalFromNow(interval){
+        return this.timeIntervalFromDate(new Date(),interval);
+    }
+
+    static timeIntervalFromDate(date,interval){
+        return parseInt(date.getTime() / 1000) + interval;
     }
 
     static dateFromString(string) {
@@ -72,25 +85,68 @@ export default class Tool {
         return timeString;
     }
 
+    static timeDurationStringForInterval(interval) {
+        let str = Tool.timeStringFromInterval(interval,"YYYY MM-DD HH:mm");
+        return this.timeDurationStringForDateString(str);
+    }
+
     static timeDurationStringForDateString(string) {
         if (Tool.isEmptyStr(string)) {
             return;
         }
-        let duration = new Date().getTime() / 1000 - Tool.timeIntervalFromString(string);
+        let duration = parseInt(new Date().getTime() / 1000) - Tool.timeIntervalFromString(string);
+        let isNegtive = duration < 0;
+        if (isNegtive) {
+            duration = -duration;
+        }
         let time = '';
         let count = 1;
         if (duration < 60 * 60) {
             count = parseInt(duration / 60.0);
-            time = count + "分钟前";
+            if (count == 0) {
+                time = '刚刚';
+            }
+            else{
+                time = count + "分钟" + (isNegtive? '后':'前');
+            }
         }
         else if (duration < (24 * 60 * 60)) {
             count = parseInt(duration / 60 / 60);
-            time = count + "小时前";
+            time = count + "小时" + (isNegtive? '后':'前');
         } else {
             time = Tool.timeStringForDateString(string, "MM-DD HH:mm");
         }
 
         return (time);
+    }
+
+    static dayCountFromInterval(interval){
+        let days = 0;
+        let duration = interval - this.timeIntervalFromNow(0);
+        let isNegtive = duration < 0;
+        if (isNegtive) {
+            duration = -duration;
+        }
+
+        days = parseInt(duration / (24 * 3600));
+
+        return days + 1;
+    }
+
+    /**
+     * 把秒数变成string
+     * @param timeCount
+     * @returns {string} 08:30
+     */
+    static timeStringForTimeCount(timeCount){
+        let hour = parseInt(timeCount / (60 * 60));
+        let min = parseInt((timeCount - hour * 3600) / 60);
+        let hourString = hour + '';
+        hourString = global.Tool.addZero(hourString,2);
+        let minString = min + '';
+        minString = global.Tool.addZero(minString,2);
+        let openinghours = hourString + ':' + minString;
+        return openinghours;
     }
 
     //生成UUID
@@ -237,21 +293,53 @@ export default class Tool {
         });
     }
 
+    static showSuccessToast(title,finish = null){
+        let duration = 1000;
+
+        let success = ()=>{
+            if (finish) {
+                setTimeout(()=>{
+                    finish();
+                },duration);
+            }
+        }
+
+        setTimeout(()=>{
+            wx.showToast({
+                title: title,
+                icon: 'success',
+                duration: duration,
+                success:success,
+            })
+        },400);
+    }
+
     //显示加载动画 rCount 为请求的次数
     static showLoading(rCount = 1) {
         Tool.sharedInstance().requestCount = rCount;
-        wx.showToast({
-            title: '加载...',
-            icon: 'loading',
-            duration: 95000
-        });
+
+        if (Tool.canIUse('showLoading')) {
+            wx.showLoading({title:'加载中...'});
+        }
+        else{
+            wx.showToast({
+                title: '加载中...',
+                icon: 'loading',
+                duration: 95000
+            });
+        }
     }
 
     //隐藏加载动画
     static hideLoading() {
         Tool.sharedInstance().requestCount--;
         if (Tool.sharedInstance().requestCount <= 0) {
-            wx.hideToast();
+            if (Tool.canIUse('hideLoading')) {
+                wx.hideLoading();
+            }
+            else{
+                wx.hideToast();
+            }
         }
     }
 
@@ -380,7 +468,7 @@ export default class Tool {
      */
     static removeObjectFromArray(obj, arr) {
         var index = arr.indexOf(obj);
-        console.log('removeObjectFromArray index:' + index);
+        // console.log('removeObjectFromArray index:' + index);
 
         if (index > -1) {
             arr.splice(index, 1);
@@ -404,7 +492,20 @@ export default class Tool {
         }
         return {key:key,id:id};
     }
-
+    
+    // 格式化距离
+    static formatDistance(value){
+        let dis = parseInt(value);
+        let isKM = dis > 1000;
+        if (isKM) {
+            return parseInt(dis / 1000) + '公里';
+        }
+        else
+        {
+            return dis + '米';
+        }
+    }
+    
     /**
      * str是否已needle开头
      *
@@ -414,6 +515,102 @@ export default class Tool {
      */
     static isStringStartsWith(str,needle){
         return str.lastIndexOf(needle, 0) === 0
+    }
+
+    static addZero(str,length){
+        return new Array(length - str.length + 1).join("0") + str;
+    }
+
+    static redirectTo(url,success,fail,complete){
+        console.log('\n\n******************************************************************************************');
+        console.log('redirectTo:' + url);
+        wx.redirectTo({
+                url:url,
+                success:success,
+                fail:fail,
+                complete:complete,
+            }
+        )
+    }
+
+    static switchTab(url,success,fail,complete){
+        console.log('\n\n******************************************************************************************');
+        console.log('switchTab:' + url);
+        wx.switchTab({
+            url:url,
+            success:success,
+            fail:fail,
+            complete:complete,
+        })
+    }
+
+    static navigateTo(url,success,fail,complete){
+        console.log('\n\n******************************************************************************************');
+        console.log('navigateTo:' + url);
+        wx.navigateTo({
+            url:url,
+            success:success,
+            fail:fail,
+            complete:complete,
+        })
+    }
+
+    /**
+     * 查看权限
+     * @param scope
+     * @param success
+     * @param fail
+     */
+    static getScope(scope,success,fail,complete,notCompatible){
+        if (wx.canIUse('getSetting') && wx.canIUse('authorize')) {
+            wx.getSetting({
+                success(res) {
+                    if (!res[scope]) {
+                        wx.authorize({
+                            scope: scope,
+                            success(){
+                                console.log(scope + ' success');
+                                if (global.Tool.isFunction(success)) {
+                                    success();
+                                }
+                            },
+                            fail(){
+                                console.log(scope + ' fail');
+                                if (global.Tool.isFunction(fail)) {
+                                    fail();
+                                }
+                            },
+                            complete(){
+                                console.log(scope + ' complete');
+                                if (global.Tool.isFunction(complete)) {
+                                    complete();
+                                }
+                            },
+                        })
+                    }
+                },
+                fail(res){
+                    console.log('authorize、getSetting 不兼容当前版本');
+                    if (global.Tool.isFunction(notCompatible)) {
+                        notCompatible();
+                    }
+                }
+            })
+        }
+        else {
+            console.log('authorize、getSetting 不兼容当前版本');
+            if (global.Tool.isFunction(notCompatible)) {
+                notCompatible();
+            }
+        }
+    }
+
+    static canIUse(method){
+        let canIUse = wx.canIUse(method);
+        if (canIUse === false) {
+            console.log('方法：'+method + '不兼容当前版本，无法使用');
+        }
+        return canIUse;
     }
 }
 
