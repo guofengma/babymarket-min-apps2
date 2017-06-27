@@ -1,0 +1,34 @@
+<!--支付方式-->
+
+<view class="main">
+  <!--顶部-->
+  <view class="pay-method-top">
+    <view class="top">
+      <image src="/res/img/pay-success/pay-success-green-tick-icon.png" class="top-icon" mode="aspectFit"></image>
+      <text class="top-text">订单已提交</text>
+    </view>
+    <text class="center-text">（请在30分钟内完成支付）</text>
+    <view class="bottom">
+      <text class="bottom-text">支付金额:</text>
+      <text class="bottom-money">￥{{money}}</text>
+    </view>
+  </view>
+
+  <!--选择支付方式-->
+  <view class="pay-way">
+    <text class="pay-way-text">选择支付方式</text>
+    <!--分割线-->
+    <view class="divide"></view>
+    <view class="pay-way-list" wx:for="{{ways}}" wx:key="{{index}}">
+      <image src="{{item.image}}" class="pay-way-img" mode="aspectFill"></image>
+      <text class="pay-way-value">{{item.value}}</text>
+      <image src="/res/img/address/address-check-s.png" wx:if="{{item.selected}}" class="way-select" bindtap="selectWay" data-index="{{index}}" mode="aspectFit" />
+      <image src="/res/img/address/address-check-n.png" wx:else class="way-select" bindtap="selectWay" data-index="{{index}}" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!--订单按钮-->
+  <view class="pay-footer">
+    <view bindtap="pay" class="pay-bt">确认支付</view>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+
+/*mycell*/
+.my-flex{
+  background: white;
+  margin-top: 20rpx;
+}
+
+.myCell-flex{
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  border-bottom: 2rpx solid #f3f3f4;
+}
+
+.icon{
+  /*background-color: red;*/
+  margin-left: 30rpx;
+}
+
+.name{
+  font-size: 32rpx;
+  color: #000406;
+  margin-left: 20rpx;
+  flex: 5 0 auto;
+  /*background-color: cornflowerblue;*/
+}
+
+.detail{
+  font-size: 30rpx;
+  color: #9b9a9b;
+  margin-right: 20rpx;
+  flex: 1 0 auto;
+  align-items: flex-end;
+  text-align: right;
+  /*background-color: yellow;*/
+}
+
+.arrow{
+  margin-right: 22rpx;
+  align-items: flex-end;
+}
+
+.sepline{
+  background-color: #f2f5f5;
+  height: 2rpx;
+  margin-bottom: 0rpx;
+}

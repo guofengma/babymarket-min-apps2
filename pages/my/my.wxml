@@ -1,0 +1,43 @@
+<!--my.wxml-->
+
+<import src='/pages/my/cell/address-cell.wxml' />
+<import src='/pages/my/cell/my-cell.wxml' />
+<import src='/pages/my/cell/orderStatus-cell.wxml' />
+
+<!--地址-->
+<view class="top-margin"></view>
+<template is="address-cell" data="{{...addressData}}"></template>
+
+<!--订单-->
+<view class="allOrder-bgView-flex" bindtap="allOrderTap">
+  <view class="allOrder">全部订单</view>
+  <view class="allOrder-check">查看全部订单 ></view>
+</view>
+
+<view class="myOrder-bgView-flex">
+  <!-- wx:key="unique"可以告诉编译器，重用(reuse) item 提高性能-->
+  <block wx:for="{{orderStatusItems}}" wx:key="unique">
+    <template is="orderStatus-cell" data="{{...item}}"></template>
+  </block>
+</view>
+
+<!--cell-->
+<view class="my-flex">
+  <block wx:for="{{myDatasItems}}" wx:key="unique">
+    <view class="my-cell-view" bindtap="cellSectionOneTap" data-index="{{index}}">
+      <template is="my-cell" data="{{...item}}"></template>
+    </view>
+  </block>
+</view>
+
+<!--设置-->
+<view class="my-flex">
+  <block wx:for="{{settingDatasItems}}" wx:key="unique">
+    <view class="my-cell-view" bindtap="cellSectionTwoTap" data-index="{{index}}">
+      <template is="my-cell" data="{{...item}}"></template>
+    </view>
+  </block>
+</view>
+
+<!--退出登录-->
+<view class="loginout" bindtap="loginoutTap">退出登录</view>

@@ -1,0 +1,12 @@
+/* home.wxss */
+
+/*广告位*/
+@import "ad/home-ad.wxss";
+
+
+
+
+
+.submit{
+    margin:30rpx;
+}

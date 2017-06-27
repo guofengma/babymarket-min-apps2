@@ -1,0 +1,31 @@
+<!--支付成功-->
+
+<view class="main">
+  <!--顶部-->
+  <view class="pay-success">
+    <image src="/res/img/pay-success/pay-success-green-tick-icon.png" class="pay-success-icon" mode="aspectFit"></image>
+    <text class="pay-success-text">付款成功，打包发货中...</text>
+  </view>
+
+  <!--支付信息-->
+  <view class="pay-info">
+    <view class="pay-number">
+      <text class="pay-info-text">订单号:</text>
+      <text class="pay-number-text">{{no}}</text>
+    </view>
+    <view class="pay-price">
+      <text class="pay-info-text">支付金额:</text>
+      <text class="pay-price-text">￥{{price}}</text>
+    </view>
+    <view class="pay-way">
+      <text class="pay-info-text">支付方式:</text>
+      <text class="pay-way-text">{{way}}</text>
+    </view>
+  </view>
+
+  <!--订单按钮-->
+  <view class="pay-footer">
+    <view bindtap="lookOrder" class="bt-left">查看订单</view>
+    <view bindtap="goBuy" class="bt-right">去逛逛</view>
+  </view>
+</view>

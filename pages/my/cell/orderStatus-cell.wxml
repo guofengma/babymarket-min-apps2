@@ -1,0 +1,6 @@
+<template name="orderStatus-cell">
+  <view class="myOrder-waitingDispatch" bindtap="orderStatusTap" data-status="{{status}}">
+    <image src="{{image}}" style="width:62rpx;height:62rpx" mode="aspectFit"></image>
+    <view class="waitingDispatch-view">{{status}}</view>
+  </view>
+</template>

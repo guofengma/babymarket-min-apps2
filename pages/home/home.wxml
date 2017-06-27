@@ -1,0 +1,11 @@
+<!--home.wxml-->
+
+
+<!--广告位-->
+<import src='ad/home-ad.wxml'/>
+
+
+<view>
+home
+</view>
+

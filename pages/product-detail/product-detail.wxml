@@ -1,0 +1,25 @@
+<view class="root-view">
+  <view class="product-info">
+    <image class="{{productInfo.imageUrl.length>0?'image':'image empty'}}" src="{{productInfo.imageUrl}}" mode="aspectFit" />
+    <view class="info">
+      <text class="name">{{productInfo.SPMC}}</text>
+      <text class="detail" wx:if="{{productInfo.MS.length > 0}}">{{productInfo.MS}}</text>
+      <view class="price">
+        <text class="title">零售价：</text>
+        <text class="value">{{"¥ "+productInfo.DJ}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="bottom-bar">
+    <view class="go-cart-view" catchtap="onGoCartListener">
+      <image class="cart-image" src="/res/img/product-detail/product-detail-gocart.png" mode="aspectFit" />
+      <text class="cart-name">购物车</text>
+    </view>
+    <view class="btn-two">
+      <view class="btn-addcart" catchtap="onAddCartListener">
+        加入购物车</view>
+      <view class="btn-submit" catchtap="onSubmitListener">
+        确认下单</view>
+    </view>
+  </view>
+</view>

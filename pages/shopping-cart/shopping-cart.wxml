@@ -1,0 +1,34 @@
+<!--shopping-cart.wxml-->
+<import src='/pages/shopping-cart/cell/cart-cell.wxml' />
+
+<view class="main">
+  <view wx:if="{{hasList}}">
+    <!--购物车商品列表-->
+    <view class="cart-box">
+      <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}" bindtouchstart="mytouchstart" bindtouchend="mytouchend" data-index="{{index}}" catchtap="goDetail">
+        <!--wx:if 是否选择商品-->
+        <image src="/res/img/address/address-check-s.png" wx:if="{{item.selected}}" class="cart-select" catchtap="selectList" data-index="{{index}}" mode="aspectFit" />
+        <image src="/res/img/address/address-check-n.png" wx:else class="cart-select" catchtap="selectList" data-index="{{index}}" mode="aspectFit" />
+        <!--商品数据布局-->
+        <view class="cart-info-cell">
+           <template is="cart-cell" data="{{item,index:index,isShow:item.selected}}"></template>
+        </view>
+      </view>
+    </view>
+
+    <!--底部结算-->
+    <view class="cart-footer">
+      <image src="/res/img/address/address-check-s.png" wx:if="{{selectAllStatus}}" class="total-select" bindtap="selectAll" mode="aspectFit" />
+      <image src="/res/img/address/address-check-n.png" wx:else class="total-select" bindtap="selectAll" mode="aspectFit" />
+      <text class="cart-total-all-text">全选</text>
+      <text class="cart-total-text">总计:</text>
+      <text class="cart-total-price">{{totalPrice}}</text>
+      <view bindtap="addOrder" class="cart-total-order">确认下单</view>
+    </view>
+  </view>
+
+  <!--无数据-->
+  <view wx:else class="cart-no-data">
+    <text>购物车空空，快去逛逛！</text>
+  </view>
+</view>

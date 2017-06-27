@@ -1,0 +1,98 @@
+/*支付成功*/
+
+.main {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.pay-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 150rpx;
+  background: white;
+  border-bottom: 10rpx solid #f5f7f7;
+  border-top: 10rpx solid #f5f7f7;
+}
+
+.pay-success-icon {
+  width: 25rpx;
+  height: 25rpx;
+}
+
+.pay-success-text {
+  font-size: 34rpx;
+  margin-left: 10rpx;
+  color: #000406;
+}
+
+.pay-info {
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  height: 100%;
+}
+
+.pay-number, .pay-way {
+  display: flex;
+}
+
+.pay-price {
+  display: flex;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.pay-info-text {
+  font-size: 32rpx;
+  color: #3c3d3d;
+}
+
+.pay-number-text, .pay-way-text {
+  font-size: 32rpx;
+  color: #000406;
+  margin-left: 4rpx;
+}
+
+.pay-price-text {
+  font-size: 32rpx;
+  color: #e73962;
+  margin-left: 4px;
+}
+
+/*底部按钮*/
+
+.pay-footer {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  margin: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+}
+
+.bt-left {
+  color: white;
+  background: #715329;
+  border-radius: 10rpx;
+  text-align: center;
+  width: 345rpx;
+  height: 90rpx;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+}
+
+.bt-right {
+  color: white;
+  border-radius: 10rpx;
+  background: #715329;
+  width: 345rpx;
+  margin-left: 20rpx;
+  height: 90rpx;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+}

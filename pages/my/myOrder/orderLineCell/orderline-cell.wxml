@@ -1,0 +1,15 @@
+
+<template name="orderline-cell">
+  <view class="orderline">
+
+    <image class="product-image" src="{{datas.imageUrl}}" mode="aspectFit"></image>
+    <view class="cart-describe">
+        <text class="cart-title OverFlowTwoLine">test{{datas.ProductName}}</text>
+        <view class="cart-price-count">
+        <text class="cart-price" data-index="{{index}}">￥{{datas.Price}}</text>
+        <view class="qty">x{{datas.Qnty}}</view>
+        </view>
+    </view>
+
+  </view>
+</template>

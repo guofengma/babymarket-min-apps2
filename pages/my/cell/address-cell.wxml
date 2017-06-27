@@ -1,0 +1,15 @@
+<template name="address-cell">
+  <view class="address-view" bindtap="addressViewTap">
+    <image class="left-icon" src="/res/img/my/my-order-detail-address-icon.png" mode="aspectFit" wx:if="{{leftIconShow}}"></image>
+    <view class="right-view">
+      <view class="address-row">
+        <view class="address-name">{{name}}</view>
+        <view class="address-mobile">{{mobile}}</view>
+      </view>
+      <view class="address-row">
+        <view class="address-detail">{{detail}}</view>
+        <image class="arrow" src="/res/img/my/my-address-arrow-icon.png" mode="aspectFit"  wx:if="{{arrowShow}}"></image>
+      </view>
+    </view>
+  </view>
+</template>

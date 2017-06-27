@@ -1,0 +1,18 @@
+
+.myOrder-waitingDispatch{
+  /*background-color: yellowgreen;*/
+  margin-top: 30rpx;
+  width: 120rpx;
+}
+
+.myOrder-waitingDispatch image{
+  margin-left: 29rpx;
+}
+
+.waitingDispatch-view{
+  /*background-color: burlywood;*/
+  font-size: 26rpx;
+  color: #5e5e5f;
+  line-height: 59rpx;
+  text-align: center;
+}

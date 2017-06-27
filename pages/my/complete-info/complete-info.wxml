@@ -1,0 +1,14 @@
+<!--complete-info.wxml-->
+
+<import src='/pages/my/cell/complete-info-cell.wxml' />
+
+<view class="top-sepline"></view>
+
+<form bindsubmit="formSubmit">
+  <block wx:for="{{datas}}" wx:key="unique">
+    <template is="complete-info-cell" data="{{...item, index:index, area:area.FullName}}"></template>
+  </block>
+
+  <text class="remark">备注:以上完善信息需要在我们ERP进行审核</text>
+  <button class="okButton" form-type="submit">确定</button>
+</form>

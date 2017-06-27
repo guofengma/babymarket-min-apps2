@@ -1,0 +1,33 @@
+/*数量加减*/
+.cell-quantity {
+  display: flex;
+  height: 65rpx;
+  line-height: 65rpx;
+}
+
+.cell-quantity .btn-mimus {
+  width: 45rpx;
+  height: 100%;
+  font-size: 30rpx;
+  color: #b3b7b9;
+  background-color: #e3e3e3;
+  text-align: center;
+}
+
+.cell-quantity .btn-plus {
+  width: 45rpx;
+  height: 100%;
+  font-size: 30rpx;
+  color: #b3b7b9;
+  background-color: #ccc;
+  text-align: center;
+}
+
+.cell-quantity .input-count {
+  width: 120rpx;
+  height: 100%;
+  font-size: 30rpx;
+  color: black;
+  background-color: #f3f3f4;
+  text-align: center;
+}

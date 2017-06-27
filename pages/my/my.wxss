@@ -1,0 +1,46 @@
+/* my.wxss */
+
+@import '/pages/my/cell/address-cell.wxss';
+@import '/pages/my/cell/my-cell.wxss';
+@import '/pages/my/cell/orderStatus-cell.wxss';
+
+.top-margin{
+    height: 20rpx;
+}
+
+/*订单*/
+.allOrder-bgView-flex {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  margin-top: 20rpx;
+  background-color: white;
+}
+
+.myOrder-bgView-flex{
+  background-color: white;
+  height: 168rpx;
+  margin-top: 2rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.allOrder {
+  margin-left: 30rpx;
+  font-size: 34rpx;
+}
+
+.allOrder-check {
+  color: #9b9a9b;
+  font-size: 28rpx;
+  margin-left: 360rpx;
+}
+
+.loginout{
+  font-size: 32rpx;
+  background-color: #715329;
+  color: white;
+  margin: 30rpx 30rpx;
+  line-height: 80rpx;
+  text-align: center;
+}

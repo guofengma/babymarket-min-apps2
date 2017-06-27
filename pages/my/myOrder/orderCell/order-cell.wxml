@@ -1,0 +1,36 @@
+<import src='/pages/my/myOrder/orderLineCell/orderline-cell.wxml' /> let {Tool} = global;
+
+<template name="order-cell">
+  <view class="order-cell" bindtap="orderCellTap" data-index="{{index}}">
+    <view class="time-line">
+      <text class="time">{{items.CreateTime}}</text>
+      <text class="order-status" wx:if="{{items.StatusKey == '0'}}">待付款</text>
+      <text class="order-status" wx:if="{{items.StatusKey == '1'}}">待发货</text>
+      <text class="order-status" wx:if="{{items.StatusKey == '2'}}">待收货</text>
+    </view>
+
+    <view class="orderlist" wx:for="{{items.Scan_Line}}" wx:key="unique">
+      <view class="orderline-cell">
+        <template is="orderline-cell" data="{{datas:item}}"></template>
+      </view>
+    </view>
+
+    <view class="total-amount">
+      <text class="amount">￥{{items.Total}}</text>
+      <text class="goods-num">共{{items.Scan_Line.length}}件商品，合计：</text>
+    </view>
+
+    <view class="sepline"></view>
+
+    <view class="bottom-view">
+
+      <view class="bottom-button right" catchtap="rightButtonTap" wx:if="{{items.StatusKey == '0'}}" data-title="付款" data-index="{{index}}">付款</view>
+      <view class="bottom-button right" catchtap="rightButtonTap" wx:if="{{items.StatusKey == '1'}}" data-title="联系客服" data-index="{{index}}">联系客服</view>
+      <view class="bottom-button right" catchtap="rightButtonTap" wx:if="{{items.StatusKey == '2'}}" data-title="确认收货" data-index="{{index}}">确认收货</view>
+
+      <view class="bottom-button left" catchtap="leftButtonTap" wx:if="{{items.StatusKey == '0'}}" data-title="删除订单" data-index="{{index}}">删除订单</view>
+      <view class="bottom-button left" catchtap="leftButtonTap" wx:if="{{items.StatusKey == '2'}}" data-title="查看物流" data-index="{{index}}">查看物流</view>
+      
+    </view>
+  </view>
+</template>
