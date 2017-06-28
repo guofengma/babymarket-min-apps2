@@ -26,7 +26,7 @@ export default class Operation {
         this.cartAddWriteOperation = '';
 
         //用户信息
-        this.memberInfoReadOperation = '';
+        this.memberInfoReadOperation = 'b83b9dc9-5568-0c67-1926-3c1701fb385b';
 
         //购物车
         this.cartReadOperation = '';

@@ -31,4 +31,16 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //登录用户信息查询
+    static memberInfoRead() {
+        let operation = Operation.sharedInstance().memberInfoReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Id": global.Storage.memberId(),
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '登录用户信息查询';
+        return req;
+    }
+
 }
