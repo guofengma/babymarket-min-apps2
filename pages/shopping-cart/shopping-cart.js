@@ -6,16 +6,13 @@ Page({
      * 页面的初始数据
      */
     data: {
-        carts: [], // 购物车列表
+        viewCarts: [],//购物车视图
+
         hasList: false, // 是否有购物车数据
         totalPrice: 0,  // 合计
-        selectAllStatus: false, //是否全选
-        cartIndex: 0, //  列表的下标
 
-        num: 0, // 0为初始进入，1为支付成功进入
         touchStart: 0,
         touchEnd: 0,
-        totalNum: 0, //数据总数
     },
 
     /**
@@ -29,14 +26,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        // 由支付成功后下拉刷新
-        let num = this.data.num;
-        if (num == 1) {
-            this.onPullDownRefresh();
-        }
-        this.setData({
-            num: 0
-        })
+
     },
 
     /**
@@ -44,21 +34,6 @@ Page({
      */
     onPullDownRefresh: function () {
         this.requestData();
-        // 下拉刷新时全选取消
-        this.setData({
-            selectAllStatus: false, //是否全选 
-        });
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-        let length = this.data.carts.length;
-        let totalNum = this.data.totalNum;
-        if (length != totalNum) {
-            this.requestCartMoreInfo();
-        }
     },
 
     /**
@@ -67,9 +42,28 @@ Page({
     requestData: function () {
         // 清空数据
         this.setData({
-            carts: [],
+            viewCarts: [],
         });
-        this.requestCartInfo();
+        this.requestCartViewInfo();
+    },
+
+    /**
+     * 查询购物车视图
+     */
+    requestCartViewInfo: function () {
+        let self = this;
+        let r = RequestReadFactory.cartViewRead();
+        r.finishBlock = (req) => {
+            let datas = req.responseObject.Datas;
+            if (datas.length > 0) {
+                self.setData({
+                    hasList: true,
+                    viewCarts: datas,
+                });
+                self.requestCartInfo();
+            }
+        }
+        r.addToQueue();
     },
 
     /**
@@ -77,48 +71,29 @@ Page({
      */
     requestCartInfo: function () {
         let self = this;
+        let viewCarts = this.data.viewCarts;
         let r = RequestReadFactory.cartRead();
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
-            let totalNum = req.responseObject.Total;
             if (datas.length > 0) {
-                for (let j = 0; j < datas.length; j++) {
-                    datas[j].image = global.Tool.imageURLForId(datas[j].productPicThumb);
-                    datas[j].count = datas[j].Qnty;
+                for (let i = 0; i < viewCarts.length; i++) {
+                    let houseId = viewCarts[i].WarehouseId;
+                    let carts = [];
+                    for (let j = 0; j < datas.length; j++) {
+                        datas[j].image = global.Tool.imageURLForId(datas[j].ImgId);
+                        if (datas[j].S_Name === "：") {
+                            datas[j].S_Name = "";
+                        }
+                        if (houseId === datas[j].WarehouseId) {
+                            carts.splice(carts.length, 0, datas[j]);
+                        }
+                    }
+                    viewCarts[i].carts = carts;
                 }
-                this.setData({
-                    hasList: true,
-                    carts: datas,
-                    cartIndex: datas.length,
-                    totalNum: totalNum,
+                self.setData({
+                    viewCarts: viewCarts,
                 });
             }
-            this.getTotalPrice();
-        }
-        r.addToQueue();
-    },
-
-    /**
-    * 查询购物车(上拉加载)
-    */
-    requestCartMoreInfo: function () {
-        let self = this;
-        let r = RequestReadFactory.cartRead(this.data.cartIndex);
-        r.finishBlock = (req) => {
-            let datas = req.responseObject.Datas;
-            if (datas.length > 0) {
-                for (let j = 0; j < datas.length; j++) {
-                    datas[j].image = global.Tool.imageURLForId(datas[j].productPicThumb);
-                    datas[j].count = datas[j].Qnty;
-                }
-                let totalDatas = self.data.carts.concat(datas);
-                this.setData({
-                    hasList: true,
-                    carts: totalDatas,
-                    cartIndex: this.data.cartIndex + datas.length,
-                });
-            }
-            this.getTotalPrice();
         }
         r.addToQueue();
     },
@@ -127,15 +102,16 @@ Page({
      * 合计
      */
     getTotalPrice: function () {
-        let carts = this.data.carts;
+        let viewCarts = this.data.viewCarts;
         let total = 0;
-        for (let i = 0; i < carts.length; i++) {
-            if (carts[i].selected) {
-                total += carts[i].count * carts[i].Price;
+        for (let i = 0; i < viewCarts.length; i++) {
+            for (let j = 0; j < viewCarts[i].carts.length; j++) {
+                if (viewCarts[i].carts[j].childSelected) {
+                    total += viewCarts[i].carts[j].Qnty * viewCarts[i].carts[j].Price;
+                }
             }
         }
         this.setData({
-            carts: carts,
             totalPrice: total.toFixed(2)
         });
     },
@@ -143,44 +119,45 @@ Page({
     /**
      * 选择商品
      */
-    selectList: function (e) {
-        let index = e.currentTarget.dataset.index;
-        let carts = this.data.carts;
-        let selected = carts[index].selected;
-        carts[index].selected = !selected;
-        this.getTotalPrice();
+    selectchildList: function (e) {
+        let groupPosition = e.currentTarget.dataset.groupPosition;
+        let childPosition = e.currentTarget.dataset.childPosition;
+        let viewCarts = this.data.viewCarts;
+        let childSelected = viewCarts[groupPosition].carts[childPosition].childSelected;
+        viewCarts[groupPosition].carts[childPosition].childSelected = !childSelected
         // 判断是否为全选
         let quantity = 0
-        for (let i = 0; i < carts.length; i++) {
-            if (carts[i].selected) {
+        for (let i = 0; i < viewCarts[groupPosition].carts.length; i++) {
+            if (viewCarts[groupPosition].carts[i].childSelected) {
                 quantity++;
             }
         }
-        let selectAllStatus = false;
-        if (quantity == carts.length) {
-            selectAllStatus = true;
+        if (quantity == viewCarts[groupPosition].carts.length) {
+            viewCarts[groupPosition].groupSelected = true;
         } else {
-            selectAllStatus = false;
+            viewCarts[groupPosition].groupSelected = false;
         }
         this.setData({
-            selectAllStatus: selectAllStatus,
-            carts: carts,
+            viewCarts: viewCarts,
         });
+
+        this.getTotalPrice();
     },
 
     /**
-     * 全选
+     * 仓库商品全选
      */
-    selectAll: function (e) {
-        let selectAllStatus = this.data.selectAllStatus;
+    selectGroupList: function (e) {
+        let groupPosition = e.currentTarget.dataset.groupPosition;
+        let viewCarts = this.data.viewCarts;
+        let selectAllStatus = viewCarts[groupPosition].groupSelected;
         selectAllStatus = !selectAllStatus;
-        let carts = this.data.carts;
-        for (let i = 0; i < carts.length; i++) {
-            carts[i].selected = selectAllStatus;
+        viewCarts[groupPosition].groupSelected = selectAllStatus;
+        for (let i = 0; i < viewCarts[groupPosition].carts.length; i++) {
+            viewCarts[groupPosition].carts[i].childSelected = selectAllStatus;
         }
         this.setData({
-            selectAllStatus: selectAllStatus,
-            carts: carts,
+            viewCarts: viewCarts,
         });
         this.getTotalPrice();
     },
@@ -189,16 +166,17 @@ Page({
      * 增加数量
      */
     onQuantityPlusListener: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let carts = this.data.carts;
-        let num = parseInt(carts[index].count);
-        num = num + 1;
-        carts[index].count = String(num);
+        let groupPosition = e.currentTarget.dataset.groupPosition;
+        let childPosition = e.currentTarget.dataset.childPosition;
+        let viewCarts = this.data.viewCarts;
+        let qnty = parseInt(viewCarts[groupPosition].carts[childPosition].Qnty);
+        qnty = qnty + 1;
+        viewCarts[groupPosition].carts[childPosition].Qnty = String(qnty);
         let self = this;
-        let r = RequestWriteFactory.modifyCartQnty(carts[index].Id, carts[index].count);
+        let r = RequestWriteFactory.modifyCartQnty(viewCarts[groupPosition].carts[childPosition].Id, viewCarts[groupPosition].carts[childPosition].Qnty);
         r.finishBlock = (req) => {
             self.setData({
-                carts: carts,
+                viewCarts: viewCarts,
             });
             self.getTotalPrice();
         }
@@ -208,44 +186,24 @@ Page({
      * 减少数量
      */
     onQuantityMimusListener: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let carts = this.data.carts;
-        let num = parseInt(carts[index].count);
-        if (num <= 1) {
+        let groupPosition = e.currentTarget.dataset.groupPosition;
+        let childPosition = e.currentTarget.dataset.childPosition;
+        let viewCarts = this.data.viewCarts;
+        let qnty = parseInt(viewCarts[groupPosition].carts[childPosition].Qnty);
+        if (qnty <= 1) {
             return false;
         }
-        num = num - 1;
-        carts[index].count = String(num);
+        qnty = qnty - 1;
+        viewCarts[groupPosition].carts[childPosition].Qnty = String(qnty);
         let self = this;
-        let r = RequestWriteFactory.modifyCartQnty(carts[index].Id, carts[index].count);
+        let r = RequestWriteFactory.modifyCartQnty(viewCarts[groupPosition].carts[childPosition].Id, viewCarts[groupPosition].carts[childPosition].Qnty);
         r.finishBlock = (req) => {
             self.setData({
-                carts: carts,
+                viewCarts: viewCarts,
             });
             self.getTotalPrice();
         }
         r.addToQueue();
-    },
-
-    /**
-      * 数量改变监听
-      */
-    onQuantityChangeListener: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let carts = this.data.carts;
-        let count = e.detail.value;
-        if (count > 0) {
-            carts[index].count = String(count);
-            let self = this;
-            let r = RequestWriteFactory.modifyCartQnty(carts[index].Id, carts[index].count);
-            r.finishBlock = (req) => {
-                self.setData({
-                    carts: carts,
-                });
-                self.getTotalPrice();
-            }
-            r.addToQueue();
-        }
     },
 
     /**
@@ -254,16 +212,17 @@ Page({
     addOrder: function () {
         // 判断是否选择购物车
         let selectNum = 0;
-        let carts = this.data.carts;
+        let viewCarts = this.data.viewCarts;
         let selectCarts = [];
-        for (let i = 0; i < carts.length; i++) {
-            if (carts[i].selected) {
-                // 选中数量
-                selectCarts[selectNum] = carts[i];
-                selectNum++;
+        for (let i = 0; i < viewCarts.length; i++) {
+            for (let j = 0; j < viewCarts[i].carts.length; j++) {
+                if (viewCarts[i].carts[j].childSelected) {
+                    // 选中数量
+                    selectCarts[selectNum] = viewCarts[i].carts[j];
+                    selectNum++;
+                }
             }
         }
-
         if (selectNum > 0) {
             wx.setStorage({
                 key: 'selectCarts',
@@ -278,19 +237,20 @@ Page({
         } else {
             global.Tool.showAlert("请选择购物车商品");
         }
-
     },
 
     /**
      * 进入商品详情
      */
     goDetail: function (e) {
-        let index = e.currentTarget.dataset.index;
-        let carts = this.data.carts;
+        let groupPosition = e.currentTarget.dataset.groupPosition;
+        let childPosition = e.currentTarget.dataset.childPosition;
+        let viewCarts = this.data.viewCarts;
         let touchTime = this.data.touchEnd - this.data.touchStart;
+        let self = this;
         if (touchTime > 350) {
             let requestData = {
-                "Id": carts[index].Id,
+                "Id": viewCarts[groupPosition].carts[childPosition].Id,
             }
             wx.showModal({
                 title: '提示',
@@ -299,11 +259,16 @@ Page({
                     if (res.confirm) {
                         let r = RequestWriteFactory.deleteCart(requestData);
                         r.finishBlock = (req) => {
-                            carts.splice(index, 1);
+                            viewCarts[groupPosition].carts.splice(childPosition, 1);
+                            // 判断仓库下是否还有商品
+                            if (viewCarts[groupPosition].carts.length <= 0) {
+                                viewCarts.splice(groupPosition, 1);
+                            }
                             self.setData({
-                                carts: carts
+                                viewCarts: viewCarts,
                             });
-                            if (!carts.length) {
+                            // 判断购物车下是否还有商品
+                            if (!viewCarts.length) {
                                 self.setData({
                                     hasList: false
                                 });
@@ -317,7 +282,7 @@ Page({
             })
         } else {
             wx.navigateTo({
-                url: '../product-detail/product-detail?productId=' + carts[index].ProductId
+                url: '../product-detail/product-detail?productId=' + viewCarts[groupPosition].carts[childPosition].ProductId
             })
         }
     },
