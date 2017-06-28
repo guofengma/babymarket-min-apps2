@@ -1,12 +1,24 @@
-/* home.wxss */
+/*顶部导航栏*/
+@import "tab-layout/tab-layout.wxss";
+/*首页*/
+@import "cell-home/cell-home.wxss";
+/*分类*/
+@import "cell-sort/cell-sort.wxss";
 
-/*广告位*/
-@import "ad/home-ad.wxss";
-
-
-
-
-
-.submit{
-    margin:30rpx;
+.root-view{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
+.swiper-view {
+  height: 100%;
+}
+
+.swiper-view .swiper-container {
+  height: 100%;
+}
+
+.swiper-view .swiper-container .scroll {
+  height: 100%;
+}
+

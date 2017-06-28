@@ -16,8 +16,10 @@ export default class Operation {
     constructor() {
         if (__instance()) return __instance();
 
-        //首页广告位
-        this.homeAdReadOperation = '';
+        //首页-广告位
+        this.homeAdReadOperation = 'b412ff1c-c19b-4250-b479-a61e0085a868';
+        //首页-一级分类
+        this.homeOneSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
 
         //产品查询
         this.productReadOperation = '';

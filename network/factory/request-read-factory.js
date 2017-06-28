@@ -43,4 +43,33 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //首页海报查询
+    static homeAdRead() {
+        let operation = Operation.sharedInstance().homeAdReadOperation;
+        let bodyParameters = {
+            "Operation": operation
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页海报查询';
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        return req;
+    }
+
+    //首页-一级分类
+    static homeOneSortRead() {
+        let operation = Operation.sharedInstance().homeOneSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Hierarchy": '1',
+            "IsShow": 'True',
+            "ShowInHomepage": 'True',
+            "Order": "${Order} ASC",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-一级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+
+        return req;
+    }
+
 }

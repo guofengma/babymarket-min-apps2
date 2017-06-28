@@ -8,7 +8,6 @@
         "pages/shopping-cart/shopping-cart",
         "pages/login/login",
         "pages/my/myOrder/myOrder",
-        "pages/home/shop-picker/shop-picker",
         "pages/order-confirm/order-confirm",
         "pages/my/orderDetail/orderDetail",
         "pages/my/delivery-info/delivery-info",
