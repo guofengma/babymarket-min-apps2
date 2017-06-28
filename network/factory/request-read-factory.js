@@ -103,7 +103,6 @@ export default class RequestReadFactory {
         return req;
     }
 
-<<<<<<< HEAD
     //首页海报查询
     static homeAdRead() {
         let operation = Operation.sharedInstance().homeAdReadOperation;
@@ -133,7 +132,6 @@ export default class RequestReadFactory {
         return req;
     }
 
-=======
     //查询购物车视图
     static cartViewRead() {
         let operation = Operation.sharedInstance().cartViewReadOperation;
@@ -160,5 +158,5 @@ export default class RequestReadFactory {
         req.name = '查询购物车';
         return req;
     }
->>>>>>> dev
+
 }
