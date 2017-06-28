@@ -14,7 +14,7 @@ Page({
         navItems: [
             {
                 id: 0,
-                name: '全部订单',
+                name: '全部',
             },
             {
                 id: 1,
@@ -27,6 +27,10 @@ Page({
             {
                 id: 3,
                 name: '待收货',
+            },
+            {
+                id: 4,
+                name: '待评价',
             }
         ],
         nomoredata: false,

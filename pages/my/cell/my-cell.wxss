@@ -1,3 +1,4 @@
+@import '/components/markup-text/markup-text.wxss';
 
 /*mycell*/
 .my-flex{
@@ -8,7 +9,7 @@
 .myCell-flex{
   display: flex;
   align-items: center;
-  height: 100rpx;
+  height: 86rpx;
   border-bottom: 2rpx solid #f3f3f4;
 }
 
@@ -18,27 +19,29 @@
 }
 
 .name{
-  font-size: 32rpx;
-  color: #000406;
+  font-size: 28rpx;
+  color: #1a1c1f;
   margin-left: 20rpx;
-  flex: 5 0 auto;
   /*background-color: cornflowerblue;*/
 }
 
 .detail{
-  font-size: 30rpx;
+  font-size: 26rpx;
   color: #9b9a9b;
   margin-right: 20rpx;
-  flex: 1 0 auto;
-  align-items: flex-end;
+  flex: 5 0 auto;
   text-align: right;
-  /*background-color: yellow;*/
+  /*background: yellow;*/
 }
 
 .arrow{
   margin-right: 22rpx;
-  align-items: flex-end;
+  align-self: center;
 }
+
+/*.arrow.active{
+    display: none
+}*/
 
 .sepline{
   background-color: #f2f5f5;
