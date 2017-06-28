@@ -21,6 +21,18 @@ export default class Operation {
         //首页-一级分类
         this.homeOneSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
 
+        //宝贝码头商品详情
+        this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
+
+        //宝贝码头附件
+        this.bmAttachmentsReadOperation = '7eba4898-2f70-05b4-0b17-009a002e71ad';
+
+        //老友码头 商品的国家信息
+        this.bmNationReadOperation = 'c5cb5117-b585-0160-2ab2-3c1f0016ec87';
+
+        //老友码头 运费
+        this.bmExpressRuleReadOperation = '91972a34-2e32-0928-156f-3c3501e55857';
+
         //产品查询
         this.productReadOperation = '';
 
@@ -31,10 +43,13 @@ export default class Operation {
         this.memberInfoReadOperation = 'b83b9dc9-5568-0c67-1926-3c1701fb385b';
 
         //购物车
-        this.cartReadOperation = '';
+        this.cartReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';
         this.cartAddOperation = '';
-        this.cartModifyOperation = '';
-        this.cartDeleteOperation = '';
+        this.cartModifyOperation = '137c1d5c-dc35-0114-0b27-3c240045510e';
+        this.cartDeleteOperation = 'cd0221ba-e321-0581-06f5-3c2401834522';
+
+        //购物车视图
+        this.cartViewReadOperation ='0a8ed48f-088f-0ca3-0c43-3c290052b69b';
 
         //地址
         this.addressReadOperation = '';

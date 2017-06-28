@@ -4,6 +4,8 @@
 
 'use strict';
 
+var bmap = require('../libs/baidu-map/bmap-wx.min');
+
 //工具类
 
 
@@ -611,6 +613,86 @@ export default class Tool {
             console.log('方法：'+method + '不兼容当前版本，无法使用');
         }
         return canIUse;
+    }
+
+    /**
+     * 获取地理位置，自动处理授权提示
+     * @param success
+     * @param fail
+     * @param complete
+     */
+    static getLocation(success = (res)=>{},fail = ()=>{},complete = ()=>{}){
+        let resultHandler = (success,fail,complete)=>{
+            Tool.queryLocation((res)=>{
+                if (Tool.isValid(res)) {
+                    success(res);
+                }
+                else {
+                    fail();
+                }
+            },()=>{
+                complete();
+            });
+        }
+
+        //请求授权获取地理位置信息
+        this.getScope('scope.userLocation',
+            //成功
+            ()=>{
+                resultHandler(success,fail,complete);
+            },
+            //失败
+            ()=>{
+                fail();
+            },
+            //完成
+            ()=>{
+                complete();
+            },
+            //不兼容，直接请求地址
+            ()=>{
+                resultHandler(success,fail,complete);
+            });
+    }
+
+    //调用微信接口，获取定位信息
+    static queryLocation(cb = (res)=>{},complete = ()=>{}){
+        wx.getLocation({
+            // type:'gcj02',
+            success: function (res) {
+                console.log('location');
+                console.log(res);
+
+                var that = this;
+                /* 获取定位地理位置 */
+                // 新建bmap对象
+                var BMap = new bmap.BMapWX({
+                    ak: global.TCGlobal.BaiduMapKey
+                });
+                var fail = function(data) {
+                    console.log(data);
+                };
+                var success = function(data) {
+                    //返回数据内，已经包含经纬度
+                    console.log(data);
+
+                    res.wxMarkerData = data.wxMarkerData;
+                    res.originalData = data.originalData;
+                    cb(res);
+                }
+                // 发起regeocoding检索请求
+                BMap.regeocoding({
+                    fail: fail,
+                    success: success
+                });
+            },
+            fail: function () {
+                cb(null);
+            },
+            complete: function () {
+                complete();
+            }
+        })
     }
 }
 

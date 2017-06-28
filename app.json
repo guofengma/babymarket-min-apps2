@@ -19,6 +19,7 @@
         "pages/my/withdraw/withdraw",
         "pages/my/withdraw-detail/withdraw-detail",
         "pages/special/special-activity",
+        "pages/product-specification/product-specification",
         "pages/my/my-fav/my-fav",
         "pages/my/invite-friends/invite-friends"
     ],

@@ -1,5 +1,6 @@
 <!--首页广告位-->
 <template name="home-ad">
+<<<<<<< HEAD
   <view class="home-ad">
     <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{4000}}" duration="{{500}}">
 
@@ -12,3 +13,23 @@
     </swiper>
   </view>
 </template>
+=======
+    <view class="home-ad">
+        <swiper indicator-dots="{{true}}"
+                indicator-active-color="#e4c240"
+                indicator-color="#eaebec"
+                autoplay="{{true}}" interval="{{4000}}" duration="{{500}}">
+
+            <!-- wx:key="unique"可以告诉编译器，重用(reuse) item 提高性能-->
+            <block wx:for="{{adArray}}" wx:key="unique">
+                <swiper-item>
+                    <image src="{{item}}" catchtap="homeADClicked" data-index="{{index}}"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</template>
+
+
+
+>>>>>>> dev
