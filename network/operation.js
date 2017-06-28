@@ -16,6 +16,19 @@ export default class Operation {
     constructor() {
         if (__instance()) return __instance();
 
+        //宝贝码头商品详情
+        this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
+
+        //宝贝码头附件
+        this.bmAttachmentsReadOperation = '7eba4898-2f70-05b4-0b17-009a002e71ad';
+
+        //老友码头 商品的国家信息
+        this.bmNationReadOperation = 'c5cb5117-b585-0160-2ab2-3c1f0016ec87';
+
+        //老友码头 运费
+        this.bmExpressRuleReadOperation = '91972a34-2e32-0928-156f-3c3501e55857';
+
+
         //首页广告位
         this.homeAdReadOperation = '';
 

@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/home/home",
         "pages/product-detail/product-detail",
+        "pages/home/home",
         "pages/my/my",
         "pages/product-lib/product-lib",
         "pages/product-lib/search/search",
@@ -19,7 +19,8 @@
         "pages/my/about-me/about-me",
         "pages/my/withdraw/withdraw",
         "pages/my/withdraw-detail/withdraw-detail",
-        "pages/special/special-activity"
+        "pages/special/special-activity",
+        "pages/product-specification/product-specification"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -56,7 +57,7 @@
                 "text": "购物车",
                 "iconPath": "/res/img/tabbar/tabbar-icon-normal-3.png",
                 "selectedIconPath": "/res/img/tabbar/tabbar-icon-select-3.png"
-            },            
+            },
             {
                 "pagePath": "pages/my/my",
                 "text": "我的",
