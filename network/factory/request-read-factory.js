@@ -31,4 +31,30 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //查询购物车视图
+    static cartViewRead() {
+        let operation = Operation.sharedInstance().cartViewReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "View": {
+                "EntityName": "ShoppingCart_View",
+            }
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '查询购物车视图';
+        return req;
+    }
+
+    //查询购物车
+    static cartRead() {
+        let operation = Operation.sharedInstance().cartReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "${MemberId} == '" + global.Storage.memberId() + "' && ${Useful} == 'True'",
+            "Order": "${CreateTime} DESC",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '查询购物车';
+        return req;
+    }
 }
