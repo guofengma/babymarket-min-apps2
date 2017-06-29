@@ -17,6 +17,8 @@ Page({
             addressId: '',
         },
         door: 0, //0为商品库进入，1为购物车进入
+        coupon: '选择优惠劵',
+        isSelect: false,
     },
 
     /**
@@ -82,7 +84,7 @@ Page({
         let id = this.data.orderId;
         let addressId = self.data.addressData.addressId;
         let orders = this.data.orders;
-        let door=this.data.door;
+        let door = this.data.door;
 
         let r = RequestWriteFactory.orderAddRequest(id, addressId, String((new Date()).valueOf()));
         r.finishBlock = (req) => {
@@ -99,7 +101,7 @@ Page({
                 orderLineBean.Price = orders[i].Price;
                 orderLineBean.Qnty = orders[i].Qnty;
                 orderLineBean.ProductId = orders[i].ProductId;
-                if(door===1){
+                if (door === 1) {
                     orderLineBean.Shopping_CartId = orders[i].Id;
                 }
                 orderLineBean.OrderId = id;
@@ -135,7 +137,7 @@ Page({
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             let order = datas[0];
-           
+
         }
         r.addToQueue();
 
@@ -209,5 +211,14 @@ Page({
                 url: '../address/add-address/add-address',
             })
         }
+    },
+
+    /**
+     * 选择优惠劵
+     */
+    selectCoupon: function () {
+        wx.navigateTo({
+            url: '../coupon/coupon',
+        })
     },
 })

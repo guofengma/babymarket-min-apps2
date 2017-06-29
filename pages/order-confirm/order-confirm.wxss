@@ -19,8 +19,8 @@
 }
 
 .order-address-icon {
-  width: 6%;
-  height: 45rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .order-address-info {
@@ -28,15 +28,11 @@
 }
 
 .order-address-arrow {
-  width: 30rpx;
-  height: 30rpx;
+  width: 20rpx;
+  height: 20rpx;
 }
 
 /*中间订单详情*/
-
-.order-list-box {
-  margin-bottom: 120rpx;
-}
 
 .order-list {
   display: flex;
@@ -44,6 +40,39 @@
   border-bottom: 2rpx solid #f5f7f7;
   padding: 20rpx 20rpx 20rpx 20rpx;
   background: white;
+}
+
+/*优惠劵*/
+
+.coupon {
+  display: flex;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  justify-content: space-between;
+  border-bottom: 10rpx solid #f5f7f7;
+  border-top: 10rpx solid #f5f7f7;
+  background: white;
+  align-items: center;
+}
+
+.coupon-select {
+  display: flex;
+}
+
+.coupon-text {
+  font-size: 26rpx;
+  color: #1a1c1f;
+}
+
+.couponDefault {
+  font-size: 24rpx;
+  color: #b0b1b3;
+  margin-left: 15rpx;
+}
+
+.couponSelect {
+  font-size: 24rpx;
+  color: #715329;
+   margin-left: 15rpx;
 }
 
 /*底部结算*/

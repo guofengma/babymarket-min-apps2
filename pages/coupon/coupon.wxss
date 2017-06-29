@@ -1,0 +1,8 @@
+@import '/pages/my/myOrder/empty/empty-view.wxss';
+@import "/pages/home/tab-layout/tab-layout.wxss";
+
+.coupon-box{
+     display: flex;
+    flex-direction: column;
+    height: 100%;
+}
