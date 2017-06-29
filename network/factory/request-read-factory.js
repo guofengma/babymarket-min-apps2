@@ -32,28 +32,28 @@ export default class RequestReadFactory {
     }
 
     //宝贝码头商品详情
-    static productDetailRead(theId){
+    static productDetailRead(theId) {
         let operation = Operation.sharedInstance().bmProductReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Id":theId,
-            "MaxCount":'1',
+        let bodyParameters = {
+            "Operation": operation,
+            "Id": theId,
+            "MaxCount": '1',
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
-        req.items = ['Id','ShowName','LYPrice','SalePrice','ImgId','Warehouse','Des1','Des','Tax','Subtitle','NationalKey','StoreId','TaxRate','Import','PriceInside'];
+        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
         return req;
     }
 
     //附件
-    static attachmentsRead(theId,count = 20,index = 0){
+    static attachmentsRead(theId, count = 20, index = 0) {
         let operation = Operation.sharedInstance().bmAttachmentsReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Condition":"${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
-            "MaxCount":count,
-            "StartIndex":index,
-            "Order":'${CreateTime} ASC'
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
+            "MaxCount": count,
+            "StartIndex": index,
+            "Order": '${CreateTime} ASC'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '附件';//用于日志输出
@@ -62,13 +62,13 @@ export default class RequestReadFactory {
     }
 
     //老友码头 商品的国家信息
-    static productNationRead(theKey){
+    static productNationRead(theKey) {
         let operation = Operation.sharedInstance().bmNationReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Value":theKey,
-            "MaxCount":1,
-            "StartIndex":0
+        let bodyParameters = {
+            "Operation": operation,
+            "Value": theKey,
+            "MaxCount": 1,
+            "StartIndex": 0
         };
         let req = new RequestRead(bodyParameters);
         req.name = '老友码头 商品的国家信息';//用于日志输出
@@ -77,13 +77,13 @@ export default class RequestReadFactory {
     }
 
     //老友码头 运费
-    static expressRuleRead(warehouseId,city){
+    static expressRuleRead(warehouseId, city) {
         let operation = Operation.sharedInstance().bmExpressRuleReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Condition":"StringIndexOf(${Area_Name},'" + city +"') > 0 && ${WarehouseId} == '" + warehouseId + "'",
-            "MaxCount":1,
-            "StartIndex":0
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "StringIndexOf(${Area_Name},'" + city + "') > 0 && ${WarehouseId} == '" + warehouseId + "'",
+            "MaxCount": 1,
+            "StartIndex": 0
         };
         let req = new RequestRead(bodyParameters);
         req.name = '老友码头 运费';//用于日志输出
@@ -107,7 +107,8 @@ export default class RequestReadFactory {
     static homeAdRead() {
         let operation = Operation.sharedInstance().homeAdReadOperation;
         let bodyParameters = {
-            "Operation": operation
+            "Operation": operation,
+            "IsHomePageShow": 'True'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '首页海报查询';
@@ -115,20 +116,65 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //分类海报查询
+    static sortAdRead(categoryId) {
+        let operation = Operation.sharedInstance().homeAdReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "ProductCategoryId": categoryId
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '分类海报查询';
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        return req;
+    }
+
     //首页-一级分类
     static homeOneSortRead() {
-        let operation = Operation.sharedInstance().homeOneSortReadOperation;
+        let operation = Operation.sharedInstance().homeSortReadOperation;
         let bodyParameters = {
             "Operation": operation,
             "Hierarchy": '1',
             "IsShow": 'True',
             "ShowInHomepage": 'True',
-            "Order": "${Order} ASC",
+            "Order": "${Order} ASC"
         };
         let req = new RequestRead(bodyParameters);
         req.name = '首页-一级分类';
         req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+        return req;
+    }
 
+    //首页-二级分类
+    static homeTwoSortRead(parentId) {
+        let operation = Operation.sharedInstance().homeSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "ParentId": parentId,
+            "IsShow": 'True',
+            "Order": "${Order} ASC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-二级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'Description'];
+        return req;
+    }
+
+    //首页-二级分类商品
+    static homeTwoSortProductRead(categoryId) {
+        let operation = Operation.sharedInstance().productReadOperation;
+        let condition = "${Product_CategoryId} == '" + categoryId + "'";
+        //如果是内部员工
+        if (global.Storage.isInsideMember()) {
+            condition = "${Product_CategoryId} == '" + categoryId + "' || ${ProductCategoryInsideId} == '" + categoryId + "'";
+        }
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '二级分类商品';
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit','Import'];
         return req;
     }
 

@@ -291,6 +291,9 @@ Page({
                     data: item,
                 })
 
+                //是否为内部员工
+                Storage.setInsideMember(item.Inside);
+
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
 
