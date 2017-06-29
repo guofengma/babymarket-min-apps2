@@ -10,7 +10,7 @@ Page({
         index: 0,
         currentIndex: 0,
         orderList: [],
-        dataArry: ['', '', ''],
+        dataArry: ['', '', '', '', ''],
         navItems: [
             {
                 id: 0,
@@ -40,10 +40,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.setData({
-            currentIndex: options.currentIndex,
-        })
-
         this.requestData();
     },
 
@@ -111,7 +107,7 @@ Page({
             let datas = req.responseObject.Datas;
             let total = req.responseObject.Total;
             datas.forEach((item, index) => {
-                let productList = item.Scan_Line;
+                let productList = item.Line;
                 for (let i = 0; i < productList.length; i++) {
                     let product = productList[i];
                     let imageUrl = Tool.imageURLForId(product.ImgId, "/res/img/my/my-defualt_square_icon.png");
@@ -149,7 +145,7 @@ Page({
             let datas = req.responseObject.Datas;
             let total = req.responseObject.Total;
             datas.forEach((item, index) => {
-                let productList = item.Scan_Line;
+                let productList = item.Line;
                 for (let i = 0; i < productList.length; i++) {
                     let product = productList[i];
                     let imageUrl = Tool.imageURLForId(product.ImgId);
@@ -199,7 +195,7 @@ Page({
         })
     },
 
-    leftButtonTap: function (e) {
+    bottomButtonTap: function (e) {
         var title = e.currentTarget.dataset.title;
         var index = e.currentTarget.dataset.index;
 
@@ -259,14 +255,7 @@ Page({
                     } 
                 }
             })
-        }
-    },
-
-    rightButtonTap: function (e) {
-        var title = e.currentTarget.dataset.title;
-        var index = e.currentTarget.dataset.index;
-
-        if (title == '联系客服') {//联系客服
+        } else if (title == '联系客服') {//联系客服
             wx.makePhoneCall({
                 phoneNumber: global.TCGlobal.CustomerServicesNumber,
                 // success: function () {
@@ -293,6 +282,15 @@ Page({
             wx.navigateTo({
                 url: '../../pay-method/pay-method',
             })
+        } else if (title == '立即分享') {//立即分享
+            console('----- 立即分享 -----');
         }
     },
+
+    //随便逛逛
+    okButtonTap:function(){
+        wx.switchTab({
+            url: '/pages/home/home'
+        })
+    }
 })

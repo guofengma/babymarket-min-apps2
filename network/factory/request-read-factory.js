@@ -198,9 +198,37 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //我的订单查询
+    static myOrderRead(status, index) {
+        let operation = Operation.sharedInstance().orderReadOperation;
+
+        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'";;
+        if (typeof (status) != "undefined" && status != "undefined") {
+            condition = "${StatusKey} == '" + status + "' && " + condition;
+        } 
+
+        if (global.Tool.isValidStr(status) && status != "undefined") {
+            condition = "${StatusKey} == '" + status + "'";
+        }
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+            "IsIncludeSubtables": true,
+            "Order": "${CreateTime} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的订单查询';
+        // req.items = ["SerialNumber", "CreateTime", "HJSL", "Total", "Id", "StatusKey", "LogisticsNumber", "LogisticsCode", "LogisticsName", "Contact", "Mobile", "Address"];
+        return req;
+    }
+
     //订单详情查询
     static orderDetailRead(orderId) {
         let operation = Operation.sharedInstance().orderReadOperation;
+
         let condition = "${Id} == '" + orderId + "'";
 
         let bodyParameters = {
@@ -208,10 +236,21 @@ export default class RequestReadFactory {
             "Condition": condition,
             "IsIncludeSubtables": true,
             "MaxCount": '1',
+            "StartIndex": 0,
+            "Subtables": [
+                "Scan_Line"
+            ]
         };
         let req = new RequestRead(bodyParameters);
         req.name = '我的订单查询';
         req.items = ["Id", "OrderNo", "Money", "StatusKey", "Freight", "Due", "Discount", "ExpressSum", "Formal", "Qnty", "Tax", "Total", "Cross_Order", "Tax2", "CrossFee", "Credit", "UseCredit", "Balance", "UseBalance", "Money1", "Money2", "PaywayName", "BuyerCommission"];
+        return req;
+    }
+
+    //物流详情查询
+    static orderDeliveryInfoRead(deliveryNo, companyNo) {
+        let req = new RequestDeliveryInfoRead(deliveryNo, companyNo);
+        req.name = '物流详情查询';
         return req;
     }
 }

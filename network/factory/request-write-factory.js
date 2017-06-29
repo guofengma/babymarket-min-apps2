@@ -167,4 +167,33 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //删除订单
+    static deleteOrder(id) {
+        let operation = Operation.sharedInstance().orderModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": id
+        };
+
+        let req = new RequestWrite(status, 'Order', params, null);
+        req.name = '删除订单';
+        return req;
+    }
+
+    //修改订单状态
+    static modifyOrderStatus(id, statusKey) {
+        let operation = Operation.sharedInstance().orderModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": id,
+            "StatusKey": statusKey,
+        };
+
+        let req = new RequestWrite(status, 'StoreOrder', params, null);
+        req.name = '修改订单状态';
+        return req;
+    }
+
 }
