@@ -9,10 +9,11 @@ Page({
     data: {
         total: 0,  // 合计
         orderId: '', //订单id
+        num: 0, // 0为无地址，1为有地址
         addressData: {
-            LXR: '请添加地址',
-            LXFS: '',
-            DZ: '您还没有添加收货地址，赶紧加一个',
+            Consignee: '请添加地址',
+            Mobile: '',
+            Address: '您还没有添加收货地址，赶紧加一个',
         },
         door: 0, //0为商品库进入，1为购物车进入
     },
@@ -39,25 +40,29 @@ Page({
      * 数据请求
      */
     requestData: function () {
-        this.requestUserAddress();
+        this.requestAddressDefaultInfo();
     },
 
     /**
-     * 查询地址
-     */
-    requestUserAddress: function () {
-        let r = RequestReadFactory.memberInfoRead();
+      * 查询默认地址
+      */
+    requestAddressDefaultInfo: function () {
         let self = this;
+        let r = RequestReadFactory.addressDefaultRead();
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
-            let member = datas[0];
-            self.setData({
-                addressData: {
-                    LXR: member.KHMC,
-                    LXFS: member.LXFS,
-                    DZ: member.BGDZ,
-                },
-            })
+            if (datas.length > 0) {
+                let address = datas[0];
+                self.setData({
+                    addressData: {
+                        Consignee: address.Consignee,
+                        Mobile: address.Mobile,
+                        Address: address.Address,
+                        addressId: address.Id,
+                    },
+                    num: 1,
+                });
+            }
         }
         r.addToQueue();
     },
@@ -150,7 +155,7 @@ Page({
         let orders = this.data.orders;
         let totalNum = 0;
         for (let i = 0; i < orders.length; i++) {
-            totalNum += orders[i].count * orders[i].Price;
+            totalNum += orders[i].Qnty * orders[i].Price;
         }
         this.setData({
             orders: orders,
@@ -249,5 +254,24 @@ Page({
                 }
             })
         }
-    }
+    },
+
+    /**
+     * 选择地址
+     */
+    selectAddress: function () {
+        // 判断有无地址，有地址则到选择地址，无地址则到添加地址
+        let num = this.data.num;
+        if (num == 1) {
+            // 选择地址
+            wx.navigateTo({
+                url: '../address/select-address/select-address',
+            })
+        } else {
+            //添加地址
+            wx.navigateTo({
+                url: '../address/add-address/add-address',
+            })
+        }
+    },
 })

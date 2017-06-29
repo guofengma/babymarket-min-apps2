@@ -1,28 +1,29 @@
 <!--确认订单-->
-<import src='/pages/order-confirm/address-info/address-info.wxml' />
-<import src='/pages/shopping-cart/cell/cart-cell.wxml' />
+<import src='/pages/address/info/address-info.wxml' />
+<import src='/pages/order-confirm/cell-order/cell-order.wxml' />
 
 <view class="main">
   <!--选择订单地址-->
   <view class="order-address">
     <image src="/res/img/my/my-order-detail-address-icon.png" class="order-address-icon" mode="aspectFit"></image>
-    <view class="order-address-info">
+    <view class="order-address-info" catchtap="selectAddress">
       <template is="address-info" data="{{...addressData}}"></template>
     </view>
+     <image src="/res/img/my/my-address-arrow-icon.png" class="order-address-arrow" mode="aspectFit"></image>
   </view>
 
   <!--订单商品列表-->
   <view class="order-list-box">
-    <view class="order-list" wx:for="{{orders}}" wx:key="{{index}}" catchlongtap="deleteProduct">
+    <view class="order-list" wx:for="{{orders}}" wx:key="{{index}}">
       <!--商品数据布局-->
-      <template is="cart-cell" data="{{item,index:index,isShow:true}}"></template>
+      <template is="cell-order" data="{{item}}"></template>
     </view>
   </view>
 
   <!--订单底部结算-->
   <view class="order-footer">
-    <text class="order-footer-text">总计：</text>
+    <text class="order-footer-text">实付：</text>
     <text class="order-footer-total">￥{{total}}</text>
-    <view bindtap="addOrder" class="order-confirm-bt">确认下单</view>
+    <view bindtap="addOrder" class="order-confirm-bt">提交订单</view>
   </view>
 </view>

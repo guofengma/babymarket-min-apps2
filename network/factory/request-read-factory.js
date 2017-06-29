@@ -69,4 +69,43 @@ export default class RequestReadFactory {
         req.name = '查询购物车';
         return req;
     }
+
+    //收货地址查询
+    static addressRead() {
+        let operation = Operation.sharedInstance().addressReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${Default} DESC",
+            "Condition": "${MemberId} == '" + global.Storage.memberId() + "'",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '收货地址查询';
+        return req;
+    }
+
+    //区域查询
+    static areaRead(condition) {
+        let operation = Operation.sharedInstance().areaReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '区域查询';
+        req.items = ['Id', 'Name', 'FullName', 'ZJS'];
+        return req;
+    }
+
+    //地址查询（按默认排序）
+    static addressDefaultRead() {
+        let operation = Operation.sharedInstance().addressReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${Default} DESC",
+            "Condition": "${MemberId} == '" + global.Storage.memberId() + "'",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '地址查询（按默认排序）';
+        return req;
+    }
 }
