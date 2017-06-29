@@ -61,5 +61,5 @@
   font-size: 30rpx;
   margin-right: 80rpx;
   align-self: flex-end;
-  color: #e73962;
+  color: #715329;
 }

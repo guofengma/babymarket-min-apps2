@@ -138,4 +138,33 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //订单新增
+    static orderAddRequest(id, addressId,time) {
+        let operation = Operation.sharedInstance().orderAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Formal": "False",
+            "CreatorId": global.Storage.memberId(),
+            "MemberId": global.Storage.memberId(),
+            "Id": id,
+            "Delivery_AddressId": addressId,
+            "Address_Refresh": time,
+        };
+
+        let req = new RequestWrite(status, 'Order', params, null);
+        req.name = '订单新增';
+        return req;
+    }
+
+    //订单明细新增
+    static orderLineAddRequest(requestData) {
+        let operation = Operation.sharedInstance().orderLineAddOperation;
+        let status = Network.sharedInstance().statusNew;
+
+        let req = new RequestWrite(status, 'Order_Line', requestData, operation, null);
+        req.name = '订单明细新增';
+        return req;
+    }
+
 }

@@ -14,6 +14,7 @@ Page({
             Consignee: '请添加地址',
             Mobile: '',
             Address: '您还没有添加收货地址，赶紧加一个',
+            addressId: '',
         },
         door: 0, //0为商品库进入，1为购物车进入
     },
@@ -33,6 +34,11 @@ Page({
                 self.getTotal();
             },
         })
+        // 设置订单Id
+        let id = global.Tool.guid();
+        this.setData({
+            orderId: id,
+        });
         this.requestData();
     },
 
@@ -62,33 +68,42 @@ Page({
                     },
                     num: 1,
                 });
+                this.requestAddOrder();
             }
         }
         r.addToQueue();
     },
 
     /**
-      * 新增订单请求
-      */
+     * 新增订单请求
+     */
     requestAddOrder: function () {
         let self = this;
         let id = this.data.orderId;
+        let addressId = self.data.addressData.addressId;
         let orders = this.data.orders;
-        let r = RequestWriteFactory.orderAddRequest(id);
+        let door=this.data.door;
+
+        let r = RequestWriteFactory.orderAddRequest(id, addressId, String((new Date()).valueOf()));
         r.finishBlock = (req) => {
             // 新增订单明细
             let requestData = new Array();
             let orderLineBean = undefined;
             for (let i = 0; i < orders.length; i++) {
                 orderLineBean = new Object();
-                orderLineBean.ProductName = orders[i].title;
-                orderLineBean.cartId = orders[i].Id;
+                orderLineBean.Product_Name = orders[i].Product_Name;
+                orderLineBean.Product_ShowName = orders[i].Product_ShowName;
+                orderLineBean.S_Name = orders[i].S_Name;
+                orderLineBean.ImgId = orders[i].ImgId;
+                orderLineBean.Money = orders[i].Money;
                 orderLineBean.Price = orders[i].Price;
-                orderLineBean.ImgId = orders[i].ProductPicThumb;
-                orderLineBean.Sum = orders[i].Money;
-                orderLineBean.Qnty = orders[i].count;
-                orderLineBean.MaterialId = orders[i].ProductId;
-                orderLineBean.PrimaryId = id;
+                orderLineBean.Qnty = orders[i].Qnty;
+                orderLineBean.ProductId = orders[i].ProductId;
+                if(door===1){
+                    orderLineBean.Shopping_CartId = orders[i].Id;
+                }
+                orderLineBean.OrderId = id;
+                orderLineBean.MemberId = global.Storage.memberId();
                 requestData[i] = orderLineBean;
             }
             this.requestAddOrderLine(requestData);
@@ -101,15 +116,11 @@ Page({
       */
     requestAddOrderLine: function (requestData) {
         let self = this;
-        let door=this.data.door;
+        let door = this.data.door;
         let r = RequestWriteFactory.orderLineAddRequest(requestData);
         r.finishBlock = (req) => {
             // 查询订单详情
             self.requestOrderDetail();
-            // 在购物车中删除该商品
-            if(door===1){
-                self.requestdeleteCart();
-            }
         }
         r.addToQueue();
     },
@@ -124,28 +135,10 @@ Page({
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             let order = datas[0];
-            wx.setStorage({
-                key: 'order',
-                data: order,
-                success: function (res) {
-                    wx.navigateTo({
-                        url: '../pay-method/pay-method',
-                    })
-                }
-            })
+           
         }
         r.addToQueue();
 
-    },
-
-    /**
-      * 删除购物车
-      */
-    requestdeleteCart: function (e) {
-        let orders = this.data.orders;
-        let self = this;
-        let r = RequestWriteFactory.deleteCart(orders);
-        r.addToQueue();
     },
 
     /**
@@ -163,98 +156,41 @@ Page({
         });
     },
 
-    /**
-     * 增加数量
-     */
-    onQuantityPlusListener: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let orders = this.data.orders;
-        let num = parseInt(orders[index].count);
-        num = num + 1;
-        orders[index].count = String(num);
-        this.setData({
-            orders: orders,
-        });
-        this.getTotal();
-    },
-    /**
-     * 减少数量
-     */
-    onQuantityMimusListener: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let orders = this.data.orders;
-        let num = parseInt(orders[index].count);
-        if (num <= 1) {
-            return false;
-        }
-        num = num - 1;
-        orders[index].count = String(num);
-        this.setData({
-            orders: orders,
-        });
-        this.getTotal();
-    },
-
-    /**
-      * 数量改变监听
-      */
-    onQuantityChangeListener: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let orders = this.data.orders;
-        let count = e.detail.value;
-        if (count > 0) {
-            orders[index].count = String(count);
-            this.setData({
-                orders: orders,
-            });
-            this.getTotal();
-        }
-    },
 
     /**
      * 新增订单按钮
      */
     addOrder: function () {
+        let num = this.data.num;
         let self = this;
-        // 设置订单Id
-        let id = global.Tool.guid();
-        this.setData({
-            orderId: id,
-        });
-        wx.showModal({
-            title: '提示',
-            content: '确认提交订单吗？',
-            success: function (res) {
-                if (res.confirm) {
-                    self.requestAddOrder();
-                }
-            }
-        })
-    },
-
-    /**
-     * 删除订单商品
-     */
-    deleteProduct: function (e) {
-        let index = e.currentTarget.dataset.childPosition;
-        let orders = this.data.orders;
-        let self = this;
-        if (orders.length > 1) {
+        // 判断有无地址
+        if (num == 1) {
+            // 有地址
             wx.showModal({
                 title: '提示',
-                content: '确定删除吗？',
+                content: '确认提交订单吗？',
                 success: function (res) {
                     if (res.confirm) {
-                        orders.splice(index, 1);
-                        self.setData({
-                            orders: orders,
-                        });
-                        self.getTotal();
+                        self.submitOrder();
+                    }
+                }
+            })
+        } else {
+            //无地址
+            wx.showModal({
+                title: '提示',
+                content: '还没有地址，请先添加地址！',
+                success: function (res) {
+                    if (res.confirm) {
+                        wx.navigateTo({
+                            url: '../address/add-address',
+                        })
                     }
                 }
             })
         }
     },
+
 
     /**
      * 选择地址

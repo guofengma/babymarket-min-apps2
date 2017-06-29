@@ -32,28 +32,28 @@ export default class RequestReadFactory {
     }
 
     //宝贝码头商品详情
-    static productDetailRead(theId){
+    static productDetailRead(theId) {
         let operation = Operation.sharedInstance().bmProductReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Id":theId,
-            "MaxCount":'1',
+        let bodyParameters = {
+            "Operation": operation,
+            "Id": theId,
+            "MaxCount": '1',
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
-        req.items = ['Id','ShowName','LYPrice','SalePrice','ImgId','Warehouse','Des1','Des','Tax','Subtitle','NationalKey','StoreId','TaxRate','Import','PriceInside'];
+        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
         return req;
     }
 
     //附件
-    static attachmentsRead(theId,count = 20,index = 0){
+    static attachmentsRead(theId, count = 20, index = 0) {
         let operation = Operation.sharedInstance().bmAttachmentsReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Condition":"${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
-            "MaxCount":count,
-            "StartIndex":index,
-            "Order":'${CreateTime} ASC'
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
+            "MaxCount": count,
+            "StartIndex": index,
+            "Order": '${CreateTime} ASC'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '附件';//用于日志输出
@@ -62,13 +62,13 @@ export default class RequestReadFactory {
     }
 
     //老友码头 商品的国家信息
-    static productNationRead(theKey){
+    static productNationRead(theKey) {
         let operation = Operation.sharedInstance().bmNationReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Value":theKey,
-            "MaxCount":1,
-            "StartIndex":0
+        let bodyParameters = {
+            "Operation": operation,
+            "Value": theKey,
+            "MaxCount": 1,
+            "StartIndex": 0
         };
         let req = new RequestRead(bodyParameters);
         req.name = '老友码头 商品的国家信息';//用于日志输出
@@ -77,13 +77,13 @@ export default class RequestReadFactory {
     }
 
     //老友码头 运费
-    static expressRuleRead(warehouseId,city){
+    static expressRuleRead(warehouseId, city) {
         let operation = Operation.sharedInstance().bmExpressRuleReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Condition":"StringIndexOf(${Area_Name},'" + city +"') > 0 && ${WarehouseId} == '" + warehouseId + "'",
-            "MaxCount":1,
-            "StartIndex":0
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "StringIndexOf(${Area_Name},'" + city + "') > 0 && ${WarehouseId} == '" + warehouseId + "'",
+            "MaxCount": 1,
+            "StartIndex": 0
         };
         let req = new RequestRead(bodyParameters);
         req.name = '老友码头 运费';//用于日志输出
@@ -195,6 +195,23 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '地址查询（按默认排序）';
+        return req;
+    }
+
+    //订单详情查询
+    static orderDetailRead(orderId) {
+        let operation = Operation.sharedInstance().orderReadOperation;
+        let condition = "${Id} == '" + orderId + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+            "IsIncludeSubtables": true,
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的订单查询';
+        req.items = ["Id", "OrderNo", "Money", "StatusKey", "Freight", "Due", "Discount", "ExpressSum", "Formal", "Qnty", "Tax", "Total", "Cross_Order", "Tax2", "CrossFee", "Credit", "UseCredit", "Balance", "UseBalance", "Money1", "Money2", "PaywayName", "BuyerCommission"];
         return req;
     }
 }

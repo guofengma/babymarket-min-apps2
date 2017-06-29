@@ -61,13 +61,13 @@ export default class Operation {
         this.areaReadOperation = '7e179d1c-ab1c-0352-0a44-393c01c0abf4';
 
         //订单
-        this.orderAddOperation ='';
+        this.orderAddOperation ='c65c46b6-b12e-0e57-28fe-3c1900223872';
         this.orderDeleteOperation = '';
-        this.orderReadOperation = '';
+        this.orderReadOperation = '481f0766-998d-003c-1727-3c1701e15fcb';
         this.orderModifyOperation = '';
 
         //订单明细
-        this.orderLineAddOperation = '';
+        this.orderLineAddOperation = '6a5ba01b-d63c-0e45-230f-3c19005015b1';
 
         //完善信息
         this.informationCompleteReadOperation = '';
