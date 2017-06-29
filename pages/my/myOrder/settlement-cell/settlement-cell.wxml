@@ -1,0 +1,6 @@
+<template name="settlement-cell">
+    <view class="bgview">
+        <text class="name">商品金额</text>
+        <text class="value">$100.0</text>
+    </view>
+</template>
