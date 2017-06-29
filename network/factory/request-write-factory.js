@@ -56,4 +56,144 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //修改地址默认
+    static modifyDefaultAddress(id) {
+        let operation = Operation.sharedInstance().addressModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Default": "True",
+            "Id": id,
+        };
+
+        let req = new RequestWrite(status, 'Delivery_address', params, null);
+        req.name = '修改地址默认';
+
+        return req;
+    }
+
+    //删除地址
+    static deleteAddress(id) {
+        let operation = Operation.sharedInstance().addressModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Delete": "True",
+            "Id": id,
+        };
+
+        let req = new RequestWrite(status, 'Delivery_address', params, null);
+        req.name = '删除地址';
+
+        return req;
+    }
+
+    //新增地址
+    static addAddress(name, mobile, area, address, areaId, card) {
+        let operation = Operation.sharedInstance().addressAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Default": "False",
+            "MemberId": global.Storage.memberId(),
+            "Consignee": name,
+            "Mobile": mobile,
+            "FullName": area,
+            "Address1": address,
+            "Address": area + address,
+            "DistrictId": areaId,
+            "Card": card,
+            "Name": "未指定",
+        };
+
+        let req = new RequestWrite(status, 'Delivery_address', params, null);
+        req.name = '新增地址';
+
+        return req;
+    }
+
+    //修改地址
+    static modifyDetailAddress(isDefault, name, mobile, area, address, areaId, id, card) {
+        let operation = Operation.sharedInstance().addressModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Address": area + address,
+            "Address1": address,
+            "Card": card,
+            "Consignee": name,
+            "Default": isDefault,
+            "Delete": "False",
+            "DistrictId": areaId,
+            "FullName": area,
+            "Id": id,
+            "MemberId": global.Storage.memberId(),
+            "Mobile": mobile,
+            "Name": "未指定"
+        };
+
+        let req = new RequestWrite(status, 'Delivery_address', params, null);
+        req.name = '修改地址';
+
+        return req;
+    }
+
+    //订单新增
+    static orderAddRequest(id, addressId,time) {
+        let operation = Operation.sharedInstance().orderAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Formal": "False",
+            "CreatorId": global.Storage.memberId(),
+            "MemberId": global.Storage.memberId(),
+            "Id": id,
+            "Delivery_AddressId": addressId,
+            "Address_Refresh": time,
+        };
+
+        let req = new RequestWrite(status, 'Order', params, null);
+        req.name = '订单新增';
+        return req;
+    }
+
+    //订单明细新增
+    static orderLineAddRequest(requestData) {
+        let operation = Operation.sharedInstance().orderLineAddOperation;
+        let status = Network.sharedInstance().statusNew;
+
+        let req = new RequestWrite(status, 'Order_Line', requestData, operation, null);
+        req.name = '订单明细新增';
+        return req;
+    }
+
+    //删除订单
+    static deleteOrder(id) {
+        let operation = Operation.sharedInstance().orderModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": id
+        };
+
+        let req = new RequestWrite(status, 'Order', params, null);
+        req.name = '删除订单';
+        return req;
+    }
+
+    //修改订单状态
+    static modifyOrderStatus(id, statusKey) {
+        let operation = Operation.sharedInstance().orderModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": id,
+            "StatusKey": statusKey,
+        };
+
+        let req = new RequestWrite(status, 'StoreOrder', params, null);
+        req.name = '修改订单状态';
+        return req;
+    }
+
 }

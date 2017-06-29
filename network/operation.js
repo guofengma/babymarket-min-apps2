@@ -52,21 +52,22 @@ export default class Operation {
         this.cartViewReadOperation ='0a8ed48f-088f-0ca3-0c43-3c290052b69b';
 
         //地址
-        this.addressReadOperation = '';
-        this.addressAddOperation = '';
-        this.addressModifyOperation = '';
+        this.addressReadOperation = '881d520d-bb5d-04e2-29a8-3c29005a359b';
+        this.addressAddOperation = '065e13dd-93fe-0a89-1671-3c2701995222';
+        this.addressModifyOperation = '91ef9bde-6fe7-0955-2ecc-3c24004dd20e';
+        this.addressDeleteOperation = '4f91a738-50f3-0dc0-231e-3c24018bc622';
 
         //地区
-        this.areaReadOperation = '';
+        this.areaReadOperation = '7e179d1c-ab1c-0352-0a44-393c01c0abf4';
 
         //订单
-        this.orderAddOperation ='';
+        this.orderAddOperation ='c65c46b6-b12e-0e57-28fe-3c1900223872';
         this.orderDeleteOperation = '';
-        this.orderReadOperation = '';
-        this.orderModifyOperation = '';
+        this.orderReadOperation = '481f0766-998d-003c-1727-3c1701e15fcb';
+        this.orderModifyOperation = '51edceb5-4d37-0d8b-1043-3c1a01f6b85e';
 
         //订单明细
-        this.orderLineAddOperation = '';
+        this.orderLineAddOperation = '6a5ba01b-d63c-0e45-230f-3c19005015b1';
 
         //完善信息
         this.informationCompleteReadOperation = '';

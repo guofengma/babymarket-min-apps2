@@ -1,19 +1,8 @@
-/*商品数据显示*/
-@import '/pages/shopping-cart/count/cart-count.wxss';
-
-.cart-cell-child {
+.cell-order {
   display: flex;
-  padding: 15rpx 20rpx 15rpx 20rpx;
   background: white;
   align-items: center;
-  border-bottom: 2rpx solid #f5f7f7;
-}
-
-.cart-child-select {
-  width: 35rpx;
-  height: 35rpx;
-  margin-right: 20rpx;
-  flex-shrink: 0;
+  width: 100%;
 }
 
 .cart-image {
@@ -55,6 +44,7 @@
 .cart-price-count {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .cart-price {
@@ -62,4 +52,9 @@
   margin-right: 80rpx;
   align-self: flex-end;
   color: #715329;
+}
+
+.cart-count {
+  font-size: 22rpx;
+  color: #7d7f81;
 }

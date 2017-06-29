@@ -21,7 +21,11 @@
         "pages/special/special-activity",
         "pages/product-specification/product-specification",
         "pages/my/my-fav/my-fav",
-        "pages/my/invite-friends/invite-friends"
+        "pages/my/invite-friends/invite-friends",
+        "pages/address/address",
+        "pages/address/add-address/add-address",
+        "pages/address/select-provinces/select-provinces",
+        "pages/address/select-address/select-address"
     ],
     "window": {
         "backgroundTextStyle": "light",
