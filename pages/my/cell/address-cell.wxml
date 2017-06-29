@@ -3,13 +3,10 @@
     <image class="left-icon" src="/res/img/my/my-order-detail-address-icon.png" mode="aspectFit" wx:if="{{leftIconShow}}"></image>
     <view class="right-view">
       <view class="address-row">
-        <view class="address-name">{{name}}</view>
-        <view class="address-mobile">{{mobile}}</view>
+        <view class="address-name">lily{{name}}</view>
+        <view class="address-mobile">13646837967{{mobile}}</view>
       </view>
-      <view class="address-row">
-        <view class="address-detail">{{detail}}</view>
-        <image class="arrow" src="/res/img/my/my-address-arrow-icon.png" mode="aspectFit"  wx:if="{{arrowShow}}"></image>
-      </view>
+      <view class="address-detail">浙江省杭州市西湖区天目山路313号培康食品{{detail}}</view>
     </view>
   </view>
 </template>

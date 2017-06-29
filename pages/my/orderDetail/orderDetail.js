@@ -14,10 +14,11 @@ Page({
             arrowShow: false,
             leftIconShow: true,
         },
-        orderLineList: [],
+        orderLineList: ['','',''],
         orderId: '',
         orderDatas:'',
         deliveryInfo:'',
+        settlementList:['','','']
     },
 
     /**
@@ -119,31 +120,31 @@ Page({
      * 查询订单详情
      */
     requestData:function(){
-        let r = RequestReadFactory.orderDetailRead(this.data.orderId);
-        r.finishBlock = (req, firstData) => {
-            let productList = firstData.Scan_Line;
-            for(let i = 0; i < productList.length; i++){
-                let product = productList[i];
-                product.imageUrl = Tool.imageURLForId(product.ImgId, "/res/img/my/my-defualt_square_icon.png");
-            }
+        // let r = RequestReadFactory.orderDetailRead(this.data.orderId);
+        // r.finishBlock = (req, firstData) => {
+        //     let productList = firstData.Scan_Line;
+        //     for(let i = 0; i < productList.length; i++){
+        //         let product = productList[i];
+        //         product.imageUrl = Tool.imageURLForId(product.ImgId, "/res/img/my/my-defualt_square_icon.png");
+        //     }
 
-            this.setData({
-                orderDatas: firstData,
-                addressData:{
-                    name: firstData.LXR,
-                    mobile: firstData.Tel,
-                    detail: firstData.Address,
-                    arrowShow: false,
-                    leftIconShow: true,
-                },
-                orderLineList: productList,
-            });
+        //     this.setData({
+        //         orderDatas: firstData,
+        //         addressData:{
+        //             name: firstData.LXR,
+        //             mobile: firstData.Tel,
+        //             detail: firstData.Address,
+        //             arrowShow: false,
+        //             leftIconShow: true,
+        //         },
+        //         orderLineList: productList,
+        //     });
 
-            if (firstData.StatusKey === '2'){//待收货，查询物流信息
-                this.requestDeliveryInfo(this.data.orderDatas.LogisticsNumber, this.data.orderDatas.LogisticsCode);
-            }
-        };
-        r.addToQueue();
+        //     if (firstData.StatusKey === '2'){//待收货，查询物流信息
+        //         this.requestDeliveryInfo(this.data.orderDatas.LogisticsNumber, this.data.orderDatas.LogisticsCode);
+        //     }
+        // };
+        // r.addToQueue();
     },
 
     /**
