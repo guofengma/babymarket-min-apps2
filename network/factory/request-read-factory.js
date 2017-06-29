@@ -31,6 +31,66 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //宝贝码头商品详情
+    static productDetailRead(theId){
+        let operation = Operation.sharedInstance().bmProductReadOperation;
+        let bodyParameters =  {
+            "Operation":operation,
+            "Id":theId,
+            "MaxCount":'1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '宝贝码头商品详情';//用于日志输出
+        req.items = ['Id','ShowName','LYPrice','SalePrice','ImgId','Warehouse','Des1','Des','Tax','Subtitle','NationalKey','StoreId','TaxRate','Import','PriceInside'];
+        return req;
+    }
+
+    //附件
+    static attachmentsRead(theId,count = 20,index = 0){
+        let operation = Operation.sharedInstance().bmAttachmentsReadOperation;
+        let bodyParameters =  {
+            "Operation":operation,
+            "Condition":"${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
+            "MaxCount":count,
+            "StartIndex":index,
+            "Order":'${CreateTime} ASC'
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '附件';//用于日志输出
+        req.items = ['Id'];
+        return req;
+    }
+
+    //老友码头 商品的国家信息
+    static productNationRead(theKey){
+        let operation = Operation.sharedInstance().bmNationReadOperation;
+        let bodyParameters =  {
+            "Operation":operation,
+            "Value":theKey,
+            "MaxCount":1,
+            "StartIndex":0
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '老友码头 商品的国家信息';//用于日志输出
+        req.items = ['Name'];
+        return req;
+    }
+
+    //老友码头 运费
+    static expressRuleRead(warehouseId,city){
+        let operation = Operation.sharedInstance().bmExpressRuleReadOperation;
+        let bodyParameters =  {
+            "Operation":operation,
+            "Condition":"StringIndexOf(${Area_Name},'" + city +"') > 0 && ${WarehouseId} == '" + warehouseId + "'",
+            "MaxCount":1,
+            "StartIndex":0
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '老友码头 运费';//用于日志输出
+        req.items = ['Express_Fee'];
+        return req;
+    }
+
     //登录用户信息查询
     static memberInfoRead() {
         let operation = Operation.sharedInstance().memberInfoReadOperation;
@@ -40,6 +100,35 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '登录用户信息查询';
+        return req;
+    }
+
+    //首页海报查询
+    static homeAdRead() {
+        let operation = Operation.sharedInstance().homeAdReadOperation;
+        let bodyParameters = {
+            "Operation": operation
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页海报查询';
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        return req;
+    }
+
+    //首页-一级分类
+    static homeOneSortRead() {
+        let operation = Operation.sharedInstance().homeOneSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Hierarchy": '1',
+            "IsShow": 'True',
+            "ShowInHomepage": 'True',
+            "Order": "${Order} ASC",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-一级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+
         return req;
     }
 

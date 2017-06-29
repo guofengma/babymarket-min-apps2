@@ -1,0 +1,7 @@
+<template name="cell-sort">
+  <view class="cell-sort">
+    <view >
+    <image src="{{imageUrl}}" class="{{imageUrl.length>0?'sort-image':'sort-image empty'}}"/>
+  </view>
+  </view>
+</template>

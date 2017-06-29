@@ -1,25 +1,51 @@
+<import src='/pages/home/ad/home-ad.wxml'/>
+<import src='slogan/product-slogan.wxml'/>
+
+
+
+
+
 <view class="root-view">
-  <view class="product-info">
-    <image class="{{productInfo.imageUrl.length>0?'image':'image empty'}}" src="{{productInfo.imageUrl}}" mode="aspectFit" />
-    <view class="info">
-      <text class="name">{{productInfo.SPMC}}</text>
-      <text class="detail" wx:if="{{productInfo.MS.length > 0}}">{{productInfo.MS}}</text>
-      <view class="price">
-        <text class="title">零售价：</text>
-        <text class="value">{{"¥ "+productInfo.DJ}}</text>
-      </view>
+
+    <view class="product-info">
+
+        <!--广告-->
+        <template is="home-ad" data="{{adArray:images}}"/>
+
+        <view class="info">
+            <text class="name">{{product.ShowName}}</text>
+            <text class="detail" wx:if="{{product.Subtitle.length > 0}}">{{product.Subtitle}}</text>
+            <view class="price">
+                <text class="bmpi-price">￥{{price + pricePrefix}}</text>
+                <text class="bmpi-old-price">¥{{oldPrice}}</text>
+            </view>
+
+            <view class="bmpi-country-base">
+                <view class="bmpi-country">{{supplyText}}</view>
+            </view>
+
+            <view class="bmpi-express-base">
+                <view class="bmpi-location">配送费：{{product.Warehouse}} 到 {{province}}</view>
+                <view class="bmpi-express">{{expressText}}</view>
+                <view class="bmpi-tax">{{rateText}}</view>
+            </view>
+
+
+            <template is="product-slogan" data="{{isImport}}"/>
+        </view>
     </view>
-  </view>
-  <view class="bottom-bar">
-    <view class="go-cart-view" catchtap="onGoCartListener">
-      <image class="cart-image" src="/res/img/product-detail/product-detail-gocart.png" mode="aspectFit" />
-      <text class="cart-name">购物车</text>
+
+    <!--底部bar-->
+    <view class="bottom-bar">
+        <view class="go-cart-view" catchtap="onGoCartListener">
+            <image class="cart-image" src="/res/img/product-detail/product-detail-gocart.png" mode="aspectFit" />
+            <text class="cart-name">购物车</text>
+        </view>
+        <view class="btn-two">
+            <view class="btn-addcart" catchtap="onAddCartListener">
+                加入购物车</view>
+            <view class="btn-submit" catchtap="onSubmitListener">
+                确认下单</view>
+        </view>
     </view>
-    <view class="btn-two">
-      <view class="btn-addcart" catchtap="onAddCartListener">
-        加入购物车</view>
-      <view class="btn-submit" catchtap="onSubmitListener">
-        确认下单</view>
-    </view>
-  </view>
 </view>

@@ -1,0 +1,10 @@
+<!--广告位-->
+<import src='/pages/home/ad/home-ad.wxml'/>
+
+<template name="cell-home">
+  <view class="cell-home">
+    <view >
+    <template is="home-ad" data="{{adArray:adArray}}"/>
+  </view>
+  </view>
+</template>
