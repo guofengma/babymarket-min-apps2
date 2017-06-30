@@ -107,7 +107,8 @@ export default class RequestReadFactory {
     static homeAdRead() {
         let operation = Operation.sharedInstance().homeAdReadOperation;
         let bodyParameters = {
-            "Operation": operation
+            "Operation": operation,
+            "IsHomePageShow": 'True'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '首页海报查询';
@@ -115,20 +116,65 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //分类海报查询
+    static sortAdRead(categoryId) {
+        let operation = Operation.sharedInstance().homeAdReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "ProductCategoryId": categoryId
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '分类海报查询';
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        return req;
+    }
+
     //首页-一级分类
     static homeOneSortRead() {
-        let operation = Operation.sharedInstance().homeOneSortReadOperation;
+        let operation = Operation.sharedInstance().homeSortReadOperation;
         let bodyParameters = {
             "Operation": operation,
             "Hierarchy": '1',
             "IsShow": 'True',
             "ShowInHomepage": 'True',
-            "Order": "${Order} ASC",
+            "Order": "${Order} ASC"
         };
         let req = new RequestRead(bodyParameters);
         req.name = '首页-一级分类';
         req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+        return req;
+    }
 
+    //首页-二级分类
+    static homeTwoSortRead(parentId) {
+        let operation = Operation.sharedInstance().homeSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "ParentId": parentId,
+            "IsShow": 'True',
+            "Order": "${Order} ASC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-二级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'Description'];
+        return req;
+    }
+
+    //首页-二级分类商品
+    static homeTwoSortProductRead(categoryId) {
+        let operation = Operation.sharedInstance().productReadOperation;
+        let condition = "${Product_CategoryId} == '" + categoryId + "'";
+        //如果是内部员工
+        if (global.Storage.isInsideMember()) {
+            condition = "${Product_CategoryId} == '" + categoryId + "' || ${ProductCategoryInsideId} == '" + categoryId + "'";
+        }
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '二级分类商品';
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit','Import'];
         return req;
     }
 

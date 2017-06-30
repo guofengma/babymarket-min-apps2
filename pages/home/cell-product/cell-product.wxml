@@ -1,0 +1,19 @@
+<template name="cell-product">
+  <view class="cell-product">
+    <block wx:for="{{productArray}}" wx:key="unique">
+      <view class="product-info">
+        <image class="{{item.imageUrl.length>0?'image':'image empty'}}" src="{{item.imageUrl}}" />
+        <view class="info">
+          <text class="name">{{item.ShowName}}</text>
+          <view class="price-cart">
+            <view class="price-info">
+             <text class="sale-price">{{"¥"+item.LYPrice+"（老友专享）"}}</text>
+              <text class="old-price">{{"¥"+item.SalePrice}}</text>
+            </view>
+            <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" />
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

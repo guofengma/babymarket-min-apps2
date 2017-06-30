@@ -1,2 +1,9 @@
 /*广告位*/
 @import "/pages/home/ad/home-ad.wxss";
+
+.cell-home {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}

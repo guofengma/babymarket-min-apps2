@@ -18,8 +18,8 @@ export default class Operation {
 
         //首页-广告位
         this.homeAdReadOperation = 'b412ff1c-c19b-4250-b479-a61e0085a868';
-        //首页-一级分类
-        this.homeOneSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
+        //首页-分类
+        this.homeSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
 
         //宝贝码头商品详情
         this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
@@ -34,7 +34,7 @@ export default class Operation {
         this.bmExpressRuleReadOperation = '91972a34-2e32-0928-156f-3c3501e55857';
 
         //产品查询
-        this.productReadOperation = '';
+        this.productReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
 
         //购物车新增
         this.cartAddWriteOperation = '';

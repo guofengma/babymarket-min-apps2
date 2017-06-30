@@ -46,6 +46,70 @@ Page({
         task.addToQueue();
     },
     /**
+     * 请求分类广告位数据
+     */
+    requestSortAdData: function (categoryId) {
+        let task = RequestReadFactory.sortAdRead(categoryId);
+        task.finishBlock = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                let url = Tool.imageURLForId(item.ImgId);
+                item.imageUrl = url;
+            });
+            let oneSortData = this.data.oneSortData;
+            let bodyData = new Object();
+            bodyData.adData = responseData;
+            let oneSort = oneSortData[this.data.currentTab];
+            oneSort.bodyData = bodyData;
+            this.setData({
+                oneSortData: oneSortData
+            });
+            //请求商品分类
+            this.requestSortCategoryData(oneSort.Id);
+        };
+        task.addToQueue();
+    },
+    /**
+     * 请求分类里面产品的分类数据
+     */
+    requestSortCategoryData: function (parentId) {
+        let task = RequestReadFactory.homeTwoSortRead(parentId);
+        task.finishBlock = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                //查询每个分类对应的商品
+                this.requestTwoSortProductData(item.Id, index);
+            });
+            let oneSortData = this.data.oneSortData;
+            let bodyData = oneSortData[this.data.currentTab].bodyData;
+            bodyData.sortData = responseData;
+            this.setData({
+                oneSortData: oneSortData
+            });
+        };
+        task.addToQueue();
+    },
+    /**
+     * 请求分类里面产品数据
+     */
+    requestTwoSortProductData: function (categoryId, index) {
+        let task = RequestReadFactory.homeTwoSortProductRead(categoryId);
+        task.finishBlock = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                let url = Tool.imageURLForId(item.ImgId);
+                item.imageUrl = url;
+            });
+            let oneSortData = this.data.oneSortData;
+            oneSortData[this.data.currentTab].bodyData.sortData[index].productData = responseData;
+            this.setData({
+                oneSortData: oneSortData
+            });
+            console.log(this.data.oneSortData);
+        };
+        task.addToQueue();
+    },
+    /**
     * 查询首页海报数据
     */
     requestHomeAdData: function () {
@@ -75,11 +139,11 @@ Page({
             currentTab: currentIndex
         });
 
-        // //如果二级分类数据为空，那么去请求二级分类数据
-        // let oneSort = this.data.oneSortData[currentIndex];
-        // if (oneSort.twoSortData == undefined && currentIndex > 0) {
-        //     Tool.showLoading();
-        //     this.requestTwoSortData(currentIndex, oneSort.Id);
-        // }
+        //如果分类的主体数据为空，那么去请求主体数据
+        let oneSort = this.data.oneSortData[currentIndex];
+        if (oneSort.bodyData == undefined && currentIndex > 0) {
+            Tool.showLoading();
+            this.requestSortAdData(oneSort.Id);
+        }
     }
 })
