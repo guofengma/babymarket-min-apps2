@@ -11,7 +11,6 @@
         "pages/order-confirm/order-confirm",
         "pages/my/orderDetail/orderDetail",
         "pages/my/delivery-info/delivery-info",
-        "pages/pay-success/pay-success",
         "pages/my/complete-info/complete-info",
         "pages/pay-method/pay-method",
         "pages/my/agreement/agreement",
@@ -27,7 +26,9 @@
         "pages/address/select-provinces/select-provinces",
         "pages/address/select-address/select-address",
         "pages/coupon/coupon",
-        "pages/coupon/select-coupon/select-coupon"
+        "pages/coupon/select-coupon/select-coupon",
+        "pages/pay-success/pay-success"
+    
     ],
     "window": {
         "backgroundTextStyle": "light",

@@ -219,6 +219,7 @@ Page({
     selectCoupon: function () {
         wx.navigateTo({
             url: '../coupon/select-coupon/select-coupon',
+    
         })
     },
 })
