@@ -85,3 +85,38 @@
   /*border-bottom: 4rpx solid red;*/
   background: white;
 }
+
+/*重新设置cell的样式*/
+.product-image {
+  background: white;
+  width: 150rpx;
+  height: 150rpx;
+  margin-left: 20rpx;
+  border: 2rpx solid #dcdedf;
+  flex-shrink: 0;
+}
+
+.cart-title {
+  font-size: 32rpx;
+  color: #1a1c1f;
+  width: 100%;
+  line-height: 120%;
+}
+
+.cart-desp {
+  font-size: 26rpx;
+  color: #acadaa;
+  margin-top: 20rpx;
+}
+
+.cart-price {
+  font-size: 34rpx;
+  color: #af8327;
+}
+
+.qty {
+  color: #454950;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  text-align: right;
+}
