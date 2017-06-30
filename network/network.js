@@ -31,6 +31,9 @@ export default class Network{
         //附件
         this.attatchmentURL = this.domain + 'Libra.Web.Businesses.Attachments.GetFile.aspx';
 
+        //获取系统时间
+        this.getSystemTimeURL = "Libra.Web.AppSync.AppSyncNow.aspx";
+
         //物流信息
         this.expressURL = 'https://v.juhe.cn/exp/index';
 
