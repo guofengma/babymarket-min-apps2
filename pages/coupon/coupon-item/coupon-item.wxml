@@ -1,13 +1,13 @@
 <!--优惠劵item-->
 <template name="coupon-item">
   <view class="coupon-item">
-    <view class="item.Used==false?'coupon-unuse':'coupon-use'">
+    <view class="{{item.Used==False?'coupon-unuse':'coupon-use'}}">
       <text class="coupon-money">¥{{item.Money}}</text>
       <text class="coupon-condition">{{item.condition}}</text>
       <image wx:if="{{expired}}" src="/res/img/coupon/coupon-expired-icon.png" class="coupon-expired" mode="aspectFill"></image>
     </view>
     <view class="right">
-      <text class="coupon-money">{{item.Money}}元优惠卷</text>
+      <text class="coupon-money1">{{item.Money}}元优惠卷</text>
       <text class="coupon-time">有效期:即日起至{{item.Useful_Line}}</text>
     </view>
   </view>

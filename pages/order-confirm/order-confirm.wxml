@@ -1,6 +1,7 @@
 <!--确认订单-->
 <import src='/pages/address/info/address-info.wxml' />
 <import src='/pages/order-confirm/cell-order/cell-order.wxml' />
+<import src='/pages/my/myOrder/settlement-cell/settlement-cell.wxml' />
 
 <view class="main">
   <!--选择订单地址-->
@@ -25,6 +26,17 @@
       <text class="{{isSelect==false?'couponDefault':'couponSelect'}}">{{coupon}}</text>
       <image src="/res/img/my/my-address-arrow-icon.png" class="order-address-arrow" mode="aspectFit"></image>
     </view>
+  </view>
+
+  <!--结算-->
+  <text class="settment-text">结算</text>
+  <block wx:for="{{settlementList}}" wx:key="unique">
+    <view class="settlement-view-cell">
+      <template is="settlement-cell" data="{{datas:item}}"></template>
+    </view>
+  </block>
+  <view class="footer-bg-view">
+    <text class="pay-finnal">应付总额：¥{{order.Total}}</text>
   </view>
 
 

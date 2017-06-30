@@ -11,28 +11,28 @@ let __instance = (function () {
 }());
 
 //网络常量定义
-export default class Network{
+export default class Network {
 
-    constructor(){
+    constructor() {
         if (__instance()) return __instance();
 
         //域名
         this.domain = 'https://www.babymarkt.com.cn/';
 
         //读取
-        this.readURL =  this.domain + 'Libra.Web.AppSync.AppSyncBatchReadData2.aspx';
+        this.readURL = this.domain + 'Libra.Web.AppSync.AppSyncBatchReadData2.aspx';
 
         //写入
-        this.writeURL =  this.domain + 'Libra.Web.Api.ApiBatchWrite.aspx';
+        this.writeURL = this.domain + 'Libra.Web.Api.ApiBatchWrite.aspx';
 
         //登录
-        this.loginURL =  this.domain + 'Libra.Web.Authentication.GetSession.aspx';
+        this.loginURL = this.domain + 'Libra.Web.Authentication.GetSession.aspx';
 
         //附件
         this.attatchmentURL = this.domain + 'Libra.Web.Businesses.Attachments.GetFile.aspx';
 
         //获取系统时间
-        this.getSystemTimeURL = "Libra.Web.AppSync.AppSyncNow.aspx";
+        this.getSystemTimeURL = this.domain + "Libra.Web.AppSync.AppSyncNow.aspx";
 
         //物流信息
         this.expressURL = 'https://v.juhe.cn/exp/index';
@@ -44,7 +44,7 @@ export default class Network{
         __instance(this);
     }
 
-    static sharedInstance(){
+    static sharedInstance() {
         return new Network();
     }
 }

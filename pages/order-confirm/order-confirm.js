@@ -19,6 +19,29 @@ Page({
         door: 0, //0为商品库进入，1为购物车进入
         coupon: '选择优惠劵',
         isSelect: false,
+        order:{}, //订单
+        settlementList: [
+            {
+                title: '商品总额',
+                value: '',
+            },
+            {
+                title: '优惠券',
+                value: '',
+            },
+            {
+                title: '物流费用',
+                value: '',
+            },
+            {
+                title: '关税',
+                value: '',
+            },
+            {
+                title: '已省金额',
+                value: '',
+            }
+        ],
     },
 
     /**
@@ -137,7 +160,14 @@ Page({
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             let order = datas[0];
-
+            self.setData({
+                'settlementList[0].value': '¥' + order.Money,
+                'settlementList[1].value': '-¥0',
+                'settlementList[2].value': '¥' + order.ExpressSum,
+                'settlementList[3].value': '¥' + order.Tax,
+                'settlementList[4].value': '¥' + order.BuyerCommission,
+                order: order,
+            })
         }
         r.addToQueue();
 
@@ -217,9 +247,10 @@ Page({
      * 选择优惠劵
      */
     selectCoupon: function () {
+        let order=this.data.order;
         wx.navigateTo({
-            url: '../coupon/select-coupon/select-coupon',
-    
+            url: '../coupon/select-coupon/select-coupon?Due=' + order.Due,
+
         })
     },
 })

@@ -1,5 +1,5 @@
-import RequestGetSystemTime from '../../network/requests/request-get-system-time';
-let {Storage,RequestReadFactory} = global;
+import RequestGetSystemTime from '../../../network/requests/request-get-system-time';
+let {Storage, RequestReadFactory} = global;
 
 Page({
     /**
@@ -8,14 +8,17 @@ Page({
     data: {
         hasList: false,
         couponList: [],
+        money: '',
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.setData({
+            money: options.Due,
+        })
         this.requestData();
-        console.log("==========aa=======");
     },
 
     /**
@@ -35,17 +38,18 @@ Page({
      * 数据请求
      */
     requestData: function () {
-        this.requestCoupon();
+        this.requestGetTime();
     },
 
     /**
      * 获取系统时间
      */
     requestGetTime: function () {
+        let money = this.data.money;
         let r = new RequestGetSystemTime();
         r.finishBlock = (req) => {
             let model = req.responseObject;
-
+            this.requestCoupon(model.Now, money);
         };
         r.addToQueue();
     },
@@ -53,13 +57,20 @@ Page({
     /**
      * 查询优惠劵
      */
-    requestCoupon: function () {
+    requestCoupon: function (time, money) {
         let self = this;
-        let con = "${MemberId} == '"+global.Storage.memberId()+"' && ${Used} == 'False' && ${Useful_Line} >= '2017-06-30 11:32:13' && ${Min_Money} <= '0'";
+        let con = "${MemberId} == '" + global.Storage.memberId() + "' && ${Used} == 'False' && ${Useful_Line} >= '" + time + "' && ${Min_Money} <= '" + money + "'";
         let r = RequestReadFactory.couponRead(con);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             if (datas.length > 0) {
+                for (let i = 0; i < datas.length; i++) {
+                    if (parseInt(datas[i].Min_Money)===0) {
+                        datas[i].condition ="无条件使用";
+                    }else{
+                        datas[i].condition = "满" + datas[i].Min_Money + "元可用";
+                    }
+                }
                 self.setData({
                     hasList: true,
                     couponList: datas,

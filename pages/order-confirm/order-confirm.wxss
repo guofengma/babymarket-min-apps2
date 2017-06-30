@@ -1,6 +1,7 @@
 /*确认订单*/
 @import '/pages/address/info/address-info.wxss';
 @import '/pages/order-confirm/cell-order/cell-order.wxss';
+@import '/pages/my/myOrder/settlement-cell/settlement-cell.wxss';
 
 .main {
   position: relative;
@@ -72,7 +73,48 @@
 .couponSelect {
   font-size: 24rpx;
   color: #715329;
-   margin-left: 15rpx;
+  margin-left: 15rpx;
+}
+
+/*结算*/
+
+.settment-text {
+  width: 100%;
+  line-height: 62rpx;
+  padding-left: 20rpx;
+  font-size: 26rpx;
+  color: #b0b1b3;
+  background: white;
+  border-bottom: 2rpx solid #fafafa;
+}
+
+.settlement-view-cell {
+  height: 62rpx;
+  background: white;
+  border-bottom: 2rpx solid #fafafa;
+}
+
+.bgview{
+    padding: 0rpx 20rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 710rpx;
+    height: 100%;
+}
+
+.footer-bg-view {
+  width: 100%;
+  margin-bottom: 200rpx;
+  padding: 20rpx 0 20rpx 0rpx;
+  background: white;
+}
+
+.pay-finnal {
+  font-size: 24rpx;
+  color: #454950;
+  text-align: right;
+  margin-right: 20rpx;
 }
 
 /*底部结算*/
