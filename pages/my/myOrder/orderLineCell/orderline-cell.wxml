@@ -1,14 +1,15 @@
-
 <template name="orderline-cell">
   <view class="orderline">
 
     <image class="product-image" src="{{datas.imageUrl}}" mode="aspectFit"></image>
     <view class="cart-describe">
-        <text class="cart-title OverFlowTwoLine">{{datas.Product_Name}}</text>
-        <view class="cart-price-count">
-        <text class="cart-price" data-index="{{index}}">￥{{datas.Price}}</text>
-        <view class="qty">x{{datas.Qnty}}</view>
-        </view>
+      <text class="cart-title OverFlowTwoLine">{{datas.Product_Name}}</text>
+      <text class="cart-desp">{{datas.S_Name}}</text>
+    </view>
+
+    <view class="cart-price-count">
+      <text class="cart-price" data-index="{{index}}">￥{{datas.Price}}</text>
+      <view class="qty">x{{datas.Qnty}}</view>
     </view>
 
   </view>

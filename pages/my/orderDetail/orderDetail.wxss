@@ -18,7 +18,7 @@
 .order-info-icon {
   width: 32rpx;
   height: 26rpx;
-  background: red;
+  /*background: red;*/
   flex-shrink: 0;
 }
 
@@ -45,7 +45,7 @@
 .pay-icon {
   width: 32rpx;
   height: 26rpx;
-  background: red;
+  /*background: red;*/
   flex-shrink: 0;
 }
 
@@ -67,7 +67,7 @@
     line-height: 62rpx;
     padding-left: 30rpx;
     font-size: 24rpx;
-    color:454950;
+    color:#454950;
     border-top: 20rpx solid #f5f7f7;
 }
 
@@ -87,7 +87,16 @@
 }
 
 .footer-bg-view{
-    height: 100rpx;
+    width: 100%;
+    margin-bottom: 200rpx;
+    margin-top: 20rpx;
+}
+
+.pay-finnal{
+    font-size: 24rpx;
+    color: #454950;
+    text-align: right;
+    margin-right: 24rpx;
 }
 
 .orderlineView {
@@ -112,30 +121,37 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  font-size: 30rpx;
+  font-size: 28rpx;
   position: fixed;
   bottom: 0;
 }
 
 .bottom-button {
-  border-radius: 10rpx;
+  border-radius: 5rpx;
   margin-right: 22rpx;
   background-color: white;
-  padding: 18rpx 30rpx;
-  width: 130rpx;
+  padding: 18rpx 20rpx;
+  width: 128rpx;
   text-align: center;
 }
 
 .bottom-button.right {
-  border: 2rpx solid #e73962;
-  color: #e73962;
+  border: 2rpx solid #ACADAA;
+  color: #ACADAA;
   position: fixed;
   right: 0;
 }
 
-.bottom-button.left {
-  border: 2rpx solid #3c3d3d;
-  color: #3c3d3d;
+.bottom-button.middle {
+  border: 2rpx solid #715329;
+  color: #715329;
   position: fixed;
-  right: 220rpx;
+  right: 200rpx;
+}
+
+.bottom-button.left {
+  border: 2rpx solid #ACADAA;
+  color: #ACADAA;
+  position: fixed;
+  right: 400rpx;
 }
