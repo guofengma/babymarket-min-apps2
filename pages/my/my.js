@@ -35,6 +35,15 @@ Page({
         myDatasItems0: [
             {
                 image: '/res/img/my/my-cell-property-icon.png',
+                name: '我的优惠券',
+                detail: {
+                    leftText: '',
+                    amount: '',
+                    rightText: ''
+                }
+            },
+            {
+                image: '/res/img/my/my-cell-property-icon.png',
                 name: '我的资产',
                 detail: {
                     leftText: '余额',
@@ -117,6 +126,7 @@ Page({
      */
     onLoad: function (options) {
         this.requestData();
+        
     },
 
     /**
@@ -218,6 +228,9 @@ Page({
         let title = e.currentTarget.dataset.title;
         if (title =='我的资产'){
             console.log('----我的资产----');
+            wx.navigateTo({
+                url: '../my/my-property/my-property',
+            })
 
         } else if (title == '收到奖励'){
             console.log('----收到奖励----');
@@ -239,6 +252,9 @@ Page({
 
         } else if (title == '意见和反馈') {
             console.log('----意见和反馈----');
+
+        } else if (title == '我的优惠券') {
+            console.log('----我的优惠券----');
 
         } 
     },
@@ -321,10 +337,10 @@ Page({
                     shopName: name,
                     idDesp: desp,
                     inviteCode: item.InvitationCode,
-                    'myDatasItems0[0].detail.amount':item.Balance,
-                    'myDatasItems0[1].detail.amount': item.Commission,
-                    'myDatasItems0[2].detail.amount': item.BuyerCommission,
-                    'myDatasItems0[3].detail.amount': item.PartnerCommission,
+                    'myDatasItems0[1].detail.amount':item.Balance,
+                    'myDatasItems0[2].detail.amount': item.Commission,
+                    'myDatasItems0[3].detail.amount': item.BuyerCommission,
+                    'myDatasItems0[4].detail.amount': item.PartnerCommission,
                     'myDatasItems1[0].detail.amount': item.FirstFriend,
                     'myDatasItems1[1].detail.amount': item.ShopPersonCount,
                     'myDatasItems1[2].detail.amount': item.SecondFriends,

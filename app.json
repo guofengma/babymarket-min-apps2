@@ -25,7 +25,8 @@
         "pages/address/address",
         "pages/address/add-address/add-address",
         "pages/address/select-provinces/select-provinces",
-        "pages/address/select-address/select-address"
+        "pages/address/select-address/select-address",
+        "pages/my/my-property/my-property"
     ],
     "window": {
         "backgroundTextStyle": "light",
