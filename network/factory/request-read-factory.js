@@ -160,6 +160,20 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //首页-一级分类商品
+    static homeOneSortProductRead(categoryId,maxCount) {
+        let operation = Operation.sharedInstance().productReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "FirstCategoryId": categoryId,
+            "MaxCount": maxCount,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '一级分类商品';
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        return req;
+    }
+
     //首页-二级分类商品
     static homeTwoSortProductRead(categoryId) {
         let operation = Operation.sharedInstance().productReadOperation;

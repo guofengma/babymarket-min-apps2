@@ -1,16 +1,16 @@
 <template name="cell-product">
   <view class="cell-product">
     <block wx:for="{{productArray}}" wx:key="unique">
-      <view class="product-info">
+      <view class="product-info" catchtap="onChildClickListener" data-group-position="{{groupPosition}}" data-child-position="{{index}}" data-id="{{item.productId}}">
         <image class="{{item.imageUrl.length>0?'image':'image empty'}}" src="{{item.imageUrl}}" />
         <view class="info">
           <text class="name">{{item.ShowName}}</text>
           <view class="price-cart">
             <view class="price-info">
-             <text class="sale-price">{{"¥"+item.LYPrice+"（老友专享）"}}</text>
-              <text class="old-price">{{"¥"+item.SalePrice}}</text>
+              <text class="sale-price">{{item.showPrice}}</text>
+              <text class="old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>
             </view>
-            <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" />
+            <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" />
           </view>
         </view>
       </view>

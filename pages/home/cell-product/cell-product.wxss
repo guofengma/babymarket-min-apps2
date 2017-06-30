@@ -32,7 +32,6 @@
 
 .info .name {
   color: black;
-  height: 56rpx;
   font-size: 28rpx;
   -webkit-line-clamp: 2;
 }
@@ -46,6 +45,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: center;
 }
 
 .price-info .sale-price {
@@ -61,7 +61,7 @@
 }
 
 .price-cart .btn-cart {
-  width: 65rpx;
-  height: 65rpx;
+  width: 55rpx;
+  height: 55rpx;
   flex: none;
 }
