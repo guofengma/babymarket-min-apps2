@@ -284,7 +284,7 @@ export default class RequestReadFactory {
             "MaxCount": '1',
             "StartIndex": 0,
             "Subtables": [
-                "Scan_Line"
+                "Line"
             ]
         };
         let req = new RequestRead(bodyParameters);

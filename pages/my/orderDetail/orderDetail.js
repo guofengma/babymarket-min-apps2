@@ -11,14 +11,44 @@ Page({
             name: '',
             mobile: '',
             detail: '',
-            arrowShow: false,
-            leftIconShow: true,
         },
         orderLineList: ['','',''],
         orderId: '',
         orderDatas:'',
         deliveryInfo:'',
-        settlementList:['','','']
+        orderStatus: '',
+        orderTips: '',
+        bottomButton0Name: '',//从右往左
+        bottomButton1Name: '',
+        bottomButton2Name: '',
+
+        settlementList:[
+            {
+                title:'商品总额',
+                value:'',
+            },
+            {
+                title: '优惠券',
+                value: '',
+            },
+            {
+                title: '物流费用',
+                value: '',
+            },
+            {
+                title: '关税',
+                value: '',
+            },
+            {
+                title: '支付方式',
+                value: '支付宝',
+            },
+            {
+                title: '已省金额',
+                value: '',
+            }
+         ],
+        
     },
 
     /**
@@ -116,64 +146,6 @@ Page({
 
     },
 
-    /**
-     * 查询订单详情
-     */
-    requestData:function(){
-        // let r = RequestReadFactory.orderDetailRead(this.data.orderId);
-        // r.finishBlock = (req, firstData) => {
-        //     let productList = firstData.Scan_Line;
-        //     for(let i = 0; i < productList.length; i++){
-        //         let product = productList[i];
-        //         product.imageUrl = Tool.imageURLForId(product.ImgId, "/res/img/my/my-defualt_square_icon.png");
-        //     }
-
-        //     this.setData({
-        //         orderDatas: firstData,
-        //         addressData:{
-        //             name: firstData.LXR,
-        //             mobile: firstData.Tel,
-        //             detail: firstData.Address,
-        //             arrowShow: false,
-        //             leftIconShow: true,
-        //         },
-        //         orderLineList: productList,
-        //     });
-
-        //     if (firstData.StatusKey === '2'){//待收货，查询物流信息
-        //         this.requestDeliveryInfo(this.data.orderDatas.LogisticsNumber, this.data.orderDatas.LogisticsCode);
-        //     }
-        // };
-        // r.addToQueue();
-    },
-
-    /**
-     * 查询物流详情
-     */
-    requestDeliveryInfo: function (trackNo, companyNo) {
-        // if (Tool.isEmptyStr(trackNo) || Tool.isEmptyStr(companyNo)){
-        //     return;
-        // }
-
-        let r = RequestReadFactory.orderDeliveryInfoRead('3972400229281', 'yd');
-        r.finishBlock = (req, firstData) => {
-            let result = req.responseObject.result;
-            if (Tool.isEmpty(result)){
-                this.setData({
-                    deliveryInfo: {
-                        remark:'暂无物流流转信息'
-                    },
-                });
-            }else{
-                let firstInfo = result.list[result.list.length - 1];
-                this.setData({
-                    deliveryInfo: firstInfo,
-                });
-            }
-        };
-        r.addToQueue();
-    },
-
     leftButtonTap:function(e){
         var index = e.currentTarget.dataset.statuskey;
         if (index == 0) {//删除订单
@@ -243,6 +215,160 @@ Page({
                 url: '../../my/delivery-info/delivery-info'
             })
         }
-    }
+    },
+
+    /**
+     * 订单状态处理
+     */
+    dealOrderStatus:function(statusKey){
+        
+        let orderStatus = '';
+        let orderTips = '';
+        let bottomButton0Name = '';
+        let bottomButton1Name = '';
+        let bottomButton2Name = '';
+
+        if (statusKey == '0') {//待付款
+            orderStatus = '待付款';
+            orderTips = '您的订单已提交，请在30分内完成支付,超过订单自动取消';
+            bottomButton0Name = '立即付款';
+            bottomButton1Name = '取消订单';
+
+        } else if (statusKey == '1') {//待发货
+            orderStatus = '待发货';
+            orderTips = '如果较长时间未发货时，您可以联系客服：' + global.TCGlobal.CustomerServicesNumber;
+            bottomButton0Name = '联系客服';
+            bottomButton1Name = '申请退款';
+
+        } else if (statusKey == '2') {//待收货
+            orderStatus = '待收货';
+            orderTips = '请您确认收货';
+            bottomButton0Name = '确认收货';
+            bottomButton1Name = '查看物流';
+            bottomButton2Name = '申请退款';
+
+        } else if (statusKey == '3') {//待评价
+            orderStatus = '买家已收货';
+            orderTips = '请您立即分享';
+            bottomButton0Name = '立即分享';
+            bottomButton1Name = '查看物流';
+
+        } else if (statusKey == '4') {//已评价
+            orderStatus = '已评价';
+            orderTips = '您已完成评价';
+            bottomButton0Name = '联系客服';
+            bottomButton1Name = '查看物流';
+
+        } else if (statusKey == '5') {//交易成功
+            orderStatus = '交易成功';
+            orderTips = '';
+            bottomButton0Name = '联系客服';
+
+        } else if (statusKey == '6') {//订单关闭
+            orderStatus = '订单关闭';
+            orderTips = '系统定时关单';
+            bottomButton0Name = '删除订单';
+
+        } else if (statusKey == '7') {//退款中
+            orderStatus = '退款中';
+            orderTips = '';
+            bottomButton0Name = '取消退款';
+
+        } else if (statusKey == '8') {//退款成功
+            orderStatus = '退款成功';
+            orderTips = '';
+            bottomButton0Name = '删除订单';
+
+        } else if (statusKey == '9') {//退款失败
+            orderStatus = '退款失败';
+            orderTips = '';
+            bottomButton0Name = '联系客服';
+
+        }
+
+        this.setData({
+            orderStatus: orderStatus,
+            orderTips: orderTips,
+            bottomButton0Name: bottomButton0Name,
+            bottomButton1Name: bottomButton1Name,
+            bottomButton2Name: bottomButton2Name
+        });
+    },
+
+    /**
+     * 查询订单详情
+     */
+    requestData: function () {
+        let r = RequestReadFactory.orderDetailRead(this.data.orderId);
+        r.finishBlock = (req, firstData) => {
+
+            //图片url拼接
+            let productList = firstData.Line;
+            for (let i = 0; i < productList.length; i++) {
+                let product = productList[i];
+                product.imageUrl = Tool.imageURLForId(product.ImgId, "/res/img/my/my-defualt_square_icon.png");
+            }
+
+            //订单状态相关处理
+            this.dealOrderStatus(firstData.StatusKey);
+
+            //支付方式
+            let payName = firstData.PaywayName;
+            if (Tool.isEmptyStr(payName)){
+                payName = '支付宝';
+            }
+            if (firstData.StatusKey == '0') {
+                payName = '待支付';
+            }
+
+            this.setData({
+                orderDatas: firstData,
+                addressData: {
+                    name: firstData.Consignee,
+                    mobile: firstData.Mobile,
+                    detail: firstData.Address,
+                },
+                orderLineList: productList,
+                'settlementList[0].value': '¥'+ firstData.Money,
+                'settlementList[1].value': '¥' + firstData.Discount,
+                'settlementList[2].value': '¥' + firstData.ExpressSum,
+                'settlementList[3].value': '¥' + firstData.Tax,
+                'settlementList[4].value': payName,
+                'settlementList[5].value': '¥' + firstData.BuyerCommission,
+            });
+
+            if (firstData.StatusKey === '2') {//待收货，查询物流信息
+                this.requestDeliveryInfo(this.data.orderDatas.LogisticsNumber, this.data.orderDatas.LogisticsCode);
+            }
+        };
+        r.addToQueue();
+    },
+
+    /**
+     * 查询物流详情
+     */
+    requestDeliveryInfo: function (trackNo, companyNo) {
+        // if (Tool.isEmptyStr(trackNo) || Tool.isEmptyStr(companyNo)){
+        //     return;
+        // }
+
+        let r = RequestReadFactory.orderDeliveryInfoRead('3972400229281', 'yd');
+        r.finishBlock = (req, firstData) => {
+            let result = req.responseObject.result;
+            if (Tool.isEmpty(result)) {
+                this.setData({
+                    deliveryInfo: {
+                        remark: '暂无物流流转信息'
+                    },
+                });
+            } else {
+                let firstInfo = result.list[result.list.length - 1];
+                this.setData({
+                    deliveryInfo: firstInfo,
+                });
+            }
+        };
+        r.addToQueue();
+    },
 
 })
