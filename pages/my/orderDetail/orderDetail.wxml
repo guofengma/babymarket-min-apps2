@@ -7,22 +7,19 @@
 
 <!--订单状态-->
 <view class="top-order-info-view">
-  <!--<text class="status-desp" wx:if="{{orderDatas.StatusKey =='0'}}">等待买家付款</text>
-  <text class="status-desp" wx:if="{{orderDatas.StatusKey =='1'}}">买家已付款</text>
-  <text class="status-desp" wx:if="{{orderDatas.StatusKey =='2'}}">卖家已发货</text>-->
-  <image src="" class="order-info-icon"></image>
+  <image src="/res/img/my/order-detail/my-order-detail-order-icon.png" class="order-info-icon" mode="aspectFit"></image>
   <view class="order-info">
-    <text class="order-status">订单状态：已发货</text>
-    <text class="order-no">订单号：123456788</text>
-    <text class="order-tips">test卖家已发货</text>
+    <text class="order-status">订单状态：{{orderStatus}}</text>
+    <text class="order-no">订单号：{{orderDatas.OrderNo}}</text>
+    <text class="order-tips">{{orderTips}}</text>
   </view>
 </view>
 
 <!--支付金额-->
 <view class="pay-amount-view">
-    <image src="" class="pay-icon"></image>
-    <text class="pay-amount-text">支付金额：</text>
-    <text class="pay-amount">¥270.0</text>
+  <image src="/res/img/my/order-detail/my-order-detail-pay-icon.png" class="pay-icon" mode="aspectFit"></image>
+  <text class="pay-amount-text">支付金额：</text>
+  <text class="pay-amount">¥{{orderDatas.Due}}</text>
 </view>
 
 <!--物流信息-->
@@ -37,7 +34,7 @@
 </view>
 
 <!--仓库-->
-<view class="delivery-address">杭州仓</view>
+<view class="delivery-address">{{orderDatas.WarehouseName}}仓发货</view>
 
 <!--商品列表-->
 <view wx:for="{{orderLineList}}" class="orderlineView" wx:key="unique">
@@ -48,13 +45,17 @@
 <!--结算-->
 <text class="settment-text">结算</text>
 <block wx:for="{{settlementList}}" wx:key="unique">
-    <view class="settlement-view-cell">
-        <template is="settlement-cell"></template>
-    </view>
+  <view class="settlement-view-cell">
+    <template is="settlement-cell" data="{{datas:item}}"></template>
+  </view>
 </block>
-<view class="footer-bg-view"></view>
+<view class="footer-bg-view">
+  <text class="pay-finnal">应付总额：¥{{orderDatas.Total}}</text>
+</view>
 
-<view class="bottom-view" wx:if="{{orderDatas.StatusKey != '1'}}">
-  <view class="bottom-button right" bindtap="rightButtonTap" data-StatusKey="{{orderDatas.StatusKey}}">{{orderDatas.StatusKey == '0'?'付款':'查看物流'}}</view>
-  <view class="bottom-button left" bindtap="leftButtonTap" data-StatusKey="{{orderDatas.StatusKey}}">{{orderDatas.StatusKey == '0'?'删除订单':'确认收货'}}</view>
+<!--底部按钮-->
+<view class="bottom-view">
+  <view class="bottom-button right" bindtap="buttonTap" data-buttonname="{{bottomButton0Name}}" wx:if="{{bottomButton0Name != ''}}">{{bottomButton0Name}}</view>
+  <view class="bottom-button middle" bindtap="buttonTap" data-buttonname="{{bottomButton1Name}}" wx:if="{{bottomButton1Name != ''}}">{{bottomButton1Name}}</view>
+  <view class="bottom-button left" bindtap="buttonTap" data-buttonname="{{bottomButton2Name}}" wx:if="{{bottomButton2Name != ''}}">{{bottomButton2Name}}</view>
 </view>

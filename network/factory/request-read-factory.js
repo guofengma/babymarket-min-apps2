@@ -84,14 +84,14 @@ export default class RequestReadFactory {
             "MaxCount": '1',
             "StartIndex": 0,
             "Subtables": [
-                "Scan_Line"
+                "Line"
             ]
         };
         let req = new RequestRead(bodyParameters);
         req.name = '我的订单查询';
-        req.items = ["Id", "StoreId", "SerialNumber", "CreatorId", "HJSL", "Default", "NewModel",
-            "Total", "StatusKey", "CreateTime", "Contact", "Mobile", "Address",
-            "LogisticsNumber", "LogisticsCode", "LogisticsName"];
+        // req.items = ["Id", "SerialNumber", "CreatorId", "HJSL", "Default", "NewModel",
+        //     "Total", "StatusKey", "CreateTime", "Contact", "Mobile", "Address",
+        //     "LogisticsNumber", "LogisticsCode", "LogisticsName"];
         return req;
     }
 
