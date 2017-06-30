@@ -27,7 +27,6 @@ Page({
         let task = RequestReadFactory.homeOneSortRead();
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
-            //循环请求二级分类
             responseData.forEach((item, index) => {
                 let url = Tool.imageURLForId(item.ImgId);
                 item.imageUrl = url;
@@ -35,12 +34,51 @@ Page({
             let home = new Object();
             home.Name = "首页";
             responseData.unshift(home);
-            //循环请求二级分类
-            // for (let i = 0; i < responseData.length; i++) {
-            //     this.requestTwoSortData(i, responseData[i].Id);
-            // }
             this.setData({
                 oneSortData: responseData
+            });
+
+            //循环请求分类的产品
+            responseData.forEach((item, index) => {
+                if (index > 0) {
+                    this.requestOneSortProductData(item.Id, item.MaxShow, index);
+                }
+            });
+        };
+        task.addToQueue();
+    },
+    /**
+     * 请求一级分类里面产品数据
+     */
+    requestOneSortProductData: function (categoryId, maxCount,index) {
+        let task = RequestReadFactory.homeOneSortProductRead(categoryId, maxCount);
+        task.finishBlock = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                let url = Tool.imageURLForId(item.ImgId);
+                item.imageUrl = url;
+                item.productId = item.Id;
+                //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
+                if (Storage.didLogin()) {
+                    item.showPrice = "¥" + item.LYPrice + "（老友专享）";
+                } else {
+                    item.showPrice = "¥" + item.SalePrice;
+                }
+                //未登录时,旧价格不显示,登陆后显示SalePrice
+                if (Storage.didLogin()) {
+                    item.oldPrice = "¥" + item.SalePrice;
+                    //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
+                    if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
+                        item.oldPrice = 0;
+                    }
+                } else {
+                    item.oldPrice = 0;
+                }
+            });
+            let oneSortData = this.data.oneSortData;
+            oneSortData[index].productData = responseData;
+            this.setData({
+                oneSortData: oneSortData
             });
         };
         task.addToQueue();
@@ -99,13 +137,29 @@ Page({
             responseData.forEach((item, index) => {
                 let url = Tool.imageURLForId(item.ImgId);
                 item.imageUrl = url;
+                item.productId = item.Id;
+                //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
+                if (Storage.didLogin()) {
+                    item.showPrice = "¥" + item.LYPrice + "（老友专享）";
+                } else {
+                    item.showPrice = "¥" + item.SalePrice;
+                }
+                //未登录时,旧价格不显示,登陆后显示SalePrice
+                if (Storage.didLogin()) {
+                    item.oldPrice = "¥" + item.SalePrice;
+                    //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
+                    if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
+                        item.oldPrice = 0;
+                    }
+                } else {
+                    item.oldPrice = 0;
+                }
             });
             let oneSortData = this.data.oneSortData;
             oneSortData[this.data.currentTab].bodyData.sortData[index].productData = responseData;
             this.setData({
                 oneSortData: oneSortData
             });
-            console.log(this.data.oneSortData);
         };
         task.addToQueue();
     },
@@ -145,5 +199,30 @@ Page({
             Tool.showLoading();
             this.requestSortAdData(oneSort.Id);
         }
+    },
+    /**
+     * 列表子视图点击事件
+     */
+    onChildClickListener: function (e) {
+        let productId = e.currentTarget.dataset.id;
+        let currentTab = this.data.currentTab;
+        if (currentTab = 0) {
+
+        } else {
+            wx.navigateTo({
+                url: '/pages/product-detail/product-detail?productId=' + productId
+            })
+        }
+    },
+    /**
+     * 添加到购物车
+     */
+    onAddCartClickListener: function (e) {
+        let productId = e.currentTarget.dataset.id;
+        console.log(productId)
+        //跳出数量规格选择界面
+        wx.navigateTo({
+            url: '/pages/product-specification/product-specification?productId=' + productId
+        })
     }
 })

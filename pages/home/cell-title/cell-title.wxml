@@ -1,5 +1,5 @@
 <template name="cell-title">
-  <view class="cell-title">
+  <view class="cell-title" data-position="{{position}}">
     {{title}}
   </view>
 </template>
