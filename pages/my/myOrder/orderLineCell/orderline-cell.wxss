@@ -13,6 +13,7 @@
   width: 150rpx;
   height: 150rpx;
   margin-left: 20rpx;
+  border: 2rpx solid #dcdedf;
 }
 
 .cart-describe {
@@ -27,7 +28,7 @@
 
 .cart-title {
   font-size: 30rpx;
-  color: #3c3d3d;
+  color: #1a1c1f;
   width: 100%;
   height: 80rpx;
   line-height: 120%;
@@ -35,19 +36,16 @@
 
 .cart-price-count {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
 .cart-price {
-  margin-right: 80rpx;
   font-size: 34rpx;
-  color: #e73962;
+  color: #af8327;
 }
 
 .qty {
   color: #5e5e5f;
   font-size: 28rpx;
-  width: 10%;
-  align-self: flex-end;
+  margin-left: 30rpx;
 }

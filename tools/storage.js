@@ -28,7 +28,7 @@ export default class Storage {
         return new Storage();
     }
 
-    static getterFor(key){
+    static getterFor(key) {
         if (Storage.sharedInstance()['_' + key] === undefined) {
             try {
                 let value = wx.getStorageSync(key);
@@ -42,7 +42,7 @@ export default class Storage {
         return Storage.sharedInstance()['_' + key];
     }
 
-    static setterFor(key,value){
+    static setterFor(key, value) {
         Storage.sharedInstance()['_' + key] = undefined;
         wx.setStorageSync(key, value);
     }
@@ -56,7 +56,7 @@ export default class Storage {
     }
 
     static setWxUserInfo(wxUserInfo) {
-        this.setterFor('wxUserInfo',wxUserInfo);
+        this.setterFor('wxUserInfo', wxUserInfo);
     }
 
     //当前Session
@@ -78,7 +78,7 @@ export default class Storage {
     }
 
     static setCurrentSession(currentSession) {
-        this.setterFor('currentSession',currentSession)
+        this.setterFor('currentSession', currentSession)
     }
 
     //登陆标记
@@ -87,7 +87,7 @@ export default class Storage {
     }
 
     static setDidLogin(didLogin) {
-        this.setterFor('didLogin',didLogin);
+        this.setterFor('didLogin', didLogin);
     }
 
     //当前登录用户名
@@ -96,7 +96,7 @@ export default class Storage {
     }
 
     static setLoginUserName(loginUserName) {
-        this.setterFor('loginUserName',loginUserName);
+        this.setterFor('loginUserName', loginUserName);
     }
 
     //当前登录用户Id
@@ -105,7 +105,16 @@ export default class Storage {
     }
 
     static setMemberId(memberId) {
-        this.setterFor('memberId',memberId);
+        this.setterFor('memberId', memberId);
+    }
+
+    //是否为内部员工
+    static isInsideMember() {
+        return this.getterFor('Inside') == 'True';
+    }
+
+    static setInsideMember(inside) {
+        this.setterFor('Inside', inside);
     }
 
     /**
@@ -121,15 +130,15 @@ export default class Storage {
     }
 
     static setLoginType(loginType) {
-        this.setterFor('loginType',loginType);
+        this.setterFor('loginType', loginType);
     }
 
     //系统信息
-    static sysInfo(){
+    static sysInfo() {
         return this.getterFor('sysInfo');
     }
 
-    static setSysInfo(sysInfo){
-        this.setterFor('sysInfo',sysInfo);
+    static setSysInfo(sysInfo) {
+        this.setterFor('sysInfo', sysInfo);
     }
 }

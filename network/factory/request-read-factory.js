@@ -32,28 +32,28 @@ export default class RequestReadFactory {
     }
 
     //宝贝码头商品详情
-    static productDetailRead(theId){
+    static productDetailRead(theId) {
         let operation = Operation.sharedInstance().bmProductReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Id":theId,
-            "MaxCount":'1',
+        let bodyParameters = {
+            "Operation": operation,
+            "Id": theId,
+            "MaxCount": '1',
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
-        req.items = ['Id','ShowName','LYPrice','SalePrice','ImgId','Warehouse','Des1','Des','Tax','Subtitle','NationalKey','StoreId','TaxRate','Import','PriceInside'];
+        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
         return req;
     }
 
     //附件
-    static attachmentsRead(theId,count = 20,index = 0){
+    static attachmentsRead(theId, count = 20, index = 0) {
         let operation = Operation.sharedInstance().bmAttachmentsReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Condition":"${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
-            "MaxCount":count,
-            "StartIndex":index,
-            "Order":'${CreateTime} ASC'
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "${RelevancyId} == '" + theId + "' && ${RelevancyBizElement} == 'Attachments'",
+            "MaxCount": count,
+            "StartIndex": index,
+            "Order": '${CreateTime} ASC'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '附件';//用于日志输出
@@ -62,13 +62,13 @@ export default class RequestReadFactory {
     }
 
     //老友码头 商品的国家信息
-    static productNationRead(theKey){
+    static productNationRead(theKey) {
         let operation = Operation.sharedInstance().bmNationReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Value":theKey,
-            "MaxCount":1,
-            "StartIndex":0
+        let bodyParameters = {
+            "Operation": operation,
+            "Value": theKey,
+            "MaxCount": 1,
+            "StartIndex": 0
         };
         let req = new RequestRead(bodyParameters);
         req.name = '老友码头 商品的国家信息';//用于日志输出
@@ -77,13 +77,13 @@ export default class RequestReadFactory {
     }
 
     //老友码头 运费
-    static expressRuleRead(warehouseId,city){
+    static expressRuleRead(warehouseId, city) {
         let operation = Operation.sharedInstance().bmExpressRuleReadOperation;
-        let bodyParameters =  {
-            "Operation":operation,
-            "Condition":"StringIndexOf(${Area_Name},'" + city +"') > 0 && ${WarehouseId} == '" + warehouseId + "'",
-            "MaxCount":1,
-            "StartIndex":0
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": "StringIndexOf(${Area_Name},'" + city + "') > 0 && ${WarehouseId} == '" + warehouseId + "'",
+            "MaxCount": 1,
+            "StartIndex": 0
         };
         let req = new RequestRead(bodyParameters);
         req.name = '老友码头 运费';//用于日志输出
@@ -100,6 +100,81 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '登录用户信息查询';
+        return req;
+    }
+
+    //首页海报查询
+    static homeAdRead() {
+        let operation = Operation.sharedInstance().homeAdReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "IsHomePageShow": 'True'
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页海报查询';
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        return req;
+    }
+
+    //分类海报查询
+    static sortAdRead(categoryId) {
+        let operation = Operation.sharedInstance().homeAdReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "ProductCategoryId": categoryId
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '分类海报查询';
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        return req;
+    }
+
+    //首页-一级分类
+    static homeOneSortRead() {
+        let operation = Operation.sharedInstance().homeSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Hierarchy": '1',
+            "IsShow": 'True',
+            "ShowInHomepage": 'True',
+            "Order": "${Order} ASC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-一级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+        return req;
+    }
+
+    //首页-二级分类
+    static homeTwoSortRead(parentId) {
+        let operation = Operation.sharedInstance().homeSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "ParentId": parentId,
+            "IsShow": 'True',
+            "Order": "${Order} ASC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-二级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'Description'];
+        return req;
+    }
+
+    //首页-二级分类商品
+    static homeTwoSortProductRead(categoryId) {
+        let operation = Operation.sharedInstance().productReadOperation;
+        let condition = "${Product_CategoryId} == '" + categoryId + "'";
+        //如果是内部员工
+        if (global.Storage.isInsideMember()) {
+            condition = "${Product_CategoryId} == '" + categoryId + "' || ${ProductCategoryInsideId} == '" + categoryId + "'";
+        }
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '二级分类商品';
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit','Import'];
         return req;
     }
 
@@ -127,6 +202,101 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '查询购物车';
+        return req;
+    }
+
+    //收货地址查询
+    static addressRead() {
+        let operation = Operation.sharedInstance().addressReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${Default} DESC",
+            "Condition": "${MemberId} == '" + global.Storage.memberId() + "'",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '收货地址查询';
+        return req;
+    }
+
+    //区域查询
+    static areaRead(condition) {
+        let operation = Operation.sharedInstance().areaReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '区域查询';
+        req.items = ['Id', 'Name', 'FullName', 'ZJS'];
+        return req;
+    }
+
+    //地址查询（按默认排序）
+    static addressDefaultRead() {
+        let operation = Operation.sharedInstance().addressReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${Default} DESC",
+            "Condition": "${MemberId} == '" + global.Storage.memberId() + "'",
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '地址查询（按默认排序）';
+        return req;
+    }
+
+    //我的订单查询
+    static myOrderRead(status, index) {
+        let operation = Operation.sharedInstance().orderReadOperation;
+
+        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'";;
+        if (typeof (status) != "undefined" && status != "undefined") {
+            condition = "${StatusKey} == '" + status + "' && " + condition;
+        } 
+
+        if (global.Tool.isValidStr(status) && status != "undefined") {
+            condition = "${StatusKey} == '" + status + "'";
+        }
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+            "IsIncludeSubtables": true,
+            "Order": "${CreateTime} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的订单查询';
+        // req.items = ["SerialNumber", "CreateTime", "HJSL", "Total", "Id", "StatusKey", "LogisticsNumber", "LogisticsCode", "LogisticsName", "Contact", "Mobile", "Address"];
+        return req;
+    }
+
+    //订单详情查询
+    static orderDetailRead(orderId) {
+        let operation = Operation.sharedInstance().orderReadOperation;
+
+        let condition = "${Id} == '" + orderId + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+            "IsIncludeSubtables": true,
+            "MaxCount": '1',
+            "StartIndex": 0,
+            "Subtables": [
+                "Scan_Line"
+            ]
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的订单查询';
+        req.items = ["Id", "OrderNo", "Money", "StatusKey", "Freight", "Due", "Discount", "ExpressSum", "Formal", "Qnty", "Tax", "Total", "Cross_Order", "Tax2", "CrossFee", "Credit", "UseCredit", "Balance", "UseBalance", "Money1", "Money2", "PaywayName", "BuyerCommission"];
+        return req;
+    }
+
+    //物流详情查询
+    static orderDeliveryInfoRead(deliveryNo, companyNo) {
+        let req = new RequestDeliveryInfoRead(deliveryNo, companyNo);
+        req.name = '物流详情查询';
         return req;
     }
 }

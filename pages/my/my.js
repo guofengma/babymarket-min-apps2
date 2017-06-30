@@ -187,6 +187,9 @@ Page({
 
         } else if (status == 2) {//地址管理
             console.log('----地址管理----');
+            wx.navigateTo({
+                url: '../address/address' 
+            })
 
         } else if (status == 3) {//邀请好友
             console.log('----邀请好友----');
@@ -290,6 +293,9 @@ Page({
                     key: 'memberInfo',
                     data: item,
                 })
+
+                //是否为内部员工
+                Storage.setInsideMember(item.Inside);
 
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
