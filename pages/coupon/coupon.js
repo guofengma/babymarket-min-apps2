@@ -10,13 +10,16 @@ Page({
         couponList: [],
         navItems: [
             {
-                Name: '未使用',
+                id: 0,
+                name: '未使用',
             },
             {
-                Name: '已使用',
+                id: 1,
+                name: '已使用',
             },
             {
-                Name: '已过期',
+                id: 2,
+                name: '已过期',
             },
         ],
     },
@@ -43,10 +46,10 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-       
+
     },
 
-    requestData:function(){
+    requestData: function () {
 
     },
 })

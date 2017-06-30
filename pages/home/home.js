@@ -15,7 +15,7 @@ Page({
         //一级分类数据
         oneSortData: null,
     },
-    onLoad: function () {
+    onLoad: function () { 
         Tool.showLoading();
         this.requestOneSortData();
         this.requestHomeAdData();

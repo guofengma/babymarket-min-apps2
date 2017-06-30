@@ -1,0 +1,16 @@
+
+@import '/pages/coupon/coupon-item/coupon-item.wxss';
+
+.main {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.cart-no-data {
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}

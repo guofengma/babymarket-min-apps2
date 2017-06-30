@@ -218,7 +218,7 @@ Page({
      */
     selectCoupon: function () {
         wx.navigateTo({
-            url: '../coupon/coupon',
+            url: '../coupon/select-coupon/select-coupon',
         })
     },
 })

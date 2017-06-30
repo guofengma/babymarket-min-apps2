@@ -60,6 +60,9 @@ export default class Operation {
         //地区
         this.areaReadOperation = '7e179d1c-ab1c-0352-0a44-393c01c0abf4';
 
+        //优惠劵
+        this.couponReadOperation = 'ac4b38e9-45ce-0626-2fc2-3c3b000e731f';
+
         //订单
         this.orderAddOperation ='c65c46b6-b12e-0e57-28fe-3c1900223872';
         this.orderDeleteOperation = '';

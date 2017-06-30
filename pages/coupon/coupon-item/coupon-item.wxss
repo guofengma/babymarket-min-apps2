@@ -1,0 +1,53 @@
+.coupon-item {
+  display: flex;
+}
+
+.coupon-unuse {
+  margin-left: 20rpx;
+  background: #715329;
+  width: 160rpx;
+  height: 160rpx;
+  align-items: center;
+}
+
+.coupon-use {
+  margin-left: 20rpx;
+  background: #7d7f81;
+  width: 160rpx;
+  height: 160rpx;
+  align-items: center;
+}
+
+.coupon-money {
+  font-size: 40rpx;
+  color: white;
+}
+
+.coupon-condition {
+  font-size: 22rpx;
+  color: white;
+}
+
+.coupon-expired {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 20rpx;
+  align-items: center;
+}
+
+.coupon-money {
+  font-size: 24rpx;
+  color: #1a1c1f;
+}
+
+.coupon-time {
+  font-size: 30rpx;
+  color: #5e6064;
+  margin-top: 10rpx;
+}

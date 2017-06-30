@@ -1,18 +1,12 @@
 <import src='/pages/my/myOrder/empty/empty-view.wxml' />
-<import src='/pages/home/tab-layout/tab-layout.wxml' />
+<import src='/pages/coupon/tab-layout/tab-layout.wxml' />
 
-
-<!--tab-layout-->
 <view class="coupon-box">
-  <template is="tab-layout" data="{{items:navItems,currentTab}}" />
+<template is="coupon-layout" data="{{items:navItems, currentIndex:currentIndex}}" />
+  <view class="swiper-view">
+    <swiper class="swiper-container" bindchange="onTabChangeListener" current="{{currentTab}}">
+      <text>1111</text>
+    </swiper>
 
-  <!--购物车为空的状态-->
-
-  <!-- <template is="empty-view" data="{{empty:empty}}" wx:if="{{couponList.length==0}}" />-->
-
-  <view class="coupon-box">
-    <view wx:for="{{couponList}}" wx:key="unique">
-
-    </view>
   </view>
 </view>
