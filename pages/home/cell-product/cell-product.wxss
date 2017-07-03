@@ -15,7 +15,7 @@
 
 .product-info .image {
   width: 100%;
-  height: 450rpx;
+  height: 400rpx;
   background-color: white;
   flex: none;
 }
@@ -64,4 +64,26 @@
   width: 55rpx;
   height: 55rpx;
   flex: none;
+}
+
+.product-more {
+  display: flex;
+  width: 50%;
+  height: 556rpx;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: none;
+}
+
+.product-more .more-title {
+  color: #454950;
+  font-size: 26rpx;
+}
+
+.product-more .more-arrow {
+  width: 65rpx;
+  height: 65rpx;
+  flex: none;
+  margin-top: 16rpx;
 }

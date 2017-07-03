@@ -145,6 +145,22 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //首页-单个一级分类
+    static homeOneSortSingleRead() {
+        let operation = Operation.sharedInstance().homeSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Hierarchy": '1',
+            "IsShow": 'True',
+            "ShowInHomepage": 'True',
+            "Order": "${Order} ASC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-一级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+        return req;
+    }
+
     //首页-二级分类
     static homeTwoSortRead(parentId) {
         let operation = Operation.sharedInstance().homeSortReadOperation;

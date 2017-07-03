@@ -1,0 +1,15 @@
+@import "/pages/home/ad/home-ad.wxss";
+@import "/pages/home/cell-title/cell-title.wxss";
+@import "/pages/home/cell-product/cell-product.wxss";
+
+.root-view{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.bottom {
+  color: #5e6064;
+  text-align: center;
+  font-size: 23rpx;
+  padding: 30rpx;
+}
