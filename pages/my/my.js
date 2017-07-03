@@ -218,7 +218,9 @@ Page({
         let title = e.currentTarget.dataset.title;
         if (title =='我的资产'){
             console.log('----我的资产----');
-
+            wx.navigateTo({
+                url: '../coupon/coupon',
+            })
         } else if (title == '收到奖励'){
             console.log('----收到奖励----');
 

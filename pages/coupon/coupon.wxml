@@ -1,0 +1,12 @@
+<import src='/pages/my/myOrder/empty/empty-view.wxml' />
+<import src='/pages/coupon/tab-layout/tab-layout.wxml' />
+
+<view class="coupon-box">
+<template is="coupon-layout" data="{{items:navItems, currentIndex:currentIndex}}" />
+  <view class="swiper-view">
+    <swiper class="swiper-container" bindchange="onTabChangeListener" current="{{currentTab}}">
+      <text>1111</text>
+    </swiper>
+
+  </view>
+</view>

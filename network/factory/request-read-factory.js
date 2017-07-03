@@ -281,7 +281,7 @@ export default class RequestReadFactory {
         let condition = "${CreatorId} == '" + global.Storage.memberId() + "'";;
         if (typeof (status) != "undefined" && status != "undefined") {
             condition = "${StatusKey} == '" + status + "' && " + condition;
-        } 
+        }
 
         if (global.Tool.isValidStr(status) && status != "undefined") {
             condition = "${StatusKey} == '" + status + "'";
@@ -327,6 +327,20 @@ export default class RequestReadFactory {
     static orderDeliveryInfoRead(deliveryNo, companyNo) {
         let req = new RequestDeliveryInfoRead(deliveryNo, companyNo);
         req.name = '物流详情查询';
+        return req;
+    }
+
+    //优惠劵查询
+    static couponRead(condition) {
+        let operation = Operation.sharedInstance().couponReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+            "Order": "${Date} DESC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '优惠劵查询';
+        req.items = ["Id", "Money", "Useful_Line", "Min_Money", "Overdue", "Used"];
         return req;
     }
 }
