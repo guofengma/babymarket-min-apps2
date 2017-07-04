@@ -77,7 +77,7 @@
     line-height: 62rpx;
     padding-left: 30rpx;
     font-size: 24rpx;
-    color:454950;
+    color:#454950;
 }
 
 .settlement-view-cell{

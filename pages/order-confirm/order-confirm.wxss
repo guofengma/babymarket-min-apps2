@@ -94,20 +94,20 @@
   border-bottom: 2rpx solid #fafafa;
 }
 
-.bgview{
-    padding: 0rpx 20rpx;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 710rpx;
-    height: 100%;
+.bgview {
+  padding: 0rpx 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 710rpx;
+  height: 100%;
 }
 
 .footer-bg-view {
   width: 100%;
-  margin-bottom: 200rpx;
   padding: 20rpx 0 20rpx 0rpx;
   background: white;
+  border-bottom: 10rpx solid #f5f7f7;
 }
 
 .pay-finnal {
@@ -115,6 +115,40 @@
   color: #454950;
   text-align: right;
   margin-right: 20rpx;
+}
+
+.rule {
+  font-size: 26rpx;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  color: red;
+}
+
+/*授信钱包*/
+
+.credit {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  align-items: center;
+  border-bottom: 2rpx solid #fafafa;
+}
+
+.credit-value {
+  font-size: 26rpx;
+  color: #1a1c1f;
+}
+
+.credit-switch {
+}
+
+.balance {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  align-items: center;
+  margin-bottom: 200rpx;
 }
 
 /*底部结算*/

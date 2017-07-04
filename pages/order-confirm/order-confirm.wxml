@@ -39,6 +39,18 @@
     <text class="pay-finnal">应付总额：¥{{order.Total}}</text>
   </view>
 
+  <text wx:if="{{isAirProduct}}" class="rule">跨境商品仅支持支付宝支付</text>
+
+  <!--授信钱包-->
+  <view wx:if="{{isInsideMember}}" class="credit">
+    <text class="credit-value">{{order.credit}}</text>
+    <switch class="credit-switch" type="switch" color="#715329" bindchange="creditSwitch" checked="{{creditChecked}}" />
+  </view>
+
+  <view class="balance">
+    <text class="credit-value">{{order.balance}}</text>
+    <switch class="credit-switch" type="switch" color="#715329" bindchange="balanceSwitch" checked="{{balanceChecked}}" />
+  </view>
 
   <!--订单底部结算-->
   <view class="order-footer">
