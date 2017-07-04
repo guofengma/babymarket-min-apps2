@@ -55,7 +55,7 @@
 
 <!--底部按钮-->
 <view class="bottom-view">
-  <view class="bottom-button right" bindtap="buttonTap" data-buttonname="{{bottomButton0Name}}" wx:if="{{bottomButton0Name != ''}}">{{bottomButton0Name}}</view>
-  <view class="bottom-button middle" bindtap="buttonTap" data-buttonname="{{bottomButton1Name}}" wx:if="{{bottomButton1Name != ''}}">{{bottomButton1Name}}</view>
-  <view class="bottom-button left" bindtap="buttonTap" data-buttonname="{{bottomButton2Name}}" wx:if="{{bottomButton2Name != ''}}">{{bottomButton2Name}}</view>
+  <view class="bottom-button right" bindtap="bottomButtonTap" data-title="{{bottomButton0Name}}" wx:if="{{bottomButton0Name != ''}}">{{bottomButton0Name}}</view>
+  <view class="bottom-button middle" bindtap="bottomButtonTap" data-title="{{bottomButton1Name}}" wx:if="{{bottomButton1Name != ''}}">{{bottomButton1Name}}</view>
+  <view class="bottom-button left" bindtap="bottomButtonTap" data-title="{{bottomButton2Name}}" wx:if="{{bottomButton2Name != ''}}">{{bottomButton2Name}}</view>
 </view>

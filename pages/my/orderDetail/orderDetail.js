@@ -1,5 +1,5 @@
 // orderDetail.js
-let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
+let {Tool, Storage, RequestReadFactory, RequestWriteFactory, Event} = global;
 
 Page({
 
@@ -12,20 +12,20 @@ Page({
             mobile: '',
             detail: '',
         },
-        orderLineList: ['','',''],
+        orderLineList: ['', '', ''],
         orderId: '',
-        orderDatas:'',
-        deliveryInfo:'',
+        orderDatas: '',
+        deliveryInfo: '',
         orderStatus: '',
         orderTips: '',
         bottomButton0Name: '',//从右往左
         bottomButton1Name: '',
         bottomButton2Name: '',
 
-        settlementList:[
+        settlementList: [
             {
-                title:'商品总额',
-                value:'',
+                title: '商品总额',
+                value: '',
             },
             {
                 title: '优惠券',
@@ -47,8 +47,8 @@ Page({
                 title: '已省金额',
                 value: '',
             }
-         ],
-        
+        ],
+
     },
 
     /**
@@ -94,7 +94,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+        this.requestData();
     },
 
     /**
@@ -117,10 +117,10 @@ Page({
     deliveryTap: function () {
         let trackNo = this.data.orderDatas.LogisticsNumber;
         let companyNo = this.data.orderDatas.LogisticsCode;
-        
+
         let productList = this.data.orderDatas.Scan_Line;
         let count = productList.length;
-        let imgUrl = productList[count-1].imageUrl;
+        let imgUrl = productList[count - 1].imageUrl;
 
         let deliveryInfo = {
             "trackNo": trackNo,
@@ -134,68 +134,24 @@ Page({
             data: deliveryInfo,
         }),
 
-        wx.navigateTo({
-            url: '../../my/delivery-info/delivery-info'
-        })
+            wx.navigateTo({
+                url: '../../my/delivery-info/delivery-info'
+            })
     },
 
     /**
-     * 确认收货
+     * 底部按钮点击处理
      */
-    confirmButtonTap:function(){
+    bottomButtonTap: function (e) {
+        var title = e.currentTarget.dataset.title;
 
-    },
+        if (title == '查看物流') {//查看物流
+            let order = this.data.orderDatas;
 
-    leftButtonTap:function(e){
-        var index = e.currentTarget.dataset.statuskey;
-        if (index == 0) {//删除订单
-            let self = this;
+            let trackNo = order.LogisticsNumber;
+            let companyNo = order.LogisticsCode;
 
-            wx.showModal({
-                title: '提示',
-                content: '确认删除订单？',
-                confirmText: '删除',
-                success: function (res) {
-                    if (res.confirm) {
-                        //提交请求
-                        let r = RequestWriteFactory.deleteOrder(self.data.orderId);
-                        r.finishBlock = (req) => {
-                            //返回上一个界面
-                            wx.navigateBack({
-                                delta: 1,
-                            })
-                        };
-                        r.addToQueue();
-
-                    }
-                }
-            })
-        }
-        else if (index == 2){//确认收货
-            let r = RequestWriteFactory.modifyOrderStatus(this.data.orderId, '3');
-            r.finishBlock = (req) => {
-                this.requestData();
-            };
-            r.addToQueue();
-        }
-    },
-
-    rightButtonTap: function (e) {
-        var index = e.currentTarget.dataset.statuskey;
-        if (index == 0) {//付款
-              wx.setStorage({
-                key: 'order',
-                data: this.data.orderDatas,
-            })
-            wx.navigateTo({
-                url: '../../pay-method/pay-method',
-            })
-        }
-        else if (index == 2) {//查看物流
-            let trackNo = this.data.orderDatas.LogisticsNumber;
-            let companyNo = this.data.orderDatas.LogisticsCode;
-
-            let productList = this.data.orderDatas.Scan_Line;
+            let productList = order.Line;
             let count = productList.length;
             let imgUrl = productList[count - 1].imageUrl;
 
@@ -214,14 +170,73 @@ Page({
             wx.navigateTo({
                 url: '../../my/delivery-info/delivery-info'
             })
+
+        } else if (title == '删除订单') {//删除订单
+            let order = this.data.orderDatas;
+            let self = this;
+
+            wx.showModal({
+                title: '提示',
+                content: '确认删除订单？',
+                confirmText: '删除',
+                success: function (res) {
+                    if (res.confirm) {
+                        //提交请求
+                        let r = RequestWriteFactory.deleteOrder(self.data.orderId);
+                        r.finishBlock = (req) => {
+                            Event.emit('deleteOrderFinish');//发出通知
+
+                            //返回上一个界面
+                            wx.navigateBack({
+                                delta: 1,
+                            })
+                        };
+                        r.addToQueue();
+                    }
+                }
+            })
+        } else if (title == '联系客服') {//联系客服
+            wx.makePhoneCall({
+                phoneNumber: global.TCGlobal.CustomerServicesNumber,
+                // success: function () {
+                //     console.log("拨打电话成功！")
+                // },
+                // fail: function () {
+                //     console.log("拨打电话失败！")
+                // }
+            })
+        } else if (title == '确认收货') {//确认收货
+            let order = this.data.orderList[index];
+            let r = RequestWriteFactory.modifyOrderStatus(order.Id, '3');
+            r.finishBlock = (req) => {
+                this.requestData();
+            };
+            r.addToQueue();
+
+        } else if (title == '付款') {//付款
+            wx.setStorage({
+                key: 'order',
+                data: this.data.orderDatas,
+            })
+            wx.navigateTo({
+                url: '../../pay-method/pay-method',
+            })
+        } else if (title == '立即分享') {//立即分享
+            console.log('----- 立即分享 -----');
+        } else if (title == '申请退款') {//申请退款
+            console.log('----- 申请退款 -----');
+        }
+        else if (title == '取消退款') {//取消退款
+            console.log('----- 取消退款 -----');
         }
     },
+
 
     /**
      * 订单状态处理
      */
-    dealOrderStatus:function(statusKey){
-        
+    dealOrderStatus: function (statusKey) {
+
         let orderStatus = '';
         let orderTips = '';
         let bottomButton0Name = '';
@@ -314,7 +329,7 @@ Page({
 
             //支付方式
             let payName = firstData.PaywayName;
-            if (Tool.isEmptyStr(payName)){
+            if (Tool.isEmptyStr(payName)) {
                 payName = '支付宝';
             }
             if (firstData.StatusKey == '0') {
@@ -329,7 +344,7 @@ Page({
                     detail: firstData.Address,
                 },
                 orderLineList: productList,
-                'settlementList[0].value': '¥'+ firstData.Money,
+                'settlementList[0].value': '¥' + firstData.Money,
                 'settlementList[1].value': '¥' + firstData.Discount,
                 'settlementList[2].value': '¥' + firstData.ExpressSum,
                 'settlementList[3].value': '¥' + firstData.Tax,
