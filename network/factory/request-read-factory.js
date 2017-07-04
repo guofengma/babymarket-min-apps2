@@ -376,7 +376,7 @@ export default class RequestReadFactory {
             ]
         };
         let req = new RequestRead(bodyParameters);
-        req.name = '我的订单查询';
+        req.name = '订单详情查询';
         // req.items = ["Id", "OrderNo", "Money", "StatusKey", "Freight", "Due", "Discount", "ExpressSum", "Formal", "Qnty", "Tax", "Total", "Cross_Order", "Tax2", "CrossFee", "Credit", "UseCredit", "Balance", "UseBalance", "Money1", "Money2", "PaywayName", "BuyerCommission"];
         return req;
     }
@@ -399,6 +399,23 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '优惠劵查询';
         req.items = ["Id", "Money", "Useful_Line", "Min_Money", "Overdue", "Used"];
+        return req;
+    }
+
+    //商品收藏查询
+    static productFavRead(index) {
+        let operation = Operation.sharedInstance().favReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${CreateTime} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+            "MemberId": global.Storage.memberId(),
+            "FavoriteObjectType":'Product'
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '商品收藏查询';
+        req.items = ["Id", "Product_Name", "Price", "CreateTime", "ImgId"];
         return req;
     }
 }

@@ -9,7 +9,7 @@
 
     <view class="cart-price-count">
       <text class="cart-price" data-index="{{index}}">￥{{datas.Price}}</text>
-      <view class="qty">x{{datas.Qnty}}</view>
+      <view class="qty" wx:if="{{!qtyHidden}}">x{{datas.Qnty}}</view>
     </view>
 
   </view>
