@@ -25,10 +25,10 @@
         "pages/address/add-address/add-address",
         "pages/address/select-provinces/select-provinces",
         "pages/address/select-address/select-address",
+        "pages/home/product-more/product-more",
         "pages/coupon/coupon",
         "pages/coupon/select-coupon/select-coupon",
         "pages/pay-success/pay-success"
-    
     ],
     "window": {
         "backgroundTextStyle": "light",

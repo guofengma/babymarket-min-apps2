@@ -13,7 +13,7 @@ Page({
         // 当前选中的tab
         currentTab: 0,
         //一级分类数据
-        oneSortData: null,
+        oneSortData: null
     },
     onLoad: function () { 
         Tool.showLoading();
@@ -50,7 +50,7 @@ Page({
     /**
      * 请求一级分类里面产品数据
      */
-    requestOneSortProductData: function (categoryId, maxCount,index) {
+    requestOneSortProductData: function (categoryId, maxCount, index) {
         let task = RequestReadFactory.homeOneSortProductRead(categoryId, maxCount);
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
@@ -205,14 +205,9 @@ Page({
      */
     onChildClickListener: function (e) {
         let productId = e.currentTarget.dataset.id;
-        let currentTab = this.data.currentTab;
-        if (currentTab = 0) {
-
-        } else {
-            wx.navigateTo({
-                url: '/pages/product-detail/product-detail?productId=' + productId
-            })
-        }
+        wx.navigateTo({
+            url: '/pages/product-detail/product-detail?productId=' + productId
+        })
     },
     /**
      * 添加到购物车
@@ -223,6 +218,17 @@ Page({
         //跳出数量规格选择界面
         wx.navigateTo({
             url: '/pages/product-specification/product-specification?productId=' + productId
+        })
+    },
+    /**
+     * 更多
+     */
+    onMoreClickListener: function (e) {
+        let categoryId = e.currentTarget.dataset.id;
+        let title = e.currentTarget.dataset.title;
+        //跳到更多
+        wx.navigateTo({
+            url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
         })
     }
 })

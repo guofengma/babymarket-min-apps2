@@ -1,4 +1,5 @@
 @import '/pages/home/ad/home-ad.wxss';
+@import '/pages/product-detail/ad/product-ad.wxss';
 @import 'slogan/product-slogan.wxss';
 
 .root-view {

@@ -56,8 +56,21 @@ export default class RequestReadFactory {
             "Order": '${CreateTime} ASC'
         };
         let req = new RequestRead(bodyParameters);
-        req.name = '附件';//用于日志输出
+        req.name = '附件';
         req.items = ['Id'];
+
+        //修改返回结果，为返回结果添加imageUrls字段
+        req.preprocessCallback = (req) => {
+            let Datas = req.responseObject.Datas;
+            let imageUrls = [];
+            if (global.Tool.isValidArr(Datas)) {
+                Datas.forEach((data) => {
+                    data.imageUrl = global.Tool.imageURLForId(data.Id);
+                    imageUrls.push(data.imageUrl);
+                });
+            }
+            req.responseObject.imageUrls = imageUrls;
+        }
         return req;
     }
 
@@ -131,6 +144,22 @@ export default class RequestReadFactory {
 
     //首页-一级分类
     static homeOneSortRead() {
+        let operation = Operation.sharedInstance().homeSortReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Hierarchy": '1',
+            "IsShow": 'True',
+            "ShowInHomepage": 'True',
+            "Order": "${Order} ASC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页-一级分类';
+        req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+        return req;
+    }
+
+    //首页-单个一级分类
+    static homeOneSortSingleRead() {
         let operation = Operation.sharedInstance().homeSortReadOperation;
         let bodyParameters = {
             "Operation": operation,
