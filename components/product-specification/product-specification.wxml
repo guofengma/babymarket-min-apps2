@@ -1,0 +1,46 @@
+<!--product-specification.wxml-->
+<import src='/pages/shopping-cart/count/cart-count.wxml' />
+<import src='/components/submit-btn/submit-btn.wxml'/>
+<import src="/components/product-specification/thumb/product-sp-thumb.wxml"/>
+<import src='/components/adder-subtractor/adder-subtractor.wxml'/>
+
+<template name="product-specification">
+    <block wx:if="{{visiable}}">
+        <view catchtap="dismissProductSpecification" class="model-view-bg">
+            <view class="product-specification zoom-in" catchtap="productSpecificationClicked">
+
+
+                <view class="header">
+                    <view class="header-left">
+                        <view class="price">￥{{'12'}}</view>
+                        <view class="inv">(库存{{'403'}}件)</view>
+                    </view>
+                    <image class="dismiss-btn"
+                           catchtap="dismissProductSpecification"
+                           mode="aspectFit"
+                           src="/res/img/product-specification/product-specification-dismiss.png"
+                    />
+                </view>
+
+
+                <view class="thumb-group-title">
+                    <view>{{'段数'}}</view>
+                </view>
+                <view class="thumb-group">
+                    <template is="product-sp-thumb" data="{{title:'1阶段'}}"/>
+                    <template is="product-sp-thumb" data="{{title:'2阶段'}}"/>
+                </view>
+
+                <template is="adder-subtractor" data="{{count:2}}"/>
+
+                <view class="submit-btn-container">
+                    <template is="submit-btn" data="{{title:'购买'}}"/>
+                </view>
+
+            </view>
+        </view>
+    </block>
+</template>
+
+
+

@@ -1,0 +1,24 @@
+
+
+
+.product-sp-thumb{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+
+    padding:10rpx 12rpx;
+    border-radius: 10rpx;
+    border: 1rpx solid lightgray;
+    color: #3c3d3d;
+    background-color: white;
+}
+
+.product-sp-thumb-select{
+    border: 1rpx solid red;
+    color: red;
+}
+
+.product-sp-thumb-invalid{
+    border: 1rpx dashed lightgray;
+}

@@ -24,6 +24,9 @@ export default class Operation {
         //宝贝码头商品详情
         this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
 
+        //规格读取
+        this.productSpecificationRead = '3b61a23d-e130-00cd-320f-3c6800fbe982';
+
         //宝贝码头附件
         this.bmAttachmentsReadOperation = '7eba4898-2f70-05b4-0b17-009a002e71ad';
 

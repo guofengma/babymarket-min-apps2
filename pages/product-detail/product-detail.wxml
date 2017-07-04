@@ -1,6 +1,6 @@
 <import src='/pages/product-detail/ad/product-ad.wxml'/>
 <import src='slogan/product-slogan.wxml'/>
-
+<import src='/components/product-specification/product-specification.wxml'/>
 
 
 
@@ -49,3 +49,7 @@
         </view>
     </view>
 </view>
+
+<template is="product-specification" data="{{visiable:showProductSpecification}}"/>
+
+

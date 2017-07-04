@@ -1,4 +1,6 @@
 // 商品详情
+import ProductSpecification from '../../components/product-specification/product-specification';
+
 let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
 Page({
 
@@ -29,8 +31,11 @@ Page({
 
         this.productId = options.productId;
 
-        //todo
-        this.productId = '21b0b516-fe3b-4852-b0e5-a585011f4d39';
+        let self = this;
+        this.productSpecification = new ProductSpecification(this,this.productId);
+        this.productSpecification.finishBlock = (specificationId,product,count,price) => {
+            global.Tool.showAlert(specificationId);
+        };
 
         this.requestData();
     },
@@ -51,16 +56,16 @@ Page({
         r.finishBlock = (req,firstData) => {
             if (Tool.isValidObject(firstData)) {
                 let images = this.data.images;
-                // images.unshift(Tool.imageURLForId(firstData.ImgId));
+                images.unshift(Tool.imageURLForId(firstData.ImgId));
 
-                if (Storage.didLogin()) {
-                    let tempPrice = firstData.SalePrice;
-                    firstData.SalePrice = firstData.LYPrice;
-                    firstData.LYPrice = tempPrice;
-                }
-                else{
-                    firstData.LYPrice = "0";
-                }
+                // if (Storage.didLogin()) {
+                //     let tempPrice = firstData.SalePrice;
+                //     firstData.SalePrice = firstData.LYPrice;
+                //     firstData.LYPrice = tempPrice;
+                // }
+                // else{
+                //     firstData.LYPrice = "0";
+                // }
 
                 self.setData({
                     product:firstData,
@@ -210,6 +215,7 @@ Page({
      */
     onAddCartListener: function (e) {
         console.log("添加购物车")
+        this.productSpecification.showWithAction('ShoppingCart');
     },
 
     /**
@@ -217,6 +223,7 @@ Page({
      */
     onSubmitListener: function (e) {
         console.log("确认下单")
+        this.productSpecification.showWithAction('Buy');
     },
 
     homeADClicked(){
