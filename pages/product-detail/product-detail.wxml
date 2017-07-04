@@ -1,4 +1,4 @@
-<import src='/pages/home/ad/home-ad.wxml'/>
+<import src='/pages/product-detail/ad/product-ad.wxml'/>
 <import src='slogan/product-slogan.wxml'/>
 
 
@@ -10,7 +10,7 @@
     <view class="product-info">
 
         <!--广告-->
-        <template is="home-ad" data="{{adArray:images}}"/>
+        <template is="product-ad" data="{{adArray:images}}"/>
 
         <view class="info">
             <text class="name">{{product.ShowName}}</text>

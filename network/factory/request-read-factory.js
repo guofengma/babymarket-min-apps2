@@ -56,8 +56,21 @@ export default class RequestReadFactory {
             "Order": '${CreateTime} ASC'
         };
         let req = new RequestRead(bodyParameters);
-        req.name = '附件';//用于日志输出
+        req.name = '附件';
         req.items = ['Id'];
+
+        //修改返回结果，为返回结果添加imageUrls字段
+        req.preprocessCallback = (req) => {
+            let Datas = req.responseObject.Datas;
+            let imageUrls = [];
+            if (global.Tool.isValidArr(Datas)) {
+                Datas.forEach((data) => {
+                    data.imageUrl = global.Tool.imageURLForId(data.Id);
+                    imageUrls.push(data.imageUrl);
+                });
+            }
+            req.responseObject.imageUrls = imageUrls;
+        }
         return req;
     }
 

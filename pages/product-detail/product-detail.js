@@ -51,7 +51,7 @@ Page({
         r.finishBlock = (req,firstData) => {
             if (Tool.isValidObject(firstData)) {
                 let images = this.data.images;
-                images.unshift(Tool.imageURLForId(firstData.ImgId));
+                // images.unshift(Tool.imageURLForId(firstData.ImgId));
 
                 if (Storage.didLogin()) {
                     let tempPrice = firstData.SalePrice;
@@ -96,17 +96,11 @@ Page({
         let r2 = RequestReadFactory.attachmentsRead(this.productId);
         let self = this;
         r2.finishBlock = (req) => {
-            let Datas = req.responseObject.Datas;
-            let images = this.data.images;
-            if (Tool.isValidArr(Datas)) {
-                Datas.forEach((data) => {
-                    images.push(Tool.imageURLForId(data.Id));
-                });
-
-                self.setData({
-                    images:images
-                })
-            }
+            let imageUrls = req.responseObject.imageUrls;
+            let images = this.data.images.concat(imageUrls);
+            self.setData({
+                images:images
+            });
         };
         r2.completeBlock = () => {
         };
