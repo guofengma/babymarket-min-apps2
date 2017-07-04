@@ -234,9 +234,15 @@ Page({
 
         } else if (title == '收到奖励'){
             console.log('----收到奖励----');
+            wx.navigateTo({
+                url: '../my/my-award/my-award',
+            })
 
         } else if (title == '已省金额') {
             console.log('----已省金额----');
+            wx.navigateTo({
+                url: '../my/my-save/my-save',
+            })
 
         } else if (title == '城市合伙人') {
             console.log('----城市合伙人----');
@@ -285,6 +291,9 @@ Page({
      */
     qrcodeTap: function () {
         console.log('----二维码----');
+        wx.navigateTo({
+            url: '../my/my-qrcode/my-qrcode',
+        })
     },
 
     /**

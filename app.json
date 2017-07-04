@@ -26,7 +26,14 @@
         "pages/address/add-address/add-address",
         "pages/address/select-provinces/select-provinces",
         "pages/address/select-address/select-address",
-        "pages/my/my-property/my-property"
+        "pages/my/my-property/my-property",
+        "pages/my/my-award/my-award",
+        "pages/my/my-save/my-save",
+        "pages/my/my-qrcode/my-qrcode",
+        "pages/my/withdraw/bind-alipay/bind-alipay",
+        "pages/my/withdraw/withdraw-to-alipay/withdraw-to-alipay",
+        "pages/my/withdraw/pay-password-set/pay-password-set",
+        "pages/my/withdraw/withdraw-success/withdraw-success"
     ],
     "window": {
         "backgroundTextStyle": "light",
