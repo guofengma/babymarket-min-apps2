@@ -80,6 +80,9 @@ export default class Operation {
         this.withdrawAddOperation = '';
         this.withdrawReadOperation = '';
 
+        //收藏
+        this.favReadOperation = 'ad5b7994-a09c-0aa9-35fe-3c3b0004d9af';
+
         __instance(this);
     }
 
