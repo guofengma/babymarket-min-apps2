@@ -139,7 +139,7 @@ export default class RequestWriteFactory {
     }
 
     //订单新增
-    static orderAddRequest(id, addressId,time) {
+    static orderAddRequest(id, addressId, time) {
         let operation = Operation.sharedInstance().orderAddOperation;
         let status = Network.sharedInstance().statusNew;
         let params = {
@@ -191,8 +191,18 @@ export default class RequestWriteFactory {
             "StatusKey": statusKey,
         };
 
-        let req = new RequestWrite(status, 'StoreOrder', params, null);
+        let req = new RequestWrite(status, 'Order', params, null);
         req.name = '修改订单状态';
+        return req;
+    }
+
+    //修改订单
+    static modifyOrder(requestData) {
+        let operation = Operation.sharedInstance().orderModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+
+        let req = new RequestWrite(status, 'Order', requestData, operation, null);
+        req.name = '修改订单';
         return req;
     }
 

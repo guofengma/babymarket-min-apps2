@@ -139,14 +139,14 @@ Page({
             viewCarts[groupPosition].groupSelected = false;
         }
         // 不能同时选中不同仓库的商品
-        for (let i = 0; i < viewCarts.length; i++) {
-            if (i != groupPosition) {
-                viewCarts[i].groupSelected = false;
-                for (let j = 0; j < viewCarts[i].carts.length; j++) {
-                    viewCarts[i].carts[j].childSelected = false;
-                }
-            }
-        }
+        // for (let i = 0; i < viewCarts.length; i++) {
+        //  if (i != groupPosition) {
+        //  viewCarts[i].groupSelected = false;
+        //  for (let j = 0; j < viewCarts[i].carts.length; j++) {
+        //     viewCarts[i].carts[j].childSelected = false;
+        //  }
+        //}
+        //   }
         this.setData({
             viewCarts: viewCarts,
         });
