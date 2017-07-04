@@ -50,6 +50,6 @@
     </view>
 </view>
 
-<template is="product-specification" data="{{visiable:showProductSpecification}}"/>
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle:innerTitle}}"/>
 
 

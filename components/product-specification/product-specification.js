@@ -18,6 +18,9 @@ export default class ProductSpecification {
         this.page.data.innerProduct = {};
         this.page.data.innerPrice = 0;
 
+        let title = '加入购物车';
+        this.page.data.innerTitle = title;
+
         let {Tool:t} = global;
         let {page:p} = this;
 
@@ -39,6 +42,16 @@ export default class ProductSpecification {
         }
 
         this.requestData();
+    }
+
+    updateTitle(){
+        let title = '加入购物车';
+        if (this.page.data.productSpecificationAction === 'Buy') {
+            title = '确认购买';
+        }
+        this.page.setData({
+            innerTitle:title,
+        })
     }
 
     requestData(){
@@ -74,6 +87,7 @@ export default class ProductSpecification {
             productSpecificationAction:action,
             showProductSpecification:true,
         })
+        this.updateTitle();
     }
 
     dismiss(){

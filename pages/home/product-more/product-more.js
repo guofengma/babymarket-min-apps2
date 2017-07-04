@@ -1,4 +1,8 @@
+
+import ProductSpecification from '../../../components/product-specification/product-specification';
+
 let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
+
 Page({
 
   /**
@@ -110,9 +114,18 @@ Page({
   onAddCartClickListener: function (e) {
       let productId = e.currentTarget.dataset.id;
       console.log(productId)
+
+      let self = this;
+      this.productSpecification = new ProductSpecification(this,productId);
+      this.productSpecification.finishBlock = (specificationId,product,count,price) => {
+          global.Tool.showAlert(specificationId);
+      };
+
+      this.productSpecification.showWithAction('ShoppingCart');
+
       //跳出数量规格选择界面
-      wx.navigateTo({
-          url: '/pages/product-specification/product-specification?productId=' + productId
-      })
+      // wx.navigateTo({
+      //     url: '/pages/product-specification/product-specification?productId=' + productId
+      // })
   }
 })

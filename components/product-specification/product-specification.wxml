@@ -34,7 +34,7 @@
                 <template is="adder-subtractor" data="{{count:2}}"/>
 
                 <view class="submit-btn-container">
-                    <template is="submit-btn" data="{{title:'购买'}}"/>
+                    <template is="submit-btn" data="{{title:innerTitle}}"/>
                 </view>
 
             </view>
