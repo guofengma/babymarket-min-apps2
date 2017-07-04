@@ -190,7 +190,7 @@ export default class RequestReadFactory {
     }
 
     //首页-一级分类商品
-    static homeOneSortProductRead(categoryId,maxCount) {
+    static homeOneSortProductRead(categoryId, maxCount) {
         let operation = Operation.sharedInstance().productReadOperation;
         let bodyParameters = {
             "Operation": operation,
@@ -217,7 +217,33 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '二级分类商品';
-        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit','Import'];
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        return req;
+    }
+
+    //专题查询
+    static specialRead() {
+        let operation = Operation.sharedInstance().specialReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Deleted": "False"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '专题查询';
+        req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes'];
+        //修改返回结果，为返回结果添加imageUrls字段
+        req.preprocessCallback = (req) => {
+            let Datas = req.responseObject.Datas;
+            let imageUrls = [];
+            if (global.Tool.isValidArr(Datas)) {
+                Datas.forEach((data) => {
+                    data.imageUrl = global.Tool.imageURLForId(data.ImgId);
+                    data.imageHeadUrl = global.Tool.imageURLForId(data.Img2Id);
+                    imageUrls.push(data);
+                });
+            }
+            req.responseObject.imageUrls = imageUrls;
+        }
         return req;
     }
 
