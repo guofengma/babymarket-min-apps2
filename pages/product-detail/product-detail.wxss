@@ -1,6 +1,7 @@
 @import '/pages/home/ad/home-ad.wxss';
 @import '/pages/product-detail/ad/product-ad.wxss';
 @import 'slogan/product-slogan.wxss';
+@import '/components/product-specification/product-specification.wxss';
 
 .root-view {
   display: flex;

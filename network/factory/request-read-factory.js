@@ -42,6 +42,52 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
         req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
+        req.preprocessCallback = (req,firstData) => {
+            if (global.Tool.isValidObject(firstData)) {
+                if (global.Storage.didLogin()) {
+                    let tempPrice = firstData.SalePrice;
+                    firstData.SalePrice = firstData.LYPrice;
+                    firstData.LYPrice = tempPrice;
+                }
+                else {
+                    firstData.LYPrice = "0";
+                }
+            }
+        }
+        return req;
+    }
+
+    /**
+     * 全部规格
+     */
+    static allSpecificationRead(theId){
+        let operation = Operation.sharedInstance().productSpecificationRead;
+        let bodyParameters = {
+            "Operation": operation,
+            "ProductId": theId,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '宝贝码头商品全部规格';//用于日志输出
+        return req;
+    }
+
+    /**
+     * 搜索规格
+     */
+    static searchSpecificationRead(theId,specificationsArray){
+        let operation = Operation.sharedInstance().productSpecificationRead;
+        let bodyParameters = {
+            "Operation": operation,
+            "ProductId": theId,
+        };
+        if (global.Tool.isValidArr(specificationsArray)) {
+            specificationsArray.forEach((detail) => {
+                let keyName = 'SpecificationItem'+ detail.SpecificationKey +'Id';
+                bodyParameters[keyName] = detail.Id;
+            });
+        }
+        let req = new RequestRead(bodyParameters);
+        req.name = '宝贝码头 搜索特定的规格';//用于日志输出
         return req;
     }
 
@@ -356,7 +402,7 @@ export default class RequestReadFactory {
             ]
         };
         let req = new RequestRead(bodyParameters);
-        req.name = '我的订单查询';
+        req.name = '订单详情查询';
         // req.items = ["Id", "OrderNo", "Money", "StatusKey", "Freight", "Due", "Discount", "ExpressSum", "Formal", "Qnty", "Tax", "Total", "Cross_Order", "Tax2", "CrossFee", "Credit", "UseCredit", "Balance", "UseBalance", "Money1", "Money2", "PaywayName", "BuyerCommission"];
         return req;
     }
@@ -379,6 +425,23 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '优惠劵查询';
         req.items = ["Id", "Money", "Useful_Line", "Min_Money", "Overdue", "Used"];
+        return req;
+    }
+
+    //商品收藏查询
+    static productFavRead(index) {
+        let operation = Operation.sharedInstance().favReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${CreateTime} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+            "MemberId": global.Storage.memberId(),
+            "FavoriteObjectType":'Product'
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '商品收藏查询';
+        req.items = ["Id", "Product_Name", "Price", "CreateTime", "ImgId"];
         return req;
     }
 }
