@@ -21,6 +21,9 @@ export default class Operation {
         //首页-分类
         this.homeSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
 
+        //搜索-热门搜索
+        this.searchHotReadOperation = 'c8abee85-11ab-0bba-1bcd-3c4701ec76cb';
+
         //专题
         this.specialReadOperation = '1120e650-629e-4af0-ab39-a650012db775';
 

@@ -16,7 +16,7 @@ Page({
         //一级分类数据
         oneSortData: null
     },
-    onLoad: function () { 
+    onLoad: function () {
         Tool.showLoading();
         this.requestOneSortData();
         this.requestHomeAdData();
@@ -215,11 +215,10 @@ Page({
      */
     onAddCartClickListener: function (e) {
         let productId = e.currentTarget.dataset.id;
-        console.log(productId)
 
         let self = this;
-        this.productSpecification = new ProductSpecification(this,productId);
-        this.productSpecification.finishBlock = (specificationId,product,count,price) => {
+        this.productSpecification = new ProductSpecification(this, productId);
+        this.productSpecification.finishBlock = (specificationId, product, count, price) => {
             global.Tool.showAlert(specificationId);
         };
 
@@ -238,6 +237,15 @@ Page({
         //跳到更多
         wx.navigateTo({
             url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
+        })
+    },
+    /**
+     * 搜索点击
+     */
+    searchClicked: function (e) {
+  //跳出搜索界面
+        wx.navigateTo({
+            url: '/pages/search/search'
         })
     }
 })

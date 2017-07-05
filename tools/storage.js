@@ -141,4 +141,25 @@ export default class Storage {
     static setSysInfo(sysInfo) {
         this.setterFor('sysInfo', sysInfo);
     }
+
+    /**
+     * 获取历史搜索记录
+     */
+    static getHistorySearch() {
+        return this.getterFor('historySearch');
+    }
+
+    /**
+     * 设置历史搜索记录
+     */
+    static setHistorySearch(historyData) {
+        this.setterFor('historySearch', historyData);
+    }
+
+    /**
+    * 清除历史搜索记录
+    */
+    static clearHistorySearch() {
+        this.setterFor('historySearch', null);
+    }
 }
