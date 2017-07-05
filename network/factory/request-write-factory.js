@@ -174,7 +174,8 @@ export default class RequestWriteFactory {
         let status = Network.sharedInstance().statusExisted;
         let params = {
             "Operation": operation,
-            "Id": id
+            "Id": id,
+            "Delete": "true"
         };
 
         let req = new RequestWrite(status, 'Order', params, null);

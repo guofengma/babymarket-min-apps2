@@ -5,6 +5,8 @@
 <!--分类-->
 <import src='cell-sort/cell-sort.wxml' />
 
+<import src='/components/product-specification/product-specification.wxml'/>
+
 <view class="root-view">
   <template is="tab-layout" data="{{items:oneSortData,currentTab}}" />
   <view class="swiper-view">
@@ -24,3 +26,5 @@
     </swiper>
   </view>
 </view>
+
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle:innerTitle}}"/>

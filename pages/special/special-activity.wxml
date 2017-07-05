@@ -1,2 +1,5 @@
-<!--special-activity.wxml-->
-<text>special-activity.wxml</text>
+<import src='/pages/special/cell-child/cell-child.wxml' />
+
+<view wx:for="{{specialData}}" wx:key="unique">
+  <template is="cell-child" data="{{...item,index:index}}" />
+</view>

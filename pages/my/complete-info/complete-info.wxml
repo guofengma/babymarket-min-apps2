@@ -1,6 +1,6 @@
 <!--complete-info.wxml-->
 
-<import src='/pages/my/cell/complete-info-cell.wxml' />
+<import src='/pages/my/cell/input-cell.wxml' />
 
 <view class="top-sepline"></view>
 

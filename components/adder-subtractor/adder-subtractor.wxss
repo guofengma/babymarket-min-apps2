@@ -1,0 +1,29 @@
+
+
+.adder-subtractor{
+    display: flex;
+    flex-direction: row;
+    width: 200rpx;
+    height: 60rpx;
+    border: 1rpx solid lightgray;
+    border-radius: 10rpx;
+}
+
+.adder-subtractor .subtractor{
+    display: flex;
+    flex: 0 0 auto;
+    height: 60rpx;
+    width: 60rpx
+}
+
+.adder-subtractor .adder{
+    display: flex;
+    flex: 0 0 auto;
+    height: 60rpx;
+    width: 60rpx
+}
+
+.adder-subtractor input{
+    display: flex;
+    flex: 1;
+}

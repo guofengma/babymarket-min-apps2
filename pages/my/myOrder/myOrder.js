@@ -1,6 +1,6 @@
 // myOrder.js
 
-let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
+let {Tool, Storage, RequestReadFactory, RequestWriteFactory, Event} = global;
 Page({
 
     /**
@@ -41,6 +41,7 @@ Page({
      */
     onLoad: function (options) {
         this.requestData();
+        Event.on('deleteOrderFinish', this.requestData, this)
     },
 
     /**
@@ -68,7 +69,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        Event.off('deleteOrderFinish', this.requestData)
     },
 
     /**

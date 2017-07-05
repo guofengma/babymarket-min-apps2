@@ -21,8 +21,14 @@ export default class Operation {
         //首页-分类
         this.homeSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
 
+        //专题
+        this.specialReadOperation = '1120e650-629e-4af0-ab39-a650012db775';
+
         //宝贝码头商品详情
         this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
+
+        //规格读取
+        this.productSpecificationRead = '3b61a23d-e130-00cd-320f-3c6800fbe982';
 
         //宝贝码头附件
         this.bmAttachmentsReadOperation = '7eba4898-2f70-05b4-0b17-009a002e71ad';
@@ -49,7 +55,7 @@ export default class Operation {
         this.cartDeleteOperation = 'cd0221ba-e321-0581-06f5-3c2401834522';
 
         //购物车视图
-        this.cartViewReadOperation ='0a8ed48f-088f-0ca3-0c43-3c290052b69b';
+        this.cartViewReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';
 
         //地址
         this.addressReadOperation = '881d520d-bb5d-04e2-29a8-3c29005a359b';
@@ -64,7 +70,7 @@ export default class Operation {
         this.couponReadOperation = 'ac4b38e9-45ce-0626-2fc2-3c3b000e731f';
 
         //订单
-        this.orderAddOperation ='c65c46b6-b12e-0e57-28fe-3c1900223872';
+        this.orderAddOperation = 'c65c46b6-b12e-0e57-28fe-3c1900223872';
         this.orderDeleteOperation = '';
         this.orderReadOperation = '481f0766-998d-003c-1727-3c1701e15fcb';
         this.orderModifyOperation = '51edceb5-4d37-0d8b-1043-3c1a01f6b85e';
@@ -79,6 +85,9 @@ export default class Operation {
         //提现
         this.withdrawAddOperation = '';
         this.withdrawReadOperation = '';
+
+        //收藏
+        this.favReadOperation = 'ad5b7994-a09c-0aa9-35fe-3c3b0004d9af';
 
         __instance(this);
     }

@@ -1,6 +1,6 @@
 <!--确定-->
 <template name="submit-btn">
     <view catchtap="submitBtnClicked" data-tag="{{tag}}" class="submit-btn">
-        <view>确定</view>
+        <view>{{title}}</view>
     </view>
 </template>

@@ -18,7 +18,6 @@
         "pages/my/withdraw/withdraw",
         "pages/my/withdraw-detail/withdraw-detail",
         "pages/special/special-activity",
-        "pages/product-specification/product-specification",
         "pages/my/my-fav/my-fav",
         "pages/my/invite-friends/invite-friends",
         "pages/address/address",
@@ -28,7 +27,15 @@
         "pages/home/product-more/product-more",
         "pages/coupon/coupon",
         "pages/coupon/select-coupon/select-coupon",
-        "pages/pay-success/pay-success"
+        "pages/pay-success/pay-success",
+        "pages/my/my-property/my-property",
+        "pages/my/my-award/my-award",
+        "pages/my/my-save/my-save",
+        "pages/my/my-qrcode/my-qrcode",
+        "pages/my/withdraw/bind-alipay/bind-alipay",
+        "pages/my/withdraw/withdraw-to-alipay/withdraw-to-alipay",
+        "pages/my/withdraw/pay-password-set/pay-password-set",
+        "pages/my/withdraw/withdraw-success/withdraw-success"
     ],
     "window": {
         "backgroundTextStyle": "light",

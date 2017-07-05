@@ -1,9 +1,4 @@
-// product-specification.js
-
-/**
- * 商品规格选择
- */
-
+// withdraw-success.js
 Page({
 
   /**

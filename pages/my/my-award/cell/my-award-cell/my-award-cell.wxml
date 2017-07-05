@@ -1,0 +1,7 @@
+<template name="my-award-cell">
+    <view class="bg-view">
+        <text class="name">分享奖励</text>
+        <text class="amount">+12</text>
+        <text class="time">07-03 13:25</text>
+    </view>
+</template>
