@@ -1,5 +1,5 @@
 // shopping-cart.js
-let {Tool, RequestReadFactory, RequestWriteFactory} = global;
+let {Tool, Event, RequestReadFactory, RequestWriteFactory} = global;
 Page({
 
     /**
@@ -13,6 +13,7 @@ Page({
 
         touchStart: 0,
         touchEnd: 0,
+        allSelected: false, //全选
     },
 
     /**
@@ -20,6 +21,14 @@ Page({
      */
     onLoad: function (options) {
         this.requestData();
+        Event.on('deleteCart', this.requestData, this)
+    },
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
+        Event.off('deleteCart', this.requestData)
     },
 
     /**
@@ -167,6 +176,26 @@ Page({
             viewCarts[groupPosition].carts[i].childSelected = selectAllStatus;
         }
         this.setData({
+            viewCarts: viewCarts,
+        });
+        this.getTotalPrice();
+    },
+
+    /**
+     * 所有商品全选
+     */
+    selectAll: function () {
+        let allSelected = this.data.allSelected;
+        let viewCarts = this.data.viewCarts;
+        allSelected = !allSelected;
+        for (let i = 0; i < viewCarts.length; i++) {
+            viewCarts[i].groupSelected = allSelected;
+            for (let j = 0; j < viewCarts[i].carts.length; j++) {
+                viewCarts[i].carts[j].childSelected = allSelected;
+            }
+        }
+        this.setData({
+            allSelected: allSelected,
             viewCarts: viewCarts,
         });
         this.getTotalPrice();

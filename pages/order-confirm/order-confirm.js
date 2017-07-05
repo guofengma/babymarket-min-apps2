@@ -1,5 +1,5 @@
 // 订单确认
-let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
+let {Tool, Storage, Event,RequestReadFactory, RequestWriteFactory} = global;
 
 Page({
 
@@ -11,7 +11,6 @@ Page({
         orderId: '', //订单id
         num: 0, // 0为无地址，1为有地址
         door: 0, //0为商品库进入，1为购物车进入
-        coupon: '选择优惠劵',
         isSelect: false,
         order: {}, //订单
         orders: [],//传来的选中的购物车商品
@@ -20,11 +19,19 @@ Page({
         creditChecked: true, // 授信开关
         balanceChecked: true, // 钱包开关
         isAirProduct: false, //是否是跨境
+
+        status: 0, // 0为未选择优惠劵 1为选择了优惠劵
+        couponData:{
+            CouponId:'',
+            Discount: '',
+            money:'选择优惠劵',
+        },
         addressData: {
             Consignee: '请添加地址',
             Mobile: '',
             Address: '您还没有添加收货地址，赶紧加一个',
             addressId: '',
+            Card:'',
         },
         settlementList: [
             {
@@ -72,6 +79,26 @@ Page({
     },
 
     /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
+        let status = this.data.status;
+        let door=this.data.door;
+        let order = this.data.order;
+        let CouponId = this.data.couponData.CouponId;
+        if (status == 1) {
+            let requestData = {
+                Id: order.Id,
+                CouponId: CouponId,
+            };
+            this.modifyOrder(requestData, order, door); 
+        }
+        this.setData({
+            status: 0
+        })
+    },
+
+    /**
      * 数据请求
      */
     requestData: function () {
@@ -94,6 +121,7 @@ Page({
                         Mobile: address.Mobile,
                         Address: address.Address,
                         addressId: address.Id,
+                        Card: address.Card,
                     },
                     num: 1,
                 });
@@ -169,17 +197,17 @@ Page({
             if (datas.length > 0) {
                 let order = datas[0];
                 // 判断是否使用授信
-                creditChecked = this.isUseCredit();
+                creditChecked = this.isUseCredit(order.UseCredit);
                 // 判断是否使用钱包
-                balanceChecked = this.isUseBalance();
+                balanceChecked = this.isUseBalance(order.UseBalance);
                 // 跨境订单，授信和余额为false，不能点
                 if (order.Cross_Order === "True") {
                     isAirProduct = true;
                     creditChecked = false;
                     balanceChecked = false;
                 }
-                creditChecked = self.setCredit(order, order.Credit, order.Money1, this.isUseCredit());
-                balanceChecked = self.setBalance(order, order.Balance, order.Money2, this.isUseBalance());
+                creditChecked = self.setCredit(order, order.Credit, order.Money1, this.isUseCredit(order.UseCredit));
+                balanceChecked = self.setBalance(order, order.Balance, order.Money2, this.isUseBalance(order.UseBalance));
                 self.setData({
                     'settlementList[0].value': '¥' + order.Money,
                     'settlementList[1].value': '-¥' + order.Discount,
@@ -196,6 +224,35 @@ Page({
         }
         r.addToQueue();
 
+    },
+
+    /**
+     * 修改订单
+     */
+    modifyOrder: function (requestData, order, door) {
+        let self = this;
+        let r = RequestWriteFactory.modifyOrder(requestData);
+        r.finishBlock = (req) => {
+            if (order.Formal === "True" && global.Tool.isValidStr(order.Due)) {
+                // 订单新增成功，跳转到支付界面
+                wx.setStorage({
+                    key: 'order',
+                    data: order,
+                    success: function (res) {
+                        wx.navigateTo({
+                            url: '../pay-method/pay-method',
+                        })
+                    }
+                })
+                //如果从购物车进来，通知购物车刷新数据
+                if (door === 1) {
+                    Event.emit('deleteCart');//发出通知
+                }
+            } else {
+                self.requestOrderDetail();
+            }
+        }
+        r.addToQueue();
     },
 
     /**
@@ -233,19 +290,26 @@ Page({
      */
     addOrder: function () {
         let num = this.data.num;
+        let order=this.data.order;
+        let isAirProduct = this.data.isAirProduct;
+        let Card = this.data.addressData.Card;
         let self = this;
         // 判断有无地址
         if (num == 1) {
             // 有地址
-            wx.showModal({
-                title: '提示',
-                content: '确认提交订单吗？',
-                success: function (res) {
-                    if (res.confirm) {
-                        self.submitOrder();
+            if (isAirProduct && global.Tool.isValidStr(Card)){
+                global.Tool.showAlert("跨境商品请使用实名认证地址!");
+            }else{
+                wx.showModal({
+                    title: '提示',
+                    content: '确认提交订单吗？',
+                    success: function (res) {
+                        if (res.confirm) {
+                            self.submitOrder();
+                        }
                     }
-                }
-            })
+                })
+            }
         } else {
             //无地址
             wx.showModal({
@@ -262,6 +326,22 @@ Page({
         }
     },
 
+    /**
+     * 更新为正式订单
+     */
+    submitOrder:function(){
+        let door=this.data.door;
+        let order=this.data.order;
+        let CouponId = this.data.couponData.CouponId;
+        let Discount = this.data.couponData.Discount;
+        order.Formal="True";
+        order.Delivery_AddressId = this.data.addressData.addressId;
+        if (global.Tool.isValidStr(CouponId)){
+            order.CouponId = this.data.couponData.CouponId;
+            order.Discount = this.data.couponData.Discount;
+        }
+        this.modifyOrder(order, order, door);
+    },
 
     /**
      * 选择地址
@@ -319,44 +399,60 @@ Page({
         })
         // 设置授信和钱包的数据
         this.setCredit(order, order.Credit, self.getMoney1Value(), creditChecked);
-        this.setBalance(order, order.Balance, self.getMoney2Value(), self.isUseBalance());
+        this.setBalance(order, order.Balance, self.getMoney2Value(), self.isUseBalance(order.UseBalance));
         // 设置支付金额
         this.getTrueMoney();
         // 修改订单
         let requestData = {
             Id: order.Id,
-            setUseCredit: isCredit,
+            UseCredit: order.UseCredit,
         };
-        let r = RequestWriteFactory.modifyOrder(requestData);
-        r.finishBlock = (req) => {
-            if (order.Formal === "True" && global.Tool.isValidStr(order.Due)) {
-                // 订单新增成功，跳转到支付界面
-                wx.setStorage({
-                    key: 'order',
-                    data: order,
-                    success: function (res) {
-                        wx.navigateTo({
-                            url: '../pay-method/pay-method',
-                        })
-                    }
-                })
-                //如果从购物车进来，通知购物车刷新数据
-                if (door === 1) {
-                  
-                }
-            } else {
-                self.requestOrderDetail();
-            }
+        this.modifyOrder(requestData, order, door);
+    },
+
+    /**
+     * 钱包开关的操作
+     */
+    balanceSwitch: function () {
+        let isAirProduct = this.data.isAirProduct;
+        let balanceChecked = this.data.balanceChecked;
+        let order = this.data.order;
+        let door = this.data.door;
+        let self = this;
+        balanceChecked = !balanceChecked;
+        // 跨境商品不能使用钱包
+        if (isAirProduct) {
+            balanceChecked = false;
         }
-        r.addToQueue();
+        // 余额小于0不能使用钱包
+        if (parseFloat(order.Balance) <= 0) {
+            balanceChecked = false;
+        }
+        order.UseBalance = this.getBooleanValue(balanceChecked);
+        // 设置状态
+        this.setData({
+            balanceChecked: balanceChecked,
+            order: order,
+        })
+        // 设置授信和钱包的数据
+        this.setCredit(order, order.Credit, self.getMoney1Value(), self.isUseCredit(order.UseCredit));
+        this.setBalance(order, order.Balance, self.getMoney2Value(), balanceChecked);
+        // 设置支付金额
+        this.getTrueMoney();
+        // 修改订单
+        let requestData = {
+            Id: order.Id,
+            UseBalance: order.UseBalance,
+        };
+        this.modifyOrder(requestData, order, door);
     },
 
     /**
      * 判断是否使用授信
      */
-    isUseCredit: function () {
+    isUseCredit: function (UseCredit) {
         let isEnabled = false;
-        if (order.UseCredit === "True") {
+        if (UseCredit === "True") {
             isEnabled = true;
         } else {
             isEnabled = false;
@@ -367,9 +463,9 @@ Page({
     /**
      * 判断是否使用钱包
      */
-    isUseBalance: function () {
+    isUseBalance: function (UseBalance) {
         let isEnabled = false;
-        if (order.UseBalance === "True") {
+        if (UseBalance === "True") {
             isEnabled = true;
         } else {
             isEnabled = false;
@@ -380,7 +476,7 @@ Page({
     /**
      * 将布尔值转成字符串
      */
-    getBooleanValue: function (creditChecked){
+    getBooleanValue: function (creditChecked) {
         let isCredit = "";
         if (creditChecked) {
             isCredit = "True";
@@ -407,7 +503,7 @@ Page({
         let order = this.data.order;
         let total = parseFloat(order.Total);
         let self = this;
-        if (this.isUseCredit()) {
+        if (this.isUseCredit(order.UseCredit)) {
             let credit = this.getMoney1Value();
             let balance = total - credit;
             return balance > 0 ? balance : 0;

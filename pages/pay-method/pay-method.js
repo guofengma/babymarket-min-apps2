@@ -5,14 +5,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        ways: [{
-            image: "/res/img/pay-method/pay-method-weixin-icon.png",
-            value: "微信支付",
-            selected: true,
-        }],  // 选择支付方式
-
-        money: "",// 支付金额
-        order:{},
+        order: {},
+        infos: [],
     },
 
     /**
@@ -23,21 +17,62 @@ Page({
         wx.getStorage({
             key: 'order',
             success: function (res) {
+                let order = res.data;
+                let infos = self.setInfoData(order);
                 self.setData({
-                    order: res.data,
-                    money: res.data.Total,
+                    order: order,
+                    infos: infos,
                 })
             },
         })
     },
 
     /**
+     * 设置支付明细
+     */
+    setInfoData: function (order) {
+        let infos = this.data.infos;
+        if (order.Discount != "0") {
+            let child = {
+                title: "优惠劵",
+                value: order.Discount,
+            }
+            infos.splice(infos.length, 0, child);
+        }
+        if (order.Money1 != "0") {
+            let child = {
+                title: "授信支付",
+                value: order.Money1,
+            }
+            infos.splice(infos.length, 0, child);
+        }
+        if (order.Money2 != "0") {
+            let child = {
+                title: "钱包支付",
+                value: order.Money2,
+            }
+            infos.splice(infos.length, 0, child);
+        }
+        if (parseFloat(order.Due) > 0) {
+            let child = {
+                title: "微信支付",
+                value: order.Due,
+            }
+            infos.splice(infos.length, 0, child);
+        }
+
+        return infos;
+    },
+
+    /**
      * 确认支付
      */
     pay: function () {
-        let no = this.data.order.SerialNumber;
-        let money = this.data.order.Total;
-        let id = this.data.order.Id;
+        let order = this.data.order;
+        let infos = this.data.infos;
+        let no = order.OrderNo;
+        let money = order.Total;
+        let id = order.Id;
         let self = this;
         /**
          *   wx.requestPayment({
@@ -58,8 +93,14 @@ Page({
 
         })
          */
-        wx.navigateTo({
-            url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&way=微信支付&id=' + id,
+        wx.setStorage({
+            key: 'infos',
+            data: infos,
+            success: function (res) {
+                wx.navigateTo({
+                    url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&id=' + id,
+                })
+            }
         })
     },
 

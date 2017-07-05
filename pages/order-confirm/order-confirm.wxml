@@ -23,7 +23,7 @@
   <view class="coupon" catchtap="selectCoupon">
     <text class="coupon-text">优惠劵</text>
     <view class="coupon-select">
-      <text class="{{isSelect==false?'couponDefault':'couponSelect'}}">{{coupon}}</text>
+      <text class="{{isSelect==false?'couponDefault':'couponSelect'}}">{{couponData.money}}</text>
       <image src="/res/img/my/my-address-arrow-icon.png" class="order-address-arrow" mode="aspectFit"></image>
     </view>
   </view>

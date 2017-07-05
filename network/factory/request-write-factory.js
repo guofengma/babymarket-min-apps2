@@ -89,7 +89,7 @@ export default class RequestWriteFactory {
     }
 
     //新增地址
-    static addAddress(name, mobile, area, address, areaId, card) {
+    static addAddress(id,name, mobile, area, address, areaId, card) {
         let operation = Operation.sharedInstance().addressAddOperation;
         let status = Network.sharedInstance().statusNew;
         let params = {
@@ -104,6 +104,7 @@ export default class RequestWriteFactory {
             "DistrictId": areaId,
             "Card": card,
             "Name": "未指定",
+            "Id":id,
         };
 
         let req = new RequestWrite(status, 'Delivery_address', params, null);

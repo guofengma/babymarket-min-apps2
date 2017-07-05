@@ -48,7 +48,6 @@ Page({
                     addresses: datas,
                 });
             }
-            this.setStatus();
         }
         r.addToQueue();
     },
@@ -71,6 +70,7 @@ Page({
                     Mobile: address.Mobile,
                     Address: address.Address,
                     addressId: address.Id,
+                    Card: address.Card,
                 },
             })
             wx.navigateBack({
