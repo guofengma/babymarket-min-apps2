@@ -13,14 +13,14 @@
   height: 200rpx;
   background: white;
   border-bottom: 10rpx solid #f5f7f7;
-  border-top: 10rpx solid #f5f7f7;
 }
 
-.top, .bottom {
+.top {
   display: flex;
+  align-items: center;
 }
 
-.top-icon, .way-select {
+.top-icon {
   width: 25rpx;
   height: 25rpx;
 }
@@ -28,36 +28,50 @@
 .top-text {
   font-size: 34rpx;
   margin-left: 10rpx;
-  color: #000406;
+  color: #1a1c1f;
 }
 
 .center-text {
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  font-size: 24rpx;
-  color: #000406;
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  color: #1a1c1f;
 }
 
-.bottom-text {
-  font-size: 24rpx;
-  color: #000406;
+.no {
+  display: flex;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  align-items: center;
 }
 
-.bottom-money {
-  font-size: 24rpx;
-  color: #e73962;
+.money {
+  display: flex;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  border-bottom: 10rpx solid #f5f7f7;
+  align-items: center;
 }
 
-.pay-way {
+.info-no-title {
+  font-size: 30rpx;
+  color: #7d7f81;
+}
+
+.info-no-value {
+  font-size: 30rpx;
+  color: #454950;
+}
+
+.pay-info {
   display: flex;
   flex-direction: column;
   background: white;
 }
 
-.pay-way-text {
+.pay-info-text {
   padding: 20rpx 20rpx 20rpx 20rpx;
-  font-size: 28rpx;
-  color: #000406;
+  font-size: 24rpx;
+  color: #7d7f81;
 }
 
 .divide {
@@ -66,23 +80,22 @@
   background: gainsboro;
 }
 
-.pay-way-list {
+.pay-info-list {
   display: flex;
   background: white;
   padding: 20rpx 20rpx 20rpx 20rpx;
   align-items: center;
 }
 
-.pay-way-img {
-  height: 51rpx;
-  width: 64rpx;
+.pay-info-title {
+  font-size: 28rpx;
+  color: #454950;
 }
 
-.pay-way-value {
+.pay-info-value {
   font-size: 28rpx;
-  color: #3c3d3d;
-  flex-grow: 1;
-  margin-left: 20rpx;
+  color: #454950;
+  margin-left: 30rpx;
 }
 
 .pay-footer {
@@ -93,11 +106,11 @@
 
 .pay-bt {
   color: white;
-  background: #e73962;
+  background: #af8327;
   border-radius: 10rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
   margin: 20rpx 20rpx 20rpx 20rpx;
-  height: 90rpx;
+  height: 70rpx;
   justify-content: center;
   display: flex;
   align-items: center;

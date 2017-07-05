@@ -20,7 +20,25 @@
   height: 90rpx;
   background: white;
   z-index: 20;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.left-select {
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+
+.left-text {
+  font-size: 24rpx;
+  color: #7d7f81;
 }
 
 .cart-total-order {

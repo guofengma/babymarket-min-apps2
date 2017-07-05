@@ -131,7 +131,8 @@ Page({
      */
     add: function (addressname, addressmobile, addressdetail, addressidentity) {
         let area = this.data.area;
-        let r = RequestWriteFactory.addAddress(addressname, addressmobile, area.FullName, addressdetail, area.Id, addressidentity);
+        let id = global.Tool.guid();
+        let r = RequestWriteFactory.addAddress(id,addressname, addressmobile, area.FullName, addressdetail, area.Id, addressidentity);
         r.finishBlock = (req) => {
             let pages = getCurrentPages();
             let pageBOne = pages[pages.length - 2];// 前一页
@@ -142,6 +143,8 @@ Page({
                         Consignee: addressname,
                         Mobile: addressmobile,
                         Address: area.FullName + addressdetail,
+                        addressId: id,
+                        Card: addressidentity,
                     },
                     num: 1,
                 })
