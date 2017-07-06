@@ -11,7 +11,6 @@
         "pages/order-confirm/order-confirm",
         "pages/my/orderDetail/orderDetail",
         "pages/my/delivery-info/delivery-info",
-        "pages/my/complete-info/complete-info",
         "pages/pay-method/pay-method",
         "pages/my/agreement/agreement",
         "pages/my/about-me/about-me",
