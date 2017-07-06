@@ -491,4 +491,34 @@ export default class RequestReadFactory {
         req.name = '我的资产查询';
         return req;
     }
+
+    //收到的奖励查询
+    static awardRead(index) {
+        let operation = Operation.sharedInstance().awardReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${OrderDate} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '收到的奖励查询';
+        return req;
+    }
+
+    //已省金额查询
+    static saveRead(index) {
+        let operation = Operation.sharedInstance().saveReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${OrderDate} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '已省金额查询';
+        return req;
+    }
 }

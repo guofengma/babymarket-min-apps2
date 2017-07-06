@@ -1,5 +1,5 @@
 /* my-save.wxss */
-@import '/pages/my/my-award/cell/my-award-cell/my-award-cell.wxss';
+@import '/pages/my/my-save/cell/my-save-cell/my-save-cell.wxss';
 
 .top-view {
   height: 350rpx;
