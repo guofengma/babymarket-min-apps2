@@ -89,8 +89,25 @@ export default class Operation {
         this.withdrawAddOperation = '';
         this.withdrawReadOperation = '';
 
+        //支付宝账号
+        this.alipayAccountAddOperation = '89f9cea6-ffa1-47c5-afe0-a75f00fee459';
+        this.alipayAccountReadOperation = '6b3453e1-4643-4a57-a4d9-a75f00ff120d';
+
         //收藏
         this.favReadOperation = 'ad5b7994-a09c-0aa9-35fe-3c3b0004d9af';
+
+        //提现
+        this.withdrawAddOperation = '22572f16-f23c-0907-11f1-3e570121be67';
+        this.withdrawReadOperation = '2ec381c4-c12f-4938-8f9f-a75c009f612d';
+
+        //验证码
+        this.verifyCodeAddOperation = '47d7a940-ab9e-04dc-2029-3c2701c073ba';
+
+        //支付密码
+        this.payPasswordAddOperation = 'd398c8f4-195e-4135-bbf4-a75f00fcc241';
+
+        //我的资产
+        this.balanceLogMonthReadOperation = 'a0d1c6cb-0618-008d-3073-3e5e0059b80b';
 
         __instance(this);
     }

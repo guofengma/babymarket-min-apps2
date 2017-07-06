@@ -3,7 +3,7 @@
 
 <view class="top-view">
   <text class="current">当前最大可提现金额：</text>
-  <text class="amount">2000元</text>
+  <text class="amount">{{maxAmount}}元</text>
 </view>
 
 <form bindsubmit="formSubmit">

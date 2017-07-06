@@ -1,22 +1,28 @@
 // withdraw-to-alipay.js
+let {Tool, RequestWriteFactory, Event} = global;
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        maxAmount:'',
+        name:'',
+        account:'',
         datas: [
             {
-                'inputName': 'name',
+                'inputName': 'amount',
                 'title': '提现金额:',
                 'placeholder': '暂不收取手续费',
                 'value': ''
             },
             {
-                'inputName': 'account',
+                'inputName': 'password',
                 'title': '支付密码:',
                 'placeholder': '请输入支付密码',
-                'value': ''
+                'value': '',
+                'password':true
             }
         ],
     },
@@ -25,7 +31,20 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let self = this;
+        wx.getStorage({
+            key: 'memberInfo',
+            success: function(res) {
+                self.setData({
+                    maxAmount:res.data.Balance 
+                })
+            },
+        })
 
+        self.setData({
+            name: options.name,
+            account: options.account,
+        })
     },
 
     /**
@@ -90,16 +109,37 @@ Page({
      * 提交
      */
     formSubmit: function (e) {
-        // let value = e.detail.value;
-        // let name = value.name;
-        // let account = value.account;
+        let value = e.detail.value;
+        let amount = value.amount;
+        let password = value.password;
 
-        // console.log('-----name: ' + name);
-        // console.log('-----account: ' + account);
+        if (Tool.isEmptyStr(amount)) {
+            Tool.showAlert("请填写提现金额");
+            return;
+        }
 
-        wx.navigateTo({
-            url: '../withdraw-success/withdraw-success',
-        })
+        if (Tool.isEmptyStr(password)) {
+            Tool.showAlert("请填写支付密码");
+            return;
+        }
+
+        if (amount > this.data.maxAmount){
+            Tool.showAlert("超过最大提现金额");
+            return;
+        }
+
+        let r = RequestWriteFactory.withdrawAdd(this.data.account, amount, password, this.data.name);
+        r.finishBlock = (req) => {
+
+            //刷新提现明细页面
+            Event.emit('addWithdrawFinish');//发出通知
+
+            wx.redirectTo({
+                url: '../withdraw-success/withdraw-success',
+            })
+
+        };
+        r.addToQueue();
     }
 
 })
