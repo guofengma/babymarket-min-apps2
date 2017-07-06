@@ -42,7 +42,7 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
         req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
-        req.preprocessCallback = (req,firstData) => {
+        req.preprocessCallback = (req, firstData) => {
             if (global.Tool.isValidObject(firstData)) {
                 if (global.Storage.didLogin()) {
                     let tempPrice = firstData.SalePrice;
@@ -60,7 +60,7 @@ export default class RequestReadFactory {
     /**
      * 全部规格
      */
-    static allSpecificationRead(theId){
+    static allSpecificationRead(theId) {
         let operation = Operation.sharedInstance().productSpecificationRead;
         let bodyParameters = {
             "Operation": operation,
@@ -74,7 +74,7 @@ export default class RequestReadFactory {
     /**
      * 搜索规格
      */
-    static searchSpecificationRead(theId,specificationsArray){
+    static searchSpecificationRead(theId, specificationsArray) {
         let operation = Operation.sharedInstance().productSpecificationRead;
         let bodyParameters = {
             "Operation": operation,
@@ -82,7 +82,7 @@ export default class RequestReadFactory {
         };
         if (global.Tool.isValidArr(specificationsArray)) {
             specificationsArray.forEach((detail) => {
-                let keyName = 'SpecificationItem'+ detail.SpecificationKey +'Id';
+                let keyName = 'SpecificationItem' + detail.SpecificationKey + 'Id';
                 bodyParameters[keyName] = detail.Id;
             });
         }
@@ -267,6 +267,20 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //热门搜索查询
+    static hotSearchRead() {
+        let operation = Operation.sharedInstance().searchHotReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '20',
+            "Order": "${Count} DESC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '热门搜索查询';
+        req.items = ['Id', 'Keyword', 'HightLight', 'DateTime'];
+        return req;
+    }
+
     //专题查询
     static specialRead() {
         let operation = Operation.sharedInstance().specialReadOperation;
@@ -437,7 +451,7 @@ export default class RequestReadFactory {
             "MaxCount": '2',
             "StartIndex": index,
             "MemberId": global.Storage.memberId(),
-            "FavoriteObjectType":'Product'
+            "FavoriteObjectType": 'Product'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '商品收藏查询';

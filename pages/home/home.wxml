@@ -1,3 +1,5 @@
+<!--搜索-->
+<import src='/components/search-field/search-field.wxml' />
 <!--顶部导航栏-->
 <import src='tab-layout/tab-layout.wxml' />
 <!--首页-->
@@ -5,9 +7,12 @@
 <!--分类-->
 <import src='cell-sort/cell-sort.wxml' />
 
-<import src='/components/product-specification/product-specification.wxml'/>
+<import src='/components/product-specification/product-specification.wxml' />
 
 <view class="root-view">
+  <view class="search-bar">
+    <template is="search-field" />
+  </view>
   <template is="tab-layout" data="{{items:oneSortData,currentTab}}" />
   <view class="swiper-view">
     <swiper class="swiper-container" bindchange="onTabChangeListener" current="{{currentTab}}">
@@ -27,4 +32,4 @@
   </view>
 </view>
 
-<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle:innerTitle}}"/>
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle:innerTitle}}" />
