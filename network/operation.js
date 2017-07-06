@@ -109,6 +109,12 @@ export default class Operation {
         //我的资产
         this.balanceLogMonthReadOperation = 'a0d1c6cb-0618-008d-3073-3e5e0059b80b';
 
+        //我收到的奖励
+        this.awardReadOperation = '82f1f24c-e796-4d4c-8afb-a75c009c282d';
+
+        //已省金额
+        this.saveReadOperation = 'def432e0-c6b8-4bef-8ed3-a75c009c3aed';
+
         __instance(this);
     }
 

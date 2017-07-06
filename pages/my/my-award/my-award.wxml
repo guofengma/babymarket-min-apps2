@@ -4,9 +4,9 @@
 <!--top view-->
 <view class="top-view">
   <text class="balance-text">收到奖励（元）</text>
-  <text class="balance-value">¥55</text>
+  <text class="balance-value">¥{{award}}</text>
 </view>
 
 <block wx:for="{{listDatas}}" wx:key="unique">
-    <template is="my-award-cell"></template>
+    <template is="my-award-cell" data="{{...item}}"></template>
 </block>
