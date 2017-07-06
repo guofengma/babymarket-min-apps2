@@ -1,12 +1,12 @@
 <template name="my-property-cell">
   <view class="bg-view">
     <view class="left-view">
-      <text class="date">04-21</text>
-      <text class="time">14:50</text>
+      <text class="date">{{datas.date}}</text>
+      <text class="time">{{datas.time}}</text>
     </view>
     <view class="right-view">
-        <text class="amount">20</text>
-        <text class="detail">分享奖励</text>
+        <text class="amount">{{datas.Money}}</text>
+        <text class="detail">{{datas.Title}}</text>
     </view>
   </view>
 </template>
