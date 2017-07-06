@@ -1,4 +1,5 @@
 // 支付方式
+let {RequestWriteFactory} = global;
 Page({
 
     /**
@@ -65,6 +66,26 @@ Page({
     },
 
     /**
+    * 修改订单
+    */
+    modifyOrder: function (requestData, infos, no, money, id) {
+        let self = this;
+        let r = RequestWriteFactory.modifyOrder(requestData);
+        r.finishBlock = (req) => {
+            wx.setStorage({
+                key: 'infos',
+                data: infos,
+                success: function (res) {
+                    wx.redirectTo({
+                        url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&id=' + id,
+                    })
+                }
+            })
+        }
+        r.addToQueue();
+    },
+
+    /**
      * 确认支付
      */
     pay: function () {
@@ -73,8 +94,9 @@ Page({
         let no = order.OrderNo;
         let money = order.Total;
         let id = order.Id;
-        let self = this;
-        /**
+        if (parseFloat(order.Due) > 0) {
+            // 微信支付 
+            /**
          *   wx.requestPayment({
             timeStamp: res.data.timestamp,
             nonceStr: res.data.nonceStr,
@@ -93,15 +115,11 @@ Page({
 
         })
          */
-        wx.setStorage({
-            key: 'infos',
-            data: infos,
-            success: function (res) {
-                wx.navigateTo({
-                    url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&id=' + id,
-                })
-            }
-        })
+        } else {
+            // 不需要微信支付的,修改订单装填为已支付
+            order.StatusKey = "1";
+            this.modifyOrder(order, infos, no, money, id);
+        }
     },
 
     /**

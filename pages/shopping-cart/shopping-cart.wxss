@@ -38,7 +38,7 @@
 
 .left-text {
   font-size: 24rpx;
-  color: #7d7f81;
+  color: #454950;
 }
 
 .cart-total-order {

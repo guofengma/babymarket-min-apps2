@@ -41,7 +41,6 @@ Page({
         this.setData({
             noData: noData,
         });
-
     },
 
     /**

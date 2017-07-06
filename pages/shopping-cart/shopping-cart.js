@@ -102,6 +102,7 @@ Page({
                 self.setData({
                     viewCarts: viewCarts,
                 });
+                self.getTotalPrice();
             }
         }
         r.addToQueue();
