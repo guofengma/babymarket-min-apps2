@@ -95,7 +95,6 @@ Page({
                         datas[i].expired = true;
                     }
                 }
-
                 self.setData({
                     hasData: true,
                     couponList: datas,

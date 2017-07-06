@@ -11,14 +11,13 @@ Page({
         orderId: '', //订单id
         num: 0, // 0为无地址，1为有地址
         door: 0, //0为商品库进入，1为购物车进入
-        isSelect: false,
         order: {}, //订单
         orders: [],//传来的选中的购物车商品
         isInsideMember: false,// 是否是内部会员
 
         creditChecked: true, // 授信开关
         balanceChecked: true, // 钱包开关
-        isAirProduct: false, //是否是跨境
+        isAirProduct: false, //是否是跨境商品
 
         status: 0, // 0为未选择优惠劵 1为选择了优惠劵
         couponData: {
@@ -235,15 +234,7 @@ Page({
         r.finishBlock = (req) => {
             if (order.Formal === "True" && global.Tool.isValidStr(order.Due)) {
                 // 订单新增成功，跳转到支付界面
-                wx.setStorage({
-                    key: 'order',
-                    data: order,
-                    success: function (res) {
-                        wx.redirectTo({
-                            url: '../pay-method/pay-method',
-                        })
-                    }
-                })
+                self.goConfirmPay(order);
                 //如果从购物车进来，通知购物车刷新数据
                 if (door === 1) {
                     Event.emit('deleteCart');//发出通知
@@ -253,6 +244,21 @@ Page({
             }
         }
         r.addToQueue();
+    },
+
+    /**
+     * 进入确认支付
+     */
+    goConfirmPay: function (order) {
+        wx.setStorage({
+            key: 'order',
+            data: order,
+            success: function (res) {
+                wx.redirectTo({
+                    url: '../pay-method/pay-method?door=0',
+                })
+            }
+        })
     },
 
     /**

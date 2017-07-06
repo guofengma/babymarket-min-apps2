@@ -254,6 +254,7 @@ Page({
         let selectNum = 0;
         let viewCarts = this.data.viewCarts;
         let selectCarts = [];
+        let self = this;
         for (let i = 0; i < viewCarts.length; i++) {
             for (let j = 0; j < viewCarts[i].carts.length; j++) {
                 if (viewCarts[i].carts[j].childSelected) {
@@ -264,23 +265,29 @@ Page({
             }
         }
         if (selectNum > 0) {
-            wx.setStorage({
-                key: 'selectCarts',
-                data: selectCarts,
-                success: function (res) {
-                    wx.navigateTo({
-                        url: '../order-confirm/order-confirm?door=1',
-                    })
-                }
-            })
-
+            self.goConfirm(selectCarts);
         } else {
             global.Tool.showAlert("请选择购物车商品");
         }
     },
 
     /**
-     * 进入商品详情
+     * 进入确认订单
+     */
+    goConfirm: function (selectCarts) {
+        wx.setStorage({
+            key: 'selectCarts',
+            data: selectCarts,
+            success: function (res) {
+                wx.navigateTo({
+                    url: '../order-confirm/order-confirm?door=1',
+                })
+            }
+        })
+    },
+
+    /**
+     * 进入商品详情或长按删除
      */
     goDetail: function (e) {
         let groupPosition = e.currentTarget.dataset.groupPosition;
@@ -289,51 +296,74 @@ Page({
         let touchTime = this.data.touchEnd - this.data.touchStart;
         let self = this;
         if (touchTime > 350) {
-            let requestData = {
-                "Id": viewCarts[groupPosition].carts[childPosition].Id,
-            }
-            wx.showModal({
-                title: '提示',
-                content: '确定删除吗？',
-                success: function (res) {
-                    if (res.confirm) {
-                        let r = RequestWriteFactory.deleteCart(requestData);
-                        r.finishBlock = (req) => {
-                            viewCarts[groupPosition].carts.splice(childPosition, 1);
-                            // 判断仓库下是否还有商品
-                            if (viewCarts[groupPosition].carts.length <= 0) {
-                                viewCarts.splice(groupPosition, 1);
-                            }
-                            self.setData({
-                                viewCarts: viewCarts,
-                            });
-                            // 判断购物车下是否还有商品
-                            if (!viewCarts.length) {
-                                self.setData({
-                                    hasList: false
-                                });
-                            } else {
-                                self.getTotalPrice();
-                            }
-                        }
-                        r.addToQueue();
-                    }
-                }
-            })
+            // 删除购物车
+            self.deleteCart(viewCarts, groupPosition, childPosition);
         } else {
-            wx.navigateTo({
-                url: '../product-detail/product-detail?productId=' + viewCarts[groupPosition].carts[childPosition].ProductId
-            })
+            // 点击详情
+            let productId = viewCarts[groupPosition].carts[childPosition].ProductId;
+            self.goProductDetail(productId);
         }
     },
-    //按下事件开始  
+
+    /**
+     * 删除购物车
+     */
+    deleteCart: function (viewCarts, groupPosition, childPosition) {
+        let requestData = {
+            "Id": viewCarts[groupPosition].carts[childPosition].Id,
+        };
+        let self = this;
+        wx.showModal({
+            title: '提示',
+            content: '确定删除吗？',
+            success: function (res) {
+                if (res.confirm) {
+                    let r = RequestWriteFactory.deleteCart(requestData);
+                    r.finishBlock = (req) => {
+                        viewCarts[groupPosition].carts.splice(childPosition, 1);
+                        // 判断仓库下是否还有商品
+                        if (viewCarts[groupPosition].carts.length <= 0) {
+                            viewCarts.splice(groupPosition, 1);
+                        }
+                        self.setData({
+                            viewCarts: viewCarts,
+                        });
+                        // 判断购物车下是否还有商品
+                        if (!viewCarts.length) {
+                            self.setData({
+                                hasList: false
+                            });
+                        } else {
+                            self.getTotalPrice();
+                        }
+                    }
+                    r.addToQueue();
+                }
+            }
+        })
+    },
+
+    /**
+     * 进入详情
+     */
+    goProductDetail: function (productId) {
+        wx.navigateTo({
+            url: '../product-detail/product-detail?productId=' + productId
+        })
+    },
+
+    /**
+     * 按下事件开始
+     */
     mytouchstart: function (e) {
         this.setData({
             touchStart: e.timeStamp
         })
     },
 
-    //按下事件结束  
+    /**
+     * 按下事件结束
+     */
     mytouchend: function (e) {
         this.setData({
             touchEnd: e.timeStamp

@@ -1,5 +1,5 @@
 // 支付方式
-let {RequestWriteFactory} = global;
+let {Event,RequestWriteFactory} = global;
 Page({
 
     /**
@@ -8,6 +8,7 @@ Page({
     data: {
         order: {},
         infos: [],
+        door: 0, // 0为确认订单进入，1为我的订单列表或订单详情进入
     },
 
     /**
@@ -23,6 +24,7 @@ Page({
                 self.setData({
                     order: order,
                     infos: infos,
+                    door: options.door,
                 })
             },
         })
@@ -71,6 +73,7 @@ Page({
     modifyOrder: function (requestData, infos, no, money, id) {
         let self = this;
         let r = RequestWriteFactory.modifyOrder(requestData);
+        let door=this.data.door;
         r.finishBlock = (req) => {
             wx.setStorage({
                 key: 'infos',
@@ -79,6 +82,10 @@ Page({
                     wx.redirectTo({
                         url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&id=' + id,
                     })
+                    //如果从我的订单和订单详情进入，通知我的订单刷新数据
+                    if (door === "1") {
+                        Event.emit('deleteOrderFinish');//发出通知
+                    }
                 }
             })
         }
@@ -94,6 +101,7 @@ Page({
         let no = order.OrderNo;
         let money = order.Total;
         let id = order.Id;
+
         if (parseFloat(order.Due) > 0) {
             // 微信支付 
             /**
