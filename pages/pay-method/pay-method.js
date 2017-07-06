@@ -66,8 +66,8 @@ Page({
     },
 
     /**
-    * 修改订单
-    */
+     * 修改订单
+     */
     modifyOrder: function (requestData, infos, no, money, id) {
         let self = this;
         let r = RequestWriteFactory.modifyOrder(requestData);
@@ -123,8 +123,8 @@ Page({
     },
 
     /**
-      *  获取签名
-      */
+     *  获取签名
+     */
     getSign: function () {
         let MD5Util = require('../../tools/md5.js');
         let sign = '';
