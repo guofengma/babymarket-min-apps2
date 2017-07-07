@@ -34,13 +34,6 @@ Page({
         let task = RequestReadFactory.homeOneSortRead();
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                let url = Tool.imageURLForId(item.ImgId);
-                item.imageUrl = url;
-            });
-            let home = new Object();
-            home.Name = "首页";
-            responseData.unshift(home);
             this.setData({
                 oneSortData: responseData
             });
@@ -61,27 +54,6 @@ Page({
         let task = RequestReadFactory.homeOneSortProductRead(categoryId, maxCount);
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                let url = Tool.imageURLForId(item.ImgId);
-                item.imageUrl = url;
-                item.productId = item.Id;
-                //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
-                if (Storage.didLogin()) {
-                    item.showPrice = "¥" + item.LYPrice + "（老友专享）";
-                } else {
-                    item.showPrice = "¥" + item.SalePrice;
-                }
-                //未登录时,旧价格不显示,登陆后显示SalePrice
-                if (Storage.didLogin()) {
-                    item.oldPrice = "¥" + item.SalePrice;
-                    //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
-                    if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
-                        item.oldPrice = 0;
-                    }
-                } else {
-                    item.oldPrice = 0;
-                }
-            });
             let oneSortData = this.data.oneSortData;
             oneSortData[index].productData = responseData;
             this.setData({
@@ -97,10 +69,6 @@ Page({
         let task = RequestReadFactory.sortAdRead(categoryId);
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                let url = Tool.imageURLForId(item.ImgId);
-                item.imageUrl = url;
-            });
             let oneSortData = this.data.oneSortData;
             let bodyData = new Object();
             bodyData.adData = responseData;
@@ -141,27 +109,6 @@ Page({
         let task = RequestReadFactory.homeTwoSortProductRead(categoryId);
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                let url = Tool.imageURLForId(item.ImgId);
-                item.imageUrl = url;
-                item.productId = item.Id;
-                //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
-                if (Storage.didLogin()) {
-                    item.showPrice = "¥" + item.LYPrice + "（老友专享）";
-                } else {
-                    item.showPrice = "¥" + item.SalePrice;
-                }
-                //未登录时,旧价格不显示,登陆后显示SalePrice
-                if (Storage.didLogin()) {
-                    item.oldPrice = "¥" + item.SalePrice;
-                    //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
-                    if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
-                        item.oldPrice = 0;
-                    }
-                } else {
-                    item.oldPrice = 0;
-                }
-            });
             let oneSortData = this.data.oneSortData;
             oneSortData[this.data.currentTab].bodyData.sortData[index].productData = responseData;
             this.setData({
@@ -177,11 +124,6 @@ Page({
         let task = RequestReadFactory.homeAdRead();
         task.finishBlock = (req) => {
             let adArray = req.responseObject.Datas;
-            //拼装图片URL
-            adArray.forEach((item, index) => {
-                let url = Tool.imageURLForId(item.ImgId);
-                item.imageUrl = url;
-            });
             this.setData({
                 adArray: adArray
             });
@@ -229,10 +171,6 @@ Page({
         };
 
         this.productSpecification.showWithAction('ShoppingCart');
-        //跳出数量规格选择界面
-        // wx.navigateTo({
-        //     url: '/pages/product-specification/product-specification?productId=' + productId
-        // })
     },
     /**
      * 更多

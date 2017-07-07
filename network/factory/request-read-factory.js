@@ -223,6 +223,13 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '首页海报查询';
         req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        //修改返回结果
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+            });
+        }
         return req;
     }
 
@@ -236,6 +243,13 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '分类海报查询';
         req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        //修改返回结果
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+            });
+        }
         return req;
     }
 
@@ -252,6 +266,16 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '首页-一级分类';
         req.items = ['Id', 'Name', 'ImgId', 'MaxShow'];
+        //修改返回结果
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+            });
+            let home = new Object();
+            home.Name = "首页";
+            responseData.unshift(home);
+        }
         return req;
     }
 
@@ -297,6 +321,12 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '一级分类商品';
         req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        //修改返回结果
+        let that = this;
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            that.parseProductInfo(responseData);
+        }
         return req;
     }
 
@@ -315,6 +345,32 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '二级分类商品';
         req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        //修改返回结果
+        let that = this;
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            that.parseProductInfo(responseData);
+        }
+        return req;
+    }
+
+    //首页-搜索商品
+    static searchProductRead(keyword) {
+        let operation = Operation.sharedInstance().productReadOperation;
+        let condition = "${KeyWord} like %" + keyword + "% || ${ShowName} like %" + keyword + "%";
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '搜索商品';
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        //修改返回结果
+        let that = this;
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            that.parseProductInfo(responseData);
+        }
         return req;
     }
 
@@ -342,18 +398,13 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '专题查询';
         req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes'];
-        //修改返回结果，为返回结果添加imageUrls字段
+        //修改返回结果
         req.preprocessCallback = (req) => {
-            let Datas = req.responseObject.Datas;
-            let imageUrls = [];
-            if (global.Tool.isValidArr(Datas)) {
-                Datas.forEach((data) => {
-                    data.imageUrl = global.Tool.imageURLForId(data.ImgId);
-                    data.imageHeadUrl = global.Tool.imageURLForId(data.Img2Id);
-                    imageUrls.push(data);
-                });
-            }
-            req.responseObject.imageUrls = imageUrls;
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+                item.imageHeadUrl = global.Tool.imageURLForId(item.Img2Id);
+            });
         }
         return req;
     }
@@ -508,6 +559,33 @@ export default class RequestReadFactory {
         req.name = '商品收藏查询';
         req.items = ["Id", "Product_Name", "Price", "CreateTime", "ImgId"];
         return req;
+    }
+
+    //处理商品信息
+    static parseProductInfo(responseData) {
+        responseData.forEach((item, index) => {
+            let url = global.Tool.imageURLForId(item.ImgId);
+            item.imageUrl = url;
+            item.productId = item.Id;
+            //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
+            item.isLogin = global.Storage.didLogin();
+            if (item.isLogin) {
+                item.showPrice = "¥" + item.LYPrice;
+            } else {
+                item.showPrice = "¥" + item.SalePrice;
+            }
+            //未登录时,旧价格不显示,登陆后显示SalePrice
+            if (item.isLogin) {
+                item.oldPrice = "¥" + item.SalePrice;
+                //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
+                if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
+                    item.oldPrice = 0;
+                }
+            } else {
+                item.oldPrice = 0;
+            }
+        });
+        //9d7093c03c3fb18a9e9d8216e355f0a93ed6604d
     }
 
     //绑定的支付宝账号查询

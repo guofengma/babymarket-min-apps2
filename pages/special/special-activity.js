@@ -23,10 +23,6 @@ Page({
         let task = RequestReadFactory.specialRead();
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                item.imageUrl = Tool.imageURLForId(item.ImgId);
-                item.imageHeadUrl = Tool.imageURLForId(item.Img2Id);
-            });
             this.setData({
                 specialData: responseData
             });
