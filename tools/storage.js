@@ -81,6 +81,14 @@ export default class Storage {
         this.setterFor('currentSession', currentSession)
     }
 
+    static currentMember(){
+        return this.getterFor('currentMember');
+    }
+
+    static setCurrentMember(currentMember){
+        this.setterFor('currentMember',currentMember);
+    }
+
     //登陆标记
     static didLogin() {
         return this.getterFor('didLogin');

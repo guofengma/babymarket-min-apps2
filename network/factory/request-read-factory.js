@@ -85,6 +85,33 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品全部规格';//用于日志输出
+        req.preprocessCallback = (req)=>{
+            let {Tool:t} = global;
+
+            let {Datas} = req.responseObject;
+            if (t.isValidArr(Datas)) {
+                Datas.forEach((specification) => {
+                    let _levelPrice = '';
+                    let member = global.Storage.currentMember();
+
+                    let price = specification.Price;
+                    if (t.isValidArr(specification.ShopLevelPrice)) {
+                        specification.ShopLevelPrice.forEach((p)=>{
+                            if (p.ShopLevelKey === member.LevelKey) {
+                                price = p.Price2;
+                            }
+                        })
+                    }
+                    _levelPrice = price;
+
+                    //普通会员显示老尤价（LYPrice）
+                    if (global.Storage.didLogin() && member.MemberTypeKey === "0") {
+                        _levelPrice = specification.LYPrice;
+                    }
+                    specification.levelPrice = _levelPrice;
+                })
+            }
+        }
         return req;
     }
 
@@ -176,6 +203,11 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '登录用户信息查询';
+        req.preprocessCallback = (req,data) => {
+            if (global.Tool.isValid(data)) {
+                global.Storage.setCurrentMember(data);
+            }
+        }
         return req;
     }
 

@@ -385,14 +385,12 @@ export default class ProductSpecification {
             }
             else if (groupItemArr.length == 1){
                 //选中规格相同
-                if (isStringValid(specification.SpecificationItem1Id))
+                if (Tool.isValidStr(specification.SpecificationItem1Id))
                 {
                     let specificationItemId = "SpecificationItem"+ selectGroupItem.SpecificationKey +"Id";
                     let isSelectGroupItemEqual = specification[specificationItemId] === selectGroupItem.Id;
 
                     if (isSelectGroupItemEqual) {
-                        let showDashed = (parseInt(specification.Inv) <= 0);
-                        otherGroupItem.showDashed = showDashed;
                         result = specification;
                     }
                 }
