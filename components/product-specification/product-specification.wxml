@@ -23,15 +23,22 @@
                 </view>
 
 
-                <view class="thumb-group-title">
-                    <view>{{'段数'}}</view>
-                </view>
-                <view class="thumb-group">
-                    <template is="product-sp-thumb" data="{{title:'1阶段'}}"/>
-                    <template is="product-sp-thumb" data="{{title:'2阶段'}}"/>
-                </view>
+                <block wx:for="{{categoryArray}}" wx:key="unique" wx:for-index="section">
+                    <view class="thumb-group-title">
+                        <view>{{item.SpecificationName}}</view>
+                    </view>
+                    <view class="thumb-group">
+                        <block wx:for="{{item.S_Value_Detail}}" wx:for-index="index" wx:for-item="detail" wx:key="unique">
+                            <template is="product-sp-thumb" data="{{index,section,...detail}}"/>
+                        </block>
+                    </view>
+                </block>
 
-                <template is="adder-subtractor" data="{{count:2}}"/>
+
+                <view class="counter">
+                    <view class="counter-value">数量</view>
+                    <template is="adder-subtractor" data="{{count:2}}"/>
+                </view>
 
                 <view class="submit-btn-container">
                     <template is="submit-btn" data="{{title:innerTitle}}"/>

@@ -34,7 +34,6 @@ Page({
         let self = this;
         this.productSpecification = new ProductSpecification(this,this.productId);
         this.productSpecification.finishBlock = (specificationId,product,count,price) => {
-            global.Tool.showAlert(specificationId);
         };
 
         this.requestData();

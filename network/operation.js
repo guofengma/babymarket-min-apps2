@@ -27,6 +27,9 @@ export default class Operation {
         //规格读取
         this.productSpecificationRead = '3b61a23d-e130-00cd-320f-3c6800fbe982';
 
+        //规格组 读取
+        this.productSpecificationGroupRead = '41222433-4d44-089d-3ca0-3c6800f1d60a';
+
         //宝贝码头附件
         this.bmAttachmentsReadOperation = '7eba4898-2f70-05b4-0b17-009a002e71ad';
 

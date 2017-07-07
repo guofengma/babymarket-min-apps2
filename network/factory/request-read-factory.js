@@ -58,6 +58,23 @@ export default class RequestReadFactory {
     }
 
     /**
+     * 规格组
+     */
+    static specificationGroup(theId){
+        let operation = Operation.sharedInstance().productSpecificationGroupRead;
+        let bodyParameters = {
+            "Operation": operation,
+            "ProductId": theId,
+            "IsReturnTotal":true,
+            "IsIncludeSubtables":true,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '宝贝码头商品规格组';//用于日志输出
+
+        return req;
+    }
+
+    /**
      * 全部规格
      */
     static allSpecificationRead(theId){
