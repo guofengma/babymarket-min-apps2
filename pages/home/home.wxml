@@ -32,4 +32,4 @@
   </view>
 </view>
 
-<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle:innerTitle}}" />
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount}}"/>

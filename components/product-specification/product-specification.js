@@ -10,8 +10,8 @@ export default class ProductSpecification {
         this.page = page;
 
         this.productId = productId;//商品id
-        this.page.data.specificationData = {};
-        this.count = 1;//选择的数量
+        this.page.data.specificationData = null;
+        this.page.data.innerCount = 1;//选择的数量
         this.selectedArray = [];//选择结果
         this.selectInfoDict = new Map();
 
@@ -25,6 +25,10 @@ export default class ProductSpecification {
 
         let title = '加入购物车';
         this.page.data.innerTitle = title;//按钮标题
+
+        this.page.setData({
+            innerCount:1,
+        })
 
         let {Tool:t} = global;
         let {page:p} = this;
@@ -51,8 +55,29 @@ export default class ProductSpecification {
             p.thumbClicked = this._thumbClicked.bind(this);
         }
 
+        if (!t.isFunction(p.counterInputOnChange)) {
+            p.counterInputOnChange = this._counterInputOnChange.bind(this);
+        }
+
+        if (!t.isFunction(p.counterSubClicked)) {
+            p.counterSubClicked = this._counterSubClicked.bind(this);
+        }
+
+        if (!t.isFunction(p.counterAddClicked)) {
+            p.counterAddClicked = this._counterAddClicked.bind(this);
+        }
+
         //请求数据
         this.requestData();
+    }
+
+    setSpecificationData(specificationData){
+        this.page.setData({
+            specificationData,
+        })
+        if (specificationData) {
+            console.log('setSpecificationData Inv' + specificationData.Inv + " levelPrice:" + specificationData.levelPrice);
+        }
     }
 
     //更新提交按钮标题
@@ -111,9 +136,7 @@ export default class ProductSpecification {
         let r = global.RequestReadFactory.allSpecificationRead(this.productId);
         r.finishBlock = (req,firstData) => {
             if (req.responseObject.Total == '1') {
-                self.page.setData({
-                    specificationData:firstData,
-                })
+                self.setSpecificationData(firstData);
             }
 
             let {Datas} = req.responseObject;
@@ -159,9 +182,7 @@ export default class ProductSpecification {
      */
     _submitBtnClicked(){
         let {Tool:t} = global;
-
-        let {count} = this;
-        let {innerProduct:product,innerPrice:price} = this.page.data;
+        let {innerProduct:product,innerPrice:price,innerCount:count} = this.page.data;
 
         if (t.isEmptyStr(this.page.data.specificationData) || t.isEmptyStr(this.page.data.specificationData.Id)) {
             t.showAlert('无法获取规格数据，请稍后再试！');
@@ -267,14 +288,10 @@ export default class ProductSpecification {
         this.selectedArray = selectedArray;
 
         let didFind = false;
-        this.page.setData({
-            specificationData:null,
-        })
+        this.setSpecificationData(null);
         if (this.page.data.categoryArray.length == this.selectedArray.length) {
             let specificationData = this.searchSepecificationIn(this.page.data.allSepcificationArray,this.selectedArray);
-            this.page.setData({
-                specificationData
-            })
+            this.setSpecificationData(specificationData);
         }
 
         if (this.page.data.specificationData) {
@@ -302,9 +319,7 @@ export default class ProductSpecification {
 
                     if (isTwoDimensionalValid || isOneDimensionalValid) {
                         didFind = true;
-                        self.page.setData({
-                            specificationData:spec
-                        })
+                        self.setSpecificationData(spec);
                         console.log('find specification:');
                         console.log(self.page.data.specificationData);
 
@@ -410,5 +425,34 @@ export default class ProductSpecification {
             }
         })
         return result;
+    }
+
+    /**
+     * 数量价格变化
+     */
+    _counterInputOnChange(e){
+
+    }
+
+    /**
+     * 数量减点击
+     */
+    _counterSubClicked(){
+        let count = this.page.data.innerCount - 1;
+        if (count < 1 || count == undefined) {
+            count = 1;
+        }
+        this.page.setData({
+            innerCount: count,
+        })
+    }
+
+    /**
+     * 数量加点击
+     */
+    _counterAddClicked(){
+        this.page.setData({
+            innerCount:this.page.data.innerCount + 1
+        })
     }
 }

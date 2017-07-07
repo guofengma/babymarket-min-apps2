@@ -82,6 +82,8 @@ export default class RequestReadFactory {
         let bodyParameters = {
             "Operation": operation,
             "ProductId": theId,
+            "IsReturnTotal":true,
+            "IsIncludeSubtables":true,
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品全部规格';//用于日志输出

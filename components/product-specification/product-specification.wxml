@@ -13,7 +13,7 @@
                 <view class="header">
                     <view class="header-left">
                         <view class="price">￥{{specificationData ? specificationData.levelPrice : innerProduct.SalePrice}}</view>
-                        <view class="inv">(库存{{specificationData.Inv}}件)</view>
+                        <view class="inv">(库存{{specificationData ? specificationData.Inv : innerProduct.Inv}}件)</view>
                     </view>
                     <image class="dismiss-btn"
                            catchtap="dismissProductSpecification"
@@ -37,7 +37,7 @@
 
                 <view class="counter">
                     <view class="counter-value">数量</view>
-                    <template is="adder-subtractor" data="{{count:2}}"/>
+                    <template is="adder-subtractor" data="{{count:innerCount}}"/>
                 </view>
 
                 <view class="submit-btn-container">

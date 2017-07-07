@@ -21,6 +21,12 @@ Page({
         this.requestOneSortData();
         this.requestHomeAdData();
     },
+
+    onShow(){
+        let r = RequestReadFactory.memberInfoRead();
+        r.addToQueue();
+    },
+
     /**
      * 获取一级分类数据
      */
