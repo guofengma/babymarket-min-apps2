@@ -260,6 +260,9 @@ Page({
 
         } else if (title == '我的优惠券') {
             console.log('----我的优惠券----');
+            wx.navigateTo({
+                url: '../coupon/coupon',
+            })
 
         } 
     },

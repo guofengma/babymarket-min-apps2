@@ -49,9 +49,9 @@ export default class Tool {
         return n[1] ? n : '0' + n;
     }
 
-    static timeStringFromInterval(interval,format){
+    static timeStringFromInterval(interval, format) {
         let date = new Date(interval * 1000);
-        return this.timeStringForDate(date,format);
+        return this.timeStringForDate(date, format);
     }
 
     static timeIntervalFromString(string) {
@@ -60,11 +60,11 @@ export default class Tool {
         return timeInterval;
     }
 
-    static timeIntervalFromNow(interval){
-        return this.timeIntervalFromDate(new Date(),interval);
+    static timeIntervalFromNow(interval) {
+        return this.timeIntervalFromDate(new Date(), interval);
     }
 
-    static timeIntervalFromDate(date,interval){
+    static timeIntervalFromDate(date, interval) {
         return parseInt(date.getTime() / 1000) + interval;
     }
 
@@ -83,12 +83,12 @@ export default class Tool {
     }
 
     static timeStringForDate(date, formate) {
-        let timeString = Date.format(date,formate);
+        let timeString = Date.format(date, formate);
         return timeString;
     }
 
     static timeDurationStringForInterval(interval) {
-        let str = Tool.timeStringFromInterval(interval,"YYYY MM-DD HH:mm");
+        let str = Tool.timeStringFromInterval(interval, "YYYY MM-DD HH:mm");
         return this.timeDurationStringForDateString(str);
     }
 
@@ -108,13 +108,13 @@ export default class Tool {
             if (count == 0) {
                 time = '刚刚';
             }
-            else{
-                time = count + "分钟" + (isNegtive? '后':'前');
+            else {
+                time = count + "分钟" + (isNegtive ? '后' : '前');
             }
         }
         else if (duration < (24 * 60 * 60)) {
             count = parseInt(duration / 60 / 60);
-            time = count + "小时" + (isNegtive? '后':'前');
+            time = count + "小时" + (isNegtive ? '后' : '前');
         } else {
             time = Tool.timeStringForDateString(string, "MM-DD HH:mm");
         }
@@ -122,7 +122,7 @@ export default class Tool {
         return (time);
     }
 
-    static dayCountFromInterval(interval){
+    static dayCountFromInterval(interval) {
         let days = 0;
         let duration = interval - this.timeIntervalFromNow(0);
         let isNegtive = duration < 0;
@@ -140,13 +140,13 @@ export default class Tool {
      * @param timeCount
      * @returns {string} 08:30
      */
-    static timeStringForTimeCount(timeCount){
+    static timeStringForTimeCount(timeCount) {
         let hour = parseInt(timeCount / (60 * 60));
         let min = parseInt((timeCount - hour * 3600) / 60);
         let hourString = hour + '';
-        hourString = global.Tool.addZero(hourString,2);
+        hourString = global.Tool.addZero(hourString, 2);
         let minString = min + '';
-        minString = global.Tool.addZero(minString,2);
+        minString = global.Tool.addZero(minString, 2);
         let openinghours = hourString + ':' + minString;
         return openinghours;
     }
@@ -295,25 +295,25 @@ export default class Tool {
         });
     }
 
-    static showSuccessToast(title,finish = null){
+    static showSuccessToast(title, finish = null) {
         let duration = 1000;
 
-        let success = ()=>{
+        let success = () => {
             if (finish) {
-                setTimeout(()=>{
+                setTimeout(() => {
                     finish();
-                },duration);
+                }, duration);
             }
         }
 
-        setTimeout(()=>{
+        setTimeout(() => {
             wx.showToast({
                 title: title,
                 icon: 'success',
                 duration: duration,
-                success:success,
+                success: success,
             })
-        },400);
+        }, 400);
     }
 
     //显示加载动画 rCount 为请求的次数
@@ -321,9 +321,9 @@ export default class Tool {
         Tool.sharedInstance().requestCount = rCount;
 
         if (Tool.canIUse('showLoading')) {
-            wx.showLoading({title:'加载中...'});
+            wx.showLoading({ title: '加载中...' });
         }
-        else{
+        else {
             wx.showToast({
                 title: '加载中...',
                 icon: 'loading',
@@ -339,7 +339,7 @@ export default class Tool {
             if (Tool.canIUse('hideLoading')) {
                 wx.hideLoading();
             }
-            else{
+            else {
                 wx.hideToast();
             }
         }
@@ -492,22 +492,21 @@ export default class Tool {
                 id = arr[1];
             }
         }
-        return {key:key,id:id};
+        return { key: key, id: id };
     }
-    
+
     // 格式化距离
-    static formatDistance(value){
+    static formatDistance(value) {
         let dis = parseInt(value);
         let isKM = dis > 1000;
         if (isKM) {
             return parseInt(dis / 1000) + '公里';
         }
-        else
-        {
+        else {
             return dis + '米';
         }
     }
-    
+
     /**
      * str是否已needle开头
      *
@@ -515,45 +514,45 @@ export default class Tool {
      * @param needle
      * @returns {boolean}
      */
-    static isStringStartsWith(str,needle){
+    static isStringStartsWith(str, needle) {
         return str.lastIndexOf(needle, 0) === 0
     }
 
-    static addZero(str,length){
+    static addZero(str, length) {
         return new Array(length - str.length + 1).join("0") + str;
     }
 
-    static redirectTo(url,success,fail,complete){
+    static redirectTo(url, success, fail, complete) {
         console.log('\n\n******************************************************************************************');
         console.log('redirectTo:' + url);
         wx.redirectTo({
-                url:url,
-                success:success,
-                fail:fail,
-                complete:complete,
-            }
+            url: url,
+            success: success,
+            fail: fail,
+            complete: complete,
+        }
         )
     }
 
-    static switchTab(url,success,fail,complete){
+    static switchTab(url, success, fail, complete) {
         console.log('\n\n******************************************************************************************');
         console.log('switchTab:' + url);
         wx.switchTab({
-            url:url,
-            success:success,
-            fail:fail,
-            complete:complete,
+            url: url,
+            success: success,
+            fail: fail,
+            complete: complete,
         })
     }
 
-    static navigateTo(url,success,fail,complete){
+    static navigateTo(url, success, fail, complete) {
         console.log('\n\n******************************************************************************************');
         console.log('navigateTo:' + url);
         wx.navigateTo({
-            url:url,
-            success:success,
-            fail:fail,
-            complete:complete,
+            url: url,
+            success: success,
+            fail: fail,
+            complete: complete,
         })
     }
 
@@ -563,26 +562,26 @@ export default class Tool {
      * @param success
      * @param fail
      */
-    static getScope(scope,success,fail,complete,notCompatible){
+    static getScope(scope, success, fail, complete, notCompatible) {
         if (wx.canIUse('getSetting') && wx.canIUse('authorize')) {
             wx.getSetting({
                 success(res) {
                     if (!res[scope]) {
                         wx.authorize({
                             scope: scope,
-                            success(){
+                            success() {
                                 console.log(scope + ' success');
                                 if (global.Tool.isFunction(success)) {
                                     success();
                                 }
                             },
-                            fail(){
+                            fail() {
                                 console.log(scope + ' fail');
                                 if (global.Tool.isFunction(fail)) {
                                     fail();
                                 }
                             },
-                            complete(){
+                            complete() {
                                 console.log(scope + ' complete');
                                 if (global.Tool.isFunction(complete)) {
                                     complete();
@@ -591,7 +590,7 @@ export default class Tool {
                         })
                     }
                 },
-                fail(res){
+                fail(res) {
                     console.log('authorize、getSetting 不兼容当前版本');
                     if (global.Tool.isFunction(notCompatible)) {
                         notCompatible();
@@ -607,10 +606,10 @@ export default class Tool {
         }
     }
 
-    static canIUse(method){
+    static canIUse(method) {
         let canIUse = wx.canIUse(method);
         if (canIUse === false) {
-            console.log('方法：'+method + '不兼容当前版本，无法使用');
+            console.log('方法：' + method + '不兼容当前版本，无法使用');
         }
         return canIUse;
     }
@@ -621,16 +620,16 @@ export default class Tool {
      * @param fail
      * @param complete
      */
-    static getLocation(success = (res)=>{},fail = ()=>{},complete = ()=>{}){
-        let resultHandler = (success,fail,complete)=>{
-            Tool.queryLocation((res)=>{
+    static getLocation(success = (res) => { }, fail = () => { }, complete = () => { }) {
+        let resultHandler = (success, fail, complete) => {
+            Tool.queryLocation((res) => {
                 if (Tool.isValid(res)) {
                     success(res);
                 }
                 else {
                     fail();
                 }
-            },()=>{
+            }, () => {
                 complete();
             });
         }
@@ -638,25 +637,25 @@ export default class Tool {
         //请求授权获取地理位置信息
         this.getScope('scope.userLocation',
             //成功
-            ()=>{
-                resultHandler(success,fail,complete);
+            () => {
+                resultHandler(success, fail, complete);
             },
             //失败
-            ()=>{
+            () => {
                 fail();
             },
             //完成
-            ()=>{
+            () => {
                 complete();
             },
             //不兼容，直接请求地址
-            ()=>{
-                resultHandler(success,fail,complete);
+            () => {
+                resultHandler(success, fail, complete);
             });
     }
 
     //调用微信接口，获取定位信息
-    static queryLocation(cb = (res)=>{},complete = ()=>{}){
+    static queryLocation(cb = (res) => { }, complete = () => { }) {
         wx.getLocation({
             // type:'gcj02',
             success: function (res) {
@@ -669,10 +668,10 @@ export default class Tool {
                 var BMap = new bmap.BMapWX({
                     ak: global.TCGlobal.BaiduMapKey
                 });
-                var fail = function(data) {
+                var fail = function (data) {
                     console.log(data);
                 };
-                var success = function(data) {
+                var success = function (data) {
                     //返回数据内，已经包含经纬度
                     console.log(data);
 
@@ -693,6 +692,19 @@ export default class Tool {
                 complete();
             }
         })
+    }
+
+    /**
+     * 判断字符串中是否只包含字母或数字
+     */
+    static checkString(value) {
+        var Regx = /^[A-Za-z0-9]*$/;
+        if (Regx.test(value)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 

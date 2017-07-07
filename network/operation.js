@@ -21,6 +21,12 @@ export default class Operation {
         //首页-分类
         this.homeSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
 
+        //搜索-热门搜索
+        this.searchHotReadOperation = 'c8abee85-11ab-0bba-1bcd-3c4701ec76cb';
+
+        //专题
+        this.specialReadOperation = '1120e650-629e-4af0-ab39-a650012db775';
+
         //宝贝码头商品详情
         this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
 
@@ -55,7 +61,7 @@ export default class Operation {
         this.cartDeleteOperation = 'cd0221ba-e321-0581-06f5-3c2401834522';
 
         //购物车视图
-        this.cartViewReadOperation ='0a8ed48f-088f-0ca3-0c43-3c290052b69b';
+        this.cartViewReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';
 
         //地址
         this.addressReadOperation = '881d520d-bb5d-04e2-29a8-3c29005a359b';
@@ -70,7 +76,7 @@ export default class Operation {
         this.couponReadOperation = 'ac4b38e9-45ce-0626-2fc2-3c3b000e731f';
 
         //订单
-        this.orderAddOperation ='c65c46b6-b12e-0e57-28fe-3c1900223872';
+        this.orderAddOperation = 'c65c46b6-b12e-0e57-28fe-3c1900223872';
         this.orderDeleteOperation = '';
         this.orderReadOperation = '481f0766-998d-003c-1727-3c1701e15fcb';
         this.orderModifyOperation = '51edceb5-4d37-0d8b-1043-3c1a01f6b85e';
@@ -86,8 +92,31 @@ export default class Operation {
         this.withdrawAddOperation = '';
         this.withdrawReadOperation = '';
 
+        //支付宝账号
+        this.alipayAccountAddOperation = '89f9cea6-ffa1-47c5-afe0-a75f00fee459';
+        this.alipayAccountReadOperation = '6b3453e1-4643-4a57-a4d9-a75f00ff120d';
+
         //收藏
         this.favReadOperation = 'ad5b7994-a09c-0aa9-35fe-3c3b0004d9af';
+
+        //提现
+        this.withdrawAddOperation = '22572f16-f23c-0907-11f1-3e570121be67';
+        this.withdrawReadOperation = '2ec381c4-c12f-4938-8f9f-a75c009f612d';
+
+        //验证码
+        this.verifyCodeAddOperation = '47d7a940-ab9e-04dc-2029-3c2701c073ba';
+
+        //支付密码
+        this.payPasswordAddOperation = 'd398c8f4-195e-4135-bbf4-a75f00fcc241';
+
+        //我的资产
+        this.balanceLogMonthReadOperation = 'a0d1c6cb-0618-008d-3073-3e5e0059b80b';
+
+        //我收到的奖励
+        this.awardReadOperation = '82f1f24c-e796-4d4c-8afb-a75c009c282d';
+
+        //已省金额
+        this.saveReadOperation = 'def432e0-c6b8-4bef-8ed3-a75c009c3aed';
 
         __instance(this);
     }

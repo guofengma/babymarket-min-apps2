@@ -42,7 +42,7 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
         req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
-        req.preprocessCallback = (req,firstData) => {
+        req.preprocessCallback = (req, firstData) => {
             if (global.Tool.isValidObject(firstData)) {
                 if (global.Storage.didLogin()) {
                     let tempPrice = firstData.SalePrice;
@@ -77,7 +77,7 @@ export default class RequestReadFactory {
     /**
      * 全部规格
      */
-    static allSpecificationRead(theId){
+    static allSpecificationRead(theId) {
         let operation = Operation.sharedInstance().productSpecificationRead;
         let bodyParameters = {
             "Operation": operation,
@@ -118,7 +118,7 @@ export default class RequestReadFactory {
     /**
      * 搜索规格
      */
-    static searchSpecificationRead(theId,specificationsArray){
+    static searchSpecificationRead(theId, specificationsArray) {
         let operation = Operation.sharedInstance().productSpecificationRead;
         let bodyParameters = {
             "Operation": operation,
@@ -126,7 +126,7 @@ export default class RequestReadFactory {
         };
         if (global.Tool.isValidArr(specificationsArray)) {
             specificationsArray.forEach((detail) => {
-                let keyName = 'SpecificationItem'+ detail.SpecificationKey +'Id';
+                let keyName = 'SpecificationItem' + detail.SpecificationKey + 'Id';
                 bodyParameters[keyName] = detail.Id;
             });
         }
@@ -285,7 +285,7 @@ export default class RequestReadFactory {
     }
 
     //首页-一级分类商品
-    static homeOneSortProductRead(categoryId,maxCount) {
+    static homeOneSortProductRead(categoryId, maxCount) {
         let operation = Operation.sharedInstance().productReadOperation;
         let bodyParameters = {
             "Operation": operation,
@@ -312,7 +312,47 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '二级分类商品';
-        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit','Import'];
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        return req;
+    }
+
+    //热门搜索查询
+    static hotSearchRead() {
+        let operation = Operation.sharedInstance().searchHotReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '20',
+            "Order": "${Count} DESC"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '热门搜索查询';
+        req.items = ['Id', 'Keyword', 'HightLight', 'DateTime'];
+        return req;
+    }
+
+    //专题查询
+    static specialRead() {
+        let operation = Operation.sharedInstance().specialReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Deleted": "False"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '专题查询';
+        req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes'];
+        //修改返回结果，为返回结果添加imageUrls字段
+        req.preprocessCallback = (req) => {
+            let Datas = req.responseObject.Datas;
+            let imageUrls = [];
+            if (global.Tool.isValidArr(Datas)) {
+                Datas.forEach((data) => {
+                    data.imageUrl = global.Tool.imageURLForId(data.ImgId);
+                    data.imageHeadUrl = global.Tool.imageURLForId(data.Img2Id);
+                    imageUrls.push(data);
+                });
+            }
+            req.responseObject.imageUrls = imageUrls;
+        }
         return req;
     }
 
@@ -460,11 +500,74 @@ export default class RequestReadFactory {
             "MaxCount": '2',
             "StartIndex": index,
             "MemberId": global.Storage.memberId(),
-            "FavoriteObjectType":'Product'
+            "FavoriteObjectType": 'Product'
         };
         let req = new RequestRead(bodyParameters);
         req.name = '商品收藏查询';
         req.items = ["Id", "Product_Name", "Price", "CreateTime", "ImgId"];
+        return req;
+    }
+
+    //绑定的支付宝账号查询
+    static alipyAccountRead() {
+        let operation = Operation.sharedInstance().alipayAccountReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${CreateTime} DESC",
+            "MemberId": global.Storage.memberId(),
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '绑定的支付宝账号查询';
+        req.items = ["Id", "Name", "AplipayAccount"];
+        return req;
+    }
+
+    //我的资产查询
+    static myPropertyRead(index) {
+        let operation = Operation.sharedInstance().balanceLogMonthReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "IsIncludeSubtables": true,
+            "Order": "${Month} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+            "MemberId": global.Storage.memberId(),
+            // "Subtables": ["Detail"]
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的资产查询';
+        return req;
+    }
+
+    //收到的奖励查询
+    static awardRead(index) {
+        let operation = Operation.sharedInstance().awardReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${OrderDate} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '收到的奖励查询';
+        return req;
+    }
+
+    //已省金额查询
+    static saveRead(index) {
+        let operation = Operation.sharedInstance().saveReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${OrderDate} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '已省金额查询';
         return req;
     }
 }

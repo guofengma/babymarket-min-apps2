@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.pay-success {
+.pay-method-top {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,70 +14,94 @@
   height: 150rpx;
   background: white;
   border-bottom: 10rpx solid #f5f7f7;
-  border-top: 10rpx solid #f5f7f7;
 }
 
-.pay-success-icon {
+.top-icon {
   width: 25rpx;
   height: 25rpx;
 }
 
-.pay-success-text {
+.top-text {
   font-size: 34rpx;
   margin-left: 10rpx;
-  color: #000406;
+  color: #1a1c1f;
+}
+
+.no {
+  display: flex;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  align-items: center;
+}
+
+.money {
+  display: flex;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  background: white;
+  border-bottom: 10rpx solid #f5f7f7;
+  align-items: center;
+}
+
+.info-no-title {
+  font-size: 30rpx;
+  color: #7d7f81;
+}
+
+.info-no-value {
+  font-size: 30rpx;
+  color: #454950;
 }
 
 .pay-info {
-  padding: 20rpx 20rpx 20rpx 20rpx;
+  display: flex;
+  flex-direction: column;
   background: white;
-  height: 100%;
-}
-
-.pay-number, .pay-way {
-  display: flex;
-}
-
-.pay-price {
-  display: flex;
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
 }
 
 .pay-info-text {
-  font-size: 32rpx;
-  color: #3c3d3d;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  font-size: 24rpx;
+  color: #7d7f81;
 }
 
-.pay-number-text, .pay-way-text {
-  font-size: 32rpx;
-  color: #000406;
-  margin-left: 4rpx;
+.divide {
+  width: 100%;
+  height: 2rpx;
+  background: gainsboro;
 }
 
-.pay-price-text {
-  font-size: 32rpx;
-  color: #e73962;
-  margin-left: 4px;
-}
-
-/*底部按钮*/
-
-.pay-footer {
-  position: fixed;
+.pay-info-list {
   display: flex;
-  bottom: 0;
-  margin: 20rpx 20rpx 20rpx 20rpx;
   background: white;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  align-items: center;
+}
+
+.pay-info-title {
+  font-size: 28rpx;
+  color: #454950;
+}
+
+.pay-info-value {
+  font-size: 28rpx;
+  color: #454950;
+  margin-left: 30rpx;
+}
+
+.pay-bt {
+  width: 100%;
+  display: flex;
+  margin: 50rpx 20rpx 50rpx 20rpx;
 }
 
 .bt-left {
-  color: white;
-  background: #715329;
+  color: #454950;
+  background: white;
+  border: 2rpx solid #e3e3e3;
   border-radius: 10rpx;
   text-align: center;
   width: 345rpx;
-  height: 90rpx;
+  height: 75rpx;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -85,12 +109,13 @@
 }
 
 .bt-right {
-  color: white;
+  color: #454950;
   border-radius: 10rpx;
-  background: #715329;
+  border: 2rpx solid #e3e3e3;
+  background: white;
   width: 345rpx;
   margin-left: 20rpx;
-  height: 90rpx;
+  height: 75rpx;
   justify-content: center;
   display: flex;
   align-items: center;

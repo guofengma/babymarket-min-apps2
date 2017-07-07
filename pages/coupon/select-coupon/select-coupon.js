@@ -27,13 +27,7 @@ Page({
     onPullDownRefresh: function () {
         this.requestData();
     },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
+    
     /**
      * 数据请求
      */
@@ -65,9 +59,9 @@ Page({
             let datas = req.responseObject.Datas;
             if (datas.length > 0) {
                 for (let i = 0; i < datas.length; i++) {
-                    if (parseInt(datas[i].Min_Money)===0) {
-                        datas[i].condition ="无条件使用";
-                    }else{
+                    if (parseInt(datas[i].Min_Money) === 0) {
+                        datas[i].condition = "无条件使用";
+                    } else {
                         datas[i].condition = "满" + datas[i].Min_Money + "元可用";
                     }
                 }
@@ -79,5 +73,30 @@ Page({
         }
         r.addToQueue();
     },
+
+    /**
+     * 选中优惠劵
+     */
+    selectCoupon: function (e) {
+        let couponList = this.data.couponList;
+        let index = e.currentTarget.dataset.index;
+
+        let pages = getCurrentPages();
+        let pageBOne = pages[pages.length - 2];// 前一页
+        if (pageBOne.route == 'pages/order-confirm/order-confirm') {
+            let coupon = couponList[index];
+            pageBOne.setData({
+                couponData: {
+                    CouponId: coupon.Id,
+                    Discount: coupon.Money,
+                    money: "-￥" + coupon.Money,
+                },
+                status:1,
+            })
+            wx.navigateBack({
+                delta: 1,
+            })
+        }
+    }
 
 })

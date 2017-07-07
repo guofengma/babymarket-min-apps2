@@ -1,18 +1,30 @@
 // my-award.js
+let {Tool, RequestReadFactory} = global;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    listDatas:['','','']
+    listDatas:['','',''],
+    award:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+      this.requestData();
+      let self = this;
+      wx.getStorage({
+          key: 'memberInfo',
+          success: function (res) {
+              self.setData({
+                  award: res.data.Commission
+              })
+          },
+      })
   },
 
   /**
@@ -54,7 +66,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+      if (!this.data.noMoreData) {
+          this.loadMore();
+      }
   },
 
   /**
@@ -62,5 +76,47 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+  /**
+    * 收到奖励查询
+    */
+  requestData: function () {
+      let r = RequestReadFactory.awardRead(0);
+      r.finishBlock = (req) => {
+          let datas = req.responseObject.Datas;
+          let total = req.responseObject.Total;
+
+          let nomoredata = false;
+          if (datas.length >= total) {
+              nomoredata = true;
+          }
+          this.setData({
+              'listDatas': datas,
+              noMoreData: nomoredata,
+              index: datas.length
+          });
+      };
+      r.addToQueue();
+  },
+
+  loadMore: function () {
+      let r = RequestReadFactory.awardRead(this.data.index);
+      r.finishBlock = (req) => {
+          let datas = req.responseObject.Datas;
+          let total = req.responseObject.Total;
+
+          let nomoredata = false;
+          if (datas.length + this.data.index >= total) {
+              nomoredata = true;
+          }
+
+          this.setData({
+              'listDatas': this.data.listDatas.concat(datas),
+              noMoreData: nomoredata,
+              index: datas.length + this.data.index
+          });
+      };
+      r.addToQueue();
+  },
 })

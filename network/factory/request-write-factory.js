@@ -89,7 +89,7 @@ export default class RequestWriteFactory {
     }
 
     //新增地址
-    static addAddress(name, mobile, area, address, areaId, card) {
+    static addAddress(id,name, mobile, area, address, areaId, card) {
         let operation = Operation.sharedInstance().addressAddOperation;
         let status = Network.sharedInstance().statusNew;
         let params = {
@@ -104,6 +104,7 @@ export default class RequestWriteFactory {
             "DistrictId": areaId,
             "Card": card,
             "Name": "未指定",
+            "Id":id,
         };
 
         let req = new RequestWrite(status, 'Delivery_address', params, null);
@@ -204,6 +205,74 @@ export default class RequestWriteFactory {
 
         let req = new RequestWrite(status, 'Order', requestData, operation, null);
         req.name = '修改订单';
+        return req;
+    }
+
+    //绑定支付宝
+    static bindAlipayAdd(account, name, checkaccount) {
+        let operation = Operation.sharedInstance().alipayAccountAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Name": name,
+            "AplipayAccount": account,
+            "CheckAccount": checkaccount,
+            "MemberId": global.Storage.memberId(),
+        };
+
+        let req = new RequestWrite(status, 'AlipayBind', params, null);
+        req.name = '绑定支付宝';
+        return req;
+    }
+
+    //提现
+    static withdrawAdd(alipayAccount, money, password, aliplayName) {
+        let operation = Operation.sharedInstance().withdrawAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Alipay": alipayAccount,
+            "CashMoney": money,
+            "Password": password,
+            "AlipayName": aliplayName,
+            "MemberId": global.Storage.memberId(),
+        };
+
+        let req = new RequestWrite(status, 'Cash', params, null);
+        req.name = '提现';
+        return req;
+    }
+
+    //验证码
+    static verifyCodeGet(mobile, typeKey) {
+        let operation = Operation.sharedInstance().verifyCodeAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Mobile": mobile,
+            "TypeKey": typeKey,// 1 为找回密码 0 为新用户注册 2 设置支付密码
+        };
+
+        let req = new RequestWrite(status, 'Check_Code', params, null);
+        req.name = '获取验证码';
+        return req;
+    }
+
+    //设置支付密码
+    static payPasswordSet(checkCode, pwd, confirmPwd, mobile) {
+        let operation = Operation.sharedInstance().payPasswordAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "CheckCode": checkCode,
+            "NewCode": pwd,
+            "CheckPassword": confirmPwd,
+            "Mobile": mobile,
+            "MemberId": global.Storage.memberId()
+        };
+
+        let req = new RequestWrite(status, 'PayCode', params, null);
+        req.name = '设置支付密码';
         return req;
     }
 

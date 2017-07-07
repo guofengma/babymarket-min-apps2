@@ -1,1 +1,1 @@
-/* special-activity.wxss */
+@import "/pages/special/cell-child/cell-child.wxss";

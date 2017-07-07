@@ -222,9 +222,9 @@ Page({
                 data: deliveryInfo,
             }),
 
-            wx.navigateTo({
-                url: '../../my/delivery-info/delivery-info'
-            })
+                wx.navigateTo({
+                    url: '../../my/delivery-info/delivery-info'
+                })
 
         } else if (title == '删除订单') {//删除订单
             let order = this.data.orderList[index];
@@ -233,7 +233,7 @@ Page({
             wx.showModal({
                 title: '提示',
                 content: '确认删除订单？',
-                confirmText:'删除',
+                confirmText: '删除',
                 success: function (res) {
                     if (res.confirm) {
                         //提交请求
@@ -253,7 +253,7 @@ Page({
                         };
                         r.addToQueue();
 
-                    } 
+                    }
                 }
             })
         } else if (title == '联系客服') {//联系客服
@@ -281,7 +281,7 @@ Page({
                 data: order,
             })
             wx.navigateTo({
-                url: '../../pay-method/pay-method',
+                url: '../../pay-method/pay-method?door=1',
             })
         } else if (title == '立即分享') {//立即分享
             console('----- 立即分享 -----');
@@ -289,7 +289,7 @@ Page({
     },
 
     //随便逛逛
-    okButtonTap:function(){
+    okButtonTap: function () {
         wx.switchTab({
             url: '/pages/home/home'
         })
