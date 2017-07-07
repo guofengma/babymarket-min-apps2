@@ -7,7 +7,11 @@
           <text class="name">{{item.ShowName}}</text>
           <view class="price-cart">
             <view class="price-info">
-              <text class="sale-price">{{item.showPrice}}</text>
+              <view class="sale-price-panel">
+                <text class="sale-price">{{item.showPrice}}</text>
+                <image class="price-image" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />
+              </view>
+
               <text class="old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>
             </view>
             <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" />
