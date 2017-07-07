@@ -41,7 +41,6 @@ Page({
         this.setData({
             noData: noData,
         });
-
     },
 
     /**
@@ -96,7 +95,6 @@ Page({
                         datas[i].expired = true;
                     }
                 }
-
                 self.setData({
                     hasData: true,
                     couponList: datas,

@@ -41,8 +41,8 @@
 }
 
 .coupon-expired {
-  width: 50rpx;
-  height: 50rpx;
+  width: 90rpx;
+  height: 90rpx;
   align-self: center;
   z-index: 3;
 }

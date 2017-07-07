@@ -66,15 +66,6 @@ Page({
                     delta: 1,
                 })
             }
-
-            if (pageBOne.route == 'pages/my/complete-info/complete-info') {
-                pageBOne.setData({
-                    area: areas[index],
-                })
-                wx.navigateBack({
-                    delta: 2,
-                })
-            }
         } else {
             //继续向下一层
             wx.redirectTo({

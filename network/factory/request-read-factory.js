@@ -534,5 +534,69 @@ export default class RequestReadFactory {
                 item.oldPrice = 0;
             }
         });
+        //9d7093c03c3fb18a9e9d8216e355f0a93ed6604d
+    }
+
+    //绑定的支付宝账号查询
+    static alipyAccountRead() {
+        let operation = Operation.sharedInstance().alipayAccountReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${CreateTime} DESC",
+            "MemberId": global.Storage.memberId(),
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '绑定的支付宝账号查询';
+        req.items = ["Id", "Name", "AplipayAccount"];
+        return req;
+    }
+
+    //我的资产查询
+    static myPropertyRead(index) {
+        let operation = Operation.sharedInstance().balanceLogMonthReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "IsIncludeSubtables": true,
+            "Order": "${Month} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+            "MemberId": global.Storage.memberId(),
+            // "Subtables": ["Detail"]
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的资产查询';
+        return req;
+    }
+
+    //收到的奖励查询
+    static awardRead(index) {
+        let operation = Operation.sharedInstance().awardReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${OrderDate} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '收到的奖励查询';
+        return req;
+    }
+
+    //已省金额查询
+    static saveRead(index) {
+        let operation = Operation.sharedInstance().saveReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Order": "${OrderDate} DESC",
+            "MaxCount": '2',
+            "StartIndex": index,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '已省金额查询';
+        return req;
     }
 }

@@ -1,5 +1,5 @@
 // 订单确认
-let {Tool, Storage, Event,RequestReadFactory, RequestWriteFactory} = global;
+let {Tool, Storage, Event, RequestReadFactory, RequestWriteFactory} = global;
 
 Page({
 
@@ -11,27 +11,26 @@ Page({
         orderId: '', //订单id
         num: 0, // 0为无地址，1为有地址
         door: 0, //0为商品库进入，1为购物车进入
-        isSelect: false,
         order: {}, //订单
         orders: [],//传来的选中的购物车商品
         isInsideMember: false,// 是否是内部会员
 
         creditChecked: true, // 授信开关
         balanceChecked: true, // 钱包开关
-        isAirProduct: false, //是否是跨境
+        isAirProduct: false, //是否是跨境商品
 
         status: 0, // 0为未选择优惠劵 1为选择了优惠劵
-        couponData:{
-            CouponId:'',
+        couponData: {
+            CouponId: '',
             Discount: '',
-            money:'选择优惠劵',
+            money: '选择优惠劵',
         },
         addressData: {
             Consignee: '请添加地址',
             Mobile: '',
             Address: '您还没有添加收货地址，赶紧加一个',
             addressId: '',
-            Card:'',
+            Card: '',
         },
         settlementList: [
             {
@@ -83,7 +82,7 @@ Page({
      */
     onShow: function () {
         let status = this.data.status;
-        let door=this.data.door;
+        let door = this.data.door;
         let order = this.data.order;
         let CouponId = this.data.couponData.CouponId;
         if (status == 1) {
@@ -91,7 +90,7 @@ Page({
                 Id: order.Id,
                 CouponId: CouponId,
             };
-            this.modifyOrder(requestData, order, door); 
+            this.modifyOrder(requestData, order, door);
         }
         this.setData({
             status: 0
@@ -235,15 +234,7 @@ Page({
         r.finishBlock = (req) => {
             if (order.Formal === "True" && global.Tool.isValidStr(order.Due)) {
                 // 订单新增成功，跳转到支付界面
-                wx.setStorage({
-                    key: 'order',
-                    data: order,
-                    success: function (res) {
-                        wx.navigateTo({
-                            url: '../pay-method/pay-method',
-                        })
-                    }
-                })
+                self.goConfirmPay(order);
                 //如果从购物车进来，通知购物车刷新数据
                 if (door === 1) {
                     Event.emit('deleteCart');//发出通知
@@ -253,6 +244,21 @@ Page({
             }
         }
         r.addToQueue();
+    },
+
+    /**
+     * 进入确认支付
+     */
+    goConfirmPay: function (order) {
+        wx.setStorage({
+            key: 'order',
+            data: order,
+            success: function (res) {
+                wx.redirectTo({
+                    url: '../pay-method/pay-method?door=0',
+                })
+            }
+        })
     },
 
     /**
@@ -290,16 +296,16 @@ Page({
      */
     addOrder: function () {
         let num = this.data.num;
-        let order=this.data.order;
+        let order = this.data.order;
         let isAirProduct = this.data.isAirProduct;
         let Card = this.data.addressData.Card;
         let self = this;
         // 判断有无地址
         if (num == 1) {
             // 有地址
-            if (isAirProduct && global.Tool.isValidStr(Card)){
+            if (isAirProduct && global.Tool.isValidStr(Card)) {
                 global.Tool.showAlert("跨境商品请使用实名认证地址!");
-            }else{
+            } else {
                 wx.showModal({
                     title: '提示',
                     content: '确认提交订单吗？',
@@ -312,31 +318,39 @@ Page({
             }
         } else {
             //无地址
-            wx.showModal({
-                title: '提示',
-                content: '还没有地址，请先添加地址！',
-                success: function (res) {
-                    if (res.confirm) {
-                        wx.navigateTo({
-                            url: '../address/add-address',
-                        })
-                    }
-                }
-            })
+            self.goAddAddress();
         }
+    },
+
+    /**
+     * 无地址 进入添加地址
+     */
+    goAddAddress: function () {
+        wx.showModal({
+            title: '提示',
+            content: '还没有地址，请先添加地址！',
+            success: function (res) {
+                if (res.confirm) {
+                    wx.navigateTo({
+                        url: '../address/add-address',
+                    })
+                }
+            }
+        })
     },
 
     /**
      * 更新为正式订单
      */
-    submitOrder:function(){
-        let door=this.data.door;
-        let order=this.data.order;
+    submitOrder: function () {
+        let door = this.data.door;
+        let order = this.data.order;
         let CouponId = this.data.couponData.CouponId;
         let Discount = this.data.couponData.Discount;
-        order.Formal="True";
+        let status = this.data.status;
+        order.Formal = "True";
         order.Delivery_AddressId = this.data.addressData.addressId;
-        if (global.Tool.isValidStr(CouponId)){
+        if (status == 1) {
             order.CouponId = this.data.couponData.CouponId;
             order.Discount = this.data.couponData.Discount;
         }

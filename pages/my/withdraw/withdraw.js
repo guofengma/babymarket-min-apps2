@@ -1,6 +1,6 @@
 // withdraw.js
 
-let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
+let {Tool, RequestReadFactory, Event} = global;
 
 Page({
 
@@ -8,13 +8,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        balance: '',
-        havePassword:false,
-        showInputAlert:false,
-        placeholder:'请输入支付密码',
-        password:'',
-        amount:'',
-
         datas: [
             {
                 'inputName': 'name',
@@ -35,7 +28,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        
+        this.requestData();
+        Event.on('addAlipayAccountFinish', this.requestData, this)
     },
 
     /**
@@ -63,7 +57,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        Event.off('addAlipayAccountFinish', this.requestData)
     },
 
     /**
@@ -91,7 +85,7 @@ Page({
      * 绑定支付宝 
      */
     bindAlipayTap: function () {
-        wx.navigateTo({
+        wx.redirectTo({
             url: '../withdraw/bind-alipay/bind-alipay',
         })
     },
@@ -104,11 +98,26 @@ Page({
         let name = value.name;
         let account = value.account;
 
-        console.log('-----name: ' + name);
-        console.log('-----account: ' + account);
-
-        wx.navigateTo({
-            url: '../withdraw/withdraw-to-alipay/withdraw-to-alipay',
+        wx.redirectTo({
+            url: '../withdraw/withdraw-to-alipay/withdraw-to-alipay?name=' + name + '&account='+ account,
         })
-    }
+    },
+
+    /**
+     * 绑定支付宝账号查询
+     */
+    requestData: function () {
+        let r = RequestReadFactory.alipyAccountRead();
+        r.finishBlock = (req) => {
+            let datas = req.responseObject.Datas;
+            datas.forEach((item, index) => {
+                this.setData({
+                    'datas[0].value': item.Name,
+                    'datas[1].value': item.AplipayAccount
+                });
+
+            });
+        };
+        r.addToQueue();
+    },
 })
