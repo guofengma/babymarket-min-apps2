@@ -136,15 +136,15 @@
 }
 
 .bottom-button.right {
-  border: 2rpx solid #ACADAA;
-  color: #ACADAA;
+  border: 2rpx solid #715329;
+  color: #715329;
   position: fixed;
   right: 0;
 }
 
 .bottom-button.middle {
-  border: 2rpx solid #715329;
-  color: #715329;
+  border: 2rpx solid #ACADAA;
+  color: #ACADAA;
   position: fixed;
   right: 200rpx;
 }
