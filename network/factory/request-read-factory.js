@@ -479,7 +479,7 @@ export default class RequestReadFactory {
     static myOrderRead(status, index) {
         let operation = Operation.sharedInstance().orderReadOperation;
 
-        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'";;
+        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'" + " && ${Formal} == 'true'";
         if (typeof (status) != "undefined" && status != "undefined") {
             condition = "${StatusKey} == '" + status + "' && " + condition;
         }
@@ -494,7 +494,7 @@ export default class RequestReadFactory {
             "IsIncludeSubtables": true,
             "Order": "${CreateTime} DESC",
             "MaxCount": '2',
-            "StartIndex": index,
+            "StartIndex": index
         };
         let req = new RequestRead(bodyParameters);
         req.name = '我的订单查询';

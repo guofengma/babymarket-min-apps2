@@ -195,6 +195,25 @@ Page({
                     }
                 }
             })
+        } else if (title == '取消订单') {//取消订单
+            let order = this.data.orderDatas;
+            let self = this;
+
+            wx.showModal({
+                title: '提示',
+                content: '确认取消订单？',
+                confirmText: '确认',
+                success: function (res) {
+                    if (res.confirm) {
+                        let r = RequestWriteFactory.modifyOrderStatus(order.Id, '6');
+                        r.finishBlock = (req) => {
+                            self.requestData();
+                        };
+                        r.addToQueue();
+                    }
+                }
+            })
+
         } else if (title == '联系客服') {//联系客服
             wx.makePhoneCall({
                 phoneNumber: global.TCGlobal.CustomerServicesNumber,
@@ -213,7 +232,7 @@ Page({
             };
             r.addToQueue();
 
-        } else if (title == '付款') {//付款
+        } else if (title == '立即付款') {//付款
             wx.setStorage({
                 key: 'order',
                 data: this.data.orderDatas,
@@ -225,8 +244,7 @@ Page({
             console.log('----- 立即分享 -----');
         } else if (title == '申请退款') {//申请退款
             console.log('----- 申请退款 -----');
-        }
-        else if (title == '取消退款') {//取消退款
+        } else if (title == '取消退款') {//取消退款
             console.log('----- 取消退款 -----');
         }
     },
@@ -264,8 +282,8 @@ Page({
 
         } else if (statusKey == '3') {//待评价
             orderStatus = '买家已收货';
-            orderTips = '请您立即分享';
-            bottomButton0Name = '立即分享';
+            // orderTips = '请您立即分享';
+            bottomButton0Name = '联系客服';
             bottomButton1Name = '查看物流';
 
         } else if (statusKey == '4') {//已评价

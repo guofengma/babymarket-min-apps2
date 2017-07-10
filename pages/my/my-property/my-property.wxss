@@ -32,6 +32,7 @@
   background: #61441a;
   width: 120rpx;
   line-height: 60rpx;
+  height: 60rpx;
   border-radius: 30rpx;
   text-align:center;
   margin-top: 50rpx;
