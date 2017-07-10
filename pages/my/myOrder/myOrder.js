@@ -34,6 +34,8 @@ Page({
             }
         ],
         nomoredata: false,
+        secondArry: [],
+        time:Object
     },
 
     /**
@@ -96,6 +98,11 @@ Page({
     },
 
     requestData: function () {
+        this.setData({
+            orderList: [],
+            secondArry: []
+        });
+
         let index = 0;
         if (this.data.currentIndex == 0) {
             index = "undefined";
@@ -107,12 +114,30 @@ Page({
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             let total = req.responseObject.Total;
+            let secondMap = new Map();
             datas.forEach((item, index) => {
                 let productList = item.Line;
                 for (let i = 0; i < productList.length; i++) {
                     let product = productList[i];
                     let imageUrl = Tool.imageURLForId(product.ImgId, "/res/img/my/my-defualt_square_icon.png");
                     product.imageUrl = imageUrl;
+                }
+
+                //底部按钮 订单状态显示
+                let desp = this.dealOrderStatus(item.StatusKey);
+                item.status = desp.status;
+                item.rightButtonName = desp.rightButtonName;
+                item.leftButtonName = desp.leftButtonName;
+
+                //待付款订单 倒计时处理
+                if (item.StatusKey == '0') {
+                    let orderTime = item.CreateTime;
+                    let timeInterval = Tool.timeIntervalFromString(orderTime);
+                    let now = Tool.timeStringForDate(new Date(), "YYYY-MM-DD HH:mm:ss");
+                    let nowTimeInterval = Tool.timeIntervalFromString(now);
+                    let duration = 30 * 60 - (nowTimeInterval - timeInterval);
+
+                    secondMap.set(index, duration);
                 }
             });
 
@@ -128,12 +153,19 @@ Page({
                 index: datas.length,
                 dataArry: arry,
                 nomoredata: nomoredata,
+                secondArry: secondMap
             });
+
+            if(secondMap.size > 0){
+                this.countdown(this);
+            }
+           
         };
         r.addToQueue();
     },
 
     loadmore: function () {
+        
         let index = 0;
         if (this.data.currentIndex == 0) {
             index = "undefined";
@@ -141,16 +173,41 @@ Page({
             index = this.data.currentIndex - 1;
         }
 
-        let r = RequestReadFactory.myOrderRead(index, this.data.index);
+        let r = RequestReadFactory.myOrderRead(index, this.data.orderList.length);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             let total = req.responseObject.Total;
+            let secondMap = this.data.secondArry;
+
+            if (datas.length == 0) {
+                let nomoredata = true;
+                this.setData({
+                    nomoredata: nomoredata,
+                });
+                return;
+            }
             datas.forEach((item, index) => {
                 let productList = item.Line;
                 for (let i = 0; i < productList.length; i++) {
                     let product = productList[i];
                     let imageUrl = Tool.imageURLForId(product.ImgId);
                     product.imageUrl = imageUrl;
+                }
+
+                let desp = this.dealOrderStatus(item.StatusKey);
+                item.status = desp.status;
+                item.rightButtonName = desp.rightButtonName;
+                item.leftButtonName = desp.leftButtonName;
+
+                //待付款订单 倒计时处理
+                if (item.StatusKey == '0') {
+                    let orderTime = item.CreateTime;
+                    let timeInterval = Tool.timeIntervalFromString(orderTime);
+                    let now = Tool.timeStringForDate(new Date(), "YYYY-MM-DD HH:mm:ss");
+                    let nowTimeInterval = Tool.timeIntervalFromString(now);
+                    let duration = 30 * 60 - (nowTimeInterval - timeInterval);
+
+                    secondMap.set(this.data.index + index, duration);
                 }
             });
 
@@ -165,7 +222,11 @@ Page({
                 index: this.data.index + datas.length,
                 dataArry: arry,
                 nomoredata: nomoredata,
+                secondArry: secondMap
             });
+            if (secondMap.size > 0) {
+                this.countdown(this);
+            }
         };
         r.addToQueue();
     },
@@ -206,7 +267,7 @@ Page({
             let trackNo = order.LogisticsNumber;
             let companyNo = order.LogisticsCode;
 
-            let productList = order.Scan_Line;
+            let productList = order.Line;
             let count = productList.length;
             let imgUrl = productList[count - 1].imageUrl;
 
@@ -274,7 +335,7 @@ Page({
             };
             r.addToQueue();
 
-        } else if (title == '付款') {//付款
+        } else if (title.match('抢先支付') != null) {//付款
             let order = this.data.orderList[index];
             wx.setStorage({
                 key: 'order',
@@ -293,5 +354,102 @@ Page({
         wx.switchTab({
             url: '/pages/home/home'
         })
-    }
+    },
+
+    /**
+     * 订单状态处理
+     */
+    dealOrderStatus: function (statusKey) {
+
+        let item = Object;
+        item.status = '';
+        item.leftButtonName = '';
+        item.rightButtonName = '';
+
+        if (statusKey == '0') {
+            item.status = '待付款';
+            item.rightButtonName = '抢先支付 ';
+
+        } else if (statusKey == '1') {
+            item.status = '待发货';
+            item.rightButtonName = '联系客服';
+
+        } else if (statusKey == '2') {
+            item.status = '待收货';
+            item.rightButtonName = '确认收货';
+            item.leftButtonName = '查看物流';
+
+        } else if (statusKey == '3') {
+            item.status = '已收货';
+            item.rightButtonName = '联系客服';
+            item.leftButtonName = '查看物流';
+
+        } else if (statusKey == '4') {
+            item.status = '已分享';
+        } else if (statusKey == '5') {
+            item.status = '交易成功';
+            item.rightButtonName = '查看物流';
+            item.leftButtonName = '删除订单';
+
+        } else if (statusKey == '6') {
+            item.status = '交易关闭';
+            item.rightButtonName = '删除订单';
+
+        } else if (statusKey == '7') {
+            item.status = '退款中';
+            item.rightButtonName = '取消退款';
+
+        } else if (statusKey == '8') {
+            item.status = '退款成功';
+            item.rightButtonName = '删除订单';
+
+        } else if (statusKey == '9') {
+            item.status = '退款失败';
+            item.rightButtonName = '联系客服';
+
+        }
+
+        return item;
+    },
+
+    /**
+     * 倒计时
+     */
+    countdown: function (that) {
+        clearTimeout(this.data.time);
+
+        let mapArry = that.data.secondArry;
+
+        let orderArry = that.data.orderList;
+        for (let i = 0; i < orderArry.length; i++) {
+            let order = orderArry[i];
+            if (order.StatusKey == '0') {
+                let second = mapArry.get(i);
+                if (second > 0) {//秒数>0
+                    
+                    let countDownTime = Tool.timeStringForTimeCount(second);
+                    order.rightButtonName = '抢先支付 ' + countDownTime;
+                    mapArry.set(i, second - 1);
+
+                } else {
+                    order.rightButtonName = '删除订单';
+                    order.status = '交易关闭';
+                    order.StatusKey = '6';
+                }
+            }
+        }
+
+        var time = setTimeout(function () {
+            that.countdown(that);
+        }, 1000)
+
+        let arry = this.data.dataArry;
+        arry.splice(this.data.currentIndex, 1, orderArry);
+
+        that.setData({
+            orderList: orderArry,
+            dataArry: arry,
+            time:time
+        });
+    },
 })
