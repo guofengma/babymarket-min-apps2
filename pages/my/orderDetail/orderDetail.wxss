@@ -90,6 +90,8 @@
     width: 100%;
     margin-bottom: 200rpx;
     margin-top: 20rpx;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .pay-finnal{

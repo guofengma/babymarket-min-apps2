@@ -7,12 +7,12 @@ Page({
      * 页面的初始数据
      */
     data: {
-        nickName:'',
-        avatarUrl:'/res/img/common/common-avatar-default-icon.png',
-        sign:'',
-        shopName:'',
-        idDesp:'',
-        inviteCode:'',
+        nickName: '',
+        avatarUrl: '/res/img/common/common-avatar-default-icon.png',
+        sign: '',
+        shopName: '',
+        idDesp: '',
+        inviteCode: '',
 
         orderStatusItems: [
             {
@@ -28,7 +28,7 @@ Page({
                 image: '/res/img/my/my-four-cell-address-icon.png'
             },
             {
-                status: '邀请好友',
+                status: '邀请老友',
                 image: '/res/img/my/my-four-cell-invite-icon.png'
             },
         ],
@@ -55,9 +55,9 @@ Page({
                 image: '/res/img/my/my-cell-award-icon.png',
                 name: '收到奖励',
                 detail: {
-                    leftText:'已收',
-                    amount:'0',
-                    rightText:'元'
+                    leftText: '已收',
+                    amount: '0',
+                    rightText: '元'
                 }
             },
             {
@@ -82,7 +82,7 @@ Page({
         myDatasItems1: [
             {
                 image: '/res/img/my/my-cell-frist-friends-icon.png',
-                name: '我的好友',
+                name: '我的老友',
                 detail: {
                     leftText: '共',
                     amount: '0',
@@ -100,13 +100,13 @@ Page({
             },
             {
                 image: '/res/img/my/my-cell-second-friends-icon.png',
-                name: '好友的好友',
+                name: '老友的好友',
                 detail: {
                     leftText: '共',
                     amount: '0',
                     rightText: '人'
                 },
-                arrowHidden:true
+                arrowHidden: true
             },
         ],
         myDatasItems2: [
@@ -126,7 +126,7 @@ Page({
      */
     onLoad: function (options) {
         this.requestData();
-        
+
     },
 
     /**
@@ -198,7 +198,7 @@ Page({
         } else if (status == 2) {//地址管理
             console.log('----地址管理----');
             wx.navigateTo({
-                url: '../address/address' 
+                url: '../address/address'
             })
 
         } else if (status == 3) {//邀请好友
@@ -225,13 +225,21 @@ Page({
      * cell点击
      */
     cellTap: function (e) {
+        
+        if (!Storage.didLogin){//未登录，跳转到登陆界面
+            wx.redirectTo({
+                url: '/pages/login/login',
+            })
+            return;
+        }
+
         let title = e.currentTarget.dataset.title;
-        if (title =='我的资产'){
+        if (title == '我的资产') {
             console.log('----我的资产----');
             wx.navigateTo({
                 url: '../my/my-property/my-property',
             })
-        } else if (title == '收到奖励'){
+        } else if (title == '收到奖励') {
             console.log('----收到奖励----');
             wx.navigateTo({
                 url: '../my/my-award/my-award',
@@ -246,14 +254,17 @@ Page({
         } else if (title == '城市合伙人') {
             console.log('----城市合伙人----');
 
-        } else if (title == '我的好友') {
-            console.log('----我的好友----');
+        } else if (title == '我的老友') {
+            console.log('----我的老友----');
+            wx.navigateTo({
+                url: '../my/my-friends/my-friends',
+            })
 
         } else if (title == '我的店员') {
             console.log('----我的店员----');
 
-        } else if (title == '好友的好友') {
-            console.log('----好友的好友----');
+        } else if (title == '老友的好友') {
+            console.log('----老友的好友----');
 
         } else if (title == '意见和反馈') {
             console.log('----意见和反馈----');
@@ -264,7 +275,7 @@ Page({
                 url: '../coupon/coupon',
             })
 
-        } 
+        }
     },
 
     /**
@@ -313,8 +324,6 @@ Page({
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             datas.forEach((item, index) => {
-                // console.log('money1 :' + item.Money1);
-                // console.log('name :' + item.KHMC);
 
                 wx.setStorage({
                     key: 'memberInfo',
@@ -324,22 +333,56 @@ Page({
                 //是否为内部员工
                 Storage.setInsideMember(item.Inside);
 
+                //登陆类型
+                let name = '';
+                let desp = '';
+                let arry0 = this.data.myDatasItems0;
+                let arry1 = this.data.myDatasItems1;
+
+                arry0[1].detail.amount = item.Balance;
+                arry0[2].detail.amount = item.Commission;
+                arry0[3].detail.amount = item.BuyerCommission;
+                arry0[4].detail.amount = item.PartnerCommission;
+                arry1[0].detail.amount = item.FirstFriend;
+                arry1[1].detail.amount = item.ShopPersonCount;
+                arry1[2].detail.amount = item.SecondFriends;
+
+                if (item.MemberTypeKey == '0') {//普通会员（等同于普通会员）
+                    name = item.Nickname;
+                    Storage.setLoginType('0');
+                    arry0.splice(arry0.length - 1, 1);
+                    arry1.splice(1, 1);
+
+                } else if (item.MemberTypeKey == '1') {//内部员工
+                    name = item.ShopName;
+                    desp = '(零售合伙人)';
+                    Storage.setLoginType('1');
+                    arry0.splice(arry0.length - 1, 1);
+                    arry1.splice(1, 1);
+
+                } else if (item.MemberTypeKey == '2') {//经销商（只有城市合伙人）
+                    name = item.ShopName;
+                    desp = '(城市合伙人)';
+                    Storage.setLoginType('2');
+                    arry1.splice(1, 1);
+
+                } else if (item.MemberTypeKey == '3') {//内部员工（等同于普通会员，但是暂时服务器返回的内部员工的memberTypeKey也为3，所以使用inside再次进行身份判断）
+                    name = item.ShopName;
+                    desp = '(零售合伙人)';
+
+                    if (item.Inside == 'True') {//内部员工
+                        Storage.setLoginType('1');
+                        arry0.splice(arry0.length - 1, 1);
+                        arry1.splice(1, 1);
+
+                    } else {//门店
+                        Storage.setLoginType('3');
+                        arry0.splice(arry0.length - 1, 1);
+                    }
+                }
+
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
-
-                //身份描述设置
-                let name = '';
-                let desp= '';
-                if (item.MemberTypeKey == 0){//普通员工
-                    name = item.Nickname;
-                } else if (item.MemberTypeKey == 1 || item.MemberTypeKey == 3) {//内部员工和门店
-                    name = item.ShopName;
-                    desp = '零售合伙人';
-                } else if (item.MemberTypeKey == 2) {//经销商
-                    name = item.ShopName;
-                    desp = '城市合伙人';
-
-                }
 
                 this.setData({
                     nickName: item.Nickname,
@@ -348,13 +391,8 @@ Page({
                     shopName: name,
                     idDesp: desp,
                     inviteCode: item.InvitationCode,
-                    'myDatasItems0[1].detail.amount':item.Balance,
-                    'myDatasItems0[2].detail.amount': item.Commission,
-                    'myDatasItems0[3].detail.amount': item.BuyerCommission,
-                    'myDatasItems0[4].detail.amount': item.PartnerCommission,
-                    'myDatasItems1[0].detail.amount': item.FirstFriend,
-                    'myDatasItems1[1].detail.amount': item.ShopPersonCount,
-                    'myDatasItems1[2].detail.amount': item.SecondFriends,
+                    myDatasItems0: arry0,
+                    myDatasItems1: arry1
                 });
 
             });

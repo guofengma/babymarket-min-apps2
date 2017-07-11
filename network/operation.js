@@ -118,6 +118,9 @@ export default class Operation {
         //已省金额
         this.saveReadOperation = 'def432e0-c6b8-4bef-8ed3-a75c009c3aed';
 
+        //邀请的老友
+        this.invitedFriendsReadOperation = '0a0980cc-4311-46a0-93c4-a77100aee37d';
+
         __instance(this);
     }
 

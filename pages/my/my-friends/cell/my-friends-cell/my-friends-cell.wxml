@@ -1,0 +1,11 @@
+<template name="my-friends-cell">
+  <block wx:for="{{item.textArray}}" wx:key="">
+    <view class="my-friends-cell">
+      <image src="{{item.imgUrl}}" class="avatar"></image>
+      <view class="name-field">
+        <text class="name">{{item.Name}}</text>
+        <text class="nick">{{item.Nickname}}</text>
+      </view>
+    </view>
+  </block>
+</template>
