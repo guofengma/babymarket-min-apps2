@@ -53,6 +53,7 @@ export default class Operation {
 
         //用户信息
         this.memberInfoReadOperation = 'b83b9dc9-5568-0c67-1926-3c1701fb385b';
+        this.memberInfoModifyOperation = 'a1c9541a-81d2-01d0-1e42-3c1a01ecdfce';
 
         //购物车
         this.cartReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';
@@ -83,10 +84,6 @@ export default class Operation {
 
         //订单明细
         this.orderLineAddOperation = '6a5ba01b-d63c-0e45-230f-3c19005015b1';
-
-        //完善信息
-        this.informationCompleteReadOperation = '';
-        this.informationCompleteWriteOperation = '';
 
         //提现
         this.withdrawAddOperation = '';

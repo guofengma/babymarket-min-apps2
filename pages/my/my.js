@@ -1,6 +1,6 @@
 // my.js
 
-let {Tool, Storage, RequestReadFactory} = global;
+let {Tool, Storage, RequestReadFactory, Event} = global;
 Page({
 
     /**
@@ -126,6 +126,7 @@ Page({
      */
     onLoad: function (options) {
         this.requestData();
+        Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this)
 
     },
 
@@ -154,7 +155,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        Event.off('refreshMemberInfoNotice', this.updateHeaderInfo)
     },
 
     /**
@@ -297,6 +298,9 @@ Page({
      */
     editProfileTap: function () {
         console.log('----编辑资料----');
+        wx.navigateTo({
+            url: '../my/edit-profile/edit-profile',
+        })
     },
 
     /**
@@ -314,6 +318,31 @@ Page({
      */
     requestData: function () {
         this.requestMemberInfo();
+    },
+
+    updateHeaderInfo: function () {
+        let r = RequestReadFactory.memberInfoRead();
+        r.finishBlock = (req) => {
+            let datas = req.responseObject.Datas;
+            datas.forEach((item, index) => {
+
+                wx.setStorage({
+                    key: 'memberInfo',
+                    data: item,
+                })
+
+                //头像url
+                let url = Tool.imageURLForId(item.PictureId);
+
+                this.setData({
+                    nickName: item.Nickname,
+                    sign: item.Sign,
+                    avatarUrl: url
+                });
+
+            });
+        };
+        r.addToQueue();
     },
 
     /**
