@@ -650,4 +650,25 @@ export default class RequestReadFactory {
         req.name = '已省金额查询';
         return req;
     }
+
+    //我邀请的好友查询
+    static myInviteFriendsRead(index, keyword) {
+        let operation = Operation.sharedInstance().invitedFriendsReadOperation;
+        let condition = '';
+        if(keyword != ''){
+            condition = "StringIndexOf(${Name},'" + keyword + " ') > 0 || StringIndexOf(${Nickname},'" + keyword + "') > 0";
+        }
+
+        let bodyParameters = {
+            "Operation": operation,
+            // "MaxCount": '2',
+            "StartIndex": index,
+            "FirstId": global.Storage.memberId(),
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我邀请的好友查询';
+        req.items = ["Id", "Name", "Nickname", "PictureId"];
+        return req;
+    }
 }

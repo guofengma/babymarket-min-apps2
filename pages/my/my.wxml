@@ -29,9 +29,9 @@
   <view class="left-desp-view">
     <view class="line-one-view">
       <text class="name-text">{{shopName}}</text>
-      <text class="identify-name-text">（{{idDesp}}）</text>
+      <text class="identify-name-text">{{idDesp}}</text>
     </view>
-    <text class="invite-code-text">分享码：{{inviteCode}}（可用于邀请好友！）</text>
+    <text class="invite-code-text">分享码：{{inviteCode}}（可用于邀请老友！）</text>
   </view>
   <view class="qrcode-view" catchtap="qrcodeTap">
 

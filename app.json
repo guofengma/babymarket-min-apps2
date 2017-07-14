@@ -36,7 +36,11 @@
         "pages/my/withdraw/pay-password-set/pay-password-set",
         "pages/my/withdraw/withdraw-success/withdraw-success",
         "pages/search/search",
-        "pages/search/search-result/search-result"
+        "pages/search/search-result/search-result",
+        "pages/my/my-friends/my-friends",
+        "pages/my/edit-profile/edit-profile",
+        "pages/my/edit-profile/modify-nickname/modify-nickname",
+        "pages/my/edit-profile/modify-sign/modify-sign"
     ],
     "window": {
         "backgroundTextStyle": "light",

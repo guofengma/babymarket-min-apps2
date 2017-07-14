@@ -1,0 +1,11 @@
+<!--my-friends.wxml-->
+
+<import src='/components/search-field/search-field.wxml' />
+<import src="/pages/my/my-friends/wxSortPickerView/wxSortPickerView.wxml"/> 
+
+<!--搜索框-->
+<view class="search-field-view">
+  <template is="search-field" data="{{isDisabled:false}}"></template>
+</view>
+
+<template is="wxSortPickerView" data="{{wxSortPickerData}}"/>

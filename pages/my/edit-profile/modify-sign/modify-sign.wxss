@@ -1,0 +1,33 @@
+/* modify-sign.wxss */
+.input{
+    padding: 15rpx 36rpx 15rpx 36rpx;
+    background: white;
+    height: 170rpx;
+    width: 678rpx;
+    margin-top: 10rpx;
+    font-size: 32rpx;
+}
+
+.tips{
+    padding-top: 20rpx;
+    font-size: 24rpx;
+    color: #b0b1b3;
+    margin-left: 35rpx;
+}
+
+button::after{
+    border: 0rpx;
+}
+
+.ok-button{
+    margin-left: 36rpx;
+    margin-top: 50rpx;
+    width: 678rpx;
+    height: 88rpx;
+    border-radius: 10rpx;
+    background: #715329;
+    color: white;
+    font-size: 32rpx;
+    text-align: center;
+    line-height: 88rpx;
+}

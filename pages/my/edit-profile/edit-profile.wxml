@@ -1,0 +1,21 @@
+<!--edit-profile.wxml-->
+
+<import src='/pages/my/edit-profile/edit-profile-cell/edit-profile-cell.wxml' />
+
+<!--头像  -->
+<view class="avatar-view" catchtap="modifyImageTap">
+    <text class="avatar-text">头像</text>
+    <image src="{{imageUrl}}" class="avatar-image"></image>
+    <image src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit" class="arrow"></image>
+</view>
+
+<!--昵称，简介  -->
+  <block wx:for="{{listDatas}}" wx:key="unique">
+    <template is="edit-profile-cell" data="{{...item}}"></template>
+  </block>
+
+  <!--手机号  -->
+  <view class="mobile-view">
+    <text class="mobile-text">手机号</text>
+    <text class="mobile-value">{{mobile}}</text>
+  </view>

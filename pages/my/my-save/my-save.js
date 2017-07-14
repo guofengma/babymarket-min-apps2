@@ -8,7 +8,8 @@ Page({
    */
   data: {
       listDatas: ['', '', ''],
-      save: ''
+      save: '',
+      noMoreData:false
   },
 
   /**

@@ -276,4 +276,34 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //修改昵称
+    static modifyNickName(nickName) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Nickname": nickName,
+            "Id": global.Storage.memberId()
+        };
+
+        let req = new RequestWrite(status, 'Member', params, null);
+        req.name = '修改昵称';
+        return req;
+    }
+
+    //修改签名
+    static modifySign(sign) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Sign": sign,
+            "Id": global.Storage.memberId()
+        };
+
+        let req = new RequestWrite(status, 'Member', params, null);
+        req.name = '修改签名';
+        return req;
+    }
+
 }

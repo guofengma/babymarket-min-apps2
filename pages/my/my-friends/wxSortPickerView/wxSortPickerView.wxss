@@ -1,0 +1,35 @@
+@import '/pages/my/my-friends/cell/my-friends-cell/my-friends-cell.wxss';
+
+.wxSortPickerViewTemTags{
+  position: fixed;
+  top: 77rpx;
+  right: 0;
+  background-color: #fff;
+  color: cornflowerblue;
+}
+.wxSortPickerViewTemTag{
+  text-align: center;
+  padding: 3px;
+  font-size: 12px;
+}
+.wxSortPickerViewFixedTag{
+  position: fixed;
+  width: 100%;
+}
+
+.wxSortPickerViewTag{
+  background-color: #f1f3f4;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #b0b1b3;
+  height: 48rpx;
+  line-height: 48rpx;
+  padding-left: 44rpx;
+}
+
+.wxSortPickerViewItem{
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #eee;
+  margin-left: 5px;
+}
