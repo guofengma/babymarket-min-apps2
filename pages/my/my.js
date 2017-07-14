@@ -333,6 +333,7 @@ Page({
 
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
+                console.log('------imgUrl:' + url);
 
                 this.setData({
                     nickName: item.Nickname,

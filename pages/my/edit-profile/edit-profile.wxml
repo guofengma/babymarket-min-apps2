@@ -5,7 +5,7 @@
 <!--头像  -->
 <view class="avatar-view" catchtap="modifyImageTap">
     <text class="avatar-text">头像</text>
-    <image src="{{imageUrl}}" class="avatar-image"></image>
+    <image src="{{imageUrl}}" class="avatar-image" mode="aspectFit"></image>
     <image src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit" class="arrow"></image>
 </view>
 
