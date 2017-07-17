@@ -1,10 +1,10 @@
 <template name="my-friends-cell">
-  <block wx:for="{{item.textArray}}" wx:key="">
-    <view class="my-friends-cell">
+  <block wx:for="{{item}}" wx:key="unique">
+    <view class="my-friends-cell" catchtap="cellTap" data-index="{{index}}">
       <image src="{{item.imgUrl}}" class="avatar"></image>
       <view class="name-field">
-        <text class="name">{{item.Name}}</text>
-        <text class="nick">{{item.Nickname}}</text>
+        <text class="name">name{{item.Name}}</text>
+        <text class="nick">nickname{{item.Nickname}}</text>
       </view>
     </view>
   </block>

@@ -1,0 +1,10 @@
+ <template name="salesman-manage-cell">
+    <view class="salesman-manage-cell">
+        <image src="{{imgUrl}}" class="avatar"></image>
+        <view class="name-field">
+            <text class="name">{{Name}}</text>
+            <text class="nick">{{Nickname}}</text>
+        </view>
+        <image src="{{authUrl}}" class="auth-image" catchtap="authTap" data-index="{{index}}"></image>
+    </view>
+</template> 

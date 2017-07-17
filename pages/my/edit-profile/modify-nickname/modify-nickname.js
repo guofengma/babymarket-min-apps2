@@ -79,7 +79,7 @@ Page({
         //     return;
         // }
 
-        let r = RequestWriteFactory.modifyNickName(name);
+        let r = RequestWriteFactory.modifyMemberInfo(name);
         r.finishBlock = (req) => {
 
             Event.emit('refreshMemberInfoNotice');//发出通知

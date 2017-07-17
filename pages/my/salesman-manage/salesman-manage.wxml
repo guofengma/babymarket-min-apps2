@@ -1,0 +1,15 @@
+<!--salesman-manage.wxml-->
+<import src='/components/empty-view/empty-view.wxml' />
+<import src='/pages/my/salesman-manage/salesman-manage-cell/salesman-manage-cell.wxml' />
+<import src='/components/search-field/search-field.wxml' />
+
+<!--搜索框-->
+ <view class="search-field-view" wx:if="{{listDatas.length != 0}}">
+    <template is="search-field" data="{{isDisabled:false}}"></template>
+</view>
+
+<view class="bg-view" wx:if="{{listDatas.length != 0}}">
+    <block wx:for="{{listDatas}}" wx:key="unique">
+        <template is="salesman-manage-cell" data="{{...item, index:index}}" />
+    </block>
+</view> 

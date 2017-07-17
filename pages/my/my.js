@@ -34,7 +34,7 @@ Page({
         ],
         myDatasItems0: [
             {
-                image: '/res/img/my/my-cell-property-icon.png',
+                image: '/res/img/my/my-cell-coupon-icon.png',
                 name: '我的优惠券',
                 detail: {
                     leftText: '',
@@ -50,6 +50,16 @@ Page({
                     amount: '0',
                     rightText: '元'
                 }
+            },
+            {
+                image: '/res/img/my/my-cell-credit-icon.png',
+                name: '我的授信',
+                detail: {
+                    leftText: '余额',
+                    amount: '0',
+                    rightText: '元',
+                },
+                arrowHidden: true
             },
             {
                 image: '/res/img/my/my-cell-award-icon.png',
@@ -263,6 +273,9 @@ Page({
 
         } else if (title == '我的店员') {
             console.log('----我的店员----');
+            wx.navigateTo({
+                url: '../my/my-salesman/my-salesman',
+            })
 
         } else if (title == '老友的好友') {
             console.log('----老友的好友----');
@@ -370,9 +383,10 @@ Page({
                 let arry1 = this.data.myDatasItems1;
 
                 arry0[1].detail.amount = item.Balance;
-                arry0[2].detail.amount = item.Commission;
-                arry0[3].detail.amount = item.BuyerCommission;
-                arry0[4].detail.amount = item.PartnerCommission;
+                arry0[2].detail.amount = item.Credit;
+                arry0[3].detail.amount = item.Commission;
+                arry0[4].detail.amount = item.BuyerCommission;
+                arry0[5].detail.amount = item.PartnerCommission;
                 arry1[0].detail.amount = item.FirstFriend;
                 arry1[1].detail.amount = item.ShopPersonCount;
                 arry1[2].detail.amount = item.SecondFriends;
@@ -380,6 +394,7 @@ Page({
                 if (item.MemberTypeKey == '0') {//普通会员（等同于普通会员）
                     name = item.Nickname;
                     Storage.setLoginType('0');
+                    arry0.splice(2, 1);
                     arry0.splice(arry0.length - 1, 1);
                     arry1.splice(1, 1);
 
@@ -394,6 +409,7 @@ Page({
                     name = item.ShopName;
                     desp = '(城市合伙人)';
                     Storage.setLoginType('2');
+                    arry0.splice(2, 1);
                     arry1.splice(1, 1);
 
                 } else if (item.MemberTypeKey == '3') {//内部员工（等同于普通会员，但是暂时服务器返回的内部员工的memberTypeKey也为3，所以使用inside再次进行身份判断）
@@ -407,6 +423,7 @@ Page({
 
                     } else {//门店
                         Storage.setLoginType('3');
+                        arry0.splice(2, 1);
                         arry0.splice(arry0.length - 1, 1);
                     }
                 }

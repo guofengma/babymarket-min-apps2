@@ -350,4 +350,19 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //修改认证店员信息
+    static modifySalesmanAuth(isShopPerson, memberId) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "IsShopPerson": isShopPerson,
+            "Id": memberId
+        };
+
+        let req = new RequestWrite(status, 'Member', params, null);
+        req.name = '修改认证店员信息';
+        return req;
+    }
+
 }
