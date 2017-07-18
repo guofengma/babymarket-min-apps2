@@ -81,14 +81,23 @@ Page({
             //     "PictureId": "00000000-0000-0000-0000-000000000000",
             //     "Nickname": "",
             // }
-        ]
+        ],
+        mainId: global.Storage.memberId(),
+        keyword:''
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.requestData('');
+        let memeberId = options.memberId;
+        if (!Tool.isEmptyStr(memeberId)){
+            this.setData({
+                mainId: options.memberId,
+            })
+        }
+
+        this.requestData('', this.data.mainId);
     },
 
     /**
@@ -144,14 +153,17 @@ Page({
      */
     onConfirmAction: function (e) {
         let keyword = e.detail.value;
-        this.requestData(keyword);
+        this.setData({
+            keyword: keyword,
+        })
+        this.requestData(this.data.keyword);
     },
 
     /**
       * 我邀请的好友查询
       */
-    requestData: function (keyword) {
-        let r = RequestReadFactory.myInviteFriendsRead(0, keyword);
+    requestData: function (keyword, firstId) {
+        let r = RequestReadFactory.myInviteFriendsRead(0, keyword, firstId);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             let total = req.responseObject.Total;
@@ -163,15 +175,8 @@ Page({
             })
 
             wxSortPickerView.init(nameArry, this);
-
-            let nomoredata = false;
-            if (datas.length >= total) {
-                nomoredata = true;
-            }
-            
             this.setData({
                 listDatas: nameArry,
-                noMoreData: nomoredata,
                 index: datas.length
             });
         };

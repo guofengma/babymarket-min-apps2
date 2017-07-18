@@ -12,6 +12,7 @@
     margin-left: 36rpx;
     color: #1a1c1f;
     flex-shrink: 0;
+    width: 143rpx;
 }
 
 .desp {
@@ -20,7 +21,7 @@
     text-align: right;
     margin-right: 20rpx;
     margin-left: 10rpx;
-    width: 579rpx;
+    width: 500rpx;
 }
 
 .arrow-icon {

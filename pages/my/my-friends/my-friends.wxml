@@ -1,11 +1,15 @@
 <!--my-friends.wxml-->
 
 <import src='/components/search-field/search-field.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 <import src="/pages/my/my-friends/wxSortPickerView/wxSortPickerView.wxml"/> 
 
 <!--搜索框-->
-<view class="search-field-view">
+ <view class="search-field-view" wx:if="{{listDatas.length != 0}}">
   <template is="search-field" data="{{isDisabled:false}}"></template>
 </view>
 
-<template is="wxSortPickerView" data="{{wxSortPickerData}}"/>
+<template is="wxSortPickerView" data="{{wxSortPickerData}}" wx:if="{{listDatas.length != 0}}"/> 
+
+<!--空页面-->
+<template is="empty-view" wx:if="{{listDatas.length == 0}}" data="{{title:'暂无数据'}}"></template>

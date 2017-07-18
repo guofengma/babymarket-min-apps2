@@ -1,0 +1,8 @@
+/* salesman-manage.wxss */
+ @import '/pages/my/salesman-manage/salesman-manage-cell/salesman-manage-cell.wxss'; 
+ @import '/components/search-field/search-field.wxss';
+ @import '/components/empty-view/empty-view.wxss';
+
+ .search-field-view{
+    margin: 10rpx;
+}

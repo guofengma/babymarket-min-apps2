@@ -1,5 +1,6 @@
 // edit-profile.js
-let { Tool, Storage, RequestReadFactory, Event } = global;
+
+let { Tool, Storage, RequestReadFactory, RequestWriteFactory, Event } = global;
 Page({
 
     /**
@@ -104,7 +105,72 @@ Page({
 
     // 修改头像
     modifyImageTap:function(){
+        let self = this;
 
+        wx.showActionSheet({
+            itemList: ['拍照', '从相册选择'],
+            success: function (res) {
+                console.log(res.tapIndex),
+                 wx.chooseImage({
+                    count: 1, // 默认9
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function(res) {
+                        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                        var tempFilePaths = res.tempFilePaths;
+                        self.setData({
+                            imageUrl: tempFilePaths[0],
+                        });
+
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var arrayBuffer = reader.result;
+                            var base64 = wx.arrayBufferToBase64(arrayBuffer);
+                            console.log('------base64----:' + base64);
+
+                            //上传到服务器
+                            wx.request({
+                                url: 'https://www.babymarkt.com.cn/Libra.Web.Api.ApiWriteBlob.aspx',
+                                data: {
+                                    '_SESSION_': global.Storage.currentSession(),
+                                    'format':'BASE64',
+                                    base64
+                                },
+                                success: function (res) {
+                                    console.log('---------临时Id:' + res.data.TemporaryId);
+
+                                    let temporaryId = res.data.TemporaryId;//临时Id
+                                    let r = RequestWriteFactory.modifyAcatar(temporaryId);
+                                    r.finishBlock = (req) => {
+                                        Event.emit('refreshMemberInfoNotice');//发出通知
+
+                                        wx.navigateBack({
+                                            delta:1
+                                        })
+                                    };
+                                    r.addToQueue();
+                                }
+                            })
+                        }
+                        reader.readAsArrayBuffer(new Blob(tempFilePaths))
+                        // reader.readAsBinaryString(new Blob(tempFilePaths));
+                     },
+                 })
+            },
+            fail: function (res) {
+                console.log(res.errMsg)
+            }
+        })
+    },
+
+    // 获取文件二进制数据
+    getFileBinary:function(file, cb) {
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = function (e) {
+            if (typeof cb === "function") {
+                cb.call(this, this.result);
+            }
+        }
     },
 
     /**

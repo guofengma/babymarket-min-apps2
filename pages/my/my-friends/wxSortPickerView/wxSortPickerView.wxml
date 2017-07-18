@@ -7,7 +7,7 @@
     scroll-top="{{wxSortPickerData.wxSortPickerViewScrollTop}}">
     <block wx:for="{{wxSortPickerData.textData}}" wx:for-item="item" wx:key="unique">
       <view id="{{item.tag}}" class="wxSortPickerViewTag" wx:if="{{item.textArray.length != 0}}">{{item.tag}}</view>
-      <template is="my-friends-cell" data="{{item}}" />
+      <template is="my-friends-cell" data="{{item:item.textArray}}" />
     </block>
   </scroll-view>
 

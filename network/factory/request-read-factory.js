@@ -652,23 +652,58 @@ export default class RequestReadFactory {
     }
 
     //我邀请的好友查询
-    static myInviteFriendsRead(index, keyword) {
+    static myInviteFriendsRead(index, keyword, firstId) {
         let operation = Operation.sharedInstance().invitedFriendsReadOperation;
-        let condition = '';
-        if(keyword != ''){
-            condition = "StringIndexOf(${Name},'" + keyword + " ') > 0 || StringIndexOf(${Nickname},'" + keyword + "') > 0";
+        let condition = "${FirstId} == '" + firstId + "'";
+        if (keyword != '' && keyword != 'undefined'){
+            condition = condition + "&& (StringIndexOf(${Name},'" + keyword + " ') > 0 || StringIndexOf(${Nickname},'" + keyword + "') > 0)";
         }
 
         let bodyParameters = {
             "Operation": operation,
-            // "MaxCount": '2',
             "StartIndex": index,
-            "FirstId": global.Storage.memberId(),
             "Condition": condition,
         };
         let req = new RequestRead(bodyParameters);
         req.name = '我邀请的好友查询';
         req.items = ["Id", "Name", "Nickname", "PictureId"];
+        return req;
+    }
+
+    //我的店员查询
+    static mysalesmanRead(index) {
+        let operation = Operation.sharedInstance().invitedFriendsReadOperation;
+        let condition = "${FirstId} == '" + global.Storage.memberId() + "' && ${IsShopPerson} == 'true'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的店员查询';
+        req.items = ["Id", "Name", "Nickname", "PictureId", "FirstFriend"];
+        return req;
+    }
+
+    //我的店员管理查询
+    static mysalesmanManageRead(index, keyword) {
+        let operation = Operation.sharedInstance().invitedFriendsReadOperation;
+        let condition = "${FirstId} == '" + global.Storage.memberId() + "'";
+        if (keyword != '' && keyword != 'undefined') {
+            condition = condition + "&& (StringIndexOf(${Name},'" + keyword + " ') > 0 || StringIndexOf(${Nickname},'" + keyword + "') > 0)";
+        }
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的店员管理查询';
+        req.items = ["Id", "Name", "Nickname", "PictureId","IsShopPerson"];
         return req;
     }
 }

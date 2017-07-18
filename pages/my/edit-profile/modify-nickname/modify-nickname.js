@@ -79,10 +79,9 @@ Page({
         //     return;
         // }
 
-        let r = RequestWriteFactory.modifyNickName(name);
+        let r = RequestWriteFactory.modifyMemberInfo(name);
         r.finishBlock = (req) => {
 
-            //刷新提现明细页面
             Event.emit('refreshMemberInfoNotice');//发出通知
 
             wx.navigateBack({

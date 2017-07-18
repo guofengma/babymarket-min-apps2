@@ -1,0 +1,15 @@
+<template name="my-salesman-cell">
+    <view class="my-salesman-cell" catchtap="cellTap" data-index="{{index}}">
+        <image src="{{imgUrl}}" class="avatar"></image>
+        <view class="name-field">
+            <text class="name">{{Name}}</text>
+            <text class="nick">{{Nickname}}</text>
+        </view>
+        <view class="right-view-flex">
+            <text>好友</text>
+            <text class="number">{{FirstFriend}}</text>
+            <text>人</text>
+        </view>
+         <image class="arrow" src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit"></image> 
+    </view>
+</template>
