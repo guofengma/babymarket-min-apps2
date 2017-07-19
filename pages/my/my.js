@@ -13,6 +13,7 @@ Page({
         shopName: '',
         idDesp: '',
         inviteCode: '',
+        isLogin:false,
 
         orderStatusItems: [
             {
@@ -32,112 +33,104 @@ Page({
                 image: '/res/img/my/my-four-cell-invite-icon.png'
             },
         ],
-        myDatasItems0: [
-            {
-                image: '/res/img/my/my-cell-coupon-icon.png',
-                name: '我的优惠券',
-                detail: {
-                    leftText: '',
-                    amount: '',
-                    rightText: ''
-                }
+        dict00: {
+            image: '/res/img/my/my-cell-coupon-icon.png',
+            name: '我的优惠券',
+            detail: {
+                leftText: '',
+                amount: '',
+                rightText: ''
+            }
+        },
+        dict01: {
+            image: '/res/img/my/my-cell-property-icon.png',
+            name: '我的资产',
+            detail: {
+                leftText: '余额',
+                amount: '0',
+                rightText: '元'
+            }
+        },
+        dict02: {
+            image: '/res/img/my/my-cell-credit-icon.png',
+            name: '我的授信',
+            detail: {
+                leftText: '余额',
+                amount: '0',
+                rightText: '元',
             },
-            {
-                image: '/res/img/my/my-cell-property-icon.png',
-                name: '我的资产',
-                detail: {
-                    leftText: '余额',
-                    amount: '0',
-                    rightText: '元'
-                }
+            arrowHidden: true
+        },
+        dict03: {
+            image: '/res/img/my/my-cell-award-icon.png',
+            name: '收到奖励',
+            detail: {
+                leftText: '已收',
+                amount: '0',
+                rightText: '元'
+            }
+        },
+        dict04: {
+            image: '/res/img/my/my-cell-save-icon.png',
+            name: '已省金额',
+            detail: {
+                leftText: '已省',
+                amount: '0',
+                rightText: '元'
+            }
+        },
+        dict05: {
+            image: '/res/img/my/my-cell-hehuoren-icon.png',
+            name: '城市合伙人',
+            detail: {
+                leftText: '待领',
+                amount: '0',
+                rightText: '元'
+            }
+        },
+        dict10: {
+            image: '/res/img/my/my-cell-frist-friends-icon.png',
+            name: '我的老友',
+            detail: {
+                leftText: '共',
+                amount: '0',
+                rightText: '人'
+            }
+        },
+        dict11: {
+            image: '/res/img/my/my-cell-employee-icon.png',
+            name: '我的店员',
+            detail: {
+                leftText: '共',
+                amount: '0',
+                rightText: '人'
+            }
+        },
+        dict12: {
+            image: '/res/img/my/my-cell-second-friends-icon.png',
+            name: '老友的好友',
+            detail: {
+                leftText: '共',
+                amount: '0',
+                rightText: '人'
             },
-            {
-                image: '/res/img/my/my-cell-credit-icon.png',
-                name: '我的授信',
-                detail: {
-                    leftText: '余额',
-                    amount: '0',
-                    rightText: '元',
-                },
-                arrowHidden: true
-            },
-            {
-                image: '/res/img/my/my-cell-award-icon.png',
-                name: '收到奖励',
-                detail: {
-                    leftText: '已收',
-                    amount: '0',
-                    rightText: '元'
-                }
-            },
-            {
-                image: '/res/img/my/my-cell-save-icon.png',
-                name: '已省金额',
-                detail: {
-                    leftText: '已省',
-                    amount: '0',
-                    rightText: '元'
-                }
-            },
-            {
-                image: '/res/img/my/my-cell-hehuoren-icon.png',
-                name: '城市合伙人',
-                detail: {
-                    leftText: '待领',
-                    amount: '0',
-                    rightText: '元'
-                }
-            },
-        ],
-        myDatasItems1: [
-            {
-                image: '/res/img/my/my-cell-frist-friends-icon.png',
-                name: '我的老友',
-                detail: {
-                    leftText: '共',
-                    amount: '0',
-                    rightText: '人'
-                }
-            },
-            {
-                image: '/res/img/my/my-cell-employee-icon.png',
-                name: '我的店员',
-                detail: {
-                    leftText: '共',
-                    amount: '0',
-                    rightText: '人'
-                }
-            },
-            {
-                image: '/res/img/my/my-cell-second-friends-icon.png',
-                name: '老友的好友',
-                detail: {
-                    leftText: '共',
-                    amount: '0',
-                    rightText: '人'
-                },
-                arrowHidden: true
-            },
-        ],
-        myDatasItems2: [
-            {
-                image: '/res/img/my/my-cell-feedback-icon.png',
-                name: '意见和反馈'
-            },
-            // {
-            //     image: '/res/img/my/my-cell-agreement-icon.png',
-            //     name: '联系客服'
-            // }
-        ]
+            arrowHidden: true
+        },
+
+        myDatasItems0: [],
+        myDatasItems1: [],
+        myDatasItems2: [{
+            image: '/res/img/my/my-cell-feedback-icon.png',
+            name: '意见和反馈'
+        }]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.requestData();
-        Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this)
-
+        Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this);
+        Event.on('LoginOutNotic', this.updateHeaderInfo, this);
     },
 
     /**
@@ -151,7 +144,16 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        let self = this;
+        wx.getStorage({
+            key: 'didLogin',
+            success: function (res) {
+                self.setData({
+                    isLogin: res.data
+                });
+                self.requestData();
+            },
+        })
     },
 
     /**
@@ -165,7 +167,8 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        Event.off('refreshMemberInfoNotice', this.updateHeaderInfo)
+        Event.off('refreshMemberInfoNotice', this.updateHeaderInfo);
+        Event.off('LoginOutNotic', this.updateHeaderInfo)
     },
 
     /**
@@ -193,6 +196,13 @@ Page({
      * four cells
      */
     orderStatusTap: function (e) {
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+            wx.reLaunch({
+                url: '/pages/login/login',
+            })
+            return;
+        }
+
         let status = e.currentTarget.dataset.index;
         if (status == 0) {//我的订单
             console.log('----我的订单----');
@@ -237,8 +247,8 @@ Page({
      */
     cellTap: function (e) {
         
-        if (!Storage.didLogin){//未登录，跳转到登陆界面
-            wx.redirectTo({
+        if (!this.data.isLogin){//未登录，跳转到登陆界面
+            wx.reLaunch({
                 url: '/pages/login/login',
             })
             return;
@@ -288,7 +298,6 @@ Page({
             wx.navigateTo({
                 url: '../coupon/coupon',
             })
-
         }
     },
 
@@ -304,6 +313,9 @@ Page({
      */
     settingTap: function () {
         console.log('----设置----');
+        wx.navigateTo({
+            url: '../my/setting/setting',
+        })
     },
 
     /**
@@ -311,8 +323,25 @@ Page({
      */
     editProfileTap: function () {
         console.log('----编辑资料----');
+
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+            wx.reLaunch({
+                url: '/pages/login/login',
+            })
+            return;
+        }
+        
         wx.navigateTo({
             url: '../my/edit-profile/edit-profile',
+        })
+    },
+
+    /**
+     * 登录／注册
+     */
+    loginRegisterTap:function(){
+        wx.reLaunch({
+            url: '/pages/login/login',
         })
     },
 
@@ -334,15 +363,14 @@ Page({
     },
 
     updateHeaderInfo: function () {
+        if (!this.data.isLogin) {//未登录
+            return;
+        }
+
         let r = RequestReadFactory.memberInfoRead();
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             datas.forEach((item, index) => {
-
-                wx.setStorage({
-                    key: 'memberInfo',
-                    data: item,
-                })
 
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
@@ -363,15 +391,14 @@ Page({
      * 登录用户信息 
      */
     requestMemberInfo: function () {
+        if(!this.data.isLogin){//未登录
+            return;
+        }
+
         let r = RequestReadFactory.memberInfoRead();
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             datas.forEach((item, index) => {
-
-                wx.setStorage({
-                    key: 'memberInfo',
-                    data: item,
-                })
 
                 //是否为内部员工
                 Storage.setInsideMember(item.Inside);
@@ -379,22 +406,20 @@ Page({
                 //登陆类型
                 let name = '';
                 let desp = '';
-                let arry0 = this.data.myDatasItems0;
-                let arry1 = this.data.myDatasItems1;
-
-                arry0[1].detail.amount = item.Balance;
-                arry0[2].detail.amount = item.Credit;
-                arry0[3].detail.amount = item.Commission;
-                arry0[4].detail.amount = item.BuyerCommission;
-                arry0[5].detail.amount = item.PartnerCommission;
-                arry1[0].detail.amount = item.FirstFriend;
-                arry1[1].detail.amount = item.ShopPersonCount;
-                arry1[2].detail.amount = item.SecondFriends;
+                let arry0 = [this.data.dict00,
+                    this.data.dict01,
+                    this.data.dict02,
+                    this.data.dict03,
+                    this.data.dict04,
+                    this.data.dict05];
+                let arry1 = [this.data.dict10,
+                    this.data.dict11,
+                    this.data.dict12,];
 
                 if (item.MemberTypeKey == '0') {//普通会员（等同于普通会员）
                     name = item.Nickname;
                     Storage.setLoginType('0');
-                    arry0.splice(2, 1);
+                    arry0.push(2, 1);
                     arry0.splice(arry0.length - 1, 1);
                     arry1.splice(1, 1);
 
@@ -432,6 +457,14 @@ Page({
                 let url = Tool.imageURLForId(item.PictureId);
 
                 this.setData({
+                    'dict01.detail.amount': item.Balance,
+                    'dict02.detail.amount': item.Credit,
+                    'dict03.detail.amount': item.Commission,
+                    'dict04.detail.amount': item.BuyerCommission,
+                    'dict05.detail.amount': item.PartnerCommission,
+                    'dict10.detail.amount': item.FirstFriend,
+                    'dict11.detail.amount': item.ShopPersonCount,
+                    'dict12.detail.amount': item.SecondFriends,
                     nickName: item.Nickname,
                     sign: item.Sign,
                     avatarUrl: url,

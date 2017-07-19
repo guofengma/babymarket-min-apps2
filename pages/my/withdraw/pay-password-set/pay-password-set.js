@@ -26,7 +26,8 @@ Page({
         ],
         second: '59',
         showSecond: '获取验证码',
-        getCodeEnable: true
+        getCodeEnable: true,
+        time:Object
     },
 
     /**
@@ -35,7 +36,7 @@ Page({
     onLoad: function (options) {
         let self = this;
         wx.getStorage({
-            key: 'memberInfo',
+            key: 'currentMember',
             success: function (res) {
                 self.setData({
                     mobile: res.data.Mobile
@@ -69,7 +70,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        clearTimeout(this.data.time);
     },
 
     /**
@@ -116,6 +117,7 @@ Page({
     countdown: function (that) {
         var second = that.data.second;
         // console.log('-----second: ' + second);
+        clearTimeout(this.data.time);
 
         if (second == 0) {
             that.setData({
@@ -137,6 +139,9 @@ Page({
             });
             that.countdown(that);
         }, 1000)
+        that.setData({
+            time: time,
+        });
     },
 
     /**

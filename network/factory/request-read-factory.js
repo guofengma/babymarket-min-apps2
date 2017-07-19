@@ -706,4 +706,18 @@ export default class RequestReadFactory {
         req.items = ["Id", "Name", "Nickname", "PictureId","IsShopPerson"];
         return req;
     }
+
+    //验证码检验
+    static checkCodeRead(code, mobile) {
+        let operation = Operation.sharedInstance().checkCodeOperation;
+
+        let condition = "${Mobile} == '" + mobile + "' && ${Code} == '" + code + "'";
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '验证码检验';
+        return req;
+    }
 }

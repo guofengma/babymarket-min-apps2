@@ -28,7 +28,7 @@ Page({
     onLoad: function (options) {
         let self = this;
         wx.getStorage({
-            key: 'memberInfo',
+            key: 'currentMember',
             success: function (res) {
                 self.setData({
                     mobile: res.data.Mobile,
@@ -181,11 +181,6 @@ Page({
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             datas.forEach((item, index) => {
-
-                wx.setStorage({
-                    key: 'memberInfo',
-                    data: item,
-                })
 
                 this.setData({
                     mobile: item.Mobile,

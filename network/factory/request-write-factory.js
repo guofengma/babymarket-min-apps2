@@ -365,4 +365,23 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //修改登录密码
+    static modifyLoginPassword(mobile,code,password) {
+        let operation = Operation.sharedInstance().loginPasswordModifyOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Mobile": mobile,
+            "Check_Code": code,
+            "Check": code,
+            "Password_New": password,
+            "Password_Check": password,
+            "Formal": "true",
+        };
+
+        let req = new RequestWrite(status, 'Password_Retake', params, null);
+        req.name = '修改登录密码';
+        return req;
+    }
+
 }
