@@ -124,6 +124,12 @@ export default class Operation {
         //修改登录密码
         this.loginPasswordModifyOperation = 'f22aaf89-0539-0bf4-3142-3c4a01a6748f';
 
+        //退款
+        this.refundReasonReadOperation = 'd8f2d996-53f4-0d49-2b4a-3e7601740c18';
+        this.refundAddOperation = 'a6998041-52b6-0a29-30cf-3e7800b26949';
+        this.refundModifyOperation = '88c79a35-f915-473d-b8c3-a77500185b8c';
+        this.refundReadOperation = '18525e79-8689-4e57-9f1f-a77500182f04';
+
         __instance(this);
     }
 

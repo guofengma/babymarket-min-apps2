@@ -1,0 +1,34 @@
+<!--order-refund.wxml-->
+<view class="tips-view">
+    <view class="tips-items">温馨提示：</view>
+    <view class="tips-items">1.限时特价、满减等购买优惠可能一并取消</view>
+    <view class="tips-items">2.如遇订单拆分，包邮等条件订单可能新增运费</view>
+    <view class="tips-items">3.退款按付款方式原路返回，不能返回的付款方式返回余额中</view>
+    <view class="tips-items">4.订单一旦取消，无法恢复</view>
+</view>
+
+<!--mode默认selector range数据源value选择的index bindchange事件监听-->
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{reasonArry}}">
+    <view class="refund-reason">
+        <text class="reason-text">退款原因</text>
+        <view class="reason">{{reasonArry[index]}}</view>
+        <image src="/res/img/my/refund/my-refund-arrow-down-icon.png" class="down-arrow"></image>
+    </view>
+</picker>
+
+<form bindsubmit="submitTap">
+    <view class="input-view">
+        <label class="refund-desp">退款说明：</label>
+        <textarea name="refunddesp" class="refund-desp-textarea" />
+    </view>
+
+    <view class="contact-view">
+        <text class="contact">退款联系人：{{name}}</text>
+        <view class="mobile-view">
+            <text class="contact">联系方式：</text>
+            <text class="contact mobile">{{mobile}}</text>
+        </view>
+    </view>
+
+    <button class="submit-button" form-type="submit">提交</button>
+</form>

@@ -60,6 +60,8 @@ Page({
         }),
 
         this.requestData();
+        Event.on('refundSuccessNotic', this.requestData, this)
+        Event.on('cancelRefundSuccessNotic', this.requestData, this)
     },
 
     /**
@@ -87,7 +89,8 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        Event.off('refundSuccessNotic', this.requestData)
+        Event.off('cancelRefundSuccessNotic', this.requestData)
     },
 
     /**
@@ -144,9 +147,9 @@ Page({
      */
     bottomButtonTap: function (e) {
         var title = e.currentTarget.dataset.title;
+        let order = this.data.orderDatas;
 
         if (title == '查看物流') {//查看物流
-            let order = this.data.orderDatas;
 
             let trackNo = order.LogisticsNumber;
             let companyNo = order.LogisticsCode;
@@ -172,7 +175,6 @@ Page({
             })
 
         } else if (title == '删除订单') {//删除订单
-            let order = this.data.orderDatas;
             let self = this;
 
             wx.showModal({
@@ -196,7 +198,6 @@ Page({
                 }
             })
         } else if (title == '取消订单') {//取消订单
-            let order = this.data.orderDatas;
             let self = this;
 
             wx.showModal({
@@ -225,7 +226,6 @@ Page({
                 // }
             })
         } else if (title == '确认收货') {//确认收货
-            let order = this.data.orderList[index];
             let r = RequestWriteFactory.modifyOrderStatus(order.Id, '3');
             r.finishBlock = (req) => {
                 this.requestData();
@@ -244,8 +244,14 @@ Page({
             console.log('----- 立即分享 -----');
         } else if (title == '申请退款') {//申请退款
             console.log('----- 申请退款 -----');
+
+            wx.navigateTo({
+                url: '../../my/order-refund/order-refund?orderId=' + order.Id,
+            })
         } else if (title == '取消退款') {//取消退款
-            console.log('----- 取消退款 -----');
+            wx.navigateTo({
+                url: '../order-refund-success/order-refund-success?orderId=' + order.Id,
+            })
         }
     },
 

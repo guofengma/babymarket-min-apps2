@@ -720,4 +720,32 @@ export default class RequestReadFactory {
         req.name = '验证码检验';
         return req;
     }
+
+    //退款原因
+    static refundReasonRead() {
+        let operation = Operation.sharedInstance().refundReasonReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款原因';
+        return req;
+    }
+
+    //退款记录查询
+    static refundRecordRead(orderId) {
+        let operation = Operation.sharedInstance().refundReadOperation;
+
+        let condition = "${OrderId} == '" + orderId + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款记录查询';
+        req.items = ["Id"];
+        return req;
+    }
 }

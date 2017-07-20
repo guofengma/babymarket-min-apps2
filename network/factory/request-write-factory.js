@@ -384,4 +384,36 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //申请退款
+    static orderRefundAdd(reasonId, reasonText, remark, orderId) {
+        let operation = Operation.sharedInstance().refundAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "ReasonId": reasonId,
+            "ReasonText": reasonText,
+            "Remark": remark,
+            "OrderId": orderId
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, null);
+        req.name = '申请退款';
+        return req;
+    }
+
+    //取消退款
+    static orderRefundCancel(refundId) {
+        let operation = Operation.sharedInstance().refundModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": refundId,
+            "Deleted": 'true'
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, null);
+        req.name = '取消退款';
+        return req;
+    }
+
 }
