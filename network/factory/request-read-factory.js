@@ -748,4 +748,36 @@ export default class RequestReadFactory {
         req.items = ["Id"];
         return req;
     }
+
+    //消息查询
+    static messageRead(index, messageType) {
+        let operation = Operation.sharedInstance().messageReadOperation;
+        let condition = "${ReceiverId} == '" + global.Storage.memberId() + "' && ${MessageMainTypeKey} == '" + messageType + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '消息查询';
+        return req;
+    }
+
+    //未读消息条数查询
+    static messageRead(messageType) {
+        let operation = Operation.sharedInstance().messageReadOperation;
+        let condition = "${IsReaded} == 'false' && ${ReceiverId} == '" + global.Storage.memberId() + "' && ${MessageMainTypeKey} == '" + messageType + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '1',
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '未读消息条数查询';
+        req.items = ["Id"];
+        return req;
+    }
 }

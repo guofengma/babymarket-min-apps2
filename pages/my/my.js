@@ -9,6 +9,7 @@ Page({
     data: {
         nickName: '',
         avatarUrl: '/res/img/common/common-avatar-default-icon.png',
+        messageUrl:'/res/img/my/my-message-icon.png',
         sign: '',
         shopName: '',
         idDesp: '',
@@ -154,6 +155,8 @@ Page({
                 self.requestData();
             },
         })
+    
+        this.unreadMessageNum();
     },
 
     /**
@@ -306,6 +309,9 @@ Page({
      */
     messageTap: function () {
         console.log('----消息----');
+        wx.navigateTo({
+            url: '../my/system-message/system-message',
+        })
     },
 
     /**
@@ -479,4 +485,20 @@ Page({
         };
         r.addToQueue();
     },
+
+    /**
+     * 未读消息条数查询
+     */
+    unreadMessageNum: function () {
+        let r = RequestReadFactory.messageRead("1");
+        r.finishBlock = (req) => {
+            let total = req.responseObject.Total;
+            let url = total > 0 ? '/res/img/my/my-message-red-icon.png' :'/res/img/my/my-message-icon.png';
+            this.setData({
+                messageUrl:url
+            });
+        }
+
+        r.addToQueue();
+    }
 })

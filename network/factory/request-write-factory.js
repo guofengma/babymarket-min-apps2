@@ -416,4 +416,19 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //消息批量阅读
+    static allMessageRead(messageMainTypeKey) {
+        let operation = Operation.sharedInstance().allMessageReadModifyOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "CreatorId": global.Storage.memberId(),
+            "MessageMainTypeKey": messageMainTypeKey
+        };
+
+        let req = new RequestWrite(status, 'BatchRead', params, null);
+        req.name = '消息批量阅读';
+        return req;
+    }
+
 }

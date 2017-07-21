@@ -1,0 +1,10 @@
+<template name="system-message-cell">
+    <view class="system-message-cell-view">
+        <view class="name-time-view">
+            <view class="sepline-row"></view>
+            <label class="name">{{RelevancyName}}</label>
+            <label class="time">{{SendAt}}</label>
+        </view>
+        <label class="content">{{Content}}</label>
+    </view>
+</template>

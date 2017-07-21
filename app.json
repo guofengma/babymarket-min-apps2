@@ -47,7 +47,8 @@
         "pages/my/setting/modify-password/modify-password",
         "pages/my/setting/password-reset/password-reset",
         "pages/my/order-refund/order-refund",
-        "pages/my/order-refund-success/order-refund-success"
+        "pages/my/order-refund-success/order-refund-success",
+        "pages/my/system-message/system-message"
     ],
     "window": {
         "backgroundTextStyle": "light",
