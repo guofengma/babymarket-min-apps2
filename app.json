@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/register/phone/register-phone",
         "pages/home/home",
         "pages/product-detail/product-detail",
         "pages/my/my",
@@ -36,7 +37,8 @@
         "pages/my/withdraw/pay-password-set/pay-password-set",
         "pages/my/withdraw/withdraw-success/withdraw-success",
         "pages/search/search",
-        "pages/search/search-result/search-result"
+        "pages/search/search-result/search-result",
+        "pages/register/code/register-code"
     ],
     "window": {
         "backgroundTextStyle": "light",

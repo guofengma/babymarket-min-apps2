@@ -1,0 +1,22 @@
+
+<import src='/components/submit-btn/submit-btn.wxml'/>
+
+<view class="register-phone">
+
+    <input bindinput="phoneOnChange"/>
+
+    <view class="submit-container">
+        <template is="submit-btn" data="{{title:'确定'}}"/>
+    </view>
+
+    <view class="protocal">
+        <view class="agree">我同意</view>
+        <view class="title">《用户注册协议和隐私协议》</view>
+    </view>
+</view>
+
+
+
+
+
+
