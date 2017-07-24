@@ -4,7 +4,7 @@
     justify-content: center;
     margin:0rpx;
     color: white;
-    background-color: #715329;
+    background-color: #ae8231;
     height:90rpx;
     font-size: 28rpx;
     border-radius: 10rpx;

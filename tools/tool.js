@@ -54,14 +54,27 @@ export default class Tool {
         return this.timeStringForDate(date, format);
     }
 
+    static stringToDate(_date,_format,_delimiter)    {
+        var formatLowerCase=_format.toLowerCase();
+        var formatItems=formatLowerCase.split(_delimiter);
+        var dateItems=_date.split(_delimiter);
+        var monthIndex=formatItems.indexOf("mm");
+        var dayIndex=formatItems.indexOf("dd");
+        var yearIndex=formatItems.indexOf("yyyy");
+        var month=parseInt(dateItems[monthIndex]);
+        month-=1;
+        var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+        return formatedDate;
+    }
+
     static timeIntervalFromString(string) {
         let date = Tool.dateFromString(string);
         let timeInterval = parseInt(date.getTime() / 1000);
         return timeInterval;
     }
 
-    static timeIntervalFromNow(interval) {
-        return this.timeIntervalFromDate(new Date(), interval);
+    static timeIntervalFromNow(interval = 0){
+        return this.timeIntervalFromDate(new Date(),interval);
     }
 
     static timeIntervalFromDate(date, interval) {
@@ -133,6 +146,22 @@ export default class Tool {
         days = parseInt(duration / (24 * 3600));
 
         return days + 1;
+    }
+
+    /**
+     * 时间转为秒数 eg 8:30转为秒数
+     * @param time
+     * @returns {number}
+     */
+    static secondCountFromTime(time){
+        let arr = time.split(':');
+        if (arr.length == 2) {
+            let hour = arr[0]
+            let min = arr[1];
+            let timeInterval = hour * 60 * 60 + min * 60;
+            return timeInterval;
+        }
+        return 0;
     }
 
     /**

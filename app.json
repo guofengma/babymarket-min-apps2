@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/home/home",
+        "pages/register/phone/register-phone",
         "pages/product-detail/product-detail",
         "pages/my/my",
         "pages/product-lib/product-lib",
@@ -37,6 +38,7 @@
         "pages/my/withdraw/withdraw-success/withdraw-success",
         "pages/search/search",
         "pages/search/search-result/search-result",
+        "pages/register/code/register-code",
         "pages/my/my-friends/my-friends",
         "pages/my/edit-profile/edit-profile",
         "pages/my/edit-profile/modify-nickname/modify-nickname",

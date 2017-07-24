@@ -17,6 +17,43 @@ export default class RequestReadFactory {
         return req;
     }
 
+    /**
+     * 查询手机号是否被注册
+     * @param phone
+     * @returns {RequestRead}
+     */
+    static checkMemberByPhone(phone){
+        let operation = Operation.sharedInstance().memberInfoReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Mobile": phone,
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '查询手机号是否被注册';//用于日志输出
+        req.items = ['Id'];
+        return req;
+    }
+
+    /**
+     * 获取验证码
+     * @param phone
+     * @typeKey 0 为新用户注册 1 为找回密码 2 设置支付密码
+     * @returns {RequestRead}
+     */
+    static acquireSMSCode(phone,typeKey = '0'){
+        let operation = Operation.sharedInstance().memberInfoReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Mobile": phone,
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '获取验证码';//用于日志输出
+        req.items = ['Id'];
+        return req;
+    }
+
     //积分查询
     static pointUploadRead(theId) {
         let operation = Operation.sharedInstance().pointReadOperation;

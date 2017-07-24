@@ -22,6 +22,12 @@ App({
         global.RequestReadFactory = RequestReadFactory;
 
         this.getSystemInfo();
+
+        wx.login({
+            success:(res) => {
+                console.log('code:' + res.code);
+            }
+        })
     },
     onShow:function () {
         if (!Storage.didLogin()){

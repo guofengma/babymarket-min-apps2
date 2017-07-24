@@ -1,0 +1,23 @@
+<!--register-code.wxml-->
+
+<import src='/components/submit-btn/submit-btn.wxml'/>
+
+<view class="register-code">
+
+    <view class="phone">
+        <view>
+            您的手机号：{{phone}}
+        </view>
+    </view>
+
+    <view class="prompt">
+        <view>您将收到一条带有验证码的短信，请输入验证码</view>
+    </view>
+
+    <input bindinput="codeOnChange"/>
+
+    <view class="submit-container">
+        <template is="submit-btn" data="{{title:'确定'}}"/>
+    </view>
+
+</view>
