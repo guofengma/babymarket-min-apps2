@@ -45,8 +45,9 @@
   flex-wrap: wrap;
   padding-left: 10rpx;
   padding-right: 10rpx;
+  line-height: 50rpx;
 }
-
+ 
 .hot {
   display: flex;
   flex-direction: column;
@@ -63,4 +64,5 @@
   flex-wrap: wrap;
   padding-left: 10rpx;
   padding-right: 10rpx;
+  line-height: 50rpx;
 }
