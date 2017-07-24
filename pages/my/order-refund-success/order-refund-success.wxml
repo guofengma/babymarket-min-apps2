@@ -1,0 +1,11 @@
+<!--order-refund-success.wxml-->
+<view class="top-view">
+    <view class="line-one-view">
+        <image src="/res/img/my/my-withdraw-success-icon.png" style="width:30rpx;height:30rpx" class="image"></image>
+        <view class="top-items">您的退款申请已经提交成功！</view>
+    </view>
+    <view class="top-items">请耐心等待退款处理结果，谢谢您的理解!</view>
+</view>
+
+<view class="cancel">如果你想取消退款申请，请点击下方取消退款按钮</view>
+<view class="cancel-button" catchtap="cancelTap">取消退款申请</view>

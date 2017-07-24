@@ -1,0 +1,13 @@
+<!--my-salesman.wxml-->
+<import src='/components/empty-view/empty-view.wxml' />
+<import src='/pages/my/my-salesman/my-salesman-cell/my-salesman-cell.wxml' />
+
+<!--空页面-->
+<template is="empty-view" wx:if="{{listDatas.length == 0}}" data="{{title:'暂无数据'}}"></template>
+
+<view class="bg-view" wx:if="{{listDatas.length != 0}}">
+    <block wx:for="{{listDatas}}" wx:key="unique">
+        <template is="my-salesman-cell" data="{{...item, index:index}}" />
+    </block>
+</view>
+<view class="manage-button" catchtap="manageSalesman">店员管理</view>

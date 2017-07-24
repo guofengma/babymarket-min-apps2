@@ -516,7 +516,7 @@ export default class RequestReadFactory {
     static myOrderRead(status, index) {
         let operation = Operation.sharedInstance().orderReadOperation;
 
-        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'";;
+        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'" + " && ${Formal} == 'true'";
         if (typeof (status) != "undefined" && status != "undefined") {
             condition = "${StatusKey} == '" + status + "' && " + condition;
         }
@@ -531,7 +531,7 @@ export default class RequestReadFactory {
             "IsIncludeSubtables": true,
             "Order": "${CreateTime} DESC",
             "MaxCount": '2',
-            "StartIndex": index,
+            "StartIndex": index
         };
         let req = new RequestRead(bodyParameters);
         req.name = '我的订单查询';
@@ -685,6 +685,136 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '已省金额查询';
+        return req;
+    }
+
+    //我邀请的好友查询
+    static myInviteFriendsRead(index, keyword, firstId) {
+        let operation = Operation.sharedInstance().invitedFriendsReadOperation;
+        let condition = "${FirstId} == '" + firstId + "'";
+        if (keyword != '' && keyword != 'undefined'){
+            condition = condition + "&& (StringIndexOf(${Name},'" + keyword + " ') > 0 || StringIndexOf(${Nickname},'" + keyword + "') > 0)";
+        }
+
+        let bodyParameters = {
+            "Operation": operation,
+            "StartIndex": index,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我邀请的好友查询';
+        req.items = ["Id", "Name", "Nickname", "PictureId"];
+        return req;
+    }
+
+    //我的店员查询
+    static mysalesmanRead(index) {
+        let operation = Operation.sharedInstance().invitedFriendsReadOperation;
+        let condition = "${FirstId} == '" + global.Storage.memberId() + "' && ${IsShopPerson} == 'true'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的店员查询';
+        req.items = ["Id", "Name", "Nickname", "PictureId", "FirstFriend"];
+        return req;
+    }
+
+    //我的店员管理查询
+    static mysalesmanManageRead(index, keyword) {
+        let operation = Operation.sharedInstance().invitedFriendsReadOperation;
+        let condition = "${FirstId} == '" + global.Storage.memberId() + "'";
+        if (keyword != '' && keyword != 'undefined') {
+            condition = condition + "&& (StringIndexOf(${Name},'" + keyword + " ') > 0 || StringIndexOf(${Nickname},'" + keyword + "') > 0)";
+        }
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的店员管理查询';
+        req.items = ["Id", "Name", "Nickname", "PictureId","IsShopPerson"];
+        return req;
+    }
+
+    //验证码检验
+    static checkCodeRead(code, mobile) {
+        let operation = Operation.sharedInstance().checkCodeOperation;
+
+        let condition = "${Mobile} == '" + mobile + "' && ${Code} == '" + code + "'";
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '验证码检验';
+        return req;
+    }
+
+    //退款原因
+    static refundReasonRead() {
+        let operation = Operation.sharedInstance().refundReasonReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款原因';
+        return req;
+    }
+
+    //退款记录查询
+    static refundRecordRead(orderId) {
+        let operation = Operation.sharedInstance().refundReadOperation;
+
+        let condition = "${OrderId} == '" + orderId + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款记录查询';
+        req.items = ["Id"];
+        return req;
+    }
+
+    //消息查询
+    static messageRead(index, messageType) {
+        let operation = Operation.sharedInstance().messageReadOperation;
+        let condition = "${ReceiverId} == '" + global.Storage.memberId() + "' && ${MessageMainTypeKey} == '" + messageType + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '消息查询';
+        return req;
+    }
+
+    //未读消息条数查询
+    static messageRead(messageType) {
+        let operation = Operation.sharedInstance().messageReadOperation;
+        let condition = "${IsReaded} == 'false' && ${ReceiverId} == '" + global.Storage.memberId() + "' && ${MessageMainTypeKey} == '" + messageType + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '1',
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '未读消息条数查询';
+        req.items = ["Id"];
         return req;
     }
 }

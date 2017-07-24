@@ -1,0 +1,9 @@
+/* my-friends.wxss */
+
+@import '/components/search-field/search-field.wxss';
+@import '/components/empty-view/empty-view.wxss';
+@import "/pages/my/my-friends/wxSortPickerView/wxSortPickerView.wxss";
+
+.search-field-view{
+    margin: 10rpx;
+}

@@ -1,2 +1,7 @@
 <!--invite-friends.wxml-->
-<text>invite-friends.wxml</text>
+
+<view class="bg-view">
+    <image src="/res/img/my/my-invite-friends-icon.png" class="icon"></image>
+    <text class="desp">好东西就要一起分享，邀请好友加入老友码头消费（双方都可以获得奖励）</text>
+    <button class="invite" open-type="share">发送我的邀请链接</button>
+</view>

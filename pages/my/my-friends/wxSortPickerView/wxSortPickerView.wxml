@@ -1,0 +1,21 @@
+<import src='/pages/my/my-friends/cell/my-friends-cell/my-friends-cell.wxml' />
+
+<template name="wxSortPickerView">
+
+  <!--左侧列表-->
+  <scroll-view class="wxSortPickerViewList" scroll-y="true" style="height: {{wxSortPickerData.view.scrollHeight}}px;" bindscrolltoupper="wxSortPickerViewUpper" bindscrolltolower="wxSortPickerViewLower" bindscroll="wxSortPickerViewScroll" scroll-into-view="{{wxSortPickerData.wxSortPickerViewtoView}}"
+    scroll-top="{{wxSortPickerData.wxSortPickerViewScrollTop}}">
+    <block wx:for="{{wxSortPickerData.textData}}" wx:for-item="item" wx:key="unique">
+      <view id="{{item.tag}}" class="wxSortPickerViewTag" wx:if="{{item.textArray.length != 0}}">{{item.tag}}</view>
+      <template is="my-friends-cell" data="{{item:item.textArray}}" />
+    </block>
+  </scroll-view>
+
+  <!--右侧索引栏-->
+  <scroll-view style="width:20px;height: {{wxSortPickerData.view.scrollHeight}}px;" class="wxSortPickerViewTemTags">
+    <block wx:for="{{wxSortPickerData.textData}}" wx:for-item="item" wx:key="unique">
+      <view bindtap="wxSortPickerViewTemTagTap" data-tag="{{item.tag}}" class="wxSortPickerViewTemTag" wx:if="{{item.textArray.length != 0}}">{{item.tag}}</view>
+    </block>
+  </scroll-view>
+
+</template>

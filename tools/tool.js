@@ -172,11 +172,20 @@ export default class Tool {
     static timeStringForTimeCount(timeCount) {
         let hour = parseInt(timeCount / (60 * 60));
         let min = parseInt((timeCount - hour * 3600) / 60);
+        let sec = parseInt(timeCount - hour * 3600 - min * 60);
         let hourString = hour + '';
         hourString = global.Tool.addZero(hourString, 2);
         let minString = min + '';
         minString = global.Tool.addZero(minString, 2);
-        let openinghours = hourString + ':' + minString;
+        let secString = sec + '';
+        secString = global.Tool.addZero(secString, 2);
+
+        let openinghours = minString + ':' + secString;
+
+        if (hourString != '00') {
+            openinghours = hourString + ':' + minString + ':' + secString;
+        }
+
         return openinghours;
     }
 
@@ -735,5 +744,6 @@ export default class Tool {
             return false;
         }
     }
+
 }
 

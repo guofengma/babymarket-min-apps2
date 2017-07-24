@@ -75,6 +75,12 @@
   text-align: center;
 }
 
+.bottom-button.right.pay{
+    border: 2rpx solid #7697c6;
+    color: #7697c6;
+    width: 230rpx;
+}
+
 .bottom-button.left {
   border: 2rpx solid #b0b1b3;
   color: #454950;

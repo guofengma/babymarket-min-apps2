@@ -1,0 +1,10 @@
+<!--setting.wxml-->
+<import src='/pages/my/setting/setting-cell/setting-cell.wxml' />
+
+<!-- wx:key="unique"可以告诉编译器，重用(reuse) item 提高性能-->
+<block wx:for="{{listDatas}}" wx:key="unique">
+    <template is="setting-cell" data="{{...item,index:index}}"></template>
+</block>
+
+<view class="login" catchtap="loginTap" wx:if="{{isLogin}}">退出当前账号</view>
+<view class="login" catchtap="loginTap" wx:elif="{{!isLogin}}">登录／注册</view>

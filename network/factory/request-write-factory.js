@@ -6,6 +6,7 @@ import RequestWrite from '../base-requests/request-write'
 import Network from '../network'
 import Operation from '../operation'
 import Tool from '../../tools/tool'
+import RequestUploadTempFile from '../requests/request-upload-temp-file'
 
 //写入请求具体封装
 export default class RequestWriteFactory {
@@ -273,6 +274,160 @@ export default class RequestWriteFactory {
 
         let req = new RequestWrite(status, 'PayCode', params, null);
         req.name = '设置支付密码';
+        return req;
+    }
+
+    //修改昵称
+    static modifyNickName(nickName) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Nickname": nickName,
+            "Id": global.Storage.memberId()
+        };
+
+        let req = new RequestWrite(status, 'Member', params, null);
+        req.name = '修改昵称';
+        return req;
+    }
+
+    //修改签名
+    static modifySign(sign) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Sign": sign,
+            "Id": global.Storage.memberId()
+        };
+
+        let req = new RequestWrite(status, 'Member', params, null);
+        req.name = '修改签名';
+        return req;
+    }
+
+    //上传图片获取图片临时id
+    static uploadTempFile(imageUrl) {
+        let req = new RequestUploadTempFile(imageUrl);
+        req.name = '上传图片获取图片临时id';
+        return req;
+    }
+
+    //修改用户头像
+    static modifyAcatar(temporaryId) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+
+        // 文件名
+        let now = Tool.timeStringForDate(new Date(), "YYYY-MM-DD HH:mm:ss");
+        let nowTimeInterval = Tool.timeIntervalFromString(now);
+        let fileName = nowTimeInterval + '.png';
+
+        let imgId = Tool.guid();
+
+        let relevancies = [{
+            "EntityName": "Attachment",
+            "Status": Network.sharedInstance().statusNew,
+            "Items": {
+                "FileName": fileName,
+                "RelevancyId": global.Storage.memberId(),
+                "RelevancyType": "Member",
+                "RelevancyBizElement": "Picture",
+                "$FILE_BYTES": temporaryId,
+                "ID": imgId,
+            },
+        }];
+
+        let params = {
+            "Operation": operation,
+            "Id": global.Storage.memberId(),
+            "PictureId":imgId
+        };
+
+        let req = new RequestWrite(status, 'Member', params, operation, relevancies);
+        req.name = '修改用户头像';
+        return req;
+    }
+
+    //修改认证店员信息
+    static modifySalesmanAuth(isShopPerson, memberId) {
+        let operation = Operation.sharedInstance().memberInfoModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "IsShopPerson": isShopPerson,
+            "Id": memberId
+        };
+
+        let req = new RequestWrite(status, 'Member', params, null);
+        req.name = '修改认证店员信息';
+        return req;
+    }
+
+    //修改登录密码
+    static modifyLoginPassword(mobile,code,password) {
+        let operation = Operation.sharedInstance().loginPasswordModifyOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Mobile": mobile,
+            "Check_Code": code,
+            "Check": code,
+            "Password_New": password,
+            "Password_Check": password,
+            "Formal": "true",
+        };
+
+        let req = new RequestWrite(status, 'Password_Retake', params, null);
+        req.name = '修改登录密码';
+        return req;
+    }
+
+    //申请退款
+    static orderRefundAdd(reasonId, reasonText, remark, orderId) {
+        let operation = Operation.sharedInstance().refundAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "ReasonId": reasonId,
+            "ReasonText": reasonText,
+            "Remark": remark,
+            "OrderId": orderId
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, null);
+        req.name = '申请退款';
+        return req;
+    }
+
+    //取消退款
+    static orderRefundCancel(refundId) {
+        let operation = Operation.sharedInstance().refundModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": refundId,
+            "Deleted": 'true'
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, null);
+        req.name = '取消退款';
+        return req;
+    }
+
+    //消息批量阅读
+    static allMessageRead(messageMainTypeKey) {
+        let operation = Operation.sharedInstance().allMessageReadModifyOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "CreatorId": global.Storage.memberId(),
+            "MessageMainTypeKey": messageMainTypeKey
+        };
+
+        let req = new RequestWrite(status, 'BatchRead', params, null);
+        req.name = '消息批量阅读';
         return req;
     }
 

@@ -53,6 +53,7 @@ export default class Operation {
 
         //用户信息
         this.memberInfoReadOperation = 'b83b9dc9-5568-0c67-1926-3c1701fb385b';
+        this.memberInfoModifyOperation = 'a1c9541a-81d2-01d0-1e42-3c1a01ecdfce';
 
         //购物车
         this.cartReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';
@@ -84,10 +85,6 @@ export default class Operation {
         //订单明细
         this.orderLineAddOperation = '6a5ba01b-d63c-0e45-230f-3c19005015b1';
 
-        //完善信息
-        this.informationCompleteReadOperation = '';
-        this.informationCompleteWriteOperation = '';
-
         //提现
         this.withdrawAddOperation = '';
         this.withdrawReadOperation = '';
@@ -117,6 +114,25 @@ export default class Operation {
 
         //已省金额
         this.saveReadOperation = 'def432e0-c6b8-4bef-8ed3-a75c009c3aed';
+
+        //邀请的老友
+        this.invitedFriendsReadOperation = '0a0980cc-4311-46a0-93c4-a77100aee37d';
+
+        //登录密码验证码验证
+        this.checkCodeOperation = 'c994e890-833d-0ab7-1ff0-3c2900031403';
+
+        //修改登录密码
+        this.loginPasswordModifyOperation = 'f22aaf89-0539-0bf4-3142-3c4a01a6748f';
+
+        //退款
+        this.refundReasonReadOperation = 'd8f2d996-53f4-0d49-2b4a-3e7601740c18';
+        this.refundAddOperation = 'a6998041-52b6-0a29-30cf-3e7800b26949';
+        this.refundModifyOperation = '88c79a35-f915-473d-b8c3-a77500185b8c';
+        this.refundReadOperation = '18525e79-8689-4e57-9f1f-a77500182f04';
+
+        //消息
+        this.messageReadOperation = '2270a7a2-9649-47ec-a544-a75100babc4d';
+        this.allMessageReadModifyOperation = '3543d6c8-fd9e-0e7b-326c-3e5c0044b919';//消息批量阅读
 
         __instance(this);
     }

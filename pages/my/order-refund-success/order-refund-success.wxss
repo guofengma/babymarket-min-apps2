@@ -1,0 +1,49 @@
+/* order-refund-success.wxss */
+
+.top-view {
+    font-size: 32rpx;
+    color: #1a1c1f;
+    width: 100%;
+    text-align: center;
+    background: white;
+    padding-top: 146rpx;
+    padding-bottom: 252rpx;
+}
+
+.top-items{
+    line-height: 50rpx;
+}
+
+.line-one-view{
+    display: flex;
+    justify-content: center;
+}
+
+.line-one-view .top-items{
+    margin-left: 10rpx;
+
+}
+
+.image{
+    align-self: center;
+}
+
+.cancel{
+    font-size: 28rpx;
+    color: #b0b1b3;
+    margin-left: 40rpx;
+    margin-top: 32rpx;
+}
+
+.cancel-button{
+    font-size: 30rpx;
+    color: white;
+    background: #af8327;
+    margin-left: 40rpx;
+    width: 670rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    border-radius: 10rpx;
+    margin-top: 62rpx;
+}

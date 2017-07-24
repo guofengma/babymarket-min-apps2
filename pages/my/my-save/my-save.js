@@ -8,7 +8,8 @@ Page({
    */
   data: {
       listDatas: ['', '', ''],
-      save: ''
+      save: '',
+      noMoreData:false
   },
 
   /**
@@ -18,7 +19,7 @@ Page({
       this.requestData();
       let self = this;
       wx.getStorage({
-          key: 'memberInfo',
+          key: 'currentMember',
           success: function (res) {
               self.setData({
                   save: res.data.BuyerCommission
