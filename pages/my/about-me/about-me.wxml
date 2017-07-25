@@ -1,7 +1,10 @@
 <!--about-me.wxml-->
 
 <view class="window">
-    <image src="/res/img/my/my-about-me-bg-icon.png" class="image_bg"></image>
-    <image src="/res/img/my/my-about-me-logo-icon.png" class="logo" style="width:380rpx;height:380rpx"></image>
-    <text>{{version}}</text>
+    <image src="/res/img/my/my-about-me-logo-icon.png" class="logo"></image>
+    <label class="app-name">老友码头</label>
+    <label class="version">{{version}}</label>
+
+    <image src="{{qrImage}}" class="qrImage" mode="aspectFit"></image>
+    <label class="desp OverFlowTwoLine">扫描二维码，让您的小伙伴也拥有码头吧</label>
 </view>

@@ -37,6 +37,9 @@ export default class Network {
         //物流信息
         this.expressURL = 'https://v.juhe.cn/exp/index';
 
+        //二维码
+        this.qrcodeURL = 'https://app.xgrowing.com/node/wxapp/get_qrcode';
+
         this.statusExisted = 'Existed';
         this.statusNew = 'New';
         this.statusDelete = 'Deleted';

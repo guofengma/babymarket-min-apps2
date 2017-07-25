@@ -138,14 +138,13 @@
 
 .left-desp-view{
     margin-left: 24rpx;
-    width: 622rpx;
+    width: 600rpx;
     height: 120rpx;
 }
 
 .qrcode-view{
-    width: 80rpx;
-    height: 80rpx;
-    background: cadetblue;
+    width: 100rpx;
+    height: 100rpx;
 }
 
 .line-one-view{

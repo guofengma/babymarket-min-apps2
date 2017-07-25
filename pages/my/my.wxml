@@ -38,9 +38,7 @@
         </view>
         <text class="invite-code-text">分享码：{{inviteCode}}（可用于邀请老友！）</text>
     </view>
-    <view class="qrcode-view" catchtap="qrcodeTap">
-
-    </view>
+    <image class="qrcode-view" catchtap="qrcodeTap" src="{{qrImage}}" mode="aspectFit"></image>
 </view>
 
 <view class="login-out-desp-view" wx:else>未登录</view>
