@@ -1,6 +1,6 @@
 // my.js
 
-let {Tool, Storage, RequestReadFactory, Event} = global;
+let { Tool, Storage, RequestReadFactory, Event} = global;
 Page({
 
     /**
@@ -9,12 +9,13 @@ Page({
     data: {
         nickName: '',
         avatarUrl: '/res/img/common/common-avatar-default-icon.png',
-        messageUrl:'/res/img/my/my-message-icon.png',
+        messageUrl: '/res/img/my/my-message-icon.png',
+        qrImage:'',
         sign: '',
         shopName: '',
         idDesp: '',
         inviteCode: '',
-        isLogin:false,
+        isLogin: false,
 
         orderStatusItems: [
             {
@@ -155,7 +156,7 @@ Page({
                 self.requestData();
             },
         })
-    
+
         this.unreadMessageNum();
     },
 
@@ -249,8 +250,8 @@ Page({
      * cell点击
      */
     cellTap: function (e) {
-        
-        if (!this.data.isLogin){//未登录，跳转到登陆界面
+
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
             wx.reLaunch({
                 url: '/pages/login/login',
             })
@@ -336,7 +337,7 @@ Page({
             })
             return;
         }
-        
+
         wx.navigateTo({
             url: '../my/edit-profile/edit-profile',
         })
@@ -345,7 +346,7 @@ Page({
     /**
      * 登录／注册
      */
-    loginRegisterTap:function(){
+    loginRegisterTap: function () {
         wx.reLaunch({
             url: '/pages/login/login',
         })
@@ -397,7 +398,7 @@ Page({
      * 登录用户信息 
      */
     requestMemberInfo: function () {
-        if(!this.data.isLogin){//未登录
+        if (!this.data.isLogin) {//未登录
             return;
         }
 
@@ -413,14 +414,14 @@ Page({
                 let name = '';
                 let desp = '';
                 let arry0 = [this.data.dict00,
-                    this.data.dict01,
-                    this.data.dict02,
-                    this.data.dict03,
-                    this.data.dict04,
-                    this.data.dict05];
+                this.data.dict01,
+                this.data.dict02,
+                this.data.dict03,
+                this.data.dict04,
+                this.data.dict05];
                 let arry1 = [this.data.dict10,
-                    this.data.dict11,
-                    this.data.dict12,];
+                this.data.dict11,
+                this.data.dict12,];
 
                 if (item.MemberTypeKey == '0') {//普通会员（等同于普通会员）
                     name = item.Nickname;
@@ -481,6 +482,7 @@ Page({
                     myDatasItems1: arry1
                 });
 
+                this.getQrcode();
             });
         };
         r.addToQueue();
@@ -493,12 +495,28 @@ Page({
         let r = RequestReadFactory.messageRead("1");
         r.finishBlock = (req) => {
             let total = req.responseObject.Total;
-            let url = total > 0 ? '/res/img/my/my-message-red-icon.png' :'/res/img/my/my-message-icon.png';
+            let url = total > 0 ? '/res/img/my/my-message-red-icon.png' : '/res/img/my/my-message-icon.png';
             this.setData({
-                messageUrl:url
+                messageUrl: url
             });
         }
 
         r.addToQueue();
-    }
+    },
+
+    /**
+     * 获取二维码
+     */
+    getQrcode: function () {
+        let url = '/pages/home/home?fromId=' + this.data.inviteCode;
+        let r = RequestReadFactory.qrcodeRead(url, 100);
+        r.finishBlock = (req) => {
+            let data = req.responseObject.data;
+            let image = "https://app.xgrowing.com/node/imgs/wxqrcode/" + data.img_name;
+            this.setData({
+                qrImage: image
+            });
+        };
+        r.addToQueue();
+    },
 })

@@ -6,6 +6,7 @@ import RequestRead from '../base-requests/request-read'
 import Operation from '../operation'
 import RequestLogin from '../requests/request-login'
 import RequestDeliveryInfoRead from '../requests/request-delivery-info-read'
+import RequestQRcodeRead from '../requests/request-qrcode'
 
 //读取请求具体封装
 export default class RequestReadFactory {
@@ -815,6 +816,13 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '未读消息条数查询';
         req.items = ["Id"];
+        return req;
+    }
+
+    //获取二维码
+    static qrcodeRead(path, width) {
+        let req = new RequestQRcodeRead(path, width);
+        req.name = '获取二维码';
         return req;
     }
 }
