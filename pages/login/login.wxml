@@ -6,9 +6,9 @@
       <button formType="submit" class="bt_login">登录</button>
     </view>
     <view class="view_password">
-      <text>忘记密码</text>
+      <text catchtap="onFindPasswordListener">忘记密码</text>
       <view class="password_empty"></view>
-      <text>我要注册</text>
+      <text catchtap="onRegisterListener">我要注册</text>
     </view>
   </form>
 </view>

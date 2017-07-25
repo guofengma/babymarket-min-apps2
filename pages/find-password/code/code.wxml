@@ -4,7 +4,7 @@
 
   <view class="phone">
     <view>
-      您的手机号：{{phone}}
+      您正在找回账号：{{phone}}
     </view>
   </view>
 

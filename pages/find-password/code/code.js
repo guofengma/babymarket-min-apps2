@@ -24,11 +24,12 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面卸载
-   */
+     * 生命周期函数--监听页面卸载
+     */
   onUnload: function () {
     clearTimeout(this.data.time);
   },
+
   getCodeTap: function () {
     let tempEnable = this.data.getCodeBtEnable;
     if (!tempEnable) {
@@ -41,7 +42,7 @@ Page({
     });
 
     this.countdown(this);
-    let r = RequestWriteFactory.verifyCodeGet(this.data.phone, '0');
+    let r = RequestWriteFactory.verifyCodeGet(this.data.phone, '1');
     r.finishBlock = (req) => {
       wx.showToast({
         title: '验证码已发送',
@@ -63,7 +64,7 @@ Page({
       let datas = req.responseObject.Datas;
       if (datas.length >= 1) {
         wx.navigateTo({
-          url: '/pages/register/invite/register-invite?phone=' + phone + "&code=" + code
+          url: '/pages/find-password/password/password?phone=' + phone + "&code=" + code
         })
       } else {
         Tool.showAlert("验证码错误");

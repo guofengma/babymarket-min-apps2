@@ -54,6 +54,7 @@ export default class Operation {
         //用户信息
         this.memberInfoReadOperation = 'b83b9dc9-5568-0c67-1926-3c1701fb385b';
         this.memberInfoModifyOperation = 'a1c9541a-81d2-01d0-1e42-3c1a01ecdfce';
+        this.memberAddOperation = '3678dc19-7dcb-020c-26ff-3c1900385fe2';
 
         //购物车
         this.cartReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';

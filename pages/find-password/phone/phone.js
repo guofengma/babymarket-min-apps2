@@ -33,15 +33,15 @@ Page({
     let self = this;
     let { phone } = this.data;
     if (Tool.isEmpty(phone)) {
-      Tool.showAlert('请输入手机号码')
+      Tool.showAlert('请输入账号')
     } else {
       let r = RequestReadFactory.checkMemberByPhone(phone);
       r.finishBlock = (req) => {
         let { Datas } = req.responseObject;
         if (Tool.isValidArr(Datas)) {
-          Tool.showAlert('您输入手机号码已经被注册')
+          global.Tool.navigateTo('/pages/find-password/code/code?phone=' + phone);
         } else {
-          global.Tool.navigateTo('/pages/register/code/register-code?phone=' + phone);
+          Tool.showAlert('该账号未注册')
         }
       }
       r.addToQueue();

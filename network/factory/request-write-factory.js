@@ -251,7 +251,7 @@ export default class RequestWriteFactory {
         let params = {
             "Operation": operation,
             "Mobile": mobile,
-            "TypeKey": typeKey,// 1 为找回密码 0 为新用户注册 2 设置支付密码
+            "TypeKey": typeKey+"",// 1 为找回密码 0 为新用户注册 2 设置支付密码
         };
 
         let req = new RequestWrite(status, 'Check_Code', params, null);
@@ -429,6 +429,48 @@ export default class RequestWriteFactory {
         let req = new RequestWrite(status, 'BatchRead', params, null);
         req.name = '消息批量阅读';
         return req;
+    }
+
+    //新增会员
+    static addMember(mobile, code, password, inviteCode) {
+      let operation = Operation.sharedInstance().memberAddOperation;
+      let status = Network.sharedInstance().statusNew;
+      let params = {
+        "Operation": operation,
+        "Name": mobile,
+        "Mobile": mobile,
+        "Nickname": mobile,
+        "Code_Input": code,
+        "Password": password,
+        "Password2": password,
+        "YQM": inviteCode
+      };
+
+      let req = new RequestWrite(status, 'Member', params, null);
+      req.name = '新增会员';
+
+      return req;
+    }
+
+    //新增密码修改记录
+    static addMember(mobile, code, password, inviteCode) {
+      let operation = Operation.sharedInstance().memberAddOperation;
+      let status = Network.sharedInstance().statusNew;
+      let params = {
+        "Operation": operation,
+        "Name": mobile,
+        "Mobile": mobile,
+        "Nickname": mobile,
+        "Code_Input": code,
+        "Password": password,
+        "Password2": password,
+        "YQM": inviteCode
+      };
+
+      let req = new RequestWrite(status, 'Password_Retake', params, null);
+      req.name = '新增密码修改记录';
+
+      return req;
     }
 
 }

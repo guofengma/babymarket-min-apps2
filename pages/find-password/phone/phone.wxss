@@ -20,26 +20,3 @@
 .register-phone .submit-container {
   height: 100rpx;
 }
-
-.register-phone .protocal {
-  display: flex;
-  flex-direction: row;
-  margin-top: 50rpx;
-}
-
-.register-phone .protocal .tick {
-  width: 20rpx;
-  height: 20rpx;
-  flex: none;
-}
-
-.register-phone .protocal .agree {
-  font-size: 26rpx;
-  color: #454950;
-  margin-left: 10rpx;
-}
-
-.register-phone .protocal .title {
-  color: #715329;
-  font-size: 26rpx;
-}

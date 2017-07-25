@@ -36,6 +36,44 @@ export default class RequestReadFactory {
     }
 
     /**
+     * 查询验证码
+     * @param phone 
+     * @param code
+     * @returns {RequestRead}
+     */
+    static checkCode(phone,code) {
+      let operation = Operation.sharedInstance().checkCodeOperation;
+      let bodyParameters = {
+        "Operation": operation,
+        "Mobile": phone,
+        "Code":code,
+        "MaxCount": '1'
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '查询验证码';//用于日志输出
+      req.items = ['Id'];
+      return req;
+    }
+
+    /**
+     * 查询邀请码
+     * @param code
+     * @returns {RequestRead}
+     */
+    static checkInvite(code) {
+      let operation = Operation.sharedInstance().memberInfoReadOperation;
+      let bodyParameters = {
+        "Operation": operation,
+        "InvitationCode": code,
+        "MaxCount": '1'
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '查询邀请码';//用于日志输出
+      req.items = ['Id'];
+      return req;
+    }
+
+    /**
      * 获取验证码
      * @param phone
      * @typeKey 0 为新用户注册 1 为找回密码 2 设置支付密码
