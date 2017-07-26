@@ -1,6 +1,6 @@
 // myOrder.js
 
-let {Tool, Storage, RequestReadFactory, RequestWriteFactory, Event} = global;
+let { Tool, Storage, RequestReadFactory, RequestWriteFactory, Event } = global;
 Page({
 
     /**
@@ -35,7 +35,7 @@ Page({
         ],
         nomoredata: false,
         secondArry: [],
-        time:Object
+        time: Object
     },
 
     /**
@@ -44,6 +44,8 @@ Page({
     onLoad: function (options) {
         this.requestData();
         Event.on('deleteOrderFinish', this.requestData, this)
+        Event.on('refundSuccessNotic', this.requestData,this)
+        Event.on('cancelRefundSuccessNotic', this.requestData, this)
     },
 
     /**
@@ -64,14 +66,16 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        Event.off('deleteOrderFinish', this.requestData)
+        Event.off('deleteOrderFinish', this.requestData);
+        Event.off('refundSuccessNotic', this.requestData);
+        Event.off('cancelRefundSuccessNotic', this.requestData);
+        clearTimeout(this.data.time);
     },
 
     /**
@@ -156,16 +160,16 @@ Page({
                 secondArry: secondMap
             });
 
-            if(secondMap.size > 0){
+            if (secondMap.size > 0) {
                 this.countdown(this);
             }
-           
+
         };
         r.addToQueue();
     },
 
     loadmore: function () {
-        
+
         let index = 0;
         if (this.data.currentIndex == 0) {
             index = "undefined";
@@ -260,9 +264,9 @@ Page({
     bottomButtonTap: function (e) {
         var title = e.currentTarget.dataset.title;
         var index = e.currentTarget.dataset.index;
+        let order = this.data.orderList[index];
 
         if (title == '查看物流') {//查看物流
-            let order = this.data.orderList[index];
 
             let trackNo = order.LogisticsNumber;
             let companyNo = order.LogisticsCode;
@@ -328,7 +332,6 @@ Page({
                 // }
             })
         } else if (title == '确认收货') {//确认收货
-            let order = this.data.orderList[index];
             let r = RequestWriteFactory.modifyOrderStatus(order.Id, '3');
             r.finishBlock = (req) => {
                 this.requestData();
@@ -336,7 +339,6 @@ Page({
             r.addToQueue();
 
         } else if (title.match('抢先支付') != null) {//付款
-            let order = this.data.orderList[index];
             wx.setStorage({
                 key: 'order',
                 data: order,
@@ -345,7 +347,12 @@ Page({
                 url: '../../pay-method/pay-method?door=1',
             })
         } else if (title == '立即分享') {//立即分享
-            console('----- 立即分享 -----');
+            console.log('----- 立即分享 -----');
+
+        } else if (title == '取消退款') {//取消退款
+            wx.navigateTo({
+                url: '../order-refund-success/order-refund-success?orderId=' + order.Id,
+            })
         }
     },
 
@@ -426,7 +433,7 @@ Page({
             if (order.StatusKey == '0') {
                 let second = mapArry.get(i);
                 if (second > 0) {//秒数>0
-                    
+
                     let countDownTime = Tool.timeStringForTimeCount(second);
                     order.rightButtonName = '抢先支付 ' + countDownTime;
                     mapArry.set(i, second - 1);
@@ -449,7 +456,7 @@ Page({
         that.setData({
             orderList: orderArry,
             dataArry: arry,
-            time:time
+            time: time
         });
     },
 })

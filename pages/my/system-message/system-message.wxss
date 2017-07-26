@@ -1,0 +1,2 @@
+/* system-message.wxss */
+@import '/pages/my/system-message/system-message-cell/system-message-cell.wxss'

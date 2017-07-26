@@ -25,7 +25,9 @@ let TCGlobal = {
     ExpressKey:"68b36abf923b43d8294cfa09482c945a",
     BaiduMapKey:'isXMvA8KolOhA9UireE9IsXOYFQl8XGw',
     CustomerServicesNumber:'4006286698',
-    version:'V1.0'
+    version:'V1.0',
+    AppId: 'wxc86740902e452a5c',
+    Secret: '4e17424894e68cf370d83abdfd9e435c',
 };
 
 module.exports = TCGlobal;

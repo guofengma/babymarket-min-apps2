@@ -1,0 +1,26 @@
+<import src='/components/submit-btn/submit-btn.wxml' />
+
+<view class="register-code">
+
+  <view class="phone">
+    <view>
+      您的手机号：{{phone}}
+    </view>
+  </view>
+
+  <view class="prompt">
+    <view>您将收到一条带有验证码的短信，请输入验证码</view>
+  </view>
+
+  <form bindsubmit="submitTap">
+    <view class="input-view">
+      <input name="input" placeholder="请输入短信验证码" class="input-code" type="number" maxlength='6' />
+      <text class="get-code-view" catchtap="getCodeTap">
+            {{showSecond?"获取验证码("+second+")":"获取验证码"}}
+        </text>
+    </view>
+
+    <button form-type="submit" class="ok-button">下一步</button>
+  </form>
+
+</view>

@@ -33,7 +33,7 @@ Page({
     onLoad: function (options) {
         let self = this;
         wx.getStorage({
-            key: 'memberInfo',
+            key: 'currentMember',
             success: function(res) {
                 self.setData({
                     maxAmount:res.data.Balance 

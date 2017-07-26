@@ -64,7 +64,7 @@ Page({
       console.log('---onShareAppMessage---');
       let self = this;
       wx.getStorage({
-          key: 'memberInfo',
+          key: 'currentMember',
           success: function (res) {
               self.setData({
                   inviteCode: res.data.InvitationCode

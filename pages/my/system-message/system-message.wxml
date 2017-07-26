@@ -1,0 +1,6 @@
+<!--system-message.wxml-->
+<import src='/pages/my/system-message/system-message-cell/system-message-cell.wxml' />
+
+<block wx:for="{{listDatas}}" wx:key="unique">
+    <template is="system-message-cell" data="{{...item}}"></template>
+</block>

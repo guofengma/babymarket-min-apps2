@@ -30,7 +30,6 @@ page{
     margin-top: 35rpx;
     width: 654rpx;
     height: 654rpx;
-    background: gray;
 }
 
 .desp{

@@ -251,7 +251,7 @@ export default class RequestWriteFactory {
         let params = {
             "Operation": operation,
             "Mobile": mobile,
-            "TypeKey": typeKey,// 1 为找回密码 0 为新用户注册 2 设置支付密码
+            "TypeKey": typeKey+"",// 1 为找回密码 0 为新用户注册 2 设置支付密码
         };
 
         let req = new RequestWrite(status, 'Check_Code', params, null);
@@ -363,6 +363,114 @@ export default class RequestWriteFactory {
         let req = new RequestWrite(status, 'Member', params, null);
         req.name = '修改认证店员信息';
         return req;
+    }
+
+    //修改登录密码
+    static modifyLoginPassword(mobile,code,password) {
+        let operation = Operation.sharedInstance().loginPasswordModifyOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Mobile": mobile,
+            "Check_Code": code,
+            "Check": code,
+            "Password_New": password,
+            "Password_Check": password,
+            "Formal": "true",
+        };
+
+        let req = new RequestWrite(status, 'Password_Retake', params, null);
+        req.name = '修改登录密码';
+        return req;
+    }
+
+    //申请退款
+    static orderRefundAdd(reasonId, reasonText, remark, orderId) {
+        let operation = Operation.sharedInstance().refundAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "ReasonId": reasonId,
+            "ReasonText": reasonText,
+            "Remark": remark,
+            "OrderId": orderId
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, null);
+        req.name = '申请退款';
+        return req;
+    }
+
+    //取消退款
+    static orderRefundCancel(refundId) {
+        let operation = Operation.sharedInstance().refundModifyOperation;
+        let status = Network.sharedInstance().statusExisted;
+        let params = {
+            "Operation": operation,
+            "Id": refundId,
+            "Deleted": 'true'
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, null);
+        req.name = '取消退款';
+        return req;
+    }
+
+    //消息批量阅读
+    static allMessageRead(messageMainTypeKey) {
+        let operation = Operation.sharedInstance().allMessageReadModifyOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "CreatorId": global.Storage.memberId(),
+            "MessageMainTypeKey": messageMainTypeKey
+        };
+
+        let req = new RequestWrite(status, 'BatchRead', params, null);
+        req.name = '消息批量阅读';
+        return req;
+    }
+
+    //新增会员
+    static addMember(mobile, code, password, inviteCode) {
+      let operation = Operation.sharedInstance().memberAddOperation;
+      let status = Network.sharedInstance().statusNew;
+      let params = {
+        "Operation": operation,
+        "Name": mobile,
+        "Mobile": mobile,
+        "Nickname": mobile,
+        "Code_Input": code,
+        "Password": password,
+        "Password2": password,
+        "YQM": inviteCode
+      };
+
+      let req = new RequestWrite(status, 'Member', params, null);
+      req.name = '新增会员';
+
+      return req;
+    }
+
+    //新增密码修改记录
+    static addMember(mobile, code, password, inviteCode) {
+      let operation = Operation.sharedInstance().memberAddOperation;
+      let status = Network.sharedInstance().statusNew;
+      let params = {
+        "Operation": operation,
+        "Name": mobile,
+        "Mobile": mobile,
+        "Nickname": mobile,
+        "Code_Input": code,
+        "Password": password,
+        "Password2": password,
+        "YQM": inviteCode
+      };
+
+      let req = new RequestWrite(status, 'Password_Retake', params, null);
+      req.name = '新增密码修改记录';
+
+      return req;
     }
 
 }

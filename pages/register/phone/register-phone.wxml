@@ -1,0 +1,16 @@
+<import src='/components/submit-btn/submit-btn.wxml' />
+
+<view class="register-phone">
+
+  <input bindinput="textOnChange" placeholder="请输入手机号码" type="number" />
+
+  <view class="submit-container">
+    <template is="submit-btn" data="{{title:'获取验证码'}}" />
+  </view>
+
+  <view class="protocal">
+    <image class="tick" src="/res/img/register/ic-tick-register.png" />
+    <view class="agree">我同意</view>
+    <view class="title">"老友码头服务条款"</view>
+  </view>
+</view>

@@ -1,0 +1,64 @@
+@import '/components/submit-btn/submit-btn.wxss';
+
+.register-code {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+}
+
+.register-code .phone {
+  font-size: 34rpx;
+  margin: 80rpx 0 60rpx;
+}
+
+.register-code .prompt {
+  font-size: 26rpx;
+  width: 600rpx;
+}
+
+.register-code .submit-container {
+  height: 100rpx;
+}
+
+.input-view {
+  margin-top: 90rpx;
+  display: flex;
+  border: 2rpx solid #dcdedf;
+  border-radius: 10rpx;
+  padding: 25rpx;
+}
+
+.input-code {
+  flex-grow: 1;
+  border: 1px solid lightgray;
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #5e6064;
+}
+
+.get-code-view {
+  background: #dcdedf;
+  font-size: 30rpx;
+  text-align: center;
+  margin-left: 10rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.ok-button {
+  font-size: 34rpx;
+  color: white;
+  background: #af8327;
+  border-radius: 10rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+button::after {
+  border: 0;
+}

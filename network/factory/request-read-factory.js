@@ -6,6 +6,7 @@ import RequestRead from '../base-requests/request-read'
 import Operation from '../operation'
 import RequestLogin from '../requests/request-login'
 import RequestDeliveryInfoRead from '../requests/request-delivery-info-read'
+import RequestQRcodeRead from '../requests/request-qrcode'
 
 //读取请求具体封装
 export default class RequestReadFactory {
@@ -14,6 +15,81 @@ export default class RequestReadFactory {
     static login(username, pasword) {
         let req = new RequestLogin(username, pasword);
         req.name = '登陆';//用于日志输出
+        return req;
+    }
+
+    /**
+     * 查询手机号是否被注册
+     * @param phone
+     * @returns {RequestRead}
+     */
+    static checkMemberByPhone(phone){
+        let operation = Operation.sharedInstance().memberInfoReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Mobile": phone,
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '查询手机号是否被注册';//用于日志输出
+        req.items = ['Id'];
+        return req;
+    }
+
+    /**
+     * 查询验证码
+     * @param phone 
+     * @param code
+     * @returns {RequestRead}
+     */
+    static checkCode(phone,code) {
+      let operation = Operation.sharedInstance().checkCodeOperation;
+      let bodyParameters = {
+        "Operation": operation,
+        "Mobile": phone,
+        "Code":code,
+        "MaxCount": '1'
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '查询验证码';//用于日志输出
+      req.items = ['Id'];
+      return req;
+    }
+
+    /**
+     * 查询邀请码
+     * @param code
+     * @returns {RequestRead}
+     */
+    static checkInvite(code) {
+      let operation = Operation.sharedInstance().memberInfoReadOperation;
+      let bodyParameters = {
+        "Operation": operation,
+        "InvitationCode": code,
+        "MaxCount": '1'
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '查询邀请码';//用于日志输出
+      req.items = ['Id'];
+      return req;
+    }
+
+    /**
+     * 获取验证码
+     * @param phone
+     * @typeKey 0 为新用户注册 1 为找回密码 2 设置支付密码
+     * @returns {RequestRead}
+     */
+    static acquireSMSCode(phone,typeKey = '0'){
+        let operation = Operation.sharedInstance().memberInfoReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "Mobile": phone,
+            "MaxCount": '1',
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '获取验证码';//用于日志输出
+        req.items = ['Id'];
         return req;
     }
 
@@ -704,6 +780,87 @@ export default class RequestReadFactory {
         let req = new RequestRead(bodyParameters);
         req.name = '我的店员管理查询';
         req.items = ["Id", "Name", "Nickname", "PictureId","IsShopPerson"];
+        return req;
+    }
+
+    //验证码检验
+    static checkCodeRead(code, mobile) {
+        let operation = Operation.sharedInstance().checkCodeOperation;
+
+        let condition = "${Mobile} == '" + mobile + "' && ${Code} == '" + code + "'";
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '验证码检验';
+        return req;
+    }
+
+    //退款原因
+    static refundReasonRead() {
+        let operation = Operation.sharedInstance().refundReasonReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款原因';
+        return req;
+    }
+
+    //退款记录查询
+    static refundRecordRead(orderId) {
+        let operation = Operation.sharedInstance().refundReadOperation;
+
+        let condition = "${OrderId} == '" + orderId + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition,
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款记录查询';
+        req.items = ["Id"];
+        return req;
+    }
+
+    //消息查询
+    static messageRead(index, messageType) {
+        let operation = Operation.sharedInstance().messageReadOperation;
+        let condition = "${ReceiverId} == '" + global.Storage.memberId() + "' && ${MessageMainTypeKey} == '" + messageType + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '2',
+            "StartIndex": index,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '消息查询';
+        return req;
+    }
+
+    //未读消息条数查询
+    static messageRead(messageType) {
+        let operation = Operation.sharedInstance().messageReadOperation;
+        let condition = "${IsReaded} == 'false' && ${ReceiverId} == '" + global.Storage.memberId() + "' && ${MessageMainTypeKey} == '" + messageType + "'";
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '1',
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '未读消息条数查询';
+        req.items = ["Id"];
+        return req;
+    }
+
+    //获取二维码
+    static qrcodeRead(path, width) {
+        let req = new RequestQRcodeRead(path, width);
+        req.name = '获取二维码';
         return req;
     }
 }

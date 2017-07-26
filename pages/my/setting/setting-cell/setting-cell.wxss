@@ -1,0 +1,17 @@
+.setting-cell-view{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 96rpx;
+    border-bottom: 2rpx solid #f1f3f4;
+}
+
+.arrow{
+    margin-right: 22rpx;
+}
+
+.title{
+    margin-left: 22rpx;
+    font-size: 28rpx;
+    color: #26272a;
+}

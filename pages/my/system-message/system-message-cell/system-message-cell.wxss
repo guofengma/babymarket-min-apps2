@@ -1,0 +1,41 @@
+.system-message-cell-view{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 24rpx;
+    border-bottom: 2rpx solid #dcdedf;
+}
+
+.name-time-view{
+    display: flex;
+    height: 45rpx;
+    align-items: center;
+}
+
+.sepline-row{
+    background: #715329;
+    width: 16rpx;
+    height: 4rpx;
+}
+
+.name{
+    font-size: 32rpx;
+    color: #1a1c1f;
+    margin-left: 15rpx;
+    width: 430rpx;
+    margin-right: 10rpx;
+}
+
+.time{
+    font-size: 24rpx;
+    color: #b0b1b3;
+    text-align: right;
+    align-items: center;
+}
+
+.content{
+    margin-top: 15rpx;
+    margin-left: 26rpx;
+    font-size: 28rpx;
+    color: #b0b1b3;
+}

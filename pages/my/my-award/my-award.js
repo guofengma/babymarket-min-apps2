@@ -18,7 +18,7 @@ Page({
       this.requestData();
       let self = this;
       wx.getStorage({
-          key: 'memberInfo',
+          key: 'currentMember',
           success: function (res) {
               self.setData({
                   award: res.data.Commission

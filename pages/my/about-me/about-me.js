@@ -1,17 +1,31 @@
 // about-me.js
+let { Tool, Storage, RequestReadFactory } = global;
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        version: global.TCGlobal.version
+        version: global.TCGlobal.version,
+        qrImage: '',
+        inviteCode: ''
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let self = this;
+        wx.getStorage({
+            key: 'currentMember',
+            success: function (res) {
+                self.setData({
+                    inviteCode: res.data.InvitationCode
+                });
+                self.getQrcode();
+            },
+        })
     },
 
     /**
@@ -61,5 +75,21 @@ Page({
      */
     onShareAppMessage: function () {
 
-    }
+    },
+
+    /**
+     * 获取二维码
+     */
+    getQrcode: function () {
+        let url = '/pages/home/home?fromId=' + this.data.inviteCode;
+        let r = RequestReadFactory.qrcodeRead(url, 258);
+        r.finishBlock = (req) => {
+            let data = req.responseObject.data;
+            let image = "https://app.xgrowing.com/node/imgs/wxqrcode/" + data.img_name;
+            this.setData({
+                qrImage: image
+            });
+        };
+        r.addToQueue();
+    },
 })
