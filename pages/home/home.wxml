@@ -8,6 +8,7 @@
 <import src='cell-sort/cell-sort.wxml' />
 
 <import src='/components/product-specification/product-specification.wxml' />
+<import src='/pages/login/login.wxml' />
 
 <view class="root-view">
   <view class="search-bar">
@@ -33,3 +34,4 @@
 </view>
 
 <template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount}}"/>
+<template is="login" data="{{visiable:visiable}}"/>

@@ -10,6 +10,7 @@
 /*分类*/
 @import "cell-sort/cell-sort.wxss";
 @import '/components/product-specification/product-specification.wxss';
+@import '/pages/login/login.wxss';
 
 .root-view {
   display: flex;

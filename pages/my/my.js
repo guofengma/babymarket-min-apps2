@@ -1,6 +1,6 @@
 // my.js
-
-let { Tool, Storage, RequestReadFactory, Event} = global;
+import Login from '../login/login';
+let { Tool, Storage, RequestReadFactory, Event } = global;
 Page({
 
     /**
@@ -10,12 +10,12 @@ Page({
         nickName: '',
         avatarUrl: '/res/img/common/common-avatar-default-icon.png',
         messageUrl: '/res/img/my/my-message-icon.png',
-        qrImage:'',
+        qrImage: '',
         sign: '',
         shopName: '',
         idDesp: '',
         inviteCode: '',
-        isLogin: false,
+        isLogin: Storage.didLogin(),
 
         orderStatusItems: [
             {
@@ -118,7 +118,6 @@ Page({
             },
             arrowHidden: true
         },
-
         myDatasItems0: [],
         myDatasItems1: [],
         myDatasItems2: [{
@@ -131,8 +130,37 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let arry0 = [
+            this.data.dict00,
+            this.data.dict01,
+            this.data.dict02,
+            this.data.dict03,
+            this.data.dict04,
+            this.data.dict05
+        ];
+        let arry1 = [
+            this.data.dict10,
+            this.data.dict11,
+            this.data.dict12
+        ];
+
+        this.setData({
+            'dict01.detail.amount': '0',
+            'dict02.detail.amount': '0',
+            'dict03.detail.amount': '0',
+            'dict04.detail.amount': '0',
+            'dict05.detail.amount': '0',
+            'dict10.detail.amount': '0',
+            'dict11.detail.amount': '0',
+            'dict12.detail.amount': '0',
+
+            myDatasItems0: arry0,
+            myDatasItems1: arry1
+        });
+
         Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this);
-        Event.on('LoginOutNotic', this.updateHeaderInfo, this);
+        Event.on('LoginOutNotic', this.loginOutDeal, this);
+        Event.on('loginSuccess', this.onShow, this);
     },
 
     /**
@@ -147,17 +175,26 @@ Page({
      */
     onShow: function () {
         let self = this;
-        wx.getStorage({
-            key: 'didLogin',
-            success: function (res) {
-                self.setData({
-                    isLogin: res.data
-                });
-                self.requestData();
-            },
-        })
+        self.setData({
+            isLogin: Storage.didLogin()
+        });
 
-        this.unreadMessageNum();
+        if (self.data.isLogin) {
+            self.requestData();
+            self.unreadMessageNum();
+        }
+    },
+
+    onloginSuccess: function () {
+        let self = this;
+        self.setData({
+            isLogin: Storage.didLogin()
+        });
+
+        if (self.data.isLogin) {
+            self.requestData();
+            self.unreadMessageNum();
+        }
     },
 
     /**
@@ -172,7 +209,8 @@ Page({
      */
     onUnload: function () {
         Event.off('refreshMemberInfoNotice', this.updateHeaderInfo);
-        Event.off('LoginOutNotic', this.updateHeaderInfo)
+        Event.off('LoginOutNotic', this.loginOutDeal)
+        Event.off('loginSuccess', this.updateHeaderInfo)
     },
 
     /**
@@ -201,9 +239,7 @@ Page({
      */
     orderStatusTap: function (e) {
         if (!this.data.isLogin) {//未登录，跳转到登陆界面
-            wx.reLaunch({
-                url: '/pages/login/login',
-            })
+            this.loginRegisterTap();
             return;
         }
 
@@ -235,49 +271,32 @@ Page({
     },
 
     /**
-     * 退出登录
-     */
-    loginoutTap: function () {
-        Storage.setDidLogin(false);
-        Storage.setCurrentSession('');
-
-        wx.redirectTo({
-            url: '/pages/login/login',
-        })
-    },
-
-    /**
      * cell点击
      */
     cellTap: function (e) {
 
         if (!this.data.isLogin) {//未登录，跳转到登陆界面
-            wx.reLaunch({
-                url: '/pages/login/login',
-            })
+            this.loginRegisterTap();
             return;
         }
 
         let title = e.currentTarget.dataset.title;
+        console.log('--------' + title);
         if (title == '我的资产') {
-            console.log('----我的资产----');
             wx.navigateTo({
                 url: '../my/my-property/my-property',
             })
         } else if (title == '收到奖励') {
-            console.log('----收到奖励----');
             wx.navigateTo({
                 url: '../my/my-award/my-award',
             })
 
         } else if (title == '已省金额') {
-            console.log('----已省金额----');
             wx.navigateTo({
                 url: '../my/my-save/my-save',
             })
 
         } else if (title == '城市合伙人') {
-            console.log('----城市合伙人----');
 
         } else if (title == '我的老友') {
             console.log('----我的老友----');
@@ -292,13 +311,10 @@ Page({
             })
 
         } else if (title == '老友的好友') {
-            console.log('----老友的好友----');
 
         } else if (title == '意见和反馈') {
-            console.log('----意见和反馈----');
 
         } else if (title == '我的优惠券') {
-            console.log('----我的优惠券----');
             wx.navigateTo({
                 url: '../coupon/coupon',
             })
@@ -332,9 +348,7 @@ Page({
         console.log('----编辑资料----');
 
         if (!this.data.isLogin) {//未登录，跳转到登陆界面
-            wx.reLaunch({
-                url: '/pages/login/login',
-            })
+            this.loginRegisterTap();
             return;
         }
 
@@ -347,9 +361,8 @@ Page({
      * 登录／注册
      */
     loginRegisterTap: function () {
-        wx.reLaunch({
-            url: '/pages/login/login',
-        })
+        this.login = new Login(this);
+        this.login.show();
     },
 
     /**
@@ -367,6 +380,38 @@ Page({
      */
     requestData: function () {
         this.requestMemberInfo();
+    },
+
+    loginOutDeal:function(){
+        let arry0 = [
+            this.data.dict00,
+            this.data.dict01,
+            this.data.dict02,
+            this.data.dict03,
+            this.data.dict04,
+            this.data.dict05
+            ];
+        let arry1 = [
+            this.data.dict10,
+            this.data.dict11,
+            this.data.dict12
+            ];
+
+        this.setData({
+            isLogin:false,
+
+            'dict01.detail.amount': '0',
+            'dict02.detail.amount': '0',
+            'dict03.detail.amount': '0',
+            'dict04.detail.amount': '0',
+            'dict05.detail.amount': '0',
+            'dict10.detail.amount': '0',
+            'dict11.detail.amount': '0',
+            'dict12.detail.amount': '0',
+
+            myDatasItems0: arry0,
+            myDatasItems1: arry1
+        });
     },
 
     updateHeaderInfo: function () {
@@ -512,7 +557,7 @@ Page({
         let r = RequestReadFactory.qrcodeRead(url, 100);
         r.finishBlock = (req) => {
             let data = req.responseObject.data;
-            let image = "https://app.xgrowing.com/node/imgs/wxqrcode/" + data.img_name;
+            let image = "https://app.xgrowing.com/node/imgs/wxqrcode/" + data.img_id;
             this.setData({
                 qrImage: image
             });

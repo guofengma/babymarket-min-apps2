@@ -2,6 +2,7 @@
 
 @import '/pages/my/cell/my-cell.wxss';
 @import '/pages/my/cell/orderStatus-cell.wxss';
+@import '/pages/login/login.wxss';
 
 .top-view{
     width: 100%;

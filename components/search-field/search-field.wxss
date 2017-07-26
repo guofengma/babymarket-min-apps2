@@ -7,7 +7,7 @@
   background-color: white;
 }
 
-.search-field input {
+.search-input {
   display: flex;
   flex: 1;
   font-size: 25rpx;
