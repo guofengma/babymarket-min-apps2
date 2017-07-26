@@ -37,6 +37,9 @@ export default class Network {
         //物流信息
         this.expressURL = 'https://v.juhe.cn/exp/index';
 
+        //微信支付
+        this.payURL = this.domain + 'Libra.Weixin.Pay.Web.UnifiedOrder.aspx';
+
         this.statusExisted = 'Existed';
         this.statusNew = 'New';
         this.statusDelete = 'Deleted';
