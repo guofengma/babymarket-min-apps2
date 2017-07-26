@@ -24,8 +24,10 @@
   justify-content: center;
 }
 
-.value{
-    position: absolute;
+.value {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
 }
 
 .coupon-money {

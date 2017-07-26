@@ -132,7 +132,7 @@ Page({
     add: function (addressname, addressmobile, addressdetail, addressidentity) {
         let area = this.data.area;
         let id = global.Tool.guid();
-        let r = RequestWriteFactory.addAddress(id,addressname, addressmobile, area.FullName, addressdetail, area.Id, addressidentity);
+        let r = RequestWriteFactory.addAddress(id, addressname, addressmobile, area.FullName, addressdetail, area.Id, addressidentity);
         r.finishBlock = (req) => {
             let pages = getCurrentPages();
             let pageBOne = pages[pages.length - 2];// 前一页
@@ -146,7 +146,8 @@ Page({
                         addressId: id,
                         Card: addressidentity,
                     },
-                    num: 1,
+                    status: 2,
+                    num: 1, // 有地址
                 })
             }
             if (pageBOne.route == 'pages/address/address') {

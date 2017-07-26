@@ -119,6 +119,10 @@ export default class Operation {
         //邀请的老友
         this.invitedFriendsReadOperation = '0a0980cc-4311-46a0-93c4-a77100aee37d';
 
+        //支付
+        this.addWeiXinPayOperation = '578e67c3-a1cb-05b8-1475-3e4c003313fa';
+        this.readWeiXinPayOperation = 'd9cd2613-8968-0bd3-2bac-3e4201f07443';
+
         //登录密码验证码验证
         this.checkCodeOperation = 'c994e890-833d-0ab7-1ff0-3c2900031403';
 

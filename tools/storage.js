@@ -150,6 +150,11 @@ export default class Storage {
         this.setterFor('sysInfo', sysInfo);
     }
 
+    //appId
+    static appId() {
+        return 'wxc86740902e452a5c';
+    }
+
     /**
      * 获取历史搜索记录
      */

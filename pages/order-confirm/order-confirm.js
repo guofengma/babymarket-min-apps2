@@ -1,5 +1,5 @@
 // 订单确认
-let {Tool, Storage, Event, RequestReadFactory, RequestWriteFactory} = global;
+let { Tool, Storage, Event, RequestReadFactory, RequestWriteFactory } = global;
 
 Page({
 
@@ -15,11 +15,11 @@ Page({
         orders: [],//传来的选中的购物车商品
         isInsideMember: false,// 是否是内部会员
 
-        creditChecked: true, // 授信开关
-        balanceChecked: true, // 钱包开关
+        creditChecked: false, // 授信开关 默认关闭
+        balanceChecked: false, // 钱包开关 默认关闭
         isAirProduct: false, //是否是跨境商品
 
-        status: 0, // 0为未选择优惠劵 1为选择了优惠劵
+        status: 0, // 0为未选择 1为优惠劵返回 2为地址返回
         couponData: {
             CouponId: '',
             Discount: '',
@@ -85,10 +85,20 @@ Page({
         let door = this.data.door;
         let order = this.data.order;
         let CouponId = this.data.couponData.CouponId;
+        let addressId = this.data.addressData.addressId;
+        let orderId = this.data.orderId;
         if (status == 1) {
+            // 选择优惠劵
             let requestData = {
-                Id: order.Id,
+                Id: orderId,
                 CouponId: CouponId,
+            };
+            this.modifyOrder(requestData, order, door);
+        } else if (status == 2) {
+            // 选择地址
+            let requestData = {
+                Id: orderId,
+                Delivery_AddressId: addressId,
             };
             this.modifyOrder(requestData, order, door);
         }
@@ -124,8 +134,8 @@ Page({
                     },
                     num: 1,
                 });
-                this.requestAddOrder();
             }
+            this.requestAddOrder();
         }
         r.addToQueue();
     },
@@ -332,7 +342,7 @@ Page({
             success: function (res) {
                 if (res.confirm) {
                     wx.navigateTo({
-                        url: '../address/add-address',
+                        url: '../address/add-address/add-address',
                     })
                 }
             }
@@ -345,15 +355,7 @@ Page({
     submitOrder: function () {
         let door = this.data.door;
         let order = this.data.order;
-        let CouponId = this.data.couponData.CouponId;
-        let Discount = this.data.couponData.Discount;
-        let status = this.data.status;
         order.Formal = "True";
-        order.Delivery_AddressId = this.data.addressData.addressId;
-        if (status == 1) {
-            order.CouponId = this.data.couponData.CouponId;
-            order.Discount = this.data.couponData.Discount;
-        }
         this.modifyOrder(order, order, door);
     },
 

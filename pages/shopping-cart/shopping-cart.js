@@ -52,6 +52,7 @@ Page({
         // 清空数据
         this.setData({
             viewCarts: [],
+            allSelected: false,
         });
         this.requestCartViewInfo();
     },
@@ -133,10 +134,11 @@ Page({
         let groupPosition = e.currentTarget.dataset.groupPosition;
         let childPosition = e.currentTarget.dataset.childPosition;
         let viewCarts = this.data.viewCarts;
+        let allSelected = this.data.allSelected;
         let childSelected = viewCarts[groupPosition].carts[childPosition].childSelected;
         viewCarts[groupPosition].carts[childPosition].childSelected = !childSelected
-        // 判断是否为全选
-        let quantity = 0
+        // 判断是否为仓库全选
+        let quantity = 0;
         for (let i = 0; i < viewCarts[groupPosition].carts.length; i++) {
             if (viewCarts[groupPosition].carts[i].childSelected) {
                 quantity++;
@@ -148,6 +150,9 @@ Page({
         } else {
             viewCarts[groupPosition].groupSelected = false;
         }
+        // 判断是否为全选
+        allSelected = this.isAllSelect(viewCarts, allSelected);
+    
         // 不能同时选中不同仓库的商品
         // for (let i = 0; i < viewCarts.length; i++) {
         //  if (i != groupPosition) {
@@ -159,9 +164,27 @@ Page({
         //   }
         this.setData({
             viewCarts: viewCarts,
+            allSelected: allSelected,
         });
-
         this.getTotalPrice();
+    },
+
+    /**
+     * 判断是否全选
+     */
+    isAllSelect: function (viewCarts, allSelected) {
+        let groupquantity = 0;
+        for (let i = 0; i < viewCarts.length; i++) {
+            if (viewCarts[i].groupSelected) {
+                groupquantity++;
+            }
+        }
+        if (groupquantity == viewCarts.length) {
+            allSelected = true;
+        } else {
+            allSelected = false;
+        }
+        return allSelected;
     },
 
     /**
@@ -170,14 +193,18 @@ Page({
     selectGroupList: function (e) {
         let groupPosition = e.currentTarget.dataset.groupPosition;
         let viewCarts = this.data.viewCarts;
+        let allSelected = this.data.allSelected;
         let selectAllStatus = viewCarts[groupPosition].groupSelected;
         selectAllStatus = !selectAllStatus;
         viewCarts[groupPosition].groupSelected = selectAllStatus;
         for (let i = 0; i < viewCarts[groupPosition].carts.length; i++) {
             viewCarts[groupPosition].carts[i].childSelected = selectAllStatus;
         }
+        // 判断是否为全选
+        allSelected = this.isAllSelect(viewCarts, allSelected);
         this.setData({
             viewCarts: viewCarts,
+            allSelected: allSelected,
         });
         this.getTotalPrice();
     },

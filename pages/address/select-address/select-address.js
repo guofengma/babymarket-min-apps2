@@ -72,6 +72,7 @@ Page({
                     addressId: address.Id,
                     Card: address.Card,
                 },
+                status: 2,
             })
             wx.navigateBack({
                 delta: 1,
