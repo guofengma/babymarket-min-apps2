@@ -200,12 +200,12 @@ Page({
             product_id: '',
             limit_pay: '',
 
-            appid: global.Storage.appId(),
-            mch_id: '1486151622',
-            nonce_str: Math.random().toString(36).substr(2, 15),
+            //appid: global.Storage.appId(),
+            //mch_id: '1486151622',
+            //nonce_str: Math.random().toString(36).substr(2, 15),
             //sign: '',
             spbill_create_ip: clientip,
-            trade_type: 'JSAPI',
+            //trade_type: 'JSAPI',
         }
         let r = new RequestAddPay(param);
         r.finishBlock = (req) => {
