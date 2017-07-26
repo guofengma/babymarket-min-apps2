@@ -1,4 +1,6 @@
 // setting.js
+import Login from '../../login/login';
+
 let { Tool, Storage, Event } = global;
 
 Page({
@@ -29,7 +31,9 @@ Page({
                     isLogin: res.data
                 });
             },
-        })
+        }),
+
+        Event.on("loginSuccess", this.updateLoginButtonDisplay, this);
     },
 
     /**
@@ -57,7 +61,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        Event.off("loginSuccess", this.updateLoginButtonDisplay);
     },
 
     /**
@@ -81,37 +85,43 @@ Page({
 
     },
 
+    updateLoginButtonDisplay:function(){
+        this.setData({
+            isLogin: true
+        })
+    },
+
     /**
      * 登录点击
      */
-    loginTap:function(){
+    loginTap: function () {
         let login = this.data.isLogin;
-        this.setData({
-            isLogin: !login
-        })
-
-        if(login){//退出登录
+        
+        if (login) {//退出登录
             Storage.setDidLogin(false);
             Storage.setCurrentSession('');
             Event.emit('LoginOutNotic');
 
-        }else{//登录
-            wx.reLaunch({
-                url: '/pages/login/login',
+            this.setData({
+                isLogin: false
             })
+
+        } else {//登录
+            this.login = new Login(this);
+            this.login.show();
         }
     },
 
-    cellTap:function(e){
+    cellTap: function (e) {
         let index = e.currentTarget.dataset.index;
         console.log('-----index:' + index);
 
-        if(index == 0){//修改密码
+        if (index == 0) {//修改密码
             wx.navigateTo({
                 url: '../setting/modify-password/modify-password',
             })
 
-        } else if(index == 1){//关于老友码头
+        } else if (index == 1) {//关于老友码头
             wx.navigateTo({
                 url: '../about-me/about-me',
             })

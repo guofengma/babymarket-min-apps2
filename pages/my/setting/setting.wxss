@@ -1,7 +1,8 @@
 /* setting.wxss */
 @import '/pages/my/setting/setting-cell/setting-cell.wxss';
+ @import '/pages/login/login.wxss'; 
 
-.login{
+.login-view{
     margin-left: 22rpx;
     width: 702rpx;
     height: 80rpx;

@@ -12,5 +12,6 @@ export default class RequestQRcode extends Request {
             "path": path,
             "width": width
         };
+        this.requestMethod = 'GET';
     }
 }
