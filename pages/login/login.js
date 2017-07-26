@@ -1,12 +1,58 @@
 /**
  * 登陆页面
  */
-
 import RequestLogin from '../../network/requests/request-login';
-let { Tool, Storage } = global;
+let { Tool, Storage, RequestReadFactory, RequestWriteFactory, Event } = global;
 
-Page({
-  loginAction: function (e) {
+export default class Login {
+  constructor(page) {
+    this.page = page;
+
+    this.page.data.visiable = false;//是否显示
+
+    let { Tool: t } = global;
+    let { page: p } = this;
+
+    if (!t.isFunction(p.loginAction)) {
+      p.loginAction = this.loginAction.bind(this);
+    }
+
+    //提交按钮点击事件
+    if (!t.isFunction(p.onFindPasswordListener)) {
+      p.onFindPasswordListener = this.onFindPasswordListener.bind(this);
+    }
+
+    //提交按钮点击事件
+    if (!t.isFunction(p.onRegisterListener)) {
+      p.onRegisterListener = this.onRegisterListener.bind(this);
+    }
+
+    //提交按钮点击事件
+    if (!t.isFunction(p.dismiss)) {
+      p.dismiss = this.dismiss.bind(this);
+    }
+  }
+
+  /**
+   * 显示界面
+   */
+  show() {
+    this.page.setData({
+      visiable: true
+    })
+  }
+
+  //隐藏页面
+  dismiss() {
+    this.page.setData({
+      visiable: false
+    })
+  }
+
+  /**
+   * 登录按钮
+   */
+  loginAction(e) {
     let userInfo = e.detail.value
     let username = userInfo.username
     let password = userInfo.password
@@ -24,21 +70,16 @@ Page({
       Storage.setDidLogin(true);
       Storage.setMemberId(id);
       Storage.setLoginType(type);
-      self.gotoIndex();
+
+      //发送登录成功通知
+      Event.emit("loginSuccess");
+
+      this.dismiss();
     };
     r.addToQueue();
-  },
-  checkInput: function (e) {
-    let userInfo = e.detail.value;
-    let username = userInfo.username;
-    let password = userInfo.password;
-  },
-  gotoIndex: function () {
-    wx.switchTab({
-      url: '/pages/home/home'
-    });
-  },
-  loginTypeWithKey: function (key) {
+  }
+
+  loginTypeWithKey(key) {
     let type = '';
     if (Tool.isStringStartsWith(key, 'Employee')) {
       type = 'Employee';//员工
@@ -55,21 +96,25 @@ Page({
     else if (Tool.isStringStartsWith(key, 'StorePerson')) {
       type = 'StoreEmployee';//门店员工
     }
-
     return type
-  },
-  onFindPasswordListener: function (e) {
+  }
+
+  /**
+   * 找回密码
+   */
+  onFindPasswordListener() {
     wx.navigateTo({
       url: '/pages/find-password/phone/phone'
     })
-  },
+  }
+
   /**
    * 我要注册
    */
-  onRegisterListener: function (e) {
+  onRegisterListener() {
     wx.navigateTo({
       url: '/pages/register/phone/register-phone'
     })
   }
-})
 
+}

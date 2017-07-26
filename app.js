@@ -30,11 +30,11 @@ App({
         })
     },
     onShow:function () {
-        if (!Storage.didLogin()){
-            wx.redirectTo({
-                url: '/pages/login/login',
-            })
-        }
+        // if (!Storage.didLogin()){
+        //     wx.redirectTo({
+        //         url: '/pages/login/login',
+        //     })
+        // }
     },
     getUserInfo:function(cb){
         var that = this

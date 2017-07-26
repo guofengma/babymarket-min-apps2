@@ -1,5 +1,5 @@
 // my.js
-
+import Login from '../login/login';
 let { Tool, Storage, RequestReadFactory, Event} = global;
 Page({
 
@@ -15,7 +15,7 @@ Page({
         shopName: '',
         idDesp: '',
         inviteCode: '',
-        isLogin: false,
+        isLogin: Storage.didLogin(),
 
         orderStatusItems: [
             {
@@ -133,6 +133,7 @@ Page({
     onLoad: function (options) {
         Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this);
         Event.on('LoginOutNotic', this.updateHeaderInfo, this);
+        Event.on('loginSuccess', this.onShow, this);
     },
 
     /**
@@ -147,17 +148,26 @@ Page({
      */
     onShow: function () {
         let self = this;
-        wx.getStorage({
-            key: 'didLogin',
-            success: function (res) {
-                self.setData({
-                    isLogin: res.data
-                });
-                self.requestData();
-            },
-        })
+        self.setData({
+          isLogin: Storage.didLogin()
+        });
 
-        this.unreadMessageNum();
+        if(self.data.isLogin){
+          self.requestData();
+          self.unreadMessageNum();
+        }
+    },
+
+    onloginSuccess:function(){
+      let self = this;
+      self.setData({
+        isLogin: Storage.didLogin()
+      });
+
+      if (self.data.isLogin) {
+        self.requestData();
+        self.unreadMessageNum();
+      }
     },
 
     /**
@@ -173,6 +183,7 @@ Page({
     onUnload: function () {
         Event.off('refreshMemberInfoNotice', this.updateHeaderInfo);
         Event.off('LoginOutNotic', this.updateHeaderInfo)
+        Event.off('loginSuccess', this.updateHeaderInfo)
     },
 
     /**
@@ -347,9 +358,8 @@ Page({
      * 登录／注册
      */
     loginRegisterTap: function () {
-        wx.reLaunch({
-            url: '/pages/login/login',
-        })
+        this.login = new Login(this);
+        this.login.show();
     },
 
     /**

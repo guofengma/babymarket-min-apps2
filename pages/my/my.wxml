@@ -2,6 +2,7 @@
 
 <import src='/pages/my/cell/my-cell.wxml' />
 <import src='/pages/my/cell/orderStatus-cell.wxml' />
+<import src='/pages/login/login.wxml' />
 
 <!--个人资料：头像／昵称／签名／-->
 <view class="top-view">
@@ -87,3 +88,4 @@
 
 <!--退出登录-->
 <!-- <view class="loginout" bindtap="loginoutTap">退出登录</view> -->
+<template is="login" data="{{visiable:visiable}}"/>
