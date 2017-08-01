@@ -13,8 +13,8 @@ Page({
     },
 
     /**
-      * 生命周期函数--监听页面加载
-      */
+     * 生命周期函数--监听页面加载
+     */
     onLoad: function (options) {
         let self = this;
         wx.getStorage({
@@ -163,7 +163,7 @@ Page({
     /**
      * 获取Ip
      */
-    getSpbillCreateIp:function(openid){
+    getSpbillCreateIp: function (openid) {
         let self = this;
         wx.request({
             url: "https://app.xgrowing.com/wxapp/api/get_client_ip.php",
@@ -182,13 +182,16 @@ Page({
         })
     },
 
-    addOrder: function (openid,clientip) {
+    /**
+     * 生成商户订单
+     */
+    addOrder: function (openid, clientip) {
         let order = this.data.order;
         let self = this;
         let param = {
             out_trade_no: order.Id,
             openid: openid,
-            
+
             device_info: '',
             detail: '',
             attach: '',
