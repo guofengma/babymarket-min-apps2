@@ -53,6 +53,7 @@ Page({
         this.setData({
             viewCarts: [],
             allSelected: false,
+            totalPrice: 0,
         });
         this.requestCartViewInfo();
     },

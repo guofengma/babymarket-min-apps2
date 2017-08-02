@@ -54,16 +54,16 @@ export default class Tool {
         return this.timeStringForDate(date, format);
     }
 
-    static stringToDate(_date,_format,_delimiter)    {
-        var formatLowerCase=_format.toLowerCase();
-        var formatItems=formatLowerCase.split(_delimiter);
-        var dateItems=_date.split(_delimiter);
-        var monthIndex=formatItems.indexOf("mm");
-        var dayIndex=formatItems.indexOf("dd");
-        var yearIndex=formatItems.indexOf("yyyy");
-        var month=parseInt(dateItems[monthIndex]);
-        month-=1;
-        var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+    static stringToDate(_date, _format, _delimiter) {
+        var formatLowerCase = _format.toLowerCase();
+        var formatItems = formatLowerCase.split(_delimiter);
+        var dateItems = _date.split(_delimiter);
+        var monthIndex = formatItems.indexOf("mm");
+        var dayIndex = formatItems.indexOf("dd");
+        var yearIndex = formatItems.indexOf("yyyy");
+        var month = parseInt(dateItems[monthIndex]);
+        month -= 1;
+        var formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex]);
         return formatedDate;
     }
 
@@ -73,8 +73,8 @@ export default class Tool {
         return timeInterval;
     }
 
-    static timeIntervalFromNow(interval = 0){
-        return this.timeIntervalFromDate(new Date(),interval);
+    static timeIntervalFromNow(interval = 0) {
+        return this.timeIntervalFromDate(new Date(), interval);
     }
 
     static timeIntervalFromDate(date, interval) {
@@ -153,7 +153,7 @@ export default class Tool {
      * @param time
      * @returns {number}
      */
-    static secondCountFromTime(time){
+    static secondCountFromTime(time) {
         let arr = time.split(':');
         if (arr.length == 2) {
             let hour = arr[0]

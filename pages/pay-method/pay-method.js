@@ -1,6 +1,5 @@
 // 支付方式
-import RequestAddPay from '../../network/requests/request-add-pay';
-let { Storage, Event, RequestWriteFactory } = global;
+let { Tool, Storage, Event, RequestWriteFactory, Network } = global;
 Page({
 
     /**
@@ -13,8 +12,8 @@ Page({
     },
 
     /**
-      * 生命周期函数--监听页面加载
-      */
+     * 生命周期函数--监听页面加载
+     */
     onLoad: function (options) {
         let self = this;
         wx.getStorage({
@@ -104,8 +103,8 @@ Page({
         let id = order.Id;
 
         if (parseFloat(order.Due) > 0) {
-            // 微信支付 
-            this.wxPay();
+            // 微信支付
+            this.getCode();
         } else {
             // 不需要微信支付的,修改订单装填为已支付
             order.StatusKey = "1";
@@ -114,32 +113,19 @@ Page({
     },
 
     /**
-     *  获取签名
+     * 登录获取code
      */
-    getSign: function () {
-        let MD5Util = require('../../tools/md5.js');
-        let sign = '';
-        var signA = "appId=" + app.appId + "&nonceStr=" + res.data.nonceStr + "&package=prepay_id=" + res.data.prepayId + "&signType=MD5&timeStamp=" + res.data.timestamp;
-        var signB = signA + "&key=" + app.key;
-        sign = MD5Util.MD5(signB).toUpperCase();
-        return sign;
-    },
-
-    /**
-     * 微信支付
-     */
-    wxPay: function () {
+    getCode: function () {
         let self = this;
         wx.login({
             success: function (res) {
                 self.getOpenId(res.code);
-                console.log("res.code=========" + res.code)
             }
         })
     },
 
     /**
-     * 获取openId
+     * 根据code获取openId
      */
     getOpenId: function (code) {
         let self = this;
@@ -148,7 +134,6 @@ Page({
             data: {},
             method: 'GET',
             success: function (res) {
-                console.log("res.data.openid=========" + res.data.data.openid)
                 self.getSpbillCreateIp(res.data.data.openid);
             },
             fail: function () {
@@ -161,17 +146,16 @@ Page({
     },
 
     /**
-     * 获取Ip
+     * 根据openid获取Ip
      */
-    getSpbillCreateIp:function(openid){
+    getSpbillCreateIp: function (openid) {
         let self = this;
         wx.request({
             url: "https://app.xgrowing.com/wxapp/api/get_client_ip.php",
             data: {},
             method: 'GET',
             success: function (res) {
-                console.log("res.data.client_ip=========" + res.data.data.client_ip)
-                self.addOrder(openid, res.data.data.client_ip);
+                self.generateOrder(openid, res.data.data.client_ip);
             },
             fail: function () {
                 // fail
@@ -182,112 +166,145 @@ Page({
         })
     },
 
-    addOrder: function (openid,clientip) {
+    /**
+     * 一次签名
+     */
+    getSign: function (json) {
+        let MD5Util = require('../../tools/md5.js');
+        let sign = '';
+        var signA = '';
+        for (var i in json) {
+            if (global.Tool.isValidStr(json[i])) {
+                signA = signA + i + '=' + json[i];
+                if (i != "trade_type") {
+                    signA += '&';
+                }
+            }
+        }
+        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
+        sign = MD5Util.MD5(signB).toUpperCase();
+        return sign;
+    },
+
+    /**
+     * 根据openid和ip生成商户订单
+     */
+    generateOrder: function (openid, clientip) {
+        var self = this;
         let order = this.data.order;
-        let self = this;
-        let param = {
-            out_trade_no: order.Id,
+        let nonce_str = Math.random().toString(36).substr(2, 15);
+        let money = parseInt(parseFloat(order.Due)*100);
+        let json = {
+            appid: global.Storage.appId(),
+            body: 'test',
+            device_info: 'WEB',
+            mch_id: '1486151622',
+            nonce_str: nonce_str,
+            notify_url: 'https://www.babymarkt.com.cn/ReceiveNotify.aspx',
             openid: openid,
-            
-            device_info: '',
+            out_trade_no: order.OrderNo,
+            spbill_create_ip: clientip,
+            total_fee: String(money),
+            trade_type: 'JSAPI',
             detail: '',
             attach: '',
             fee_type: '',
             time_start: '',
             time_expire: '',
             goods_tag: '',
-            trade_type: '',
             product_id: '',
             limit_pay: '',
-
-            appid: global.Storage.appId(),
-            mch_id: '1486151622',
-            nonce_str: Math.random().toString(36).substr(2, 15),
-            //sign: '',
-            spbill_create_ip: clientip,
-            trade_type: 'JSAPI',
-        }
-        let r = new RequestAddPay(param);
-        r.finishBlock = (req) => {
-            let pay = req.data;
-            var timeStamp = pay[0].timeStamp;
-            var packages = pay[0].package;
-            var paySign = pay[0].paySign;
-            var nonceStr = pay[0].nonceStr;
-            var param = { "timeStamp": timeStamp, "package": packages, "paySign": paySign, "signType": "MD5", "nonceStr": nonceStr };
-            console.log("timeStamp=========" + timeStamp);
-            console.log("packages=========" + packages);
-            console.log("paySign=========" + paySign);
-            console.log("nonceStr=========" + nonceStr);
-            self.pay(param)
         };
-        r.addToQueue();
+        var bodyData = '<xml>';
+        for (var i in json) {
+            bodyData += '<' + i + '>';
+            bodyData += json[i]
+            bodyData += '</' + i + '>';
+        }
+        bodyData += '<sign>' + self.getSign(json) + '</sign>';
+        bodyData += '</xml>'
+        console.log("bodyData======" + bodyData);
+        //统一支付
+        wx.request({
+            url: 'https://www.babymarkt.com.cn/Libra.Weixin.Pay.Web.UnifiedOrder.aspx?account=a7a04727-7bdd-491b-8eb7-a7c200b49421',
+            //url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
+            method: 'POST',
+            data: bodyData,
+            success: function (res) {
+                var pay = res.data;
+                //发起支付
+                var timeStamp = Math.round(new Date().getTime() / 1000).toString();
+                var packages = 'prepay_id=' + self.getXMLNodeValue("prepay_id",pay);
+                //var paySign = self.getXMLNodeValue("sign", pay);
+                var nonceStr = self.getXMLNodeValue("nonce_str", pay);;
+                console.log("res======" + JSON.stringify(res));
+                self.pay(timeStamp, nonceStr, packages)
+            },
+        })
     },
 
     /**
-     * 生成商户订单
+     * 获取返回xml的值
      */
-    /**generateOrder: function (openid) {
-        var self = this;
-        let order = this.data.order;
-        //统一支付
-        wx.request({
-            url: Network.sharedInstance().payURL,
-            method: 'GET',
-            data: {
-                device_info: '',
-                body: '老友码头-商品购买',
-                detail: '',
-                attach: '',
-                out_trade_no: order.Id,
-                fee_type: '',
-                total_fee: order.Due,
-                spbill_create_ip: '',
-                time_start: '',
-                time_expire: '',
-                goods_tag: '',
-                trade_type: '',
-                product_id: '',
-                limit_pay: '',
-                openid: openid,
-            },
-            success: function (res) {
-                var pay = res.data
-                //发起支付
-                var timeStamp = pay[0].timeStamp;
-                var packages = pay[0].package;
-                var paySign = pay[0].paySign;
-                var nonceStr = pay[0].nonceStr;
-                var param = { "timeStamp": timeStamp, "package": packages, "paySign": paySign, "signType": "MD5", "nonceStr": nonceStr };
-                console.log("timeStamp=========" + timeStamp);
-                console.log("packages=========" + packages);
-                console.log("paySign=========" + paySign);
-                console.log("nonceStr=========" + nonceStr);
-                self.pay(param)
-            },
-        })
-    },*/
+    getXMLNodeValue: function (node_name, xml) {
+        var tmp = xml.split("<" + node_name + ">");
+        var _tmp = tmp[1].split("</" + node_name + ">");
+        var temp = _tmp[0].split("[");
+        var temp1=temp[2].split("]");
+        return temp1[0];
+    },
+
+    /**
+     *  获取二次签名
+     */
+    getSign2: function (timeStamp, nonceStr, packages) {
+        let MD5Util = require('../../tools/md5.js');
+        let sign = '';
+        var signA = "appId=" + global.Storage.appId() + "&nonceStr=" + nonceStr 
+            + "&package=" + packages + "&signType=MD5&timeStamp=" + timeStamp;;
+        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
+        sign = MD5Util.MD5(signB).toUpperCase();
+        return sign;
+    },
 
     /**
      * 支付
      */
-    pay: function (param) {
+    pay: function (timeStamp, nonceStr, packages) {
+        let self=this;
+        let order = this.data.order;
+        let no = order.OrderNo;
+        let money = order.Total;
+        let id = order.Id;
+        let door = this.data.door;
+        let infos = this.data.infos;
         wx.requestPayment({
-            timeStamp: param.timeStamp,
-            nonceStr: param.nonceStr,
-            package: param.package,
-            signType: param.signType,
-            paySign: param.paySign,
+            timeStamp: timeStamp,
+            nonceStr: nonceStr,
+            package: packages,
+            signType: "MD5",
+            paySign: self.getSign2(timeStamp, nonceStr, packages),
             success: function (res) {
+                console.log("success=========" + JSON.stringify(res));
                 // 支付成功
-                wx.navigateTo({
-                    url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&way=微信支付&id=' + id,
+                wx.setStorage({
+                    key: 'infos',
+                    data: infos,
+                    success: function (res) {
+                        wx.redirectTo({
+                            url: '../pay-success/pay-success?no=' + no + '&price=' + money + '&id=' + id,
+                        })
+                        //如果从我的订单和订单详情进入，通知我的订单刷新数据
+                        if (door === "1") {
+                            Event.emit('deleteOrderFinish');//发出通知
+                        }
+                    }
                 })
             },
-            fail: function () {
+            fail: function (res) {
                 // 支付失败
+                console.log("fail========="+JSON.stringify(res));
             }
-
         })
     }
 })
