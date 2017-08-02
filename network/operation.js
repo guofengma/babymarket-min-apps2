@@ -20,7 +20,10 @@ export default class Operation {
         this.homeAdReadOperation = 'b412ff1c-c19b-4250-b479-a61e0085a868';
         //首页-分类
         this.homeSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
-
+        //首页-标签
+        this.homeTargetReadOperation = '9880c3ed-124e-4703-9c67-a6500127ed09';
+        //首页-标签产品
+        this.homeTargetProductReadOperation = '74bd6fa2-3de3-028e-197e-3f5201d5e08b';
         //搜索-热门搜索
         this.searchHotReadOperation = 'c8abee85-11ab-0bba-1bcd-3c4701ec76cb';
 

@@ -14,14 +14,17 @@ Page({
     adArray: null,
     // 当前选中的tab
     currentTab: 0,
+    //标签数据
+    targetArray:null,
     //一级分类数据
     oneSortData: null
   },
   onLoad: function () {
     Event.on('loginSuccess', this.onLoad, this);
     Tool.showLoading();
-    this.requestOneSortData();
-    this.requestHomeAdData();
+    this.requestTargetData();
+    // this.requestOneSortData();
+    // this.requestHomeAdData();
   },
 
   /**
@@ -34,6 +37,42 @@ Page({
   onShow() {
     let r = RequestReadFactory.memberInfoRead();
     r.addToQueue();
+  },
+
+  /**
+   * 获取标签数据
+   */
+  requestTargetData: function () {
+    let task = RequestReadFactory.homeTargetRead();
+    task.finishBlock = (req) => {
+      let responseData = req.responseObject.Datas;
+      this.setData({
+        targetArray: responseData
+      });
+
+      //循环请求标签的产品
+      responseData.forEach((item, index) => {
+          this.requestTargetProductData(item.Id, item.ShowTypeKey,index);
+      });
+    };
+    task.addToQueue();
+  },
+
+  /**
+   * 获取标签产品数据
+   */
+  requestTargetProductData: function (id,typeId,index) {
+    let task = RequestReadFactory.homeTargetProductRead(id, typeId);
+    let targetArray = this.data.targetArray;
+    task.finishBlock = (req) => {
+      let responseData = req.responseObject.Datas;
+      targetArray[index].productData = responseData;
+
+      this.setData({
+        targetArray: targetArray
+      });
+    };
+    task.addToQueue();
   },
 
   /**

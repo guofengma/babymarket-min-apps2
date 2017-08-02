@@ -329,6 +329,53 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //首页-标签
+    static homeTargetRead() {
+      let operation = Operation.sharedInstance().homeTargetReadOperation;
+      let bodyParameters = {
+        "Operation": operation
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '首页-标签';
+      req.items = ['Id', 'Name', 'ImgId', 'ShowTypeKey'];
+      //修改返回结果
+      req.preprocessCallback = (req) => {
+        let responseData = req.responseObject.Datas;
+        responseData.forEach((item, index) => {
+          item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+        });
+      }
+      return req;
+    }
+
+    //首页-标签产品
+    static homeTargetProductRead(id,typeId) {
+      let operation = Operation.sharedInstance().homeTargetProductReadOperation;
+      let maxCount = 0;
+      if(typeId==1){
+        maxCount=4;
+      }else{
+        maxCount = 3;
+      }
+      let bodyParameters = {
+        "Operation": operation,
+        "TargetId":id,
+        "MaxCount": maxCount,
+        "Appendixes":"Appendixes"
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '首页-标签产品';
+      req.items = ['Id', 'Name', 'ProductId'];
+      //修改返回结果
+      req.preprocessCallback = (req) => {
+        // let responseData = req.responseObject.Datas;
+        // responseData.forEach((item, index) => {
+        //   item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+        // });
+      }
+      return req;
+    }
+
     //首页-一级分类
     static homeOneSortRead() {
         let operation = Operation.sharedInstance().homeSortReadOperation;
