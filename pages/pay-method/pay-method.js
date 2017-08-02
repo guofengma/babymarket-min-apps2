@@ -193,7 +193,7 @@ Page({
         var self = this;
         let order = this.data.order;
         let nonce_str = Math.random().toString(36).substr(2, 15);
-        let money = parseInt(parseFloat(order.Due)*100);
+        let money = parseInt(parseFloat(order.Due) * 100);
         let json = {
             appid: global.Storage.appId(),
             body: 'test',
@@ -234,7 +234,7 @@ Page({
                 var pay = res.data;
                 //发起支付
                 var timeStamp = Math.round(new Date().getTime() / 1000).toString();
-                var packages = 'prepay_id=' + self.getXMLNodeValue("prepay_id",pay);
+                var packages = 'prepay_id=' + self.getXMLNodeValue("prepay_id", pay);
                 //var paySign = self.getXMLNodeValue("sign", pay);
                 var nonceStr = self.getXMLNodeValue("nonce_str", pay);;
                 console.log("res======" + JSON.stringify(res));
@@ -250,7 +250,7 @@ Page({
         var tmp = xml.split("<" + node_name + ">");
         var _tmp = tmp[1].split("</" + node_name + ">");
         var temp = _tmp[0].split("[");
-        var temp1=temp[2].split("]");
+        var temp1 = temp[2].split("]");
         return temp1[0];
     },
 
@@ -260,7 +260,7 @@ Page({
     getSign2: function (timeStamp, nonceStr, packages) {
         let MD5Util = require('../../tools/md5.js');
         let sign = '';
-        var signA = "appId=" + global.Storage.appId() + "&nonceStr=" + nonceStr 
+        var signA = "appId=" + global.Storage.appId() + "&nonceStr=" + nonceStr
             + "&package=" + packages + "&signType=MD5&timeStamp=" + timeStamp;;
         var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
         sign = MD5Util.MD5(signB).toUpperCase();
@@ -271,7 +271,7 @@ Page({
      * 支付
      */
     pay: function (timeStamp, nonceStr, packages) {
-        let self=this;
+        let self = this;
         let order = this.data.order;
         let no = order.OrderNo;
         let money = order.Total;
@@ -303,8 +303,67 @@ Page({
             },
             fail: function (res) {
                 // 支付失败
-                console.log("fail========="+JSON.stringify(res));
+                console.log("fail=========" + JSON.stringify(res));
+                self.closeOrder(nonceStr);
             }
         })
-    }
+    },
+
+    /**
+    * 关闭订单签名
+    */
+    getSign3: function (json) {
+        let MD5Util = require('../../tools/md5.js');
+        let sign = '';
+        var signA = '';
+        for (var i in json) {
+            if (global.Tool.isValidStr(json[i])) {
+                signA = signA + i + '=' + json[i];
+                if (i != "out_trade_no") {
+                    signA += '&';
+                }
+            }
+        }
+        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
+        sign = MD5Util.MD5(signB).toUpperCase();
+        return sign;
+    },
+
+    /**
+     * 关闭订单
+     */
+    closeOrder: function (nonce_str) {
+        var self = this;
+        let order = this.data.order;
+        let json = {
+            appid: global.Storage.appId(),
+            mch_id: '1486151622',
+            nonce_str: nonce_str,
+            out_trade_no: order.OrderNo,
+        };
+        var bodyData = '<xml>';
+        for (var i in json) {
+            bodyData += '<' + i + '>';
+            bodyData += json[i]
+            bodyData += '</' + i + '>';
+        }
+        bodyData += '<sign>' + self.getSign3(json) + '</sign>';
+        bodyData += '</xml>'
+        console.log("bodyData======" + bodyData);
+        //统一支付
+        wx.request({
+            url: 'https://api.mch.weixin.qq.com/pay/closeorder',
+            method: 'POST',
+            data: bodyData,
+            success: function (res) {
+                var result = res.data;
+                console.log("res1======" + JSON.stringify(res));
+                
+            },
+            fail: function (res) {
+                // 支付失败
+                console.log("fail1=========" + JSON.stringify(res));
+            }
+        })
+    },
 })
