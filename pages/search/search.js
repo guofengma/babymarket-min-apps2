@@ -70,5 +70,12 @@ Page({
         wx.navigateTo({
             url: '/pages/search/search-result/search-result?keyword=' + keyword
         })
+    },
+    onConfirmAction:function(e){
+      let keyword = e.detail.value;
+      //跳到搜索结果
+      wx.navigateTo({
+        url: '/pages/search/search-result/search-result?keyword=' + keyword
+      })
     }
 })
