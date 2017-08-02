@@ -209,8 +209,8 @@ Page({
             detail: '',
             attach: '',
             fee_type: '',
-            time_start: '',
-            time_expire: '',
+            time_start: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(),'YYYYMMDDHHmmss'),
+            time_expire: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(30*3600), 'YYYYMMDDHHmmss'),
             goods_tag: '',
             product_id: '',
             limit_pay: '',
@@ -278,7 +278,7 @@ Page({
         let id = order.Id;
         let door = this.data.door;
         let infos = this.data.infos;
-        wx.requestPayment({
+        let parama = {
             timeStamp: timeStamp,
             nonceStr: nonceStr,
             package: packages,
@@ -303,8 +303,11 @@ Page({
             },
             fail: function (res) {
                 // 支付失败
-                console.log("fail========="+JSON.stringify(res));
+                console.log("fail=========" + JSON.stringify(res));
             }
-        })
+        }
+
+        console.log('wx.requestPayment : ' + JSON.stringify(parama));
+        wx.requestPayment(parama)
     }
 })
