@@ -21,7 +21,7 @@
         <swiper-item>
           <scroll-view class="scroll" scroll-y>
             <view wx:if="{{index ==0}}">
-              <template is="cell-home" data="{{oneSortData:oneSortData,adArray:adArray}}" />
+              <template is="cell-home" data="{{targetArray:targetArray,oneSortData:oneSortData,adArray:adArray}}" />
             </view>
             <view wx:else>
               <template is="cell-sort" data="{{...item}}" />

@@ -10,7 +10,7 @@
   height: 100%;
 }
 
-.bottom {
+.more-bottom {
   color: #5e6064;
   text-align: center;
   font-size: 23rpx;

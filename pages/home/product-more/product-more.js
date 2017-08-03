@@ -76,7 +76,7 @@ Page({
               item.productId = item.Id;
               //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
               if (Storage.didLogin()) {
-                  item.showPrice = "¥" + item.LYPrice + "（老友专享）";
+                  item.showPrice = "¥" + item.LYPrice;
               } else {
                   item.showPrice = "¥" + item.SalePrice;
               }
