@@ -172,6 +172,7 @@ Page({
                 orderLineBean.Price = orders[i].Price;
                 orderLineBean.Qnty = orders[i].Qnty;
                 orderLineBean.ProductId = orders[i].ProductId;
+                orderLineBean.Product_SId = orders[i].Product_SId;
                 if (door === 1) {
                     orderLineBean.Shopping_CartId = orders[i].Id;
                 }

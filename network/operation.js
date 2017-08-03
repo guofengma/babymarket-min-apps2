@@ -61,7 +61,7 @@ export default class Operation {
 
         //购物车
         this.cartReadOperation = '0a8ed48f-088f-0ca3-0c43-3c290052b69b';
-        this.cartAddOperation = '';
+        this.cartAddOperation = '84cd955f-202c-02c8-339a-3c270191d122';
         this.cartModifyOperation = '137c1d5c-dc35-0114-0b27-3c240045510e';
         this.cartDeleteOperation = 'cd0221ba-e321-0581-06f5-3c2401834522';
 

@@ -225,6 +225,8 @@ Page({
         bodyData += '</xml>'
         console.log("bodyData======" + bodyData);
         //统一支付
+
+        global.Tool.showLoading();
         wx.request({
             url: 'https://www.babymarkt.com.cn/Libra.Weixin.Pay.Web.UnifiedOrder.aspx?account=a7a04727-7bdd-491b-8eb7-a7c200b49421',
             //url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
@@ -239,6 +241,9 @@ Page({
                 console.log("res======" + JSON.stringify(res));
                 self.pay(timeStamp, nonceStr, packages)
             },
+            complete:()=>{
+                global.Tool.hideLoading();
+            }
         })
     },
 
@@ -277,6 +282,7 @@ Page({
         let id = order.Id;
         let door = this.data.door;
         let infos = this.data.infos;
+        global.Tool.showLoading();
         wx.requestPayment({
             timeStamp: timeStamp,
             nonceStr: nonceStr,
@@ -304,6 +310,9 @@ Page({
                 // 支付失败
                 console.log("fail=========" + JSON.stringify(res));
                 self.closeOrder(nonceStr);
+            },
+            complete:()=>{
+                global.Tool.hideLoading();
             }
         })
     },

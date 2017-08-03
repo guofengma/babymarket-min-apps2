@@ -57,6 +57,27 @@ export default class RequestWriteFactory {
         return req;
     }
 
+    //加入购物车
+    static addToShoppingCart(productId, specificationId, qnty = 1) {
+        let operation = Operation.sharedInstance().cartAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "ProductId": productId,
+            "Qnty": qnty + '',
+            "MemberId":global.Storage.currentMember().Id,
+        };
+
+        if (global.Tool.isValidStr(specificationId)) {
+            params.Product_SId = specificationId;
+        }
+
+        let req = new RequestWrite(status, 'Shopping_Cart', params, null);
+        req.name = '加入购物车';
+
+        return req;
+    }
+
     //修改地址默认
     static modifyDefaultAddress(id) {
         let operation = Operation.sharedInstance().addressModifyOperation;

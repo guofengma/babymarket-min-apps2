@@ -182,9 +182,11 @@ export default class ProductSpecification {
      */
     _submitBtnClicked(){
         let {Tool:t} = global;
-        let {innerProduct:product,innerPrice:price,innerCount:count} = this.page.data;
+        let {innerProduct:product,innerCount:count,specificationData} = this.page.data;
 
-        if (t.isEmptyStr(this.page.data.specificationData) || t.isEmptyStr(this.page.data.specificationData.Id)) {
+        let price = specificationData ? specificationData.levelPrice : product.SalePrice
+
+        if (t.isEmptyStr(specificationData) || t.isEmptyStr(specificationData.Id)) {
             t.showAlert('无法获取规格数据，请稍后再试！');
             return;
         }
@@ -194,20 +196,60 @@ export default class ProductSpecification {
         }
 
         if (t.isFunction(this.finishBlock)) {
-            this.finishBlock(this.page.data.specificationData.Id,product,count,price);
+            this.finishBlock(specificationData.Id,product,count,price);
         }
 
         //立即购买
-        if (this.page.data.productSpecificationAction = 'Buy') {
+        if (this.page.data.productSpecificationAction === 'Buy') {
             console.log('立即购买');
+            let selectCarts = [];
+            let p = this.page.data.innerProduct;
+            let obj = {
+                ProductId:this.productId,
+                ImgId:p.ImgId,
+                Price:price,
+                Product_Name:p.ShowName,
+                Product_ShowName:p.ShowName,
+                Qnty:count + '',
+                Product_SId:specificationData.Id,
+                S_Name:specificationData.S_FullName,
+                Import:p.Import,
+                Warehouse_Name:p.Warehouse,
+                Money:price,
+                image:global.Tool.imageURLForId(p.ImgId)
+            }
+            selectCarts.push(obj);
+            wx.setStorage({
+                key: 'selectCarts',
+                data: selectCarts,
+                success: function (res) {
+                    wx.navigateTo({
+                        url: '../order-confirm/order-confirm?door=0',
+                    })
+                }
+            })
         }
 
         //加入购物车
         else{
             console.log('加入购物车');
+
+            let self = this;
+            let r = global.RequestWriteFactory.addToShoppingCart(this.productId,specificationData.Id,count);
+            r.finishBlock = ()=>{
+                global.Tool.showSuccessToast('操作成功');
+            }
+            r.addToQueue();
         }
 
         this.dismiss();
+    }
+
+    /**
+     * 进入确认订单
+     */
+    goConfirm () {
+
     }
 
     /**

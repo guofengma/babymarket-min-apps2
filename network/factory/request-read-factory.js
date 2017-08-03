@@ -635,8 +635,10 @@ export default class RequestReadFactory {
             condition = "${StatusKey} == '" + status + "' && " + condition;
         }
 
-        if (global.Tool.isValidStr(status) && status != "undefined") {
-            condition = "${StatusKey} == '" + status + "'";
+        if (status <= 0 || status == "undefined") {//全部订单&待付款
+            condition = condition + " && ${Child_Order} == 'false'"
+        } else {
+            condition = condition + " && (${Child_Order} == 'true' || ${History} == 'true')"
         }
 
         let bodyParameters = {
