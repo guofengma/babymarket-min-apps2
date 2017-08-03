@@ -8,7 +8,7 @@
           <view class="price-cart">
             <view class="price-info">
               <view class="sale-price-panel">
-                <text class="sale-price">{{item.showPrice}}</text>
+                <text class="product-sale-price">{{item.showPrice}}</text>
                 <image class="price-image" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />
               </view>
 

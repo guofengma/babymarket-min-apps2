@@ -62,7 +62,7 @@
   justify-content: center;
 }
 
-.price-info .sale-price {
+.price-info .product-sale-price {
   color: #af8327;
   font-size: 30rpx;
 }
