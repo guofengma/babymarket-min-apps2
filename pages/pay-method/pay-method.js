@@ -196,7 +196,7 @@ Page({
         let money = parseInt(parseFloat(order.Due) * 100);
         let json = {
             appid: global.Storage.appId(),
-            body: 'test',
+            body: '老友码头',
             device_info: 'WEB',
             mch_id: '1486151622',
             nonce_str: nonce_str,

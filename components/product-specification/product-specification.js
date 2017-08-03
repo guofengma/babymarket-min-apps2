@@ -200,7 +200,7 @@ export default class ProductSpecification {
         }
 
         //立即购买
-        if (this.page.data.productSpecificationAction = 'Buy') {
+        if (this.page.data.productSpecificationAction === 'Buy') {
             console.log('立即购买');
             let selectCarts = [];
             let p = this.page.data.innerProduct;
@@ -215,6 +215,8 @@ export default class ProductSpecification {
                 S_Name:specificationData.S_FullName,
                 Import:p.Import,
                 Warehouse_Name:p.Warehouse,
+                Money:price,
+                image:global.Tool.imageURLForId(p.ImgId)
             }
             selectCarts.push(obj);
             wx.setStorage({
@@ -222,7 +224,7 @@ export default class ProductSpecification {
                 data: selectCarts,
                 success: function (res) {
                     wx.navigateTo({
-                        url: '../order-confirm/order-confirm?door=1',
+                        url: '../order-confirm/order-confirm?door=0',
                     })
                 }
             })
@@ -235,7 +237,7 @@ export default class ProductSpecification {
             let self = this;
             let r = global.RequestWriteFactory.addToShoppingCart(this.productId,specificationData.Id,count);
             r.finishBlock = ()=>{
-
+                global.Tool.showSuccessToast('操作成功');
             }
             r.addToQueue();
         }

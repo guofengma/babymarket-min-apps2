@@ -65,6 +65,7 @@ export default class RequestWriteFactory {
             "Operation": operation,
             "ProductId": productId,
             "Qnty": qnty + '',
+            "MemberId":global.Storage.currentMember().Id,
         };
 
         if (global.Tool.isValidStr(specificationId)) {
