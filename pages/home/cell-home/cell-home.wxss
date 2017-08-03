@@ -5,6 +5,7 @@
 @import "/pages/home/cell-bulletin/cell-bulletin.wxss";
 @import "/pages/home/cell-title/cell-title.wxss";
 @import "/pages/home/cell-product/cell-product.wxss";
+@import "/pages/home/cell-product-target/cell-product-target.wxss";
 
 .cell-home {
   display: flex;

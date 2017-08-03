@@ -1,0 +1,21 @@
+<template name="cell-product-target">
+  <view class="cell-product-target">
+    <block wx:for="{{productArray}}" wx:key="unique">
+      <view class="target-product-info" catchtap="onChildClickListener" data-group-position="{{groupPosition}}" data-child-position="{{index}}" data-id="{{item.productId}}">
+        <image class="{{item.imageUrl.length>0?'target-image':'target-image empty'}}" src="{{item.imageUrl}}" />
+        <view class="target-info">
+          <text class="target-name">{{item.ShowName}}</text>
+           <text class="target-subtitle">{{item.subtitle}}</text>
+          <view class="target-price-cart">
+            <view class="target-price-info">
+              <text class="target-sale-price">{{item.showPrice}}</text>
+                <image class="target-price-image" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />
+                <text class="target-old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>
+            </view>
+            <image class="target-btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" />
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>
