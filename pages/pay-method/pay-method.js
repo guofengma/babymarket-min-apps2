@@ -196,7 +196,7 @@ Page({
         let money = parseInt(parseFloat(order.Due) * 100);
         let json = {
             appid: global.Storage.appId(),
-            body: 'test',
+            body: '老友码头-商品购买',
             device_info: 'WEB',
             mch_id: '1486151622',
             nonce_str: nonce_str,
@@ -209,8 +209,8 @@ Page({
             detail: '',
             attach: '',
             fee_type: '',
-            time_start: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(),'YYYYMMDDHHmmss'),
-            time_expire: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(30*3600), 'YYYYMMDDHHmmss'),
+            time_start: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(), 'YYYYMMDDHHmmss'),
+            time_expire: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(30 * 3600), 'YYYYMMDDHHmmss'),
             goods_tag: '',
             product_id: '',
             limit_pay: '',
@@ -235,7 +235,6 @@ Page({
                 //发起支付
                 var timeStamp = Math.round(new Date().getTime() / 1000).toString();
                 var packages = 'prepay_id=' + self.getXMLNodeValue("prepay_id", pay);
-                //var paySign = self.getXMLNodeValue("sign", pay);
                 var nonceStr = self.getXMLNodeValue("nonce_str", pay);;
                 console.log("res======" + JSON.stringify(res));
                 self.pay(timeStamp, nonceStr, packages)
@@ -358,7 +357,7 @@ Page({
             success: function (res) {
                 var result = res.data;
                 console.log("res1======" + JSON.stringify(res));
-                
+
             },
             fail: function (res) {
                 // 支付失败

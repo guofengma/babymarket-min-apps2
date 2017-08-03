@@ -18,6 +18,7 @@ Page({
         creditChecked: false, // 授信开关 默认关闭
         balanceChecked: false, // 钱包开关 默认关闭
         isAirProduct: false, //是否是跨境商品
+        loadingHidden: false,
 
         status: 0, // 0为未选择 1为优惠劵返回 2为地址返回
         couponData: {
@@ -137,6 +138,12 @@ Page({
             }
             this.requestAddOrder();
         }
+        r.failBlock = (req) => {
+            self.setData({
+                loadingHidden: true,
+            });
+        }
+        r.manageLoadingPrompt = false;
         r.addToQueue();
     },
 
@@ -174,6 +181,12 @@ Page({
             }
             this.requestAddOrderLine(requestData);
         }
+        r.failBlock = (req) => {
+            self.setData({
+                loadingHidden: true,
+            });
+        }
+        r.manageLoadingPrompt = false;
         r.addToQueue();
     },
 
@@ -188,6 +201,12 @@ Page({
             // 查询订单详情
             self.requestOrderDetail();
         }
+        r.failBlock = (req) => {
+            self.setData({
+                loadingHidden: true,
+            });
+        }
+        r.manageLoadingPrompt = false;
         r.addToQueue();
     },
 
@@ -228,9 +247,16 @@ Page({
                     creditChecked: creditChecked,
                     balanceChecked: balanceChecked,
                     total: order.Due,
+                    loadingHidden: true,
                 })
             }
         }
+        r.failBlock = (req) => {
+            self.setData({
+                loadingHidden: true,
+            });
+        }
+        r.manageLoadingPrompt = false;
         r.addToQueue();
 
     },
