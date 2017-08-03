@@ -303,6 +303,7 @@ Page({
      * 进入确认订单
      */
     goConfirm: function (selectCarts) {
+
         wx.setStorage({
             key: 'selectCarts',
             data: selectCarts,
