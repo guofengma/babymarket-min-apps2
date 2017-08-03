@@ -361,18 +361,46 @@ export default class RequestReadFactory {
         "Operation": operation,
         "TargetId":id,
         "MaxCount": maxCount,
-        "Appendixes":"Appendixes"
+        "Appendixes": {
+          "+Product": [
+            "Name",
+            "ImgId",
+            "SalePrice", 
+            "Subtitle", 
+            "Inv", 
+            "LYPrice"
+          ]
+        }
       };
       let req = new RequestRead(bodyParameters);
       req.name = '首页-标签产品';
       req.items = ['Id', 'Name', 'ProductId'];
+      req.appendixesKeyMap = { 'Product': 'ProductId' };//可以多个
       //修改返回结果
-      req.preprocessCallback = (req) => {
-        // let responseData = req.responseObject.Datas;
-        // responseData.forEach((item, index) => {
-        //   item.imageUrl = global.Tool.imageURLForId(item.ImgId);
-        // });
-      }
+      req.appendixesBlock = (item, appendixe, key, id) => {
+          let url = global.Tool.imageURLForId(appendixe.ImgId);
+          item.imageUrl = url;
+          item.productId = id;
+          item.ShowName = appendixe.Name;
+          item.subtitle = appendixe.Subtitle;
+          item.stock = appendixe.Inv;
+          item.isLogin = global.Storage.didLogin();
+          if (item.isLogin) {
+            item.showPrice = "¥" + appendixe.LYPrice;
+          } else {
+            item.showPrice = "¥" + appendixe.SalePrice;
+          }
+          //未登录时,旧价格不显示,登陆后显示SalePrice
+          if (item.isLogin) {
+            item.oldPrice = "¥" + appendixe.SalePrice;
+            //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
+            if (appendixe.SalePrice == appendixe.LYPrice || appendixe.SalePrice == 0) {
+              item.oldPrice = 0;
+            }
+          } else {
+            item.oldPrice = 0;
+          }
+      };
       return req;
     }
 

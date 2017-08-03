@@ -1,103 +1,76 @@
-.cell-product {
+.cell-product-target {
   display: flex;
   width: 100%;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.product-info {
+.target-product-info {
+  display: flex;
+  background-color: white;
+  padding: 24rpx 24rpx 24rpx 24rpx;
+}
+
+.target-product-info .target-image {
+  width: 220rpx;
+  height: 220rpx;
+  background-color: white;
+  flex: none;
+}
+
+.target-product-info .target-image.empty {
+  background-color: #f3f3f4;
+}
+
+.target-product-info .target-info {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  background-color: white;
-  border-top: 2rpx solid #f2f2f2;
-  border-bottom: 2rpx solid #f2f2f2;
+  margin-top: 30rpx;
+  margin-left: 12rpx;
 }
 
-.sale-price-panel {
+.target-info .target-name {
+  color: black;
+  font-size: 26rpx;
+}
+
+.target-info .target-subtitle {
+  color: #7d7f81;
+  font-size: 20rpx;
+  margin-top: 10rpx;
+}
+
+.target-info .target-price-cart {
   display: flex;
-  align-items: center;
+  margin-top: 5rpx;
+  flex-direction: column;
 }
 
-.price-image {
+.target-price-cart .target-price-info {
+  display: flex;
+   margin-top: 20rpx;
+}
+
+.target-price-info .target-sale-price {
+  color: #af8327;
+  font-size: 28rpx;
+}
+
+.target-price-image {
   width: 110rpx;
   height: 30rpx;
   flex: none;
   margin-left: 12rpx;
 }
 
-.product-info .image {
-  width: 100%;
-  height: 400rpx;
-  background-color: white;
-  flex: none;
-}
-
-.product-info .image.empty {
-  background-color: #f3f3f4;
-}
-
-.product-info .info {
-  display: flex;
-  flex-direction: column;
-  padding: 15rpx 30rpx 15rpx 30rpx;
-}
-
-.info .name {
-  color: black;
-  font-size: 28rpx;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.info .price-cart {
-  display: flex;
-  margin-top: 12rpx;
-}
-
-.price-cart .price-info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-}
-
-.price-info .sale-price {
-  color: #af8327;
-  font-size: 30rpx;
-}
-
-.price-info .old-price {
+.target-price-info .target-old-price {
   color: #b0b1b3;
   font-size: 22rpx;
-  text-decoration: line-through;
-  margin-top: 6rpx;
+  margin-left: 12rpx;
 }
 
-.price-cart .btn-cart {
+.target-price-cart .target-btn-cart {
   width: 55rpx;
   height: 55rpx;
   flex: none;
-}
-
-.product-more {
-  display: flex;
-  width: 50%;
-  height: 556rpx;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  flex: none;
-}
-
-.product-more .more-title {
-  color: #454950;
-  font-size: 26rpx;
-}
-
-.product-more .more-arrow {
-  width: 65rpx;
-  height: 65rpx;
-  flex: none;
-  margin-top: 16rpx;
+  align-self:flex-end;
 }

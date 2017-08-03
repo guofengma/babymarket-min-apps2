@@ -23,8 +23,8 @@ Page({
     Event.on('loginSuccess', this.onLoad, this);
     Tool.showLoading();
     this.requestTargetData();
-    // this.requestOneSortData();
-    // this.requestHomeAdData();
+    this.requestOneSortData();
+    this.requestHomeAdData();
   },
 
   /**
@@ -71,6 +71,7 @@ Page({
       this.setData({
         targetArray: targetArray
       });
+      console.log(this.data.targetArray);
     };
     task.addToQueue();
   },
