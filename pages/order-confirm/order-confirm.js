@@ -112,7 +112,9 @@ Page({
      * 数据请求
      */
     requestData: function () {
-        this.requestAddressDefaultInfo();
+        //this.requestAddressDefaultInfo();
+        // 先新增订单，后查询地址
+        this.requestAddOrder();
     },
 
     /**
@@ -120,6 +122,8 @@ Page({
      */
     requestAddressDefaultInfo: function () {
         let self = this;
+        let order = this.data.order;
+        let isAirProduct = this.data.isAirProduct;
         let r = RequestReadFactory.addressDefaultRead();
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
@@ -134,9 +138,21 @@ Page({
                         Card: address.Card,
                     },
                     num: 1,
+                    loadingHidden: true,
                 });
+                // 如果订单为跨境订单且地址未认证则去修改地址 
+                if (global.Tool.isEmptyStr(address.Card) && isAirProduct) {
+                    wx.showModal({
+                        title: '提示',
+                        content: '跨境商品请使用实名认证地址',
+                        success: function (res) {
+                            if (res.confirm) {
+                                self.selectAddress();
+                            }
+                        }
+                    })
+                }
             }
-            this.requestAddOrder();
         }
         r.failBlock = (req) => {
             self.setData({
@@ -220,6 +236,7 @@ Page({
         let isAirProduct = this.data.isAirProduct;
         let creditChecked = this.data.creditChecked;
         let balanceChecked = this.data.balanceChecked;
+        let addressId = this.data.addressData.addressId;
         let r = RequestReadFactory.orderDetailRead(id);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
@@ -248,8 +265,11 @@ Page({
                     creditChecked: creditChecked,
                     balanceChecked: balanceChecked,
                     total: order.Due,
-                    loadingHidden: true,
                 })
+                // 如果地址为空则查询地址
+                if (global.Tool.isEmptyStr(addressId)) {
+                    self.requestAddressDefaultInfo();
+                }
             }
         }
         r.failBlock = (req) => {
@@ -340,8 +360,16 @@ Page({
         // 判断有无地址
         if (num == 1) {
             // 有地址
-            if (isAirProduct && global.Tool.isValidStr(Card)) {
-                global.Tool.showAlert("跨境商品请使用实名认证地址!");
+            if (isAirProduct && global.Tool.isEmptyStr(Card)) {
+                wx.showModal({
+                    title: '提示',
+                    content: '跨境商品请使用实名认证地址',
+                    success: function (res) {
+                        if (res.confirm) {
+                            self.selectAddress();
+                        }
+                    }
+                })
             } else {
                 wx.showModal({
                     title: '提示',
