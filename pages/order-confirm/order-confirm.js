@@ -410,7 +410,9 @@ Page({
     submitOrder: function () {
         let door = this.data.door;
         let order = this.data.order;
+        let addressId = this.data.addressData.addressId;
         order.Formal = "True";
+        order.Delivery_AddressId = addressId;
         this.modifyOrder(order, order, door);
     },
 
