@@ -198,11 +198,13 @@ Page({
             }
             this.requestAddOrderLine(requestData);
         }
+        // 自定义加载关闭
         r.failBlock = (req) => {
             self.setData({
                 loadingHidden: true,
             });
         }
+        // 网络请求加载关闭
         r.manageLoadingPrompt = false;
         r.addToQueue();
     },

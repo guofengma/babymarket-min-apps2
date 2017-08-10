@@ -103,7 +103,7 @@ Page({
         let id = order.Id;
 
         if (parseFloat(order.Due) > 0) {
-            // 微信支付
+            // 微信支付先登录获取code
             this.getCode();
         } else {
             // 不需要微信支付的,修改订单装填为已支付
@@ -181,7 +181,7 @@ Page({
                 }
             }
         }
-        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
+        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";//key
         sign = MD5Util.MD5(signB).toUpperCase();
         return sign;
     },
@@ -193,18 +193,18 @@ Page({
         var self = this;
         let order = this.data.order;
         let nonce_str = Math.random().toString(36).substr(2, 15);
-        let money = parseInt(parseFloat(order.Due) * 100);
+        let money = parseInt(parseFloat(order.Due) * 100); // 分为单位
         let json = {
             appid: global.Storage.appId(),
             body: '老友码头-商品购买',
             device_info: 'WEB',
-            mch_id: '1486151622',
-            nonce_str: nonce_str,
-            notify_url: 'https://www.babymarkt.com.cn/ReceiveNotify.aspx',
+            mch_id: '1486151622', //商户号
+            nonce_str: nonce_str, //随机吗
+            notify_url: 'https://www.babymarkt.com.cn/ReceiveNotify.aspx', // 回调地址
             openid: openid,
-            out_trade_no: order.OrderNo,
-            spbill_create_ip: clientip,
-            total_fee: String(money),
+            out_trade_no: order.OrderNo, // 订单编号
+            spbill_create_ip: clientip,  //ip
+            total_fee: String(money), 
             trade_type: 'JSAPI',
             detail: '',
             attach: '',
@@ -221,21 +221,21 @@ Page({
             bodyData += json[i]
             bodyData += '</' + i + '>';
         }
-        bodyData += '<sign>' + self.getSign(json) + '</sign>';
+        bodyData += '<sign>' + self.getSign(json) + '</sign>'; //签名
         bodyData += '</xml>'
         console.log("bodyData======" + bodyData);
         //统一支付
 
         global.Tool.showLoading();
         wx.request({
-            url: 'https://www.babymarkt.com.cn/Libra.Weixin.Pay.Web.UnifiedOrder.aspx?account=a7a04727-7bdd-491b-8eb7-a7c200b49421',
+            url: 'https://www.babymarkt.com.cn/Libra.Weixin.Pay.Web.UnifiedOrder.aspx?account=a7a04727-7bdd-491b-8eb7-a7c200b49421', //account
             //url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
             method: 'POST',
             data: bodyData,
             success: function (res) {
                 var pay = res.data;
                 //发起支付
-                var timeStamp = Math.round(new Date().getTime() / 1000).toString();
+                var timeStamp = Math.round(new Date().getTime() / 1000).toString(); //时间戳
                 var packages = 'prepay_id=' + self.getXMLNodeValue("prepay_id", pay);
                 var nonceStr = self.getXMLNodeValue("nonce_str", pay);;
                 console.log("res======" + JSON.stringify(res));
@@ -355,7 +355,7 @@ Page({
             bodyData += json[i]
             bodyData += '</' + i + '>';
         }
-        bodyData += '<sign>' + self.getSign3(json) + '</sign>';
+        bodyData += '<sign>' + self.getSign3(json) + '</sign>'; 
         bodyData += '</xml>'
         console.log("bodyData======" + bodyData);
         //统一支付
