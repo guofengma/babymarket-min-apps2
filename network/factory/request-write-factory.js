@@ -356,7 +356,7 @@ export default class RequestWriteFactory {
                 "RelevancyType": "Member",
                 "RelevancyBizElement": "Picture",
                 "$FILE_BYTES": temporaryId,
-                "ID": imgId,
+                "Id": imgId,
             },
         }];
 
