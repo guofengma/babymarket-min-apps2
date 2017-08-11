@@ -124,7 +124,7 @@ Page({
               wx.uploadFile({
                 url: 'https://www.babymarkt.com.cn/Libra.Web.Api.ApiWriteBlob.aspx?_SESSION_=' + global.Storage.currentSession(), //仅为示例，非真实的接口地址
                 filePath: tempFilePaths[0],
-                name: '',
+                name: 'file',
                 success: function (res) {
                   var fileInfo = JSON.parse(res.data);
                   console.log(fileInfo);
@@ -141,39 +141,6 @@ Page({
                   r.addToQueue();
                 }
               })
-
-              // var reader = new FileReader();
-              // reader.onload = function (e) {
-              //   var arrayBuffer = e.target.result;
-              //     var base64 = wx.arrayBufferToBase64(arrayBuffer);
-              //     console.log('------base64----:' + base64);
-
-              //     上传到服务器
-              //     wx.request({
-              //         url: 'https://www.babymarkt.com.cn/Libra.Web.Api.ApiWriteBlob.aspx',
-              //         data: {
-              //             '_SESSION_': global.Storage.currentSession(),
-              //             'format':'BASE64',
-              //             base64
-              //         },
-              //         success: function (res) {
-              //             console.log('---------临时Id:' + res.data.TemporaryId);
-
-              //             let temporaryId = res.data.TemporaryId;//临时Id
-              //             let r = RequestWriteFactory.modifyAcatar(temporaryId);
-              //             r.finishBlock = (req) => {
-              //                 Event.emit('refreshMemberInfoNotice');//发出通知
-
-              //                 wx.navigateBack({
-              //                     delta:1
-              //                 })
-              //             };
-              //             r.addToQueue();
-              //         }
-              //     })
-              // }
-              // reader.readAsArrayBuffer(new Blob(tempFilePaths))
-              // reader.readAsBinaryString(new Blob(tempFilePaths));
             },
           })
       },
