@@ -187,15 +187,17 @@ Page({
     if (currentIndex == undefined) {
       currentIndex = e.currentTarget.dataset.current;
     }
-    this.setData({
-      currentTab: currentIndex
-    });
+    if (this.data.currentTab != currentIndex){
+      this.setData({
+        currentTab: currentIndex
+      });
 
-    //如果分类的主体数据为空，那么去请求主体数据
-    let oneSort = this.data.oneSortData[currentIndex];
-    if (oneSort.bodyData == undefined && currentIndex > 0) {
-      Tool.showLoading();
-      this.requestSortAdData(oneSort.Id);
+      //如果分类的主体数据为空，那么去请求主体数据
+      let oneSort = this.data.oneSortData[currentIndex];
+      if (oneSort.bodyData == undefined && currentIndex > 0) {
+        Tool.showLoading();
+        this.requestSortAdData(oneSort.Id);
+      }
     }
   },
   /**
