@@ -12,6 +12,7 @@
     width: 100%;
     height: 400rpx;
     background-color: white;
+    flex: none;
 }
 
 .image.empty {

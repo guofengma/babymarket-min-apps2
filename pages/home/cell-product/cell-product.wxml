@@ -2,7 +2,7 @@
   <view class="cell-product">
     <block wx:for="{{productArray}}" wx:key="unique">
       <view class="product-info" catchtap="onChildClickListener" data-group-position="{{groupPosition}}" data-child-position="{{index}}" data-id="{{item.productId}}">
-        <image class="{{item.imageUrl.length>0?'image':'image empty'}}" src="{{item.imageUrl}}" />
+        <image mode="aspectFit" class="{{item.imageUrl.length>0?'image':'image empty'}}" src="{{item.imageUrl}}" />
         <view class="info">
           <text class="name">{{item.ShowName}}</text>
           <view class="price-cart">
@@ -19,9 +19,9 @@
         </view>
       </view>
     </block>
-    <view class="product-more" wx:if="{{isMore}}" style="background: url(/res/img/home/home-product-more.png);background-size:cover" catchtap="onMoreClickListener" data-id="{{categoryId}}" data-title="{{title}}">
+     <view class="product-more" wx:if="{{isMore&&productArray.length%2==1}}" catchtap="onMoreClickListener" data-id="{{categoryId}}" data-title="{{title}}">
       <text class="more-title">{{"更多"+title+"好物"}}</text>
       <image class="more-arrow" src="/res/img/home/home-product-more-arrow.png" />
-    </view>
+    </view> 
   </view>
 </template>

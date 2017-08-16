@@ -15,7 +15,7 @@ Page({
     // 当前选中的tab
     currentTab: 0,
     //标签数据
-    targetArray:null,
+    targetArray: null,
     //一级分类数据
     oneSortData: null
   },
@@ -52,7 +52,7 @@ Page({
 
       //循环请求标签的产品
       responseData.forEach((item, index) => {
-          this.requestTargetProductData(item.Id, item.ShowTypeKey,index);
+        this.requestTargetProductData(item.Id, item.ShowTypeKey, index);
       });
     };
     task.addToQueue();
@@ -61,7 +61,7 @@ Page({
   /**
    * 获取标签产品数据
    */
-  requestTargetProductData: function (id,typeId,index) {
+  requestTargetProductData: function (id, typeId, index) {
     let task = RequestReadFactory.homeTargetProductRead(id, typeId);
     let targetArray = this.data.targetArray;
     task.finishBlock = (req) => {
@@ -187,7 +187,7 @@ Page({
     if (currentIndex == undefined) {
       currentIndex = e.currentTarget.dataset.current;
     }
-    if (this.data.currentTab != currentIndex){
+    if (this.data.currentTab != currentIndex) {
       this.setData({
         currentTab: currentIndex
       });
@@ -233,11 +233,13 @@ Page({
    */
   onMoreClickListener: function (e) {
     let categoryId = e.currentTarget.dataset.id;
-    let title = e.currentTarget.dataset.title;
-    //跳到更多
-    wx.navigateTo({
-      url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
-    })
+    if (categoryId.length > 0) {
+      let title = e.currentTarget.dataset.title;
+      //跳到更多
+      wx.navigateTo({
+        url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
+      })
+    }
   },
   /**
    * 搜索点击
