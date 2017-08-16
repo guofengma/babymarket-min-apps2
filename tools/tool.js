@@ -415,10 +415,10 @@ export default class Tool {
         if (global.TCGlobal.EmptyId === theID || Tool.isEmptyStr(theID)) {
             return placeholder;
         }
-        if (global.Storage.didLogin()) {
+        // if (global.Storage.didLogin()) {
             return global.Network.sharedInstance().attatchmentURL + '?Id=' + theID + '&_SESSION_=' + global.Storage.currentSession();
-        }
-        return global.Network.sharedInstance().attatchmentURL + '?Id=' + theID;
+        // }
+        // return global.Network.sharedInstance().attatchmentURL + '?Id=' + theID;
     }
 
     static idFromDataKey(key) {
