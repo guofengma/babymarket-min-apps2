@@ -152,7 +152,7 @@ export default class Storage {
 
     //appId
     static appId() {
-        return 'wxc86740902e452a5c';
+        return 'wx376c827436826147';
     }
 
     /**
