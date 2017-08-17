@@ -130,7 +130,7 @@ Page({
     getOpenId: function (code) {
         let self = this;
         wx.request({
-            url: "https://app.xgrowing.com/node/wxapp/get_openid?appid=wxc86740902e452a5c&secret=4e17424894e68cf370d83abdfd9e435c&js_code=" + code + "&grant_type=authorization_code",
+            url: "https://app.xgrowing.com/node/wxapp/get_openid?appid=" + global.TCGlobal.AppId + "&secret=" + global.TCGlobal.Secret + "&js_code=" + code + "&grant_type=authorization_code",
             data: {},
             method: 'GET',
             success: function (res) {
@@ -181,7 +181,7 @@ Page({
                 }
             }
         }
-        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";//key
+        var signB = signA + "&key=" + global.TCGlobal.WXPayKey;//key
         sign = MD5Util.MD5(signB).toUpperCase();
         return sign;
     },
@@ -195,10 +195,10 @@ Page({
         let nonce_str = Math.random().toString(36).substr(2, 15);
         let money = parseInt(parseFloat(order.Due) * 100); // 分为单位
         let json = {
-            appid: global.Storage.appId(),
+            appid: global.TCGlobal.AppId,
             body: '老友码头-商品购买',
             device_info: 'WEB',
-            mch_id: '1486151622', //商户号
+            mch_id: global.TCGlobal.WXPayMchId, //商户号
             nonce_str: nonce_str, //随机吗
             notify_url: 'https://www.babymarkt.com.cn/ReceiveNotify.aspx', // 回调地址
             openid: openid,
@@ -228,7 +228,7 @@ Page({
 
         global.Tool.showLoading();
         wx.request({
-            url: 'https://www.babymarkt.com.cn/Libra.Weixin.Pay.Web.UnifiedOrder.aspx?account=a7a04727-7bdd-491b-8eb7-a7c200b49421', //account
+            url: 'https://www.babymarkt.com.cn/Libra.Weixin.Pay.Web.UnifiedOrder.aspx?account=' + global.TCGlobal.WXPayAccount, //account
             //url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
             method: 'POST',
             data: bodyData,
@@ -264,9 +264,9 @@ Page({
     getSign2: function (timeStamp, nonceStr, packages) {
         let MD5Util = require('../../tools/md5.js');
         let sign = '';
-        var signA = "appId=" + global.Storage.appId() + "&nonceStr=" + nonceStr
+        var signA = "appId=" + global.TCGlobal.AppId + "&nonceStr=" + nonceStr
             + "&package=" + packages + "&signType=MD5&timeStamp=" + timeStamp;;
-        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
+        var signB = signA + "&key=" + global.TCGlobal.WXPayKey;
         sign = MD5Util.MD5(signB).toUpperCase();
         return sign;
     },
@@ -332,7 +332,7 @@ Page({
                 }
             }
         }
-        var signB = signA + "&key=b1Sfq9hBI822iR2BJbY1BxTDZ1v2noCh";
+        var signB = signA + "&key=" + global.TCGlobal.WXPayKey;
         sign = MD5Util.MD5(signB).toUpperCase();
         return sign;
     },
@@ -344,8 +344,8 @@ Page({
         var self = this;
         let order = this.data.order;
         let json = {
-            appid: global.Storage.appId(),
-            mch_id: '1486151622',
+            appid: global.TCGlobal.AppId,
+            mch_id: global.TCGlobal.WXPayMchId,
             nonce_str: nonce_str,
             out_trade_no: order.OrderNo,
         };
