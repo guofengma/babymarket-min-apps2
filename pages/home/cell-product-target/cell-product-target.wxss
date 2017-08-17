@@ -47,7 +47,8 @@
 
 .target-price-cart .target-price-info {
   display: flex;
-   margin-top: 20rpx;
+  margin-top: 20rpx;
+  align-items: center;
 }
 
 .target-price-info .target-sale-price {
@@ -66,11 +67,12 @@
   color: #b0b1b3;
   font-size: 22rpx;
   margin-left: 12rpx;
+  text-decoration: line-through;
 }
 
 .target-price-cart .target-btn-cart {
   width: 55rpx;
   height: 55rpx;
   flex: none;
-  align-self:flex-end;
+  align-self: flex-end;
 }
