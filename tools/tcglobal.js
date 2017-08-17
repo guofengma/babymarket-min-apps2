@@ -27,10 +27,10 @@ let TCGlobal = {
     CustomerServicesNumber:'4006286698',
     version:'V1.0',
     AppId: 'wxe9cf97f3611fd254',//小程序AppID
-    Secret: '9b3fd547941d6a29d686fb97d733c5a4',//小程序Secret
-    WXPayKey:'51kcO85zzld5za3oRKeeHymRCWoxlgHv',//商户平台32位密钥
-    WXPayAccount:'0bf1f9b7-259a-4fa4-af5e-a7d2009b96dd',//成长力后台账号Id
-    WXPayMchId:'1282506401',//商户Id
+    Secret: '4042d7ffc90a9c1a9012aea3343ee9ed',//小程序Secret
+    WXPayKey: '51kcO85zzld5za3oRKeeHymRCWoxlgHv',//商户平台32位密钥
+    WXPayAccount: '0bf1f9b7-259a-4fa4-af5e-a7d2009b96dd',//成长力后台账号Id
+    WXPayMchId: '1282506401',//商户Id
 };
 
 module.exports = TCGlobal;

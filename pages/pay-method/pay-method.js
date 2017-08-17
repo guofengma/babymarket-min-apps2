@@ -182,6 +182,7 @@ Page({
             }
         }
         var signB = signA + "&key=" + global.TCGlobal.WXPayKey;//key
+        console.log(signB)
         sign = MD5Util.MD5(signB).toUpperCase();
         return sign;
     },
@@ -204,22 +205,23 @@ Page({
             openid: openid,
             out_trade_no: order.OrderNo, // 订单编号
             spbill_create_ip: clientip,  //ip
-            total_fee: String(money), 
+            total_fee: String(money),
             trade_type: 'JSAPI',
             detail: '',
             attach: '',
             fee_type: '',
             time_start: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(), 'YYYYMMDDHHmmss'),
-            time_expire: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(30 * 3600), 'YYYYMMDDHHmmss'),
+            time_expire: global.Tool.timeStringFromInterval(global.Tool.timeIntervalFromNow(1800), 'YYYYMMDDHHmmss'),
             goods_tag: '',
             product_id: '',
-            limit_pay: '',
+            limit_pay: ''
         };
+        
         var bodyData = '<xml>';
         for (var i in json) {
-            bodyData += '<' + i + '>';
-            bodyData += json[i]
-            bodyData += '</' + i + '>';
+          bodyData += '<' + i + '>';
+          bodyData += json[i]
+          bodyData += '</' + i + '>';
         }
         bodyData += '<sign>' + self.getSign(json) + '</sign>'; //签名
         bodyData += '</xml>'

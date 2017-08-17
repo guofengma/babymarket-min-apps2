@@ -205,9 +205,7 @@ Page({
    */
   onChildClickListener: function (e) {
     let productId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/pages/product-detail/product-detail?productId=' + productId
-    })
+    this.navigateToProductDetail(productId);
   },
   /**
    * 添加到购物车
@@ -240,6 +238,55 @@ Page({
         url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
       })
     }
+  },
+  /**
+   * 首页海报点击
+   */
+  homeADClicked: function (e) {
+    let self = this;
+    let position = e.currentTarget.dataset.index;
+    let currentTab = this.data.currentTab;
+    let adData = this.data.adArray[position];
+    if (currentTab > 0) {
+      adData = this.data.oneSortData[currentTab].bodyData.adData[position];
+    }
+    switch (adData.LinkTypeKey) {
+      case "1":
+        // 搜索
+        self.navigateToSearch(adData.KeyWord);
+        break;
+      case "2":
+        // 商品详情
+        self.navigateToProductDetail(adData.ProductId);
+        break;
+      case "3":
+        // 活动落地页,专题
+        break;
+      case "4":
+        // 网页
+        break;
+      case "5":
+        // 分类搜索
+        break;
+      default:
+        break;
+    }
+  },
+  /**
+   * 跳转到商品详情
+   */
+  navigateToProductDetail: function (productId) {
+    wx.navigateTo({
+      url: '/pages/product-detail/product-detail?productId=' + productId
+    })
+  },
+  /**
+   * 跳转到搜索
+   */
+  navigateToSearch: function (keyWord) {
+    wx.navigateTo({
+      url: '/pages/search/search-result/search-result?keyword=' + keyWord
+    })
   },
   /**
    * 搜索点击
