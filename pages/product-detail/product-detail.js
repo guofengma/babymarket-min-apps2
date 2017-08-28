@@ -1,5 +1,6 @@
 // 商品详情
 import ProductSpecification from '../../components/product-specification/product-specification';
+import WxParse from '../../libs/wxParse/wxParse.js';
 
 let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
 Page({
@@ -21,6 +22,7 @@ Page({
         expressText:'',
         supplyText:'',
         isImport:'',
+        weParserData:''
     },
     productId:'',
 
@@ -37,6 +39,36 @@ Page({
         };
 
         this.requestData();
+
+        wx.request({
+            url: 'https://www.babymarkt.com.cn/productwebdetail.aspx?Id=' + self.productId,
+            header: {
+                'content-type': 'application/json'
+            },
+            success: function (res) {
+                console.log(res.data)
+                // var article = `<div class="Div-6">
+                //         <div id="ctl04_ctl02" class="libra-html" >
+                //             <p><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=67f3f97c-0a03-4057-afc9-a6ce00f062ad" title= "帮宝适_01.jpg" alt= "帮宝适_01.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=81c4096c-61fb-4cf9-ba5a-a6ce00f06631" title= "帮宝适_02.jpg" alt= "帮宝适_02.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=752063c6-fdbc-4b89-8843-a6ce00f06ae1" title= "帮宝适_03.jpg" alt= "帮宝适_03.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=47872495-2131-41be-a1cb-a6ce00f071e9" title= "帮宝适_04.jpg" alt= "帮宝适_04.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=17eb85eb-c557-437e-b94b-a6ce00f077c5" title= "帮宝适_05.jpg" alt= "帮宝适_05.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=3e437298-35e4-4efb-8bea-a6ce00f07b49" title= "帮宝适_06.jpg" alt= "帮宝适_06.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=6c808c4d-31e6-4464-9fdc-a6ce00f07da1" title= "帮宝适_07.jpg" alt= "帮宝适_07.jpg" /></p>
+                //                 < /div>
+                //                 < /div><div class="detail HtmlDiv-WorkaroundBody">
+                //                 < img src= "https://www.babymarkt.com.cn/sf-1brl19mjot396b08ctes09s5ef-1pcd479ksfk1298lt7k40hidbl.aspx?t=8u8ipLtszP5HWXQs7RvS1f0i5Gx" border= "0" /><img src="https://www.babymarkt.com.cn/sf-1brl19mjot396b08ctes09s5ef-4umqr8397kt14a9gl7k40hin11.aspx?t=B7EbvTaCKiyJt4sr7YkpI_q588I" border= "0" />
+                //                     </div>
+                //                     < /div>`
+                /**
+                * WxParse.wxParse(bindName , type, data, target,imagePadding)
+                * 1.bindName绑定的数据名(必填)
+                * 2.type可以为html或者md(必填)
+                * 3.data为传入的具体数据(必填)
+                * 4.target为Page对象,一般为this(必填)
+                * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+                */
+                let response = res.data;
+                let arry = response.split('<div class="Div-6">');
+                let html = arry[1];
+                WxParse.wxParse('article', 'html', html, self, 5);
+            }
+        })
     },
 
     requestData() {

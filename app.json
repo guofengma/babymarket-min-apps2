@@ -79,12 +79,6 @@
         "selectedIconPath": "/res/img/tabbar/tabbar-icon-select-0.png"
       },
       {
-        "pagePath": "pages/special/special-activity",
-        "text": "专题",
-        "iconPath": "/res/img/tabbar/tabbar-icon-normal-2.png",
-        "selectedIconPath": "/res/img/tabbar/tabbar-icon-select-2.png"
-      },
-      {
         "pagePath": "pages/shopping-cart/shopping-cart",
         "text": "购物车",
         "iconPath": "/res/img/tabbar/tabbar-icon-normal-3.png",
