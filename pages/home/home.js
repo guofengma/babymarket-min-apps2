@@ -15,7 +15,7 @@ Page({
     // 当前选中的tab
     currentTab: 0,
     //标签数据
-    targetArray:null,
+    targetArray: null,
     //一级分类数据
     oneSortData: null
   },
@@ -52,7 +52,7 @@ Page({
 
       //循环请求标签的产品
       responseData.forEach((item, index) => {
-          this.requestTargetProductData(item.Id, item.ShowTypeKey,index);
+        this.requestTargetProductData(item.Id, item.ShowTypeKey, index);
       });
     };
     task.addToQueue();
@@ -61,7 +61,7 @@ Page({
   /**
    * 获取标签产品数据
    */
-  requestTargetProductData: function (id,typeId,index) {
+  requestTargetProductData: function (id, typeId, index) {
     let task = RequestReadFactory.homeTargetProductRead(id, typeId);
     let targetArray = this.data.targetArray;
     task.finishBlock = (req) => {
@@ -187,15 +187,17 @@ Page({
     if (currentIndex == undefined) {
       currentIndex = e.currentTarget.dataset.current;
     }
-    this.setData({
-      currentTab: currentIndex
-    });
+    if (this.data.currentTab != currentIndex) {
+      this.setData({
+        currentTab: currentIndex
+      });
 
-    //如果分类的主体数据为空，那么去请求主体数据
-    let oneSort = this.data.oneSortData[currentIndex];
-    if (oneSort.bodyData == undefined && currentIndex > 0) {
-      Tool.showLoading();
-      this.requestSortAdData(oneSort.Id);
+      //如果分类的主体数据为空，那么去请求主体数据
+      let oneSort = this.data.oneSortData[currentIndex];
+      if (oneSort.bodyData == undefined && currentIndex > 0) {
+        Tool.showLoading();
+        this.requestSortAdData(oneSort.Id);
+      }
     }
   },
   /**
@@ -203,9 +205,7 @@ Page({
    */
   onChildClickListener: function (e) {
     let productId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/pages/product-detail/product-detail?productId=' + productId
-    })
+    this.navigateToProductDetail(productId);
   },
   /**
    * 添加到购物车
@@ -231,10 +231,61 @@ Page({
    */
   onMoreClickListener: function (e) {
     let categoryId = e.currentTarget.dataset.id;
-    let title = e.currentTarget.dataset.title;
-    //跳到更多
+    if (categoryId.length > 0) {
+      let title = e.currentTarget.dataset.title;
+      //跳到更多
+      wx.navigateTo({
+        url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
+      })
+    }
+  },
+  /**
+   * 首页海报点击
+   */
+  homeADClicked: function (e) {
+    let self = this;
+    let position = e.currentTarget.dataset.index;
+    let currentTab = this.data.currentTab;
+    let adData = this.data.adArray[position];
+    if (currentTab > 0) {
+      adData = this.data.oneSortData[currentTab].bodyData.adData[position];
+    }
+    switch (adData.LinkTypeKey) {
+      case "1":
+        // 搜索
+        self.navigateToSearch(adData.KeyWord);
+        break;
+      case "2":
+        // 商品详情
+        self.navigateToProductDetail(adData.ProductId);
+        break;
+      case "3":
+        // 活动落地页,专题
+        break;
+      case "4":
+        // 网页
+        break;
+      case "5":
+        // 分类搜索
+        break;
+      default:
+        break;
+    }
+  },
+  /**
+   * 跳转到商品详情
+   */
+  navigateToProductDetail: function (productId) {
     wx.navigateTo({
-      url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
+      url: '/pages/product-detail/product-detail?productId=' + productId
+    })
+  },
+  /**
+   * 跳转到搜索
+   */
+  navigateToSearch: function (keyWord) {
+    wx.navigateTo({
+      url: '/pages/search/search-result/search-result?keyword=' + keyWord
     })
   },
   /**

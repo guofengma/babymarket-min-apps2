@@ -2,7 +2,7 @@
   <view class="cell-product-target">
     <block wx:for="{{productArray}}" wx:key="unique">
       <view class="target-product-info" catchtap="onChildClickListener" data-group-position="{{groupPosition}}" data-child-position="{{index}}" data-id="{{item.productId}}">
-        <image class="{{item.imageUrl.length>0?'target-image':'target-image empty'}}" src="{{item.imageUrl}}" />
+        <image mode="aspectFit" class="{{item.imageUrl.length>0?'target-image':'target-image empty'}}" src="{{item.imageUrl}}" />
         <view class="target-info">
           <text class="target-name">{{item.ShowName}}</text>
            <text class="target-subtitle">{{item.subtitle}}</text>

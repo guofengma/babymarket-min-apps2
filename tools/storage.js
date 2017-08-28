@@ -68,7 +68,7 @@ export default class Storage {
                     Storage.sharedInstance()._currentSession = value;
                 }
                 else {
-                    Storage.sharedInstance()._currentSession = '2a119ab6-31f7-488d-9c60-a59300a70185';
+                    Storage.sharedInstance()._currentSession = '7e865860-3e52-4b59-a261-a53600a4f6dd';
                 }
             } catch (e) {
                 Storage.sharedInstance()._currentSession = undefined;
@@ -152,7 +152,7 @@ export default class Storage {
 
     //appId
     static appId() {
-        return 'wxc86740902e452a5c';
+        return 'wx376c827436826147';
     }
 
     /**
