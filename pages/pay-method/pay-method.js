@@ -146,7 +146,7 @@ Page({
     },
 
     /**
-     * 根据openid获取Ip
+     * 获取Ip
      */
     getSpbillCreateIp: function (openid) {
         let self = this;

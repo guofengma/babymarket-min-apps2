@@ -1,11 +1,11 @@
 <import src='/pages/product-detail/ad/product-ad.wxml'/>
 <import src='slogan/product-slogan.wxml'/>
 <import src='/components/product-specification/product-specification.wxml'/>
+<import src="../../libs/wxParse/wxParse.wxml"/>
 
 
 
-
-<view class="root-view">
+<!-- <view class="root-view"> -->
 
     <view class="product-info">
 
@@ -30,9 +30,15 @@
                 <view class="bmpi-tax">{{rateText}}</view>
             </view>
 
-
             <template is="product-slogan" data="{{isImport}}"/>
+             
         </view>
+
+    </view>
+
+    <!-- //这里data中article为bindName -->
+    <view class="product-detail-web-image">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
     </view>
 
     <!--底部bar-->
@@ -48,8 +54,6 @@
                 确认下单</view>
         </view>
     </view>
-</view>
+<!-- </view> -->
 
 <template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount,specificationData}}"/>
-
-
