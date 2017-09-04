@@ -7,8 +7,10 @@
   <view class="cell-sort">
       <template is="home-ad" data="{{adArray:bodyData.adData}}" />
       <block wx:for="{{bodyData.sortData}}" wx:key="unique">
-        <template is="cell-title" data="{{title:item.Name,position:index}}" />
-        <template is="cell-product" data="{{productArray:item.productData,groupPosition:index}}" />
+        <view wx:if="{{item.productData.length>0}}">
+          <template is="cell-title" data="{{title:item.Name,position:index}}" />
+          <template is="cell-product" data="{{productArray:item.productData,groupPosition:index}}" />
+        </view>
       </block>
       <text class="more-bottom">———\t\t更多内容, 敬请期待\t\t———</text>
   </view>
