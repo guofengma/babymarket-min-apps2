@@ -74,6 +74,23 @@ Page({
     },
 
     /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+        let title = this.data.product ? this.data.product.ShowName : '老友码头';
+        let path = '/pages/product-detail/product-detail?productId=' + this.productId;
+        let obj = {
+            title: title,
+            path: path,
+            success: function(res) {
+            },
+            fail: function(res) {
+            }
+        };
+        return obj;
+    },
+
+    /*
      * 生命周期函数--监听页面显示
      */
     onShow: function () {

@@ -59,6 +59,8 @@
 }
 
 .product .product-price {
+  display: flex;
+  flex: none;
   color: #e4c23f;
   font-size: 30rpx;
 }

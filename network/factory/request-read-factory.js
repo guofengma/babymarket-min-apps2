@@ -548,7 +548,7 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '专题查询';
-        req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes'];
+        req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes','ProductId'];
         //修改返回结果
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
