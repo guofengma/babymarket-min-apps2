@@ -23,7 +23,6 @@ Page({
         expressText:'',
         supplyText:'',
         isImport:'',
-        weParserData:'',
 
         isLogin: Storage.didLogin(),
     },
@@ -57,7 +56,7 @@ Page({
                 //                 < /div><div class="detail HtmlDiv-WorkaroundBody">
                 //                 < img src= "https://www.babymarkt.com.cn/sf-1brl19mjot396b08ctes09s5ef-1pcd479ksfk1298lt7k40hidbl.aspx?t=8u8ipLtszP5HWXQs7RvS1f0i5Gx" border= "0" /><img src="https://www.babymarkt.com.cn/sf-1brl19mjot396b08ctes09s5ef-4umqr8397kt14a9gl7k40hin11.aspx?t=B7EbvTaCKiyJt4sr7YkpI_q588I" border= "0" />
                 //                     </div>
-                //                     < /div>`
+                //              product-detail       < /div>`
                 /**
                 * WxParse.wxParse(bindName , type, data, target,imagePadding)
                 * 1.bindName绑定的数据名(必填)
