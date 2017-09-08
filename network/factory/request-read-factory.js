@@ -630,15 +630,17 @@ export default class RequestReadFactory {
     static myOrderRead(status, index) {
         let operation = Operation.sharedInstance().orderReadOperation;
 
-        let condition = "${CreatorId} == '" + global.Storage.memberId() + "'" + " && ${Formal} == 'true'";
+        let condition ="${Formal} == 'True'";
         if (typeof (status) != "undefined" && status != "undefined") {
             condition = "${StatusKey} == '" + status + "' && " + condition;
-        }
 
-        if (status <= 0 || status == "undefined") {//全部订单&待付款
-            condition = condition + " && ${Child_Order} == 'false'"
-        } else {
-            condition = condition + " && (${Child_Order} == 'true' || ${History} == 'true')"
+            if (status <= 0) {//待付款
+                condition = condition + " && ${Child_Order} == 'False'"
+            } else {
+                condition = condition + " && (${Child_Order} == 'True' || ${History} == 'True')"
+            }
+        }else{//全部订单
+            operation = Operation.sharedInstance().allOrderReadOperation;
         }
 
         let bodyParameters = {
@@ -646,7 +648,7 @@ export default class RequestReadFactory {
             "Condition": condition,
             "IsIncludeSubtables": true,
             "Order": "${CreateTime} DESC",
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index
         };
         let req = new RequestRead(bodyParameters);
@@ -703,7 +705,7 @@ export default class RequestReadFactory {
         let bodyParameters = {
             "Operation": operation,
             "Order": "${CreateTime} DESC",
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
             "MemberId": global.Storage.memberId(),
             "FavoriteObjectType": 'Product'
@@ -764,7 +766,7 @@ export default class RequestReadFactory {
             "Operation": operation,
             "IsIncludeSubtables": true,
             "Order": "${Month} DESC",
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
             "MemberId": global.Storage.memberId(),
             // "Subtables": ["Detail"]
@@ -781,7 +783,7 @@ export default class RequestReadFactory {
         let bodyParameters = {
             "Operation": operation,
             "Order": "${OrderDate} DESC",
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
         };
         let req = new RequestRead(bodyParameters);
@@ -796,7 +798,7 @@ export default class RequestReadFactory {
         let bodyParameters = {
             "Operation": operation,
             "Order": "${OrderDate} DESC",
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
         };
         let req = new RequestRead(bodyParameters);
@@ -830,7 +832,7 @@ export default class RequestReadFactory {
 
         let bodyParameters = {
             "Operation": operation,
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
             "Condition": condition
         };
@@ -850,7 +852,7 @@ export default class RequestReadFactory {
 
         let bodyParameters = {
             "Operation": operation,
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
             "Condition": condition,
         };
@@ -909,7 +911,7 @@ export default class RequestReadFactory {
 
         let bodyParameters = {
             "Operation": operation,
-            "MaxCount": '2',
+            "MaxCount": '20',
             "StartIndex": index,
             "Condition": condition
         };

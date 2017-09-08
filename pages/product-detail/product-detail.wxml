@@ -2,7 +2,7 @@
 <import src='slogan/product-slogan.wxml'/>
 <import src='/components/product-specification/product-specification.wxml'/>
 <import src="../../libs/wxParse/wxParse.wxml"/>
-
+<import src='/pages/login/login.wxml' />
 
 
 <!-- <view class="root-view"> -->
@@ -57,3 +57,5 @@
 <!-- </view> -->
 
 <template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount,specificationData}}"/>
+
+<template is="login" data="{{visiable:visiable}}"/>

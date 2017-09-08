@@ -33,7 +33,7 @@ Page({
     lookOrder: function () {
         let id = this.data.id;
         wx.navigateTo({
-            url: '../my/orderDetail/orderDetail?orderId=' + id,
+            url: '/pages/my/orderDetail/orderDetail?orderId=' + id,
         })
     },
 

@@ -117,6 +117,13 @@ Page({
         console.log('-----index:' + index);
 
         if (index == 0) {//修改密码
+
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.login = new Login(this);
+                this.login.show();
+                return;
+            }
+
             wx.navigateTo({
                 url: '../setting/modify-password/modify-password',
             })

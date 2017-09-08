@@ -326,6 +326,12 @@ Page({
      */
     messageTap: function () {
         console.log('----消息----');
+        
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+            this.loginRegisterTap();
+            return;
+        }
+
         wx.navigateTo({
             url: '../my/system-message/system-message',
         })

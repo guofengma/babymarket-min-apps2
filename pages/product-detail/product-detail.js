@@ -1,6 +1,7 @@
 // 商品详情
 import ProductSpecification from '../../components/product-specification/product-specification';
 import WxParse from '../../libs/wxParse/wxParse.js';
+import Login from '../login/login';
 
 let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
 Page({
@@ -22,7 +23,9 @@ Page({
         expressText:'',
         supplyText:'',
         isImport:'',
-        weParserData:''
+        weParserData:'',
+
+        isLogin: Storage.didLogin(),
     },
     productId:'',
 
@@ -75,9 +78,10 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
+        let title = this.data.product ? this.data.product.ShowName : '老友码头';
         let path = '/pages/product-detail/product-detail?productId=' + this.productId;
         let obj = {
-            title: '老友码头',
+            title: title,
             path: path,
             success: function(res) {
             },
@@ -85,6 +89,16 @@ Page({
             }
         };
         return obj;
+    },
+
+    /*
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
+        let self = this;
+        self.setData({
+            isLogin: Storage.didLogin()
+        });
     },
 
     requestData() {
@@ -254,6 +268,11 @@ Page({
     onGoCartListener: function (e) {
         console.log("进入购物车");
 
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+            this.loginRegisterTap();
+            return;
+        }
+
         global.Tool.switchTab('/pages/shopping-cart/shopping-cart');
     },
 
@@ -262,6 +281,12 @@ Page({
      */
     onAddCartListener: function (e) {
         console.log("添加购物车")
+
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+            this.loginRegisterTap();
+            return;
+        }
+
         this.productSpecification.showWithAction('ShoppingCart');
     },
 
@@ -270,11 +295,25 @@ Page({
      */
     onSubmitListener: function (e) {
         console.log("确认下单")
+
+        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+            this.loginRegisterTap();
+            return;
+        }
+
         this.productSpecification.showWithAction('Buy');
     },
 
     homeADClicked(){
 
-    }
+    },
+
+    /**
+     * 登录／注册
+     */
+    loginRegisterTap: function () {
+        this.login = new Login(this);
+        this.login.show();
+    },
 
 })
