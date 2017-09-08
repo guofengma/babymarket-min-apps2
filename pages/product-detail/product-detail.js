@@ -71,6 +71,22 @@ Page({
         })
     },
 
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+        let path = '/pages/product-detail/product-detail?productId=' + this.productId;
+        let obj = {
+            title: '老友码头',
+            path: path,
+            success: function(res) {
+            },
+            fail: function(res) {
+            }
+        };
+        return obj;
+    },
+
     requestData() {
         if (Tool.isEmptyStr(this.productId)) {
             Tool.showAlert('Id不能为空');

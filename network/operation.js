@@ -28,7 +28,7 @@ export default class Operation {
         this.searchHotReadOperation = 'c8abee85-11ab-0bba-1bcd-3c4701ec76cb';
 
         //专题
-        this.specialReadOperation = '1120e650-629e-4af0-ab39-a650012db775';
+        this.specialReadOperation = '9bd4ec02-186b-08df-31d8-3eea0041a1d7';
 
         //宝贝码头商品详情
         this.bmProductReadOperation = 'de9362a8-395e-09a4-087d-3c1701f9da63';
