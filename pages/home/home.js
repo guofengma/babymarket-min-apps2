@@ -21,24 +21,30 @@ Page({
         inviteCode:''
     },
     onLoad: function (options) {
-        Event.on('loginSuccess', this.onLoad, this);
+        Event.on('loginSuccess', this.reload, this);
+        this.reload();
+
+        // 存储邀请码
+        if (options) {
+            let inviteCode = options.fromId;
+            if (Tool.isValidStr(inviteCode)) {
+                wx.setStorageSync('fromId', inviteCode)
+            }
+        }
+    },
+
+    reload(){
         Tool.showLoading();
         this.requestTargetData();
         this.requestOneSortData();
         this.requestHomeAdData();
-
-        // 存储邀请码
-        let inviteCode = options.fromId;
-        if (Tool.isValidStr(inviteCode)) {
-            wx.setStorageSync('fromId', inviteCode)
-        }
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        Event.off('loginSuccess', this.onLoad)
+        Event.off('loginSuccess', this.reload)
     },
 
     onShow() {
