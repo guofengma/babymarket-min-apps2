@@ -17,14 +17,21 @@ Page({
         //标签数据
         targetArray: null,
         //一级分类数据
-        oneSortData: null
+        oneSortData: null,
+        inviteCode:''
     },
-    onLoad: function () {
+    onLoad: function (options) {
         Event.on('loginSuccess', this.onLoad, this);
         Tool.showLoading();
         this.requestTargetData();
         this.requestOneSortData();
         this.requestHomeAdData();
+
+        // 存储邀请码
+        let inviteCode = options.fromId;
+        if (Tool.isValidStr(inviteCode)) {
+            wx.setStorageSync('fromId', inviteCode)
+        }
     },
 
     /**
@@ -43,8 +50,18 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
+        let self = this;
+        wx.getStorage({
+            key: 'currentMember',
+            success: function (res) {
+                self.setData({
+                    inviteCode: res.data.InvitationCode
+                })
+            },
+        })
+
         let title = '老友码头';
-        let path = '/pages/home/home';
+        let path = '/pages/home/home?fromId=' + this.data.inviteCode;
         let obj = {
             title: title,
             path: path,

@@ -25,6 +25,7 @@ Page({
         isImport:'',
 
         isLogin: Storage.didLogin(),
+        inviteCode:''
     },
     productId:'',
 
@@ -34,6 +35,12 @@ Page({
     onLoad: function (options) {
 
         this.productId = options.productId;
+
+        // 存储邀请码
+        let inviteCode = options.fromId;
+        if (Tool.isValidStr(inviteCode)){
+            wx.setStorageSync('fromId', inviteCode)
+        }
 
         let self = this;
         this.productSpecification = new ProductSpecification(this,this.productId);
@@ -49,14 +56,6 @@ Page({
             },
             success: function (res) {
                 console.log(res.data)
-                // var article = `<div class="Div-6">
-                //         <div id="ctl04_ctl02" class="libra-html" >
-                //             <p><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=67f3f97c-0a03-4057-afc9-a6ce00f062ad" title= "帮宝适_01.jpg" alt= "帮宝适_01.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=81c4096c-61fb-4cf9-ba5a-a6ce00f06631" title= "帮宝适_02.jpg" alt= "帮宝适_02.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=752063c6-fdbc-4b89-8843-a6ce00f06ae1" title= "帮宝适_03.jpg" alt= "帮宝适_03.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=47872495-2131-41be-a1cb-a6ce00f071e9" title= "帮宝适_04.jpg" alt= "帮宝适_04.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=17eb85eb-c557-437e-b94b-a6ce00f077c5" title= "帮宝适_05.jpg" alt= "帮宝适_05.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=3e437298-35e4-4efb-8bea-a6ce00f07b49" title= "帮宝适_06.jpg" alt= "帮宝适_06.jpg" /><img src="https://www.babymarkt.com.cn/Libra.Web.Businesses.Attachments.GetFile.aspx?Id=6c808c4d-31e6-4464-9fdc-a6ce00f07da1" title= "帮宝适_07.jpg" alt= "帮宝适_07.jpg" /></p>
-                //                 < /div>
-                //                 < /div><div class="detail HtmlDiv-WorkaroundBody">
-                //                 < img src= "https://www.babymarkt.com.cn/sf-1brl19mjot396b08ctes09s5ef-1pcd479ksfk1298lt7k40hidbl.aspx?t=8u8ipLtszP5HWXQs7RvS1f0i5Gx" border= "0" /><img src="https://www.babymarkt.com.cn/sf-1brl19mjot396b08ctes09s5ef-4umqr8397kt14a9gl7k40hin11.aspx?t=B7EbvTaCKiyJt4sr7YkpI_q588I" border= "0" />
-                //                     </div>
-                //              product-detail       < /div>`
                 /**
                 * WxParse.wxParse(bindName , type, data, target,imagePadding)
                 * 1.bindName绑定的数据名(必填)
@@ -77,8 +76,18 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
+        let self = this;
+        wx.getStorage({
+            key: 'currentMember',
+            success: function (res) {
+                self.setData({
+                    inviteCode: res.data.InvitationCode
+                })
+            },
+        })
+
         let title = this.data.product ? this.data.product.ShowName : '老友码头';
-        let path = '/pages/product-detail/product-detail?productId=' + this.productId;
+        let path = '/pages/product-detail/product-detail?productId=' + this.productId + '&fromId=' + this.data.inviteCode;
         let obj = {
             title: title,
             path: path,
