@@ -6,9 +6,9 @@
 <view class="main">
 
     <!--选择订单地址-->
-    <view class="order-address">
+    <view class="order-address" catchtap="selectAddress">
         <image src="/res/img/my/my-order-detail-address-icon.png" class="order-address-icon" mode="aspectFit"></image>
-        <view class="order-address-info" catchtap="selectAddress">
+        <view class="order-address-info">
             <template is="address-info" data="{{...addressData}}"></template>
         </view>
         <image src="/res/img/my/my-address-arrow-icon.png" class="order-address-arrow" mode="aspectFit"></image>

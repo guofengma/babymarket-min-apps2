@@ -84,6 +84,7 @@ export default class Operation {
         this.orderAddOperation = 'c65c46b6-b12e-0e57-28fe-3c1900223872';
         this.orderDeleteOperation = '';
         this.orderReadOperation = '481f0766-998d-003c-1727-3c1701e15fcb';
+        this.allOrderReadOperation = 'd194441f-fb19-494e-bce3-a7d7009acd4d';//全部订单
         this.orderModifyOperation = '51edceb5-4d37-0d8b-1043-3c1a01f6b85e';
 
         //订单明细

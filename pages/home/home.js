@@ -217,7 +217,7 @@ Page({
       let self = this;
       this.productSpecification = new ProductSpecification(this, productId);
       this.productSpecification.finishBlock = (specificationId, product, count, price) => {
-        global.Tool.showAlert(specificationId);
+        // global.Tool.showAlert(specificationId);
       };
 
       this.productSpecification.showWithAction('ShoppingCart');
