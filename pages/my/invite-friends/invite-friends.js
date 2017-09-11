@@ -1,4 +1,5 @@
 // invite-friends.js
+let { Tool, Storage } = global;
 Page({
 
   /**
@@ -12,7 +13,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+      // 存储邀请码
+      let inviteCode = options.fromId;
+      if (Tool.isValidStr(inviteCode)) {
+          console.log('invite-friends---inviteCode:' + inviteCode);
+          wx.setStorageSync('fromId', inviteCode)
+      }
   },
 
   /**
@@ -72,6 +78,7 @@ Page({
           },
       })
 
+      console.log('---share fromId---' + this.data.inviteCode);
       return {
           title: '这是一个有温度，有情怀的品质家庭购物平台',
           path: '/pages/my/invite-friends/invite-friends?fromId=' + this.data.inviteCode,

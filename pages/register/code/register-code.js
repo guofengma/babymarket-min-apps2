@@ -62,7 +62,7 @@ Page({
     r.finishBlock = (req) => {
       let datas = req.responseObject.Datas;
       if (datas.length >= 1) {
-        wx.navigateTo({
+          wx.redirectTo({
           url: '/pages/register/invite/register-invite?phone=' + phone + "&code=" + code
         })
       } else {

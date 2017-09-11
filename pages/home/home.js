@@ -17,10 +17,23 @@ Page({
         //标签数据
         targetArray: null,
         //一级分类数据
-        oneSortData: null
+        oneSortData: null,
+        inviteCode:''
     },
-    onLoad: function () {
-        Event.on('loginSuccess', this.onLoad, this);
+    onLoad: function (options) {
+        Event.on('loginSuccess', this.reload, this);
+        this.reload();
+
+        // 存储邀请码
+        if (options) {
+            let inviteCode = options.fromId;
+            if (Tool.isValidStr(inviteCode)) {
+                wx.setStorageSync('fromId', inviteCode)
+            }
+        }
+    },
+
+    reload(){
         Tool.showLoading();
         this.requestTargetData();
         this.requestOneSortData();
@@ -31,7 +44,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        Event.off('loginSuccess', this.onLoad)
+        Event.off('loginSuccess', this.reload)
     },
 
     onShow() {
@@ -43,8 +56,18 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
+        let self = this;
+        wx.getStorage({
+            key: 'currentMember',
+            success: function (res) {
+                self.setData({
+                    inviteCode: res.data.InvitationCode
+                })
+            },
+        })
+
         let title = '老友码头';
-        let path = '/pages/home/home';
+        let path = '/pages/home/home?fromId=' + this.data.inviteCode;
         let obj = {
             title: title,
             path: path,

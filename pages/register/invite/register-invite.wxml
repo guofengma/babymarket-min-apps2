@@ -2,7 +2,7 @@
 
 <view class="register">
 
-  <input bindinput="textOnChange" placeholder="请输入邀请码" type="number" />
+  <input bindinput="textOnChange" placeholder="请输入邀请码" type="number" value='{{inviteCode}}' />
 
   <view class="submit-container">
     <template is="submit-btn" data="{{title:'下一步'}}" />
