@@ -432,6 +432,9 @@ Page({
 
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
+                if (Tool.isEmptyId(item.PictureId)){
+                    url = '/res/img/common/common-avatar-default-icon.png';
+                }
                 console.log('------imgUrl:' + url);
 
                 this.setData({
@@ -513,6 +516,9 @@ Page({
 
                 //头像url
                 let url = Tool.imageURLForId(item.PictureId);
+                if (Tool.isEmptyId(item.PictureId)) {
+                    url = '/res/img/common/common-avatar-default-icon.png';
+                }
 
                 this.setData({
                     'dict01.detail.amount': item.Balance,

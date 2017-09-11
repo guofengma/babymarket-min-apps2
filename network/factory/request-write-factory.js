@@ -474,7 +474,7 @@ export default class RequestWriteFactory {
     }
 
     //新增密码修改记录
-    static addMember(mobile, code, password, inviteCode) {
+    /*static addMember(mobile, code, password, inviteCode) {
       let operation = Operation.sharedInstance().memberAddOperation;
       let status = Network.sharedInstance().statusNew;
       let params = {
@@ -492,6 +492,6 @@ export default class RequestWriteFactory {
       req.name = '新增密码修改记录';
 
       return req;
-    }
+    }*/
 
 }

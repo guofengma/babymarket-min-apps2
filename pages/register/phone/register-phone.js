@@ -35,13 +35,13 @@ Page({
     if (Tool.isEmpty(phone)) {
       Tool.showAlert('请输入手机号码')
     } else {
-      let r = RequestReadFactory.checkMemberByPhone(phone);
+        let r = RequestReadFactory.checkMemberByPhone(phone);
       r.finishBlock = (req) => {
         let { Datas } = req.responseObject;
         if (Tool.isValidArr(Datas)) {
           Tool.showAlert('您输入手机号码已经被注册')
         } else {
-          global.Tool.navigateTo('/pages/register/code/register-code?phone=' + phone);
+            global.Tool.redirectTo('/pages/register/code/register-code?phone=' + phone);
         }
       }
       r.addToQueue();

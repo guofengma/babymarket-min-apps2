@@ -48,14 +48,16 @@ Page({
         let { phone } = this.data;
         let { code } = this.data;
         let { inviteCode } = this.data;
+        console.log('phone' + phone + ', code' + code + ', inviteCode' + inviteCode);
         if (Tool.isEmpty(code)) {
             Tool.showAlert('请输入邀请码')
         } else {
             let r = RequestReadFactory.checkInvite(inviteCode);
             r.finishBlock = (req) => {
+                console.log('检查邀请码请求回复');
                 let { Datas } = req.responseObject;
                 if (Tool.isValidArr(Datas)) {
-                    global.Tool.navigateTo('/pages/register/password/register-password?phone=' + phone + "&code=" + code + "&inviteCode=" + inviteCode);
+                    global.Tool.redirectTo('/pages/register/password/register-password?phone=' + phone + "&code=" + code + "&inviteCode=" + inviteCode);
                 } else {
                     Tool.showAlert('邀请码不正确')
                 }
