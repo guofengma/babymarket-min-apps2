@@ -1,5 +1,6 @@
 <template name="cell-title">
-  <view class="cell-title" data-position="{{position}}" data-id="{{categoryId}}" data-title="{{title}}" catchtap="onMoreClickListener">
-    {{title}}
+  <view class="cell-title" data-position="{{position}}" data-id="{{categoryId}}" data-title="{{title}}" data-door="{{door}}" catchtap="onMoreClickListener">
+    <text class="name">{{title}}</text>
+    <image class="arrow" src="/res/img/common/comm-arrow-right-icon.png" mode="aspectFit" wx:if="{{isMore}}"/>
   </view>
 </template>

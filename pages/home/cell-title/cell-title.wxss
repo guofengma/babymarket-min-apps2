@@ -1,6 +1,18 @@
 .cell-title {
+  display: flex;
+  padding: 30rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell-title .name{
   text-align: center;
   font-size: 30rpx;
-  color: black;
-  padding: 30rpx;
+  color: #1a1c1f;
+}
+
+.cell-title .arrow {
+  width: 12rpx;
+  height: 21rpx;
+  margin-left: 10rpx;
 }

@@ -1,23 +1,24 @@
 .tab-layout {
-  display: flex;
   background-color: white;
-  width: 100%;
+}
+
+.tab-layout-view {
+  display: flex;
   flex-direction: row;
-  flex: none;
   white-space: nowrap;
 }
 
-.tab-layout .tab {
-  display: inline-flex;
+.tab-layout-view .tab {
   font-size: 28rpx;
   color: #3c3d3d;
-  padding-left: 18rpx;
-  padding-right: 18rpx;
-  height: 54rpx;
-  align-items: center;
+  padding-left: 22rpx;
+  padding-right: 22rpx;
+  padding-top: 6rpx;
+  padding-bottom: 6rpx;
+  text-align: center;
 }
 
-.tab-layout .tab.select {
+.tab-layout-view .tab.select {
   color: #af8327;
   border-bottom: 4rpx solid #af8327;
 }

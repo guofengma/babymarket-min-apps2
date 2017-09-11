@@ -10,14 +10,14 @@
   <view class="cell-home">
     <view>
       <template is="home-ad" data="{{adArray:adArray}}" />
-      <template is="cell-bulletin" />
+      <template is="cell-bulletin" data="{{content:bulletinContent}}"/>
       <block wx:for="{{targetArray}}" wx:key="unique">
-        <template is="cell-title" data="{{title:item.Name,position:index}}" wx:if="{{item.productData.length>0}}"/>
+        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,isMore:true}}" wx:if="{{item.productData.length>0}}"/>
         <template is="cell-product-target" data="{{productArray:item.productData,groupPosition:index,title:item.Name,targetId:item.Id}}" wx:if="{{item.productData.length>0}}"/>
       </block>
       <block wx:for="{{oneSortData}}" wx:key="unique">
-        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,title:item.Name}}" wx:if="{{index>0}}" />
-        <template is="cell-product" data="{{productArray:item.productData,groupPosition:index,isMore:true,title:item.Name,categoryId:item.Id}}" wx:if="{{index>0}}" />
+        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,title:item.Name,door:0,isMore:true}}" wx:if="{{index>0}}" />
+        <template is="cell-product" data="{{productArray:item.productData,groupPosition:index,title:item.Name,categoryId:item.Id,door:0,isMore:true}}" wx:if="{{index>0}}" />
       </block>
     </view>
   </view>

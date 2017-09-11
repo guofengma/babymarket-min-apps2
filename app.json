@@ -52,7 +52,8 @@
     "pages/register/password/register-password",
     "pages/find-password/phone/phone",
     "pages/find-password/code/code",
-    "pages/find-password/password/password"
+    "pages/find-password/password/password",
+    "pages/home/product-more-target/product-more-target"
   ],
   "window": {
     "backgroundTextStyle": "light",

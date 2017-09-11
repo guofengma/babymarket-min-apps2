@@ -1,5 +1,9 @@
+.cell-keyword {
+  margin-bottom: 20rpx;
+}
+
 .keyword {
-  font-size: 25rpx;
+  font-size: 28rpx;
   color: black;
   border: 1px solid #e3e3e3;
   border-radius: 5px;

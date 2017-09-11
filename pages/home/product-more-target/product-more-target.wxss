@@ -1,0 +1,13 @@
+@import "/pages/home/cell-product/cell-product.wxss";
+@import '/components/product-specification/product-specification.wxss';
+
+.root-view-more{
+    display: flex;
+    flex-direction: column;
+}
+.bottom {
+  color: #5e6064;
+  text-align: center;
+  font-size: 23rpx;
+  padding: 30rpx;
+}

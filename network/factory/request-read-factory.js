@@ -117,7 +117,7 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
-        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside'];
+        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside', 'LimitQnty'];
         req.preprocessCallback = (req, firstData) => {
             if (global.Tool.isValidObject(firstData)) {
                 if (global.Storage.didLogin()) {
@@ -291,21 +291,34 @@ export default class RequestReadFactory {
 
     //首页海报查询
     static homeAdRead() {
-        let operation = Operation.sharedInstance().homeAdReadOperation;
+      let operation = Operation.sharedInstance().homeAdReadOperation;
+      let bodyParameters = {
+        "Operation": operation,
+        "IsHomePageShow": 'True'
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '首页海报查询';
+      req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+      //修改返回结果
+      req.preprocessCallback = (req) => {
+        let responseData = req.responseObject.Datas;
+        responseData.forEach((item, index) => {
+          item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+        });
+      }
+      return req;
+    }
+
+    //首页码头快报查询
+    static homeBulletinRead() {
+        let operation = Operation.sharedInstance().homeBulletinReadOperation;
         let bodyParameters = {
             "Operation": operation,
-            "IsHomePageShow": 'True'
+            "Order": "${CreateTime} DESC"
         };
         let req = new RequestRead(bodyParameters);
-        req.name = '首页海报查询';
-        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
-        //修改返回结果
-        req.preprocessCallback = (req) => {
-            let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
-            });
-        }
+        req.name = '首页码头快报查询';
+        req.items = ['Id', 'Title', 'LinkTypeKey', 'ProductId', 'SubjectId', 'CategoryId', 'KeyWord'];
         return req;
     }
 
@@ -457,7 +470,7 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '首页-二级分类';
-        req.items = ['Id', 'Name', 'ImgId', 'Description'];
+        req.items = ['Id', 'Name', 'ImgId', 'Description','CategoryMaxShow'];
         return req;
     }
 
@@ -468,6 +481,7 @@ export default class RequestReadFactory {
             "Operation": operation,
             "FirstCategoryId": categoryId,
             "MaxCount": maxCount,
+            "Order": "${Order} ASC"
         };
         let req = new RequestRead(bodyParameters);
         req.name = '一级分类商品';
@@ -482,7 +496,7 @@ export default class RequestReadFactory {
     }
 
     //首页-二级分类商品
-    static homeTwoSortProductRead(categoryId) {
+    static homeTwoSortProductRead(categoryId,maxCount) {
         let operation = Operation.sharedInstance().productReadOperation;
         let condition = "${Product_CategoryId} == '" + categoryId + "'";
         //如果是内部员工
@@ -491,7 +505,9 @@ export default class RequestReadFactory {
         }
         let bodyParameters = {
             "Operation": operation,
-            "Condition": condition
+            "Condition": condition,
+            "MaxCount": maxCount,
+            "Order": "${Order} ASC"
         };
         let req = new RequestRead(bodyParameters);
         req.name = '二级分类商品';

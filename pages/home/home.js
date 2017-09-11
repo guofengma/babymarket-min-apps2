@@ -12,6 +12,8 @@ Page({
     data: {
         //海报数据
         adArray: null,
+        //码头快报数据
+        bulletinContent: null,
         // 当前选中的tab
         currentTab: 0,
         //标签数据
@@ -38,6 +40,7 @@ Page({
         this.requestTargetData();
         this.requestOneSortData();
         this.requestHomeAdData();
+        this.requestHomeBulletinData();
     },
 
     /**
@@ -85,6 +88,7 @@ Page({
         let task = RequestReadFactory.homeTargetRead();
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
+            
             this.setData({
                 targetArray: responseData
             });
@@ -106,11 +110,9 @@ Page({
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
             targetArray[index].productData = responseData;
-
             this.setData({
                 targetArray: targetArray
             });
-            console.log(this.data.targetArray);
         };
         task.addToQueue();
     },
@@ -179,7 +181,7 @@ Page({
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
                 //查询每个分类对应的商品
-                this.requestTwoSortProductData(item.Id, index);
+              this.requestTwoSortProductData(item.Id, index, item.CategoryMaxShow);
             });
             let oneSortData = this.data.oneSortData;
             let bodyData = oneSortData[this.data.currentTab].bodyData;
@@ -193,8 +195,8 @@ Page({
     /**
      * 请求分类里面产品数据
      */
-    requestTwoSortProductData: function (categoryId, index) {
-        let task = RequestReadFactory.homeTwoSortProductRead(categoryId);
+    requestTwoSortProductData: function (categoryId, index, maxCount) {
+      let task = RequestReadFactory.homeTwoSortProductRead(categoryId, maxCount);
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
             let oneSortData = this.data.oneSortData;
@@ -217,6 +219,21 @@ Page({
             });
         };
         task.addToQueue();
+    },
+    /**
+     * 查询首页码头快报数据
+     */
+    requestHomeBulletinData: function () {
+      let task = RequestReadFactory.homeBulletinRead();
+      task.finishBlock = (req) => {
+        let bulletinArray = req.responseObject.Datas;
+        if (bulletinArray.length>0){
+          this.setData({
+            bulletinContent: bulletinArray[0].Title
+          });
+        }
+      };
+      task.addToQueue();
     },
     /**
      * swiper切换事件
@@ -270,12 +287,19 @@ Page({
      */
     onMoreClickListener: function (e) {
         let categoryId = e.currentTarget.dataset.id;
+        let door = e.currentTarget.dataset.door;
         if (categoryId.length > 0) {
             let title = e.currentTarget.dataset.title;
             //跳到更多
-            wx.navigateTo({
+            if(door==0){
+              wx.navigateTo({
                 url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
-            })
+              })
+            }else if(door==1){
+              wx.navigateTo({
+                url: '/pages/home/product-more-target/product-more-target?id=' + categoryId + "&title=" + title
+              })
+            }
         }
     },
     /**

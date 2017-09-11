@@ -199,6 +199,11 @@ export default class ProductSpecification {
             this.finishBlock(specificationData.Id,product,count,price);
         }
 
+        if (count < product.LimitQnty){
+          Tool.showAlert("亲，本商品最少要购买" + product.LimitQnty+"件哦~");
+          return;
+        }
+
         //立即购买
         if (this.page.data.productSpecificationAction === 'Buy') {
             console.log('立即购买');

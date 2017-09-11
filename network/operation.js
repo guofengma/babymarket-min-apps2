@@ -18,6 +18,8 @@ export default class Operation {
 
         //首页-广告位
         this.homeAdReadOperation = 'b412ff1c-c19b-4250-b479-a61e0085a868';
+        //首页-码头快报
+        this.homeBulletinReadOperation = '48d1e8a7-43a8-0ddd-1f68-3f50003c646b';
         //首页-分类
         this.homeSortReadOperation = '4293f401-3425-4d6b-bf67-a618018b764a';
         //首页-标签
