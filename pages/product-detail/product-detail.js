@@ -231,7 +231,8 @@ Page({
     },
 
     pricePrefix(){
-        return Storage.didLogin() ? "（老友专享）": "";
+        // return Storage.didLogin() ? "（老友专享）": "";
+        return "（老友专享）";
     },
 
     price(){

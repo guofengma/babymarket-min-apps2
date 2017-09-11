@@ -11,7 +11,7 @@
 
 .user-info {
   display: flex;
-  width: 100%;
+  width: 700rpx;
   padding: 16rpx 22rpx 16rpx 22rpx;
   background-color: white;
   align-items: center;
