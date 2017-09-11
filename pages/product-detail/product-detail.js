@@ -231,7 +231,8 @@ Page({
     },
 
     pricePrefix(){
-        return Storage.didLogin() ? "（老友专享）": "";
+        // return Storage.didLogin() ? "（老友专享）": "";
+        return "（老友专享）";
     },
 
     price(){
@@ -242,7 +243,8 @@ Page({
         if (this.data.product.LYPrice === this.price() || this.data.product.LYPrice == 0) {
             return "";
         }
-        return Storage.didLogin() ? '￥' + this.data.product.LYPrice : "";
+        // return Storage.didLogin() ? '￥' + this.data.product.LYPrice : "";
+        return '￥' + this.data.product.LYPrice;
     },
 
     rateText(){

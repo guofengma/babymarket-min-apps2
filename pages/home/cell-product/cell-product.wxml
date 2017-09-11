@@ -9,7 +9,8 @@
             <view class="price-info">
               <view class="sale-price-panel">
                 <text class="product-sale-price">{{item.showPrice}}</text>
-                <image class="price-image" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />
+                <!--<image class="price-image" mode="aspectFit" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />-->
+                <image class="price-image" mode="aspectFit" src="/res/img/common/comm-old-friend-price-tag.png" />
               </view>
 
               <text class="old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>

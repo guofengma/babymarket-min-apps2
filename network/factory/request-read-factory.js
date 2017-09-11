@@ -120,14 +120,14 @@ export default class RequestReadFactory {
         req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside', 'LimitQnty'];
         req.preprocessCallback = (req, firstData) => {
             if (global.Tool.isValidObject(firstData)) {
-                if (global.Storage.didLogin()) {
+                // if (global.Storage.didLogin()) {
                     let tempPrice = firstData.SalePrice;
                     firstData.SalePrice = firstData.LYPrice;
                     firstData.LYPrice = tempPrice;
-                }
-                else {
-                    firstData.LYPrice = "0";
-                }
+                // }
+                // else {
+                    // firstData.LYPrice = "0";
+                // }
             }
         }
         return req;
@@ -398,21 +398,21 @@ export default class RequestReadFactory {
           item.subtitle = appendixe.Subtitle;
           item.stock = appendixe.Inv;
           item.isLogin = global.Storage.didLogin();
-          if (item.isLogin) {
+          // if (item.isLogin) {
             item.showPrice = "¥" + appendixe.LYPrice;
-          } else {
-            item.showPrice = "¥" + appendixe.SalePrice;
-          }
+          // } else {
+          //   item.showPrice = "¥" + appendixe.SalePrice;
+          // }
           //未登录时,旧价格不显示,登陆后显示SalePrice
-          if (item.isLogin) {
+          // if (item.isLogin) {
             item.oldPrice = "¥" + appendixe.SalePrice;
             //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
             if (appendixe.SalePrice == appendixe.LYPrice || appendixe.SalePrice == 0) {
               item.oldPrice = 0;
             }
-          } else {
-            item.oldPrice = 0;
-          }
+          // } else {
+          //   item.oldPrice = 0;
+          // }
       };
       return req;
     }
@@ -740,21 +740,21 @@ export default class RequestReadFactory {
             item.productId = item.Id;
             //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
             item.isLogin = global.Storage.didLogin();
-            if (item.isLogin) {
+            // if (item.isLogin) {
                 item.showPrice = "¥" + item.LYPrice;
-            } else {
-                item.showPrice = "¥" + item.SalePrice;
-            }
+            // } else {
+            //     item.showPrice = "¥" + item.SalePrice;
+            // }
             //未登录时,旧价格不显示,登陆后显示SalePrice
-            if (item.isLogin) {
+            // if (item.isLogin) {
                 item.oldPrice = "¥" + item.SalePrice;
                 //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
                 if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
                     item.oldPrice = 0;
                 }
-            } else {
-                item.oldPrice = 0;
-            }
+            // } else {
+            //     item.oldPrice = 0;
+            // }
         });
         //9d7093c03c3fb18a9e9d8216e355f0a93ed6604d
     }

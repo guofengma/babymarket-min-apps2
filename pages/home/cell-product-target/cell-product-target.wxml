@@ -9,7 +9,8 @@
           <view class="target-price-cart">
             <view class="target-price-info">
               <text class="target-sale-price">{{item.showPrice}}</text>
-                <image class="target-price-image" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />
+                <image class="target-price-image" src="/res/img/common/comm-old-friend-price-tag.png"/>
+              <!--<image class="target-price-image" src="/res/img/common/comm-old-friend-price-tag.png" wx:if="{{item.isLogin}}" />-->
                 <text class="target-old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>
             </view>
             <image class="target-btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" />
