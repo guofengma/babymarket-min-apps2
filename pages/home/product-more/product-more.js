@@ -70,30 +70,6 @@ Page({
       let task = RequestReadFactory.homeTwoSortProductRead(categoryId);
       task.finishBlock = (req) => {
           let responseData = req.responseObject.Datas;
-<<<<<<< HEAD
-=======
-          responseData.forEach((item, index) => {
-              let url = Tool.imageURLForId(item.ImgId);
-              item.imageUrl = url;
-              item.productId = item.Id;
-              //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
-              // if (Storage.didLogin()) {
-                  item.showPrice = "¥" + item.LYPrice;
-              // } else {
-              //     item.showPrice = "¥" + item.SalePrice;
-              // }
-              //未登录时,旧价格不显示,登陆后显示SalePrice
-              // if (Storage.didLogin()) {
-                  item.oldPrice = "¥" + item.SalePrice;
-                  //如果销售价格和老友价都一样，那么为0，0的时候界面默认不显示
-                  if (item.SalePrice == item.LYPrice || item.SalePrice == 0) {
-                      item.oldPrice = 0;
-                  }
-              // } else {
-              //     item.oldPrice = 0;
-              // }
-          });
->>>>>>> dev
           let bodyData = this.data.bodyData;
           bodyData.sortData[index].productData = responseData;
           this.setData({
