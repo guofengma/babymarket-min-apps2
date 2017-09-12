@@ -247,25 +247,25 @@ Page({
         if (status == 0) {//我的订单
             console.log('----我的订单----');
             wx.navigateTo({
-                url: '../my/myOrder/myOrder',
+                url: '/pages/my/myOrder/myOrder',
             })
 
         } else if (status == 1) {//我的收藏
             console.log('----我的收藏----');
             wx.navigateTo({
-                url: '../my/my-fav/my-fav',
+                url: '/pages/my/my-fav/my-fav',
             })
 
         } else if (status == 2) {//地址管理
             console.log('----地址管理----');
             wx.navigateTo({
-                url: '../address/address'
+                url: '/pages/address/address'
             })
 
         } else if (status == 3) {//邀请好友
             console.log('----邀请好友----');
             wx.navigateTo({
-                url: '../my/invite-friends/invite-friends',
+                url: '/pages/my/invite-friends/invite-friends',
             })
         }
     },
@@ -284,16 +284,16 @@ Page({
         console.log('--------' + title);
         if (title == '我的资产') {
             wx.navigateTo({
-                url: '../my/my-property/my-property',
+                url: '/pages/my/my-property/my-property',
             })
         } else if (title == '收到奖励') {
             wx.navigateTo({
-                url: '../my/my-award/my-award',
+                url: '/pages/my/my-award/my-award',
             })
 
         } else if (title == '已省金额') {
             wx.navigateTo({
-                url: '../my/my-save/my-save',
+                url: '/pages/my/my-save/my-save',
             })
 
         } else if (title == '城市合伙人') {
@@ -301,22 +301,25 @@ Page({
         } else if (title == '我的老友') {
             console.log('----我的老友----');
             wx.navigateTo({
-                url: '../my/my-friends/my-friends',
+                url: '/pages/my/my-friends/my-friends',
             })
 
         } else if (title == '我的店员') {
             console.log('----我的店员----');
             wx.navigateTo({
-                url: '../my/my-salesman/my-salesman',
+                url: '/pages/my/my-salesman/my-salesman',
             })
 
         } else if (title == '老友的好友') {
 
         } else if (title == '意见和反馈') {
+            wx.navigateTo({
+                url: '/pages/my/help/help',
+            })
 
         } else if (title == '我的优惠券') {
             wx.navigateTo({
-                url: '../coupon/coupon',
+                url: '/pages/coupon/coupon',
             })
         }
     },
@@ -333,7 +336,7 @@ Page({
         }
 
         wx.navigateTo({
-            url: '../my/system-message/system-message',
+            url: '/pages/my/system-message/system-message',
         })
     },
 
@@ -480,7 +483,7 @@ Page({
                 if (item.MemberTypeKey == '0') {//普通会员（等同于普通会员）
                     name = item.Nickname;
                     Storage.setLoginType('0');
-                    arry0.push(2, 1);
+                    arry0.splice(3, 1);
                     arry0.splice(arry0.length - 1, 1);
                     arry1.splice(1, 1);
 
@@ -495,7 +498,7 @@ Page({
                     name = item.ShopName;
                     desp = '(城市合伙人)';
                     Storage.setLoginType('2');
-                    arry0.splice(2, 1);
+                    arry0.splice(3, 1);
                     arry1.splice(1, 1);
 
                 } else if (item.MemberTypeKey == '3') {//内部员工（等同于普通会员，但是暂时服务器返回的内部员工的memberTypeKey也为3，所以使用inside再次进行身份判断）
@@ -509,7 +512,7 @@ Page({
 
                     } else {//门店
                         Storage.setLoginType('3');
-                        arry0.splice(2, 1);
+                        arry0.splice(3, 1);
                         arry0.splice(arry0.length - 1, 1);
                     }
                 }

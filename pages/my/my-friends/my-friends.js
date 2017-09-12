@@ -90,10 +90,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let memeberId = options.memberId;
+        let memberInfo = global.Storage.currentMember();
+        let memeberId = memberInfo.Id;
         if (!Tool.isEmptyStr(memeberId)){
             this.setData({
-                mainId: options.memberId,
+                mainId: memeberId,
             })
         }
 
@@ -156,7 +157,7 @@ Page({
         this.setData({
             keyword: keyword,
         })
-        this.requestData(this.data.keyword);
+        this.requestData(this.data.keyword, this.data.mainId);
     },
 
     /**

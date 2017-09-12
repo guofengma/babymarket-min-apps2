@@ -1,0 +1,3 @@
+<template name="help-button">
+    <view class="{{select?'button active':'button'}}" catchtap="helpButtonTap" data-index="{{index}}" data-name="{{title}}">{{title}}</view>
+</template>

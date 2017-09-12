@@ -4,191 +4,224 @@
 @import '/pages/my/myOrder/settlement-cell/settlement-cell.wxss';
 
 .main {
-  position: relative;
-  height: 100%;
-  width: 100%;
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 /*顶部地址*/
 
 .order-address {
-  display: flex;
-  background: white;
-  align-items: center;
-  border-bottom: 10rpx solid #f5f7f7;
-  padding: 0 20rpx 0 20rpx;
+    display: flex;
+    background: white;
+    align-items: center;
+    border-bottom: 10rpx solid #f5f7f7;
+    padding: 0 20rpx 0 20rpx;
 }
 
 .order-address-icon {
-  width: 40rpx;
-  height: 40rpx;
+    width: 40rpx;
+    height: 40rpx;
 }
 
 .order-address-info {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .order-address-arrow {
-  width: 20rpx;
-  height: 20rpx;
+    width: 20rpx;
+    height: 20rpx;
 }
 
 /*中间订单详情*/
 
 .order-list {
-  display: flex;
-  height: 150rpx;
-  border-bottom: 2rpx solid #f5f7f7;
-  padding: 20rpx 20rpx 20rpx 20rpx;
-  background: white;
+    display: flex;
+    height: 150rpx;
+    border-bottom: 2rpx solid #f5f7f7;
+    padding: 20rpx 20rpx 20rpx 20rpx;
+    background: white;
 }
 
 /*优惠劵*/
 
 .coupon {
-  display: flex;
-  padding: 20rpx 20rpx 20rpx 20rpx;
-  justify-content: space-between;
-  border-bottom: 10rpx solid #f5f7f7;
-  border-top: 10rpx solid #f5f7f7;
-  background: white;
-  align-items: center;
+    display: flex;
+    padding: 20rpx 20rpx 20rpx 20rpx;
+    justify-content: space-between;
+    border-bottom: 10rpx solid #f5f7f7;
+    border-top: 10rpx solid #f5f7f7;
+    background: white;
+    align-items: center;
 }
 
 .coupon-select {
-  display: flex;
+    display: flex;
 }
 
 .coupon-text {
-  font-size: 26rpx;
-  color: #1a1c1f;
+    font-size: 26rpx;
+    color: #1a1c1f;
 }
 
 .couponDefault {
-  font-size: 24rpx;
-  color: #b0b1b3;
-  margin-left: 15rpx;
+    font-size: 24rpx;
+    color: #b0b1b3;
+    margin-left: 15rpx;
 }
 
 .couponSelect {
-  font-size: 24rpx;
-  color: #715329;
-  margin-left: 15rpx;
+    font-size: 24rpx;
+    color: #715329;
+    margin-left: 15rpx;
 }
 
 /*结算*/
 
 .settment-text {
-  display: flex;
-  width: 100%;
-  height: 62rpx;
-  line-height: 62rpx;
-  padding-left: 20rpx;
-  font-size: 26rpx;
-  color: #b0b1b3;
-  background: white;
-  border-bottom: 2rpx solid #fafafa;
+    display: flex;
+    width: 100%;
+    height: 62rpx;
+    line-height: 62rpx;
+    padding-left: 20rpx;
+    font-size: 26rpx;
+    color: #b0b1b3;
+    background: white;
+    border-bottom: 2rpx solid #fafafa;
 }
 
 .settlement-view-cell {
-  height: 62rpx;
-  background: white;
-  border-bottom: 2rpx solid #fafafa;
+    height: 62rpx;
+    background: white;
+    border-bottom: 2rpx solid #fafafa;
 }
 
 .bgview {
-  padding: 0rpx 20rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 710rpx;
-  height: 100%;
+    padding: 0rpx 20rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 710rpx;
+    height: 100%;
 }
 
 .footer-bg-view {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  padding: 20rpx 0 20rpx 0rpx;
-  background: white;
-  border-bottom: 10rpx solid #f5f7f7;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 20rpx 0 20rpx 0rpx;
+    background: white;
+    border-bottom: 10rpx solid #f5f7f7;
 }
 
 .pay-finnal {
-  font-size: 24rpx;
-  color: #454950;
-  text-align: right;
-  margin-right: 20rpx;
+    font-size: 24rpx;
+    color: #454950;
+    text-align: right;
+    margin-right: 20rpx;
 }
 
 .rule {
-  font-size: 26rpx;
-  padding: 20rpx 20rpx 20rpx 20rpx;
-  color: red;
+    font-size: 26rpx;
+    padding: 0rpx 20rpx;
+    color: red;
+    height: 62rpx;
+    line-height: 62rpx;
 }
 
 /*授信钱包*/
-
 .credit {
-  display: flex;
-  justify-content: space-between;
-  padding: 20rpx 20rpx 20rpx 20rpx;
-  background: white;
-  align-items: center;
-  border-bottom: 2rpx solid #fafafa;
+    display: flex;
+    justify-content: space-between;
+    padding: 0rpx 20rpx;
+    background: white;
+    align-items: center;
+    border-bottom: 2rpx solid #fafafa;
+    height: 80rpx;
+    line-height: 80rpx;
 }
 
 .credit-value {
-  font-size: 26rpx;
-  color: #1a1c1f;
+    font-size: 26rpx;
+    color: #1a1c1f;
 }
 
 .credit-switch {
 }
 
 .balance {
-  display: flex;
-  justify-content: space-between;
-  padding: 20rpx 20rpx 20rpx 20rpx;
-  background: white;
-  align-items: center;
-  margin-bottom: 200rpx;
+    display: flex;
+    justify-content: space-between;
+    padding: 0rpx 20rpx;
+    background: white;
+    align-items: center;
+    height: 80rpx;
+    line-height: 80rpx;
 }
 
 /*底部结算*/
 
 .order-footer {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  bottom: 0;
-  width: 100%;
-  height: 90rpx;
-  background: white;
-  z-index: 20;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    height: 90rpx;
+    background: white;
+    z-index: 20;
 }
 
 .order-footer-text {
-  font-size: 26rpx;
-  margin-left: 20rpx;
-  color: #3c3d3d;
+    font-size: 26rpx;
+    margin-left: 20rpx;
+    color: #3c3d3d;
 }
 
 .order-footer-total {
-  font-size: 26rpx;
-  color: #af8327;
-  flex-grow: 1;
+    font-size: 26rpx;
+    color: #af8327;
+    flex-grow: 1;
 }
 
 .order-confirm-bt {
-  height: 100%;
-  margin-left: 40rpx;
-  background: #af8327;
-  color: white;
-  font-size: 30rpx;
-  justify-content: center;
-  display: flex;
-  padding-left: 30rpx;
-  padding-right: 30rpx;
-  align-items: center;
+    height: 100%;
+    margin-left: 40rpx;
+    background: #af8327;
+    color: white;
+    font-size: 30rpx;
+    justify-content: center;
+    display: flex;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    align-items: center;
+}
+
+.third-balance {
+    display: flex;
+    padding: 20rpx 20rpx 20rpx 20rpx;
+    background: white;
+    align-items: center; 
+    justify-content: space-between;
+    margin-bottom: 200rpx;
+}
+
+.third-balance .left-view{
+    display: flex;
+    align-items: center;
+}
+
+.third-balance-input {
+    border: 2rpx solid #b0b1b3;
+    width: 110rpx;
+    height: 60rpx;
+    font-size: 28rpx;
+    color: #090909;
+    margin-right: 10rpx;
+    margin-left: 8rpx;
+    padding-left: 12rpx;
+}
+
+.third-balance-icon{
+    margin-left: 10rpx;
 }

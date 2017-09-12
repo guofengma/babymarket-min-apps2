@@ -17,7 +17,10 @@ Page({
 
         creditChecked: false, // 授信开关 默认关闭
         balanceChecked: false, // 钱包开关 默认关闭
+        thirdBalanceChecked: false, // 饭卡余额开关 默认关闭
         isAirProduct: false, //是否是跨境商品
+        thirdPay:0,//饭卡支付输入金额
+        isThirPay:false,//是否显示饭卡余额
         loadingHidden: false,
 
         status: 0, // 0为未选择 1为优惠劵返回 2为地址返回
@@ -63,6 +66,7 @@ Page({
     onLoad: function (options) {
         let self = this;
         let isInsideMember = global.Storage.isInsideMember();
+        let memberInfo = global.Storage.currentMember();
         let id = global.Tool.guid();
         wx.getStorage({
             key: 'selectCarts',
@@ -73,9 +77,15 @@ Page({
                     isInsideMember: isInsideMember,
                     orderId: id,
                 })
+
                 self.requestData();
             },
-        })
+        }),
+
+        this.setData({
+            thirdBalanceChecked: Tool.isTrue(memberInfo.IsThirdBalance),
+            isThirPay: Tool.isTrue(memberInfo.IsThirdBalance)
+        });
     },
 
     /**
@@ -151,6 +161,15 @@ Page({
                             }
                         }
                     })
+                }else{
+                    //修改订单地址
+                    let orderId = this.data.orderId;
+                    let requestData = {
+                        Id: orderId,
+                        'Delivery_AddressId': address.Id,
+                        'Address_Refresh': String((new Date()).valueOf())
+                    };
+                    this.modifyOrder(requestData, this.data.order, this.data.door);
                 }
             }
         }
@@ -217,8 +236,12 @@ Page({
         let door = this.data.door;
         let r = RequestWriteFactory.orderLineAddRequest(requestData);
         r.finishBlock = (req) => {
-            // 查询订单详情
-            self.requestOrderDetail();
+            if (self.data.isThirPay) {//华信员工
+                self.readThirdBalance();
+            }else{
+                // 查询订单详情
+                self.requestOrderDetail();
+            }
         }
         r.failBlock = (req) => {
             self.setData({
@@ -258,16 +281,20 @@ Page({
                 balanceChecked = self.setBalance(order, order.Balance, order.Money2, this.isUseBalance(order.UseBalance));
                 self.setData({
                     'settlementList[0].value': '¥' + order.Money,
-                    'settlementList[1].value': '-¥' + order.Discount,
+                    'settlementList[1].value': '¥-' + order.Discount,
                     'settlementList[2].value': '¥' + order.ExpressSum,
                     'settlementList[3].value': '¥' + order.Tax,
-                    'settlementList[4].value': '¥' + order.BuyerCommission,
+                    'settlementList[4].value': '¥-' + order.BuyerCommission,
                     order: order,
                     isAirProduct: isAirProduct,
                     creditChecked: creditChecked,
                     balanceChecked: balanceChecked,
-                    total: order.Due,
                 })
+                this.getMoney3Value();//设置饭卡默认使用金额
+                self.setData({
+                    total: self.getTrueMoney()
+                })
+                
                 // 如果地址为空则查询地址
                 if (global.Tool.isEmptyStr(addressId)) {
                     self.requestAddressDefaultInfo();
@@ -291,7 +318,7 @@ Page({
         let self = this;
         let r = RequestWriteFactory.modifyOrder(requestData);
         r.finishBlock = (req) => {
-            if (order.Formal === "True" && global.Tool.isValidStr(order.Due)) {
+            if (order.Formal === "True") {
                 // 订单新增成功，跳转到支付界面
                 self.goConfirmPay(order);
                 //如果从购物车进来，通知购物车刷新数据
@@ -309,15 +336,15 @@ Page({
      * 进入确认支付
      */
     goConfirmPay: function (order) {
-        wx.setStorage({
-            key: 'order',
-            data: order,
-            success: function (res) {
+        // wx.setStorage({
+        //     key: 'order',
+        //     data: order,
+        //     success: function (res) {
                 wx.redirectTo({
-                    url: '../pay-method/pay-method?door=0',
+                    url: '../pay-method/pay-method?door=0&orderId=' + this.data.orderId,
                 })
-            }
-        })
+            // }
+        // })
     },
 
     /**
@@ -415,7 +442,17 @@ Page({
         let addressId = this.data.addressData.addressId;
         order.Formal = "True";
         order.Delivery_AddressId = addressId;
-        this.modifyOrder(order, order, door);
+
+        let requestData = {
+            Id: order.Id,
+            ThirdDue: this.data.thirdPay.toString(),
+            IsUseThirdBalance: this.data.thirdBalanceChecked.toString(),
+            Delivery_AddressId: addressId,
+            addressId: this.data.addressData.addressId,
+            Formal: "True",
+
+        };
+        this.modifyOrder(requestData, order, door);
     },
 
     /**
@@ -475,6 +512,13 @@ Page({
         // 设置授信和钱包的数据
         this.setCredit(order, order.Credit, self.getMoney1Value(), creditChecked);
         this.setBalance(order, order.Balance, self.getMoney2Value(), self.isUseBalance(order.UseBalance));
+
+        //设置钱包支付的数据
+        let money = this.getMoney3Value();
+        screen.setData({
+            thirdPay: money
+        });
+
         // 设置支付金额
         this.getTrueMoney();
         // 修改订单
@@ -523,6 +567,36 @@ Page({
     },
 
     /**
+     * 饭卡余额开关的操作
+     */
+    thirdBalanceSwitch:function(e){
+        let thirdBalanceChecked = this.data.thirdBalanceChecked;
+        let order = this.data.order;
+
+        // 余额小于0不能使用钱包
+        thirdBalanceChecked = !thirdBalanceChecked;
+        if (parseFloat(order.ThirdBalance) <= 0){
+            thirdBalanceChecked = false;
+        }
+
+        // 设置状态和实付
+        this.setData({
+            thirdBalanceChecked: thirdBalanceChecked,
+        })
+
+        //设置默认值
+        if (thirdBalanceChecked){
+            let defaultData = this.data.thirdPay
+            this.setData({
+                thirdPay: defaultData,
+            })
+        }
+
+        // 设置支付金额
+        this.getTrueMoney();
+    },
+
+    /**
      * 判断是否使用授信
      */
     isUseCredit: function (UseCredit) {
@@ -567,7 +641,7 @@ Page({
     getMoney1Value: function () {
         let order = this.data.order;
         let credit = parseFloat(order.Credit);
-        let total = parseFloat(order.Total);
+        let total = parseFloat(order.Due);
         return credit >= total ? total : credit;
     },
 
@@ -576,7 +650,7 @@ Page({
      */
     getMoney2Value: function () {
         let order = this.data.order;
-        let total = parseFloat(order.Total);
+        let total = parseFloat(order.Due);
         let self = this;
         if (this.isUseCredit(order.UseCredit)) {
             let credit = this.getMoney1Value();
@@ -589,12 +663,29 @@ Page({
     },
 
     /**
+     * 获取饭卡使用的金额
+     */
+    getMoney3Value: function () {
+        let order = this.data.order;
+        
+        let total = parseFloat(order.Due);
+        let balance = parseFloat(order.ThirdBalance);
+
+        let thirdPay = balance >= total ? total : balance;
+        this.setData({
+            thirdPay: thirdPay
+        })
+
+        return thirdPay;
+    },
+
+    /**
      * 获取实付金额，本地先计算
      */
     getTrueMoney: function () {
         let order = this.data.order;
-        let total = parseFloat(order.Total);
-        if (order.UseCredit === "True") {
+        let total = parseFloat(order.Due);
+        if (this.data.creditChecked) {
             let credit = parseFloat(order.Credit);
             if (credit >= total) {
                 total = 0;
@@ -602,7 +693,7 @@ Page({
                 total = total - credit;
             }
         }
-        if (order.UseBalance === "True") {
+        if (this.data.balanceChecked) {
             let balance = parseFloat(order.Balance);
             if (balance >= total) {
                 total = 0;
@@ -610,8 +701,100 @@ Page({
                 total = total - balance;
             }
         }
+
+        if (this.data.thirdBalanceChecked) {
+            let balance = parseFloat(this.data.thirdPay);
+            if (balance >= total) {
+                total = 0;
+            } else {
+                total = total - balance;
+            }
+        }
+
         this.setData({
             total: total,
         })
     },
+
+    /**
+     * 输入饭卡金额 变化时
+     */
+    textOnChange(e) {
+        if (this.data.thirdBalanceChecked){//开关打开
+            let text = e.detail.value;
+            let order = this.data.order;
+            let total = parseFloat(order.Due);
+            let balance = parseFloat(order.ThirdBalance);
+            let thirdPay = balance >= total ? total : balance;
+
+            if (Tool.isEmptyStr(text)){
+                text = '0';
+            }
+
+            if (parseFloat(text) > thirdPay) {
+                text = thirdPay;
+            }
+
+            //计算实付
+            let actualPay = total - text;
+            this.setData({
+                thirdPay: parseFloat(text),
+                total: actualPay
+            })
+        }
+
+    },
+
+    /**
+     * 读取饭卡余额
+     */
+    readThirdBalance:function(){
+        this.setData({
+            loadingHidden: false,
+        });
+
+        let memberInfo = global.Storage.currentMember();                                                                           
+        let idCard = memberInfo.IDCard;
+        let self = this;
+        wx.request({
+            url: 'https://app.xgrowing.com/hx/member/search?id_card=' + idCard + '&order_id=' + self.data.orderId,
+            success: function (res) {
+                if (res.data.success === 0){
+                    self.setData({
+                        loadingHidden: true,
+                    });
+
+                    wx.showModal({
+                        title: '提示',
+                        content: '请求失败，重新加载?',
+                        success: function (res) {
+                            if (res.confirm) {
+                                self.readThirdBalance();
+                            } else if (res.cancel) {
+                                wx.navigateBack({
+                                    delta:1
+                                })
+                            }
+                        }
+                    })
+
+                    return;
+                }
+
+                let arry = res.data.data.Datas;
+                let money = arry[0].Money;
+                let order = self.data.order;
+                order.ThirdBalance = money;
+                self.setData({
+                    order: order
+                })
+
+                //更新饭卡输入框值
+                self.getMoney3Value();
+
+                // 查询订单详情
+                self.requestOrderDetail();
+            }
+        })
+    }
 })

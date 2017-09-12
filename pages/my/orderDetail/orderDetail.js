@@ -238,7 +238,7 @@ Page({
                 data: this.data.orderDatas,
             })
             wx.navigateTo({
-                url: '../../pay-method/pay-method',
+                url: '../../pay-method/pay-method?door=1&orderId=' + order.Id,
             })
         } else if (title == '立即分享') {//立即分享
             console.log('----- 立即分享 -----');
@@ -354,7 +354,7 @@ Page({
             //支付方式
             let payName = firstData.PaywayName;
             if (Tool.isEmptyStr(payName)) {
-                payName = '支付宝';
+                payName = '第三方支付';
             }
             if (firstData.StatusKey == '0') {
                 payName = '待支付';

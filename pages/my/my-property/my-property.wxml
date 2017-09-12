@@ -4,16 +4,24 @@
 
 <!--top view-->
 <view class="top-view">
-  <text class="balance-text">余额（元）</text>
-  <view class="top-view-flex">
-    <text class="balance-value">¥{{balance}}</text>
-    <view class="withdraw-button" catchtap="withdrawTap">提现</view>
-  </view>
+    <view class="balance-text">钱包余额（元）</view>
+    <view class="top-view-flex">
+        <view class="balance-value">¥{{balance}}</view>
+        <view class="withdraw-button" catchtap="withdrawTap">提现</view>
+    </view>
+</view>
+
+<!--饭卡余额  -->
+<view class="third-balance" wx:if="{{isThirdParty}}">
+    <view class="balance-text">饭卡余额（元）</view>
+    <view class="balance-value">¥{{thirdBalance}}</view>
 </view>
 
 <block wx:for="{{listDatas}}" wx:key="unique">
-  <template is="header-cell" data="{{datas:item}}"></template>
-  <block wx:for="{{item.Detail}}" wx:key="unique">
-    <template is="my-property-cell" data="{{datas:item}}"></template>
-  </block>
+    <template is="header-cell" data="{{datas:item}}"></template>
+    <block wx:for="{{item.Detail}}" wx:key="unique">
+        <template is="my-property-cell" data="{{datas:item}}"></template>
+    </block>
 </block>
+
+<loading hidden="{{loadingHidden}}">加载中...</loading>
