@@ -7,8 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    productArray: null,
-    imageUrl:null
+    productArray: null
   },
 
   /**
@@ -16,25 +15,21 @@ Page({
    */
   onLoad: function (options) {
     let categoryId = options.id;
-    let imageUrl = Tool.imageURLForId(options.imageId);
     wx.setNavigationBarTitle({
       title: options.title
     })
-    this.setData({
-      imageUrl: imageUrl
-    });
     Tool.showLoading();
-    this.requestTargetProductData(categoryId, -1);
+    this.requestTwoSortProductData(categoryId);
   },
   /**
-   * 获取标签产品数据
+   * 请求分类里面产品数据
    */
-  requestTargetProductData: function (id, typeId, index) {
-    let task = RequestReadFactory.homeTargetProductRead(id, typeId);
+  requestTwoSortProductData: function (categoryId) {
+    let task = RequestReadFactory.homeTwoSortProductRead(categoryId);
     task.finishBlock = (req) => {
-      let responseData = req.responseObject.Datas;
+      let productArray = req.responseObject.Datas;
       this.setData({
-        productArray: responseData
+        productArray: productArray
       });
     };
     task.addToQueue();

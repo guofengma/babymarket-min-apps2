@@ -2,9 +2,8 @@
 <import src='/components/product-specification/product-specification.wxml' />
 
 <view class="root-view-more">
-  <image class="{{imageUrl.length>0?'image':'image empty'}}" src="{{imageUrl}}" />
   <view>
-    <template is="cell-product" data="{{productArray:productArray}}" />
+    <template is="cell-product" data="{{productArray:productArray,groupPosition:index}}" />
   </view>
   <text class="bottom">———\t\t更多内容, 敬请期待\t\t———</text>
 </view>

@@ -11,13 +11,3 @@
   font-size: 23rpx;
   padding: 30rpx;
 }
-
-.image {
-  width: 100%;
-  height: 400rpx;
-  background-color: white;
-}
-
-.image.empty {
-  background-color: #f3f3f4;
-}

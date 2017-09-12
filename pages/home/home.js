@@ -292,13 +292,19 @@ Page({
         if (categoryId.length > 0) {
             let title = e.currentTarget.dataset.title;
             //跳到更多
-            if(door==0){
+            if(door == 0){
               wx.navigateTo({
                 url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
               })
-            }else if(door==1){
+            }else if(door == 1){
               wx.navigateTo({
-                url: '/pages/home/product-more-target/product-more-target?id=' + categoryId + "&title=" + title
+                url: '/pages/home/product-more-target/product-more-category?id=' + categoryId + "&title=" + title
+              })
+            } else if (door == 2){
+              let position = e.currentTarget.dataset.position;
+              let imageId = this.data.targetArray[position].ImgId;
+              wx.navigateTo({
+                url: '/pages/home/product-more-target/product-more-target?id=' + categoryId + "&title=" + title + "&imageId=" + imageId
               })
             }
         }

@@ -53,7 +53,8 @@
     "pages/find-password/phone/phone",
     "pages/find-password/code/code",
     "pages/find-password/password/password",
-    "pages/home/product-more-target/product-more-target"
+    "pages/home/product-more-target/product-more-target",
+    "pages/home/product-more-category/product-more-category"
   ],
   "window": {
     "backgroundTextStyle": "light",

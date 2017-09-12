@@ -364,16 +364,10 @@ export default class RequestReadFactory {
     //首页-标签产品
     static homeTargetProductRead(id,typeId) {
       let operation = Operation.sharedInstance().homeTargetProductReadOperation;
-      let maxCount = 0;
-      if(typeId==1){
-        maxCount=4;
-      }else{
-        maxCount = 3;
-      }
+      
       let bodyParameters = {
         "Operation": operation,
         "TargetId":id,
-        "MaxCount": maxCount,
         "Appendixes": {
           "+Product": [
             "Name",
@@ -385,6 +379,12 @@ export default class RequestReadFactory {
           ]
         }
       };
+      if (typeId == 1) {
+        bodyParameters.MaxCount = 4;
+      } else if (typeId == 2) {
+        bodyParameters.MaxCount = 3;
+      } else if (typeId == -1) {
+      }
       let req = new RequestRead(bodyParameters);
       req.name = '首页-标签产品';
       req.items = ['Id', 'Name', 'ProductId'];
