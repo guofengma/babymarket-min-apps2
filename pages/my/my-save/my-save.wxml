@@ -3,8 +3,8 @@
 
 <!--top view-->
 <view class="top-view">
-  <text class="balance-text">已省金额（元）</text>
-  <text class="balance-value">¥{{save}}</text>
+  <view class="balance-text">已省金额（元）</view>
+  <view class="balance-value">¥{{save}}</view>
 </view>
 
 <block wx:for="{{listDatas}}" wx:key="unique">

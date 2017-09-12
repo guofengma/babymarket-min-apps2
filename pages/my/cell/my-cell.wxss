@@ -48,3 +48,7 @@
   height: 2rpx;
   margin-bottom: 0rpx;
 }
+
+.hide{
+    opacity: 0;
+}

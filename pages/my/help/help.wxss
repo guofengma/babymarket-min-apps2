@@ -1,0 +1,68 @@
+/* help.wxss */
+
+@import '/pages/my/help/help-button/help-button.wxss'
+
+page {
+    background: white;
+}
+
+.title {
+    font-size: 28rpx;
+    color: #090909;
+    margin: 40rpx 22rpx 30rpx 22rpx;
+}
+
+.select-view {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 22rpx;
+}
+
+.suggest {
+    margin-left: 22rpx;
+    margin-right: 22rpx;
+    width: 666rpx;
+    height: 228rpx;
+    background: #dbdbdb;
+    font-size: 24rpx;
+    color: #090909;
+    padding: 20rpx;
+}
+
+.contact {
+    margin-left: 22rpx;
+    margin-right: 22rpx;
+    width: 666rpx;
+    height: 34rpx;
+    background: #dbdbdb;
+    font-size: 24rpx;
+    color: #090909;
+    padding: 15rpx 20rpx;
+}
+
+.tips {
+    font-size: 24rpx;
+    color: #acadaa;
+    line-height: 130%;
+    margin: 40rpx 22rpx 0rpx 22rpx;
+}
+
+.bottom-view {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+}
+
+.submit {
+    color: #715329;
+    border: 1rpx solid #715329;
+    background: white;
+    border-radius: 10rpx;
+    font-size: 28rpx;
+    margin: 20rpx 20rpx 20rpx 20rpx;
+    height: 70rpx;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}

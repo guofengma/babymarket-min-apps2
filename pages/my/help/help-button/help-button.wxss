@@ -1,0 +1,17 @@
+.button{
+    border: 2rpx solid #acadaa;
+    border-radius: 10rpx;
+    font-size: 24rpx;
+    color: #acadaa;
+    width: 216rpx;
+    height: 66rpx;
+    line-height: 66rpx;
+    text-align: center;
+    margin-left: 22rpx;
+    margin-bottom: 16rpx;
+}
+
+.active{
+    border-color: #715329;
+    color: #715329;
+}

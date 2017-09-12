@@ -1,5 +1,5 @@
 // 支付方式
-let { Tool, Storage, Event, RequestWriteFactory, Network } = global;
+let { Tool, Storage, Event, RequestWriteFactory, RequestReadFactory,Network } = global;
 Page({
 
     /**
@@ -9,25 +9,41 @@ Page({
         order: {},
         infos: [],
         door: 0, // 0为确认订单进入，1为我的订单列表或订单详情进入
+        orderId:''
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let self = this;
-        wx.getStorage({
-            key: 'order',
-            success: function (res) {
-                let order = res.data;
-                let infos = self.setInfoData(order);
-                self.setData({
-                    order: order,
-                    infos: infos,
-                    door: options.door,
-                })
-            },
+        this.setData({
+            orderId: options.orderId,
+            door: options.door,
         })
+
+        this.requestOrderDetail();
+    },
+
+    /**
+     * 查询订单详情
+     */
+    requestOrderDetail: function () {
+        let self = this;
+        let id = this.data.orderId;
+        let r = RequestReadFactory.orderDetailRead(id);
+        r.finishBlock = (req) => {
+            let datas = req.responseObject.Datas;
+            if (datas.length > 0) {
+                let order = datas[0];
+
+                self.setData({
+                    order: order
+                })
+
+                self.setInfoData(order);
+            }
+        }
+        r.addToQueue();
     },
 
     /**
@@ -37,32 +53,43 @@ Page({
         let infos = this.data.infos;
         if (order.Discount != "0") {
             let child = {
-                title: "优惠劵",
+                title: "优惠劵:",
                 value: order.Discount,
             }
             infos.splice(infos.length, 0, child);
         }
         if (order.Money1 != "0") {
             let child = {
-                title: "授信支付",
+                title: "授信支付:",
                 value: order.Money1,
             }
             infos.splice(infos.length, 0, child);
         }
         if (order.Money2 != "0") {
             let child = {
-                title: "钱包支付",
+                title: "钱包支付:",
                 value: order.Money2,
             }
             infos.splice(infos.length, 0, child);
         }
         if (parseFloat(order.Due) > 0) {
             let child = {
-                title: "微信支付",
+                title: "微信支付:",
                 value: order.Due,
             }
             infos.splice(infos.length, 0, child);
         }
+        if (parseFloat(order.ThirdDue) > 0) {
+            let child = {
+                title: "饭卡支付:",
+                value: order.ThirdDue,
+            }
+            infos.splice(infos.length, 0, child);
+        }
+
+        this.setData({
+            infos: infos,
+        })
 
         return infos;
     },

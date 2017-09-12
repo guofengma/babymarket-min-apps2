@@ -473,25 +473,22 @@ export default class RequestWriteFactory {
       return req;
     }
 
-    //新增密码修改记录
-    /*static addMember(mobile, code, password, inviteCode) {
-      let operation = Operation.sharedInstance().memberAddOperation;
-      let status = Network.sharedInstance().statusNew;
-      let params = {
-        "Operation": operation,
-        "Name": mobile,
-        "Mobile": mobile,
-        "Nickname": mobile,
-        "Code_Input": code,
-        "Password": password,
-        "Password2": password,
-        "YQM": inviteCode
-      };
+    //新增意见和反馈记录
+    static addFeedback(typeName, suggest, mobile) {
+        let operation = Operation.sharedInstance().feedbackWriteOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Content": suggest,
+            "Type_Name": typeName,
+            "Contact": mobile,
+            "Platform": "iPhone",
+            "Version": global.TCGlobal.version
+        };
 
-      let req = new RequestWrite(status, 'Password_Retake', params, null);
-      req.name = '新增密码修改记录';
+        let req = new RequestWrite(status, 'UserReport', params, null);
+        req.name = '新增意见和反馈记录';
 
-      return req;
-    }*/
-
+        return req;
+    }
 }

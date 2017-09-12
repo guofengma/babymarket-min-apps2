@@ -145,6 +145,9 @@ export default class Operation {
         this.messageReadOperation = '2270a7a2-9649-47ec-a544-a75100babc4d';
         this.allMessageReadModifyOperation = '3543d6c8-fd9e-0e7b-326c-3e5c0044b919';//消息批量阅读
 
+        //意见和反馈
+        this.feedbackWriteOperation = 'e4295a73-e8eb-0877-0e3f-3c3501ceb312';
+        
         __instance(this);
     }
 

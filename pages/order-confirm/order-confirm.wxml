@@ -40,17 +40,28 @@
         <text class="pay-finnal">应付总额：¥{{order.Total}}</text>
     </view>
 
-    <text wx:if="{{isAirProduct}}" class="rule">跨境商品仅支持支付宝支付</text>
+    <text wx:if="{{isAirProduct}}" class="rule">跨境商品仅支持第三方支付</text>
 
     <!--授信钱包-->
-    <view wx:if="{{isInsideMember}}" class="credit">
+    <view wx:if="{{isInsideMember && !isThirPay}}" class="credit">
         <text class="credit-value">{{order.credit}}</text>
         <switch class="credit-switch" type="switch" color="#715329" bindchange="creditSwitch" checked="{{creditChecked}}" />
     </view>
 
-    <view class="balance">
+    <view class="balance" wx:if="{{!isThirPay}}">
         <text class="credit-value">{{order.balance}}</text>
         <switch class="credit-switch" type="switch" color="#715329" bindchange="balanceSwitch" checked="{{balanceChecked}}" />
+    </view>
+
+    <!--饭卡余额  -->
+    <view class="third-balance" wx:if="{{isThirPay}}">
+        <view class="left-view">
+            <text class="credit-value">使用饭卡</text>
+            <text class="credit-value third-balance-icon" wx:if="{{thirdBalanceChecked}}">¥-</text>
+            <input name='thirdBalance' placeholder="0" value="{{thirdPay}}" class="third-balance-input" bindinput="textOnChange" wx:if="{{thirdBalanceChecked}}"/>
+            <text class="credit-value">（余额：¥{{order.ThirdBalance}}）</text>
+        </view>
+        <switch class="credit-switch third" type="switch" color="#715329" bindchange="thirdBalanceSwitch" checked="{{thirdBalanceChecked}}" />
     </view>
 
     <!--订单底部结算-->

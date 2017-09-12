@@ -344,7 +344,7 @@ Page({
                 data: order,
             })
             wx.navigateTo({
-                url: '../../pay-method/pay-method?door=1',
+                url: '../../pay-method/pay-method?door=1&orderId=' + order.Id,
             })
         } else if (title == '立即分享') {//立即分享
             console.log('----- 立即分享 -----');

@@ -1,0 +1,23 @@
+<!--help.wxml-->
+<import src='/pages/my/help/help-button/help-button.wxml' />
+
+<view class="title">请选择您要反馈的问题类型（必填）</view>
+<view class="select-view">
+    <block wx:for="{{selectDatas}}" wx:key="unique">
+        <template is="help-button" data="{{...item,index:index}}"></template>
+    </block>
+</view>
+
+<view class="title">您的建议（必填）</view>
+<textarea class="suggest" placeholder="在这里输入哦～" bindinput='suggestValueChanged' />
+
+<view class="title">联系方式（选填）</view>
+<input class="contact" placeholder="填写有效的手机号" bindinput='mobileValueChanged' type="number" />
+
+<view class="tips">如果您填写了有效的联系方式，码头将在48小时内根据您反馈的内容以邮件、短信或者电话的方式进行回复。</view>
+<view class="tips">紧急问题请直接联系客服：{{contactNum}}</view>
+
+<!--底部按钮 提交-->
+<view class="bottom-view">
+    <view bindtap="submitTap" class="submit">提交</view>
+</view>
