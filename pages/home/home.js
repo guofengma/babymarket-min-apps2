@@ -24,6 +24,7 @@ Page({
     },
     onLoad: function (options) {
         Event.on('loginSuccess', this.reload, this);
+        Event.on('LoginOutNotic', this.reload, this);
         this.reload();
 
         // 存储邀请码
@@ -36,7 +37,6 @@ Page({
     },
 
     reload(){
-        Tool.showLoading();
         this.requestTargetData();
         this.requestOneSortData();
         this.requestHomeAdData();
@@ -48,6 +48,7 @@ Page({
      */
     onUnload: function () {
         Event.off('loginSuccess', this.reload)
+        Event.off('LoginOutNotic', this.reload); 
     },
 
     onShow() {

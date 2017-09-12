@@ -31,6 +31,7 @@ Page({
       this.setData({
         productArray: productArray
       });
+      console.log(this.data.productArray.length)
     };
     task.addToQueue();
   },
