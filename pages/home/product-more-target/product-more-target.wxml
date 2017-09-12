@@ -1,13 +1,11 @@
 <import src='/pages/home/cell-product/cell-product.wxml' />
-<import src='/components/product-specification/product-specification.wxml'/>
+<import src='/components/product-specification/product-specification.wxml' />
 
 <view class="root-view-more">
   <view>
-    <block wx:for="{{productArray}}" wx:key="unique" >
-      <template is="cell-product" data="{{productArray:productArray,groupPosition:index}}"/>
-    </block>
+    <template is="cell-product" data="{{productArray:productArray,groupPosition:index}}" />
   </view>
   <text class="bottom">———\t\t更多内容, 敬请期待\t\t———</text>
 </view>
 
-<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount}}"/>
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount}}" />
