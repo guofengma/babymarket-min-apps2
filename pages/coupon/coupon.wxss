@@ -1,5 +1,6 @@
 @import '/pages/coupon/tab-layout/tab-layout.wxss';
 @import '/pages/coupon/coupon-item/coupon-item.wxss';
+@import '/components/empty-view/empty-view.wxss';
 
 .coupon-box {
   display: flex;
@@ -24,12 +25,4 @@
 
 .swiper-view .swiper-container .scroll {
   height: 100%;
-}
-
-.cart-no-data {
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
 }

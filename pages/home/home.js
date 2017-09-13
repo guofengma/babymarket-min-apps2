@@ -298,7 +298,7 @@ Page({
               })
             }else if(door == 1){
               wx.navigateTo({
-                url: '/pages/home/product-more-target/product-more-category?id=' + categoryId + "&title=" + title
+                url: '/pages/home/product-more-category/product-more-category?id=' + categoryId + "&title=" + title
               })
             } else if (door == 2){
               let position = e.currentTarget.dataset.position;

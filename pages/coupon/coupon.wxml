@@ -1,5 +1,6 @@
 <import src='/pages/home/tab-layout/tab-layout.wxml' />
 <import src='/pages/coupon/coupon-item/coupon-item.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 
 <view class="coupon-box">
   <view class="top">
@@ -20,8 +21,6 @@
   </view>
 
   <!--无数据-->
-  <view wx:else class="cart-no-data">
-    <text>{{noData}}</text>
-  </view>
+  <template is="empty-view" data="{{title:noData}}" wx:else />
 
 </view>

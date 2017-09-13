@@ -1,5 +1,6 @@
 /* shopping-cart.wxss */
 @import '/pages/shopping-cart/cell-group/cell-group.wxss';
+@import '/components/empty-view/empty-view.wxss';
 
 .main {
   position: relative;
@@ -63,12 +64,4 @@
 .cart-total-text {
   font-size: 24rpx;
   color: #454950;
-}
-
-.cart-no-data {
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
 }

@@ -1,5 +1,6 @@
 <!--shopping-cart.wxml-->
 <import src='/pages/shopping-cart/cell-group/cell-group.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 
 <view class="main">
   <view wx:if="{{hasList}}">
@@ -27,7 +28,5 @@
   </view>
 
   <!--无数据-->
-  <view wx:else class="cart-no-data">
-    <text>购物车空空，赶快去逛逛吧！</text>
-  </view>
+  <template is="empty-view" data="{{title:'购物车空空，赶快去逛逛吧！'}}" wx:else />
 </view>

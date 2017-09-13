@@ -1,5 +1,6 @@
 <!--地址管理-->
 <import src='/pages/address/info/address-info.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 
 <view class="address-main">
   <view wx:if="{{hasAddress}}">
@@ -22,16 +23,15 @@
         <template is="address-info" data="{{...item,index:index}}"></template>
       </view>
     </view>
-    
+
   </view>
 
   <!--无数据-->
-  <view wx:else class="address-no-data">
-    <text>您还没有添加收货地址！</text>
+  <template is="empty-view" data="{{title:'您还没有添加收货地址！'}}" wx:else />
+
+  <!--底部按钮新建收货地址-->
+  <view class="address-add">
+    <view bindtap="addAddress" class="address-add-bt">新建收货地址</view>
   </view>
 
-   <!--底部按钮新建收货地址-->
-    <view class="address-add">
-      <view bindtap="addAddress" class="address-add-bt">新建收货地址</view>
-    </view>
 </view>

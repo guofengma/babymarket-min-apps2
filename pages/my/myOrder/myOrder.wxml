@@ -1,6 +1,6 @@
 <!--myOrder.wxml-->
 
-<import src='/pages/my/myOrder/empty/empty-view.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 <import src='/pages/my/myOrder/segmentView/segment-view.wxml' />
 <import src='/pages/my/myOrder/orderCell/order-cell.wxml' />
 
@@ -8,7 +8,7 @@
 <template is="segment-view" data="{{items:navItems, currentIndex:currentIndex}}" />
 
 <!--购物车为空的状态-->
-<template is="empty-view" data="{{empty:empty}}" wx:if="{{orderList.length==0}}" />
+<template is="empty-view" data="{{title:'您没有相关订单~'}}" wx:if="{{orderList.length==0}}" />
 
 <view class="order">
   <view wx:for="{{orderList}}"  wx:key="unique">

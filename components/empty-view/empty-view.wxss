@@ -8,13 +8,13 @@
 }
 
 .empty-view .img {
-  width: 240rpx;
-  height: 205rpx;
+  width: 247rpx;
+  height: 104rpx;
   flex: none;
 }
 
 .empty-view .title {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: #b3b7b9;
   margin-top: 30rpx;
   background-color: transparent;

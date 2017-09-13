@@ -1,5 +1,6 @@
 /* shopping-cart.wxss */
 @import '/pages/address/info/address-info.wxss';
+@import '/components/empty-view/empty-view.wxss';
 
 .address-main {
   position: relative;
@@ -79,12 +80,4 @@
 
 button::after {
   border: 0;
-}
-
-.address-no-data {
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
 }
