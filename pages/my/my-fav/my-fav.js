@@ -10,7 +10,8 @@ Page({
     datas:[],
     nomoredata: false,
     index: 0,
-    qtyHidden:true
+    qtyHidden:true,
+    emptyTitle: '您还没有收藏...'
   },
 
   /**

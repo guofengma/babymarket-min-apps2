@@ -1,6 +1,9 @@
 <!--system-message.wxml-->
 <import src='/pages/my/system-message/system-message-cell/system-message-cell.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 
-<block wx:for="{{listDatas}}" wx:key="unique">
+ <block wx:for="{{listDatas}}" wx:key="unique">
     <template is="system-message-cell" data="{{...item}}"></template>
-</block>
+</block> 
+
+<template is='empty-view' wx:if='{{listDatas.length==0}}' data='{{title:emptyTitle}}'></template>

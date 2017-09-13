@@ -1,2 +1,3 @@
 /* system-message.wxss */
-@import '/pages/my/system-message/system-message-cell/system-message-cell.wxss'
+@import '/pages/my/system-message/system-message-cell/system-message-cell.wxss';
+@import '/components/empty-view/empty-view.wxss';

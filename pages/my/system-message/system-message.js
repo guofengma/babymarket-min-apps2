@@ -10,6 +10,7 @@ Page({
         listDatas:[],
         nomoredata: false,
         index: 0,
+        emptyTitle: '暂无数据...'
     },
 
     /**
