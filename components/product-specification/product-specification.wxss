@@ -30,10 +30,12 @@
     flex-direction: row;
 }
 .product-specification .header .header-left .price{
-
+    color: #af8327;
+    font-size: 28rpx;
 }
 .product-specification .header .header-left .inv{
-
+    color: #1a1c1f;
+    font-size: 28rpx;
 }
 
 .product-specification .header .dismiss-btn{

@@ -113,7 +113,7 @@
 
 .btn-two .btn-submit {
     display: flex;
-    background-color: #e73962;
+    background-color: #715329;
     height: 100%;
     font-size: 35rpx;
     color: white;
