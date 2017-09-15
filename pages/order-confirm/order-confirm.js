@@ -286,27 +286,27 @@ Page({
                 // 跨境订单，授信和余额为false，不能点
                 let arry = [{
                     title: '商品合计',
-                    value: order.Money,
+                    value: '¥' + order.Money,
                 },
                 {
                     title: '优惠券',
-                    value: order.Discount,
+                    value: '¥-' + order.Discount,
                 },
                 {
                     title: '运费',
-                    value: order.ExpressSum,
+                    value: '¥' + order.ExpressSum,
                 },
                 {
                     title: '关税',
-                    value: order.Tax,
+                    value: '¥' + order.Tax,
                 },
                 {
                     title: '已省金额',
-                    value: order.BuyerCommission,
+                    value: '¥-' + order.BuyerCommission,
                 },
                 {
                     title: '应付总额',
-                    value: order.Total,
+                    value: '¥' + order.Total,
                 }]
                 if (order.Cross_Order === "True") {//跨境商品
                     isAirProduct = true;

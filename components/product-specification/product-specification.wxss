@@ -73,6 +73,7 @@
 
 /*提交按钮*/
 .product-specification .submit-btn-container{
-    width: 100%;
     height: auto;
+    margin: 22rpx;
+    width: 706rpx;
 }
