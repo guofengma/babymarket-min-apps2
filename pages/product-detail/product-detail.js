@@ -36,6 +36,8 @@ Page({
 
         this.productId = options.productId;
 
+        console.log(this.productId)
+
         // 存储邀请码
         let inviteCode = options.fromId;
         if (Tool.isValidStr(inviteCode)){
