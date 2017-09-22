@@ -1,5 +1,6 @@
 /* my-fav.wxss */
 /*@import '/pages/my/myOrder/orderLineCell/orderline-cell.wxss';*/
+@import '/components/empty-view/empty-view.wxss';
 
 .orderlineView {
   background: white;

@@ -1,8 +1,11 @@
 <!--my-fav.wxml-->
 <import src='/pages/my/myOrder/orderLineCell/orderline-cell.wxml' />
+<import src='/components/empty-view/empty-view.wxml' />
 
 <!--商品列表-->
 <view wx:for="{{datas}}" class="orderlineView" wx:key="unique" catchtap="cellTap" data-index="{{index}}">
   <template is="orderline-cell" data="{{datas:item, qtyHidden:qtyHidden}}"></template>
   <view class="order-sepline"></view>
 </view>
+
+<template is='empty-view' wx:if='{{datas.length==0}}' data='{{title:emptyTitle}}'></template>

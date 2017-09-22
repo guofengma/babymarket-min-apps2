@@ -36,9 +36,6 @@
             <template is="settlement-cell" data="{{datas:item}}"></template>
         </view>
     </block>
-    <view class="footer-bg-view">
-        <text class="pay-finnal">应付总额：¥{{order.Total}}</text>
-    </view>
 
     <text wx:if="{{isAirProduct}}" class="rule">跨境商品仅支持第三方支付</text>
 

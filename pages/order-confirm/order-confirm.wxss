@@ -91,9 +91,9 @@
 }
 
 .settlement-view-cell {
-    height: 62rpx;
+    height: 80rpx;
     background: white;
-    border-bottom: 2rpx solid #fafafa;
+    border-bottom: 2rpx solid #dcdedf;
 }
 
 .bgview {
@@ -136,14 +136,14 @@
     padding: 0rpx 20rpx;
     background: white;
     align-items: center;
-    border-bottom: 2rpx solid #fafafa;
+    border-bottom: 2rpx solid #dcdedf;
     height: 80rpx;
     line-height: 80rpx;
 }
 
 .credit-value {
-    font-size: 26rpx;
-    color: #1a1c1f;
+    font-size: 24rpx;
+    color: #454950;
 }
 
 .credit-switch {
@@ -192,8 +192,8 @@
     font-size: 30rpx;
     justify-content: center;
     display: flex;
-    padding-left: 30rpx;
-    padding-right: 30rpx;
+    padding-left: 40rpx;
+    padding-right: 40rpx;
     align-items: center;
 }
 

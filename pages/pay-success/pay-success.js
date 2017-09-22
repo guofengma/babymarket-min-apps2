@@ -32,9 +32,15 @@ Page({
     // 查看订单
     lookOrder: function () {
         let id = this.data.id;
-        wx.navigateTo({
-            url: '/pages/my/orderDetail/orderDetail?orderId=' + id,
+        wx.switchTab({
+            url: '/pages/home/home',
+            complete:function(e){
+                wx.navigateTo({
+                    url: '/pages/my/orderDetail/orderDetail?orderId=' + id,
+                })
+            }
         })
+
     },
 
     // 去逛逛

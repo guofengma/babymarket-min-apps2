@@ -6,12 +6,11 @@
 
 
 <!-- <view class="root-view"> -->
-
     <view class="product-info">
 
         <!--广告-->
         <template is="product-ad" data="{{adArray:images}}"/>
-
+    
         <view class="info">
             <text class="name">{{product.ShowName}}</text>
             <text class="detail" wx:if="{{product.Subtitle.length > 0}}">{{product.Subtitle}}</text>

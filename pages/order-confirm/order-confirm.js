@@ -19,9 +19,10 @@ Page({
         balanceChecked: false, // 钱包开关 默认关闭
         thirdBalanceChecked: false, // 饭卡余额开关 默认关闭
         isAirProduct: false, //是否是跨境商品
-        thirdPay:0,//饭卡支付输入金额
-        isThirPay:false,//是否显示饭卡余额
+        thirdPay: 0,//饭卡支付输入金额
+        isThirPay: false,//是否显示饭卡余额
         loadingHidden: false,
+        hasCoupon:false,
 
         status: 0, // 0为未选择 1为优惠劵返回 2为地址返回
         couponData: {
@@ -38,7 +39,7 @@ Page({
         },
         settlementList: [
             {
-                title: '商品总额',
+                title: '商品合计',
                 value: '',
             },
             {
@@ -46,7 +47,7 @@ Page({
                 value: '',
             },
             {
-                title: '物流费用',
+                title: '运费',
                 value: '',
             },
             {
@@ -55,6 +56,10 @@ Page({
             },
             {
                 title: '已省金额',
+                value: '',
+            },
+            {
+                title: '应付总额',
                 value: '',
             }
         ],
@@ -82,10 +87,10 @@ Page({
             },
         }),
 
-        this.setData({
-            thirdBalanceChecked: Tool.isTrue(memberInfo.IsThirdBalance),
-            isThirPay: Tool.isTrue(memberInfo.IsThirdBalance)
-        });
+            this.setData({
+                thirdBalanceChecked: Tool.isTrue(memberInfo.IsThirdBalance),
+                isThirPay: Tool.isTrue(memberInfo.IsThirdBalance)
+            });
     },
 
     /**
@@ -161,7 +166,7 @@ Page({
                             }
                         }
                     })
-                }else{
+                } else {
                     //修改订单地址
                     let orderId = this.data.orderId;
                     let requestData = {
@@ -171,6 +176,12 @@ Page({
                     };
                     this.modifyOrder(requestData, this.data.order, this.data.door);
                 }
+            } else {//无地址
+                self.setData({
+                    loadingHidden: true,
+                });
+
+
             }
         }
         r.failBlock = (req) => {
@@ -238,7 +249,7 @@ Page({
         r.finishBlock = (req) => {
             if (self.data.isThirPay) {//华信员工
                 self.readThirdBalance();
-            }else{
+            } else {
                 // 查询订单详情
                 self.requestOrderDetail();
             }
@@ -271,34 +282,68 @@ Page({
                 creditChecked = this.isUseCredit(order.UseCredit);
                 // 判断是否使用钱包
                 balanceChecked = this.isUseBalance(order.UseBalance);
+
                 // 跨境订单，授信和余额为false，不能点
-                if (order.Cross_Order === "True") {
+                let arry = [{
+                    title: '商品合计',
+                    value: '¥' + order.Money,
+                },
+                {
+                    title: '优惠券',
+                    value: '¥-' + order.Discount,
+                },
+                {
+                    title: '运费',
+                    value: '¥' + order.ExpressSum,
+                },
+                {
+                    title: '关税',
+                    value: '¥' + order.Tax,
+                },
+                {
+                    title: '已省金额',
+                    value: '¥-' + order.BuyerCommission,
+                },
+                {
+                    title: '应付总额',
+                    value: '¥' + order.Total,
+                }]
+                if (order.Cross_Order === "True") {//跨境商品
                     isAirProduct = true;
                     creditChecked = false;
                     balanceChecked = false;
+
+                    self.setData({
+                        settlementList:arry
+                    })
+                } else {// 非跨境商品不显示关税cell
+                    arry.splice(3,1)
+                    self.setData({
+                        settlementList: arry
+                    })
                 }
                 creditChecked = self.setCredit(order, order.Credit, order.Money1, this.isUseCredit(order.UseCredit));
                 balanceChecked = self.setBalance(order, order.Balance, order.Money2, this.isUseBalance(order.UseBalance));
+                
                 self.setData({
-                    'settlementList[0].value': '¥' + order.Money,
-                    'settlementList[1].value': '¥-' + order.Discount,
-                    'settlementList[2].value': '¥' + order.ExpressSum,
-                    'settlementList[3].value': '¥' + order.Tax,
-                    'settlementList[4].value': '¥-' + order.BuyerCommission,
                     order: order,
                     isAirProduct: isAirProduct,
                     creditChecked: creditChecked,
                     balanceChecked: balanceChecked,
                 })
+
                 this.getMoney3Value();//设置饭卡默认使用金额
                 self.setData({
                     total: self.getTrueMoney()
                 })
-                
+
                 // 如果地址为空则查询地址
                 if (global.Tool.isEmptyStr(addressId)) {
                     self.requestAddressDefaultInfo();
                 }
+
+                //读取是否有可用优惠券
+                self.requestCoupon(order.Money);
             }
         }
         r.failBlock = (req) => {
@@ -340,10 +385,10 @@ Page({
         //     key: 'order',
         //     data: order,
         //     success: function (res) {
-                wx.redirectTo({
-                    url: '../pay-method/pay-method?door=0&orderId=' + this.data.orderId,
-                })
-            // }
+        wx.redirectTo({
+            url: '../pay-method/pay-method?door=0&orderId=' + this.data.orderId,
+        })
+        // }
         // })
     },
 
@@ -447,6 +492,8 @@ Page({
             Id: order.Id,
             ThirdDue: this.data.thirdPay.toString(),
             IsUseThirdBalance: this.data.thirdBalanceChecked.toString(),
+            UseBalance: order.UseBalance,
+            UseCredit: order.UseCredit,
             Delivery_AddressId: addressId,
             addressId: this.data.addressData.addressId,
             Formal: "True",
@@ -478,6 +525,10 @@ Page({
      * 选择优惠劵
      */
     selectCoupon: function () {
+        if(!hasCoupon){
+            return;
+        }
+
         let order = this.data.order;
         wx.navigateTo({
             url: '../coupon/select-coupon/select-coupon?Due=' + order.Due,
@@ -521,12 +572,6 @@ Page({
 
         // 设置支付金额
         this.getTrueMoney();
-        // 修改订单
-        let requestData = {
-            Id: order.Id,
-            UseCredit: order.UseCredit,
-        };
-        this.modifyOrder(requestData, order, door);
     },
 
     /**
@@ -558,24 +603,18 @@ Page({
         this.setBalance(order, order.Balance, self.getMoney2Value(), balanceChecked);
         // 设置支付金额
         this.getTrueMoney();
-        // 修改订单
-        let requestData = {
-            Id: order.Id,
-            UseBalance: order.UseBalance,
-        };
-        this.modifyOrder(requestData, order, door);
     },
 
     /**
      * 饭卡余额开关的操作
      */
-    thirdBalanceSwitch:function(e){
+    thirdBalanceSwitch: function (e) {
         let thirdBalanceChecked = this.data.thirdBalanceChecked;
         let order = this.data.order;
 
         // 余额小于0不能使用钱包
         thirdBalanceChecked = !thirdBalanceChecked;
-        if (parseFloat(order.ThirdBalance) <= 0){
+        if (parseFloat(order.ThirdBalance) <= 0) {
             thirdBalanceChecked = false;
         }
 
@@ -585,7 +624,7 @@ Page({
         })
 
         //设置默认值
-        if (thirdBalanceChecked){
+        if (thirdBalanceChecked) {
             let defaultData = this.data.thirdPay
             this.setData({
                 thirdPay: defaultData,
@@ -667,7 +706,7 @@ Page({
      */
     getMoney3Value: function () {
         let order = this.data.order;
-        
+
         let total = parseFloat(order.Due);
         let balance = parseFloat(order.ThirdBalance);
 
@@ -720,14 +759,14 @@ Page({
      * 输入饭卡金额 变化时
      */
     textOnChange(e) {
-        if (this.data.thirdBalanceChecked){//开关打开
+        if (this.data.thirdBalanceChecked) {//开关打开
             let text = e.detail.value;
             let order = this.data.order;
             let total = parseFloat(order.Due);
             let balance = parseFloat(order.ThirdBalance);
             let thirdPay = balance >= total ? total : balance;
 
-            if (Tool.isEmptyStr(text)){
+            if (Tool.isEmptyStr(text)) {
                 text = '0';
             }
 
@@ -748,18 +787,18 @@ Page({
     /**
      * 读取饭卡余额
      */
-    readThirdBalance:function(){
+    readThirdBalance: function () {
         this.setData({
             loadingHidden: false,
         });
 
-        let memberInfo = global.Storage.currentMember();                                                                           
+        let memberInfo = global.Storage.currentMember();
         let idCard = memberInfo.IDCard;
         let self = this;
         wx.request({
             url: 'https://app.xgrowing.com/hx/member/search?id_card=' + idCard + '&order_id=' + self.data.orderId,
             success: function (res) {
-                if (res.data.success === 0){
+                if (res.data.success === 0) {
                     self.setData({
                         loadingHidden: true,
                     });
@@ -772,7 +811,7 @@ Page({
                                 self.readThirdBalance();
                             } else if (res.cancel) {
                                 wx.navigateBack({
-                                    delta:1
+                                    delta: 1
                                 })
                             }
                         }
@@ -796,5 +835,30 @@ Page({
                 self.requestOrderDetail();
             }
         })
-    }
+    },
+
+    /**
+     * 查询优惠劵
+     */
+    requestCoupon: function (money) {
+        let con = "${Overdue} == 'False' && ${Used} == 'False' && ${Min_Money} <= '" + money + "' && ${MemberId} =='" + global.Storage.memberId() + "'"; 
+
+        let r = RequestReadFactory.couponRead(con);
+        r.finishBlock = (req) => {
+            let datas = req.responseObject.Datas;
+            let self = this;
+            if (datas.length > 0) {
+                self.setData({
+                    'couponData.money':'选择优惠券',
+                    hasCoupon:true
+                });
+            }else{
+                self.setData({
+                    'couponData.money': '你没有可用的优惠券',
+                    hasCoupon: false
+                });
+            }
+        }
+        r.addToQueue();
+    },
 })

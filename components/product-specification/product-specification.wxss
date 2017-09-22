@@ -30,10 +30,12 @@
     flex-direction: row;
 }
 .product-specification .header .header-left .price{
-
+    color: #af8327;
+    font-size: 28rpx;
 }
 .product-specification .header .header-left .inv{
-
+    color: #1a1c1f;
+    font-size: 28rpx;
 }
 
 .product-specification .header .dismiss-btn{
@@ -71,6 +73,7 @@
 
 /*提交按钮*/
 .product-specification .submit-btn-container{
-    width: 100%;
     height: auto;
+    margin: 22rpx;
+    width: 706rpx;
 }
