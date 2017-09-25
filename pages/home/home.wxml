@@ -1,7 +1,7 @@
 <!--搜索-->
 <import src='/components/search-field/search-field.wxml' />
 <!--顶部导航栏-->
-<import src='tab-layout/tab-layout.wxml' />
+<import src='/components/tab-layout/tab-layout.wxml' />
 <!--首页-->
 <import src='cell-home/cell-home.wxml' />
 <!--分类-->
@@ -14,8 +14,8 @@
   <view class="search-bar">
     <template is="search-field" />
   </view>
-  <view >
-   <template is="tab-layout" data="{{items:oneSortData,currentTab}}" />
+  <view>
+    <template is="tab-layout" data="{{items:oneSortData,currentTab}}" />
   </view>
   <view class="swiper-view">
     <swiper class="swiper-container" bindchange="onTabChangeListener" current="{{currentTab}}">
@@ -23,7 +23,7 @@
         <swiper-item>
           <scroll-view class="scroll" scroll-y>
             <view wx:if="{{index ==0}}">
-              <template is="cell-home" data="{{targetArray:targetArray,oneSortData:oneSortData,adArray:adArray,bulletinContent:bulletinContent}}" />
+              <template is="cell-home" data="{{targetArray:targetArray,oneSortData:oneSortData,bannerArray:bannerArray,bulletinContent:bulletinContent,hotBannerArray:hotBannerArray}}" />
             </view>
             <view wx:else>
               <template is="cell-sort" data="{{...item}}" />
@@ -35,5 +35,5 @@
   </view>
 </view>
 
-<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount}}"/>
-<template is="login" data="{{visiable:visiable}}"/>
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount}}" />
+<template is="login" data="{{visiable:visiable}}" />

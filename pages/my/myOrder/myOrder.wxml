@@ -2,7 +2,7 @@
 
 <import src='/components/empty-view/empty-view.wxml' />
 <import src='/pages/my/myOrder/segmentView/segment-view.wxml' />
-<import src='/pages/my/myOrder/orderCell/order-cell.wxml' />
+<import src='/pages/my/myOrder/cell-order/cell-order.wxml' />
 
 <!--segmentView-->
 <template is="segment-view" data="{{items:navItems, currentIndex:currentIndex}}" />

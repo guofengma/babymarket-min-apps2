@@ -1,0 +1,7 @@
+<template name="cell-banner-hot">
+  <view class="cell-banner-hot">
+    <block wx:for="{{hotBannerArray}}" wx:key="unique">
+      <image class="{{item.imageUrl.length>0?'hot-banner-image':'hot-banner-image empty'}}" src="{{item.imageUrl}}" catchtap="onHotBannerListener" data-index="{{index}}" mode="widthFix" />
+    </block>
+  </view>
+</template>

@@ -8,8 +8,8 @@
 }
 
 .empty-view .img {
-  width: 247rpx;
-  height: 104rpx;
+  width: 110rpx;
+  height: 110rpx;
   flex: none;
 }
 

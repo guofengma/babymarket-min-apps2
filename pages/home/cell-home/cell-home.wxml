@@ -5,15 +5,17 @@
 <import src='/pages/home/cell-title/cell-title.wxml' />
 <import src='/pages/home/cell-product/cell-product.wxml' />
 <import src='/pages/home/cell-product-target/cell-product-target.wxml' />
+<import src='/pages/home/cell-banner-hot/cell-banner-hot.wxml' />
 
 <template name="cell-home">
   <view class="cell-home">
     <view>
-      <template is="home-ad" data="{{adArray:adArray}}" />
-      <template is="cell-bulletin" data="{{content:bulletinContent}}"/>
+      <template is="home-ad" data="{{bannerArray:bannerArray}}" />
+      <template is="cell-bulletin" data="{{content:bulletinContent}}" />
+      <template is="cell-banner-hot" data="{{hotBannerArray:hotBannerArray}}" wx:if="{{hotBannerArray.length>0}}" />
       <block wx:for="{{targetArray}}" wx:key="unique">
-        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,door:2,isMore:true}}" wx:if="{{item.productData.length>0}}"/>
-        <template is="cell-product-target" data="{{productArray:item.productData,groupPosition:index,title:item.Name,targetId:item.Id}}" wx:if="{{item.productData.length>0}}"/>
+        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,door:2,isMore:true}}" wx:if="{{item.productData.length>0}}" />
+        <template is="cell-product-target" data="{{productArray:item.productData,groupPosition:index,title:item.Name,targetId:item.Id}}" wx:if="{{item.productData.length>0}}" />
       </block>
       <block wx:for="{{oneSortData}}" wx:key="unique">
         <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,title:item.Name,door:0,isMore:true}}" wx:if="{{index>0}}" />

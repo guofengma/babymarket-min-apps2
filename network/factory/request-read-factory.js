@@ -294,11 +294,11 @@ export default class RequestReadFactory {
       let operation = Operation.sharedInstance().homeAdReadOperation;
       let bodyParameters = {
         "Operation": operation,
-        "IsHomePageShow": 'True'
+        "Condition": "${IsHomePageShow} == 'True' || ${BelowShow} == 'True'"
       };
       let req = new RequestRead(bodyParameters);
       req.name = '首页海报查询';
-      req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+      req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name','BelowShow'];
       //修改返回结果
       req.preprocessCallback = (req) => {
         let responseData = req.responseObject.Datas;
