@@ -30,7 +30,7 @@ Page({
             },
             {
                 id: 4,
-                name: '待评价',
+                name: '已收货',
             }
         ],
         nomoredata: false,
@@ -132,6 +132,7 @@ Page({
                 item.status = desp.status;
                 item.rightButtonName = desp.rightButtonName;
                 item.leftButtonName = desp.leftButtonName;
+                item.midButtonName = desp.midButtonName;
 
                 //待付款订单 倒计时处理
                 if (item.StatusKey == '0') {
@@ -202,6 +203,7 @@ Page({
                 item.status = desp.status;
                 item.rightButtonName = desp.rightButtonName;
                 item.leftButtonName = desp.leftButtonName;
+                item.midButtonName = desp.midButtonName;
 
                 //待付款订单 倒计时处理
                 if (item.StatusKey == '0') {
@@ -353,6 +355,27 @@ Page({
             wx.navigateTo({
                 url: '../order-refund-success/order-refund-success?orderId=' + order.Id,
             })
+        } else if (title == '申请退款') {//申请退款
+            wx.navigateTo({
+                url: '/pages/my/order-refund/order-refund?orderId=' + order.Id,
+            })
+        } else if (title == '取消订单') {//取消订单
+            let self = this;
+
+            wx.showModal({
+                title: '提示',
+                content: '确认取消订单？',
+                confirmText: '确认',
+                success: function (res) {
+                    if (res.confirm) {
+                        let r = RequestWriteFactory.modifyOrderStatus(order.Id, '6');
+                        r.finishBlock = (req) => {
+                            self.requestData();
+                        };
+                        r.addToQueue();
+                    }
+                }
+            })
         }
     },
 
@@ -371,32 +394,36 @@ Page({
         let item = Object;
         item.status = '';
         item.leftButtonName = '';
+        item.midButtonName = '';
         item.rightButtonName = '';
 
         if (statusKey == '0') {
             item.status = '待付款';
             item.rightButtonName = '抢先支付 ';
+            item.midButtonName = '取消订单';
 
         } else if (statusKey == '1') {
             item.status = '待发货';
             item.rightButtonName = '联系客服';
+            item.midButtonName = '申请退款';
 
         } else if (statusKey == '2') {
             item.status = '待收货';
             item.rightButtonName = '确认收货';
-            item.leftButtonName = '查看物流';
+            item.midButtonName = '查看物流';
+            item.leftButtonName = '申请退款';
 
         } else if (statusKey == '3') {
             item.status = '已收货';
             item.rightButtonName = '联系客服';
-            item.leftButtonName = '查看物流';
+            item.midButtonName = '查看物流';
 
         } else if (statusKey == '4') {
             item.status = '已分享';
         } else if (statusKey == '5') {
             item.status = '交易成功';
             item.rightButtonName = '查看物流';
-            item.leftButtonName = '删除订单';
+            item.midButtonName = '删除订单';
 
         } else if (statusKey == '6') {
             item.status = '交易关闭';
@@ -440,6 +467,9 @@ Page({
 
                 } else {
                     order.rightButtonName = '删除订单';
+                    order.midButtonName = '';
+                    order.leftButtonName = '';
+
                     order.status = '交易关闭';
                     order.StatusKey = '6';
                 }

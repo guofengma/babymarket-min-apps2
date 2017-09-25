@@ -3,54 +3,50 @@
   display: flex;
   padding-top: 20rpx;
   padding-bottom: 20rpx;
+  background: #f1f3f4;
 }
 
 .product-image {
   background: white;
-  width: 118rpx;
-  height: 118rpx;
+  width: 150rpx;
+  height: 150rpx;
   margin-left: 20rpx;
-  border: 2rpx solid #dcdedf;
   flex-shrink: 0;
 }
 
 .cart-describe {
-  margin-top: 8rpx;
-  margin-bottom: 8rpx;
-  margin-left: 30rpx;
-  width: 65%;
+  margin: 8rpx 22rpx 0rpx 30rpx;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .cart-title {
   font-size: 24rpx;
-  color: #26272a;
-  width: 90%;
+  color: #1a1c1f;
   line-height: 120%;
 }
 
 .cart-desp {
-  font-size: 26rpx;
+  font-size: 22rpx;
   color: #acadaa;
-  margin-top: 20rpx;
+  margin-top: 10rpx;
 }
 
 .cart-price-count {
   margin-right: 20rpx;
   display: flex;
-  flex-direction: column;
-  margin-top: 13rpx;
+  justify-content: space-between;
+  margin-top: 30rpx;
+  width: 100%;
 }
 
 .cart-price {
   font-size: 24rpx;
-  color: #26272a;
+  color: #af8327;
 }
 
 .qty {
-  color: #26272a;
+  color: #454950;
   font-size: 24rpx;
-  margin-top: 20rpx;
-  text-align: right;
 }
