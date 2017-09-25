@@ -370,7 +370,7 @@ Page({
                 orderLineList: productList,
                 'settlementList[0].value': '¥' + firstData.Money,
                 'settlementList[1].value': '¥' + firstData.Discount,
-                'settlementList[2].value': '¥' + firstData.ExpressSum,
+                'settlementList[2].value': '¥' + firstData.Freight,
                 'settlementList[3].value': '¥' + firstData.Tax,
                 'settlementList[4].value': payName,
                 'settlementList[5].value': '¥' + firstData.BuyerCommission,
