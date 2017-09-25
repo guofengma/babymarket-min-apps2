@@ -20,8 +20,9 @@
 }
 
 .order-address-icon {
-    width: 40rpx;
-    height: 40rpx;
+    width: 50rpx;
+    height: 50rpx;
+    flex-shrink: 0;
 }
 
 .order-address-info {
@@ -57,6 +58,7 @@
 
 .coupon-select {
     display: flex;
+    align-items: center;
 }
 
 .coupon-text {
@@ -80,7 +82,7 @@
 
 .settment-text {
     display: flex;
-    width: 100%;
+    width: 730rpx;
     height: 62rpx;
     line-height: 62rpx;
     padding-left: 20rpx;
