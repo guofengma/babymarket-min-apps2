@@ -123,17 +123,19 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  font-size: 28rpx;
+  font-size: 26rpx;
   position: fixed;
   bottom: 0;
 }
 
 .bottom-button {
-  border-radius: 5rpx;
+  border-radius: 54rpx;
   margin-right: 22rpx;
   background-color: white;
-  padding: 18rpx 20rpx;
-  width: 128rpx;
+  padding: 10rpx 20rpx;
+  width: 120rpx;
+  height: 34rpx;
+  line-height: 34rpx;
   text-align: center;
 }
 
@@ -148,12 +150,19 @@
   border: 2rpx solid #ACADAA;
   color: #ACADAA;
   position: fixed;
-  right: 200rpx;
+  right: 180rpx;
 }
 
 .bottom-button.left {
   border: 2rpx solid #ACADAA;
   color: #ACADAA;
   position: fixed;
-  right: 400rpx;
+  right: 360rpx;
+}
+
+.orderline {
+  display: flex;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  background: white;
 }
