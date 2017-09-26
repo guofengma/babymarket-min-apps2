@@ -1,18 +1,30 @@
 .cell-title {
   display: flex;
-  padding: 30rpx;
   justify-content: center;
-  align-items: center;
+  padding: 30rpx;
+  flex-direction: row;
 }
 
-.cell-title .name{
-  text-align: center;
+.cell-title .name {
   font-size: 30rpx;
   color: #1a1c1f;
 }
 
-.cell-title .arrow {
+.cell-title .view-more {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  margin-right: 30rpx;
+}
+
+.view-more .text-more {
+  font-size: 25rpx;
+  color: #715329;
+}
+
+.view-more .arrow {
   width: 12rpx;
   height: 21rpx;
-  margin-left: 10rpx;
+  margin-left: 5rpx;
 }

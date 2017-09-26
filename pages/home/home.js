@@ -149,6 +149,10 @@ Page({
       let responseData = req.responseObject.Datas;
       let oneSortData = this.data.oneSortData;
       oneSortData[index].productData = responseData;
+      oneSortData[index].isMore = true;
+      if (responseData.length == 0 || responseData.length < oneSortData[index].MaxShow) {
+        oneSortData[index].isMore = false;
+      }
       this.setData({
         oneSortData: oneSortData
       });
@@ -203,7 +207,12 @@ Page({
     task.finishBlock = (req) => {
       let responseData = req.responseObject.Datas;
       let oneSortData = this.data.oneSortData;
-      oneSortData[this.data.currentTab].bodyData.sortData[index].productData = responseData;
+      let sort = oneSortData[this.data.currentTab].bodyData.sortData[index];
+      sort.productData = responseData;
+      sort.isMore = true;
+      if (responseData.length == 0 || responseData.length < sort.CategoryMaxShow) {
+        sort.isMore = false;
+      }
       this.setData({
         oneSortData: oneSortData
       });
@@ -300,25 +309,28 @@ Page({
    * 更多
    */
   onMoreClickListener: function (e) {
-    let categoryId = e.currentTarget.dataset.id;
-    let door = e.currentTarget.dataset.door;
-    if (categoryId.length > 0) {
-      let title = e.currentTarget.dataset.title;
-      //跳到更多
-      if (door == 0) {
-        wx.navigateTo({
-          url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
-        })
-      } else if (door == 1) {
-        wx.navigateTo({
-          url: '/pages/home/product-more-category/product-more-category?id=' + categoryId + "&title=" + title
-        })
-      } else if (door == 2) {
-        let position = e.currentTarget.dataset.position;
-        let imageId = this.data.targetArray[position].ImgId;
-        wx.navigateTo({
-          url: '/pages/home/product-more-target/product-more-target?id=' + categoryId + "&title=" + title + "&imageId=" + imageId
-        })
+    let isMore = e.currentTarget.dataset.more;
+    if (isMore) {
+      let categoryId = e.currentTarget.dataset.id;
+      let door = e.currentTarget.dataset.door;
+      if (categoryId.length > 0) {
+        let title = e.currentTarget.dataset.title;
+        //跳到更多
+        if (door == 0) {
+          wx.navigateTo({
+            url: '/pages/home/product-more/product-more?id=' + categoryId + "&title=" + title
+          })
+        } else if (door == 1) {
+          wx.navigateTo({
+            url: '/pages/home/product-more-category/product-more-category?id=' + categoryId + "&title=" + title
+          })
+        } else if (door == 2) {
+          let position = e.currentTarget.dataset.position;
+          let imageId = this.data.targetArray[position].ImgId;
+          wx.navigateTo({
+            url: '/pages/home/product-more-target/product-more-target?id=' + categoryId + "&title=" + title + "&imageId=" + imageId
+          })
+        }
       }
     }
   },
