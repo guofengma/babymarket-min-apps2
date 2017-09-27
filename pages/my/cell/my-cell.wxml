@@ -4,6 +4,9 @@
   <view class="myCell-flex">
     <image class="icon" src="{{image}}" style="width:22rpx;height:22rpx"  mode="aspectFit"></image>
     <view class="name">{{name}}</view>
+
+    <contact-button class="contact-view" wx:if="{{name == '联系客服'}}" session-from="{{currentMemberId}}"></contact-button>
+
     <view class="detail">
         <template is="markup-text" data="{{...detail}}"></template>
     </view>

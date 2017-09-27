@@ -191,3 +191,7 @@
   line-height: 80rpx;
   text-align: center;
 }
+
+.contact-view{
+    display: flex;
+}
