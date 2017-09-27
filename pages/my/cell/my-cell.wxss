@@ -11,6 +11,7 @@
   align-items: center;
   height: 86rpx;
   border-bottom: 2rpx solid #f3f3f4;
+  background: white;
 }
 
 .icon{
@@ -53,6 +54,11 @@
     opacity: 0;
 }
 
+button::after
+{
+    border: 0;
+}
+
 .contact-view{
-    margin-left: 10rpx;
+    padding: 0;
 }

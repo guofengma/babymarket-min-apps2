@@ -1,16 +1,26 @@
 <import src='/components/markup-text/markup-text.wxml' />
 
 <template name="my-cell">
-  <view class="myCell-flex">
+   <view class="myCell-flex" wx:if="{{name != '联系客服'}}">
     <image class="icon" src="{{image}}" style="width:22rpx;height:22rpx"  mode="aspectFit"></image>
     <view class="name">{{name}}</view>
-
-    <contact-button class="contact-view" wx:if="{{name == '联系客服'}}" session-from="{{currentMemberId}}"></contact-button>
 
     <view class="detail">
         <template is="markup-text" data="{{...detail}}"></template>
     </view>
 
     <image class="{{arrowHidden==true? 'arrow hide': 'arrow'}}" src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit"></image>
-  </view>
+</view> 
+
+<button class="myCell-flex contact-view" open-type="contact" session-from="{{mobile}}" wx:else>
+    <image class="icon" src="{{image}}" style="width:22rpx;height:22rpx" mode="aspectFit"></image>
+    <view class="name">{{name}}</view>
+
+    <view class="detail">
+        <template is="markup-text" data="{{...detail}}"></template>
+    </view>
+
+    <image class="{{arrowHidden==true? 'arrow hide': 'arrow'}}" src="/res/img/my/my-address-arrow-icon.png" style="width:15rpx;height:26rpx" mode="aspectFit"></image>
+</button>
+
 </template>
