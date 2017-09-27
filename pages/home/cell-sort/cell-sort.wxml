@@ -5,7 +5,7 @@
 
 <template name="cell-sort">
   <view class="cell-sort">
-    <template is="home-ad" data="{{adArray:bodyData.adData}}" />
+    <template is="home-ad" data="{{bannerArray:bodyData.adData}}" />
     <block wx:for="{{bodyData.sortData}}" wx:key="unique">
       <view wx:if="{{item.productData.length>0}}">
         <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,door:1,isMore:item.isMore}}" />
