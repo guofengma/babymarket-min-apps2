@@ -274,14 +274,14 @@ Page({
      * cell点击
      */
     cellTap: function (e) {
+        let title = e.currentTarget.dataset.title;
+        console.log('--------' + title);
 
-        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+        if (!this.data.isLogin && title != '意见和反馈') {//未登录，跳转到登陆界面
             this.loginRegisterTap();
             return;
         }
 
-        let title = e.currentTarget.dataset.title;
-        console.log('--------' + title);
         if (title == '我的资产') {
             wx.navigateTo({
                 url: '/pages/my/my-property/my-property',
