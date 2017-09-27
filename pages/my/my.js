@@ -290,21 +290,31 @@ Page({
         let title = e.currentTarget.dataset.title;
         console.log('--------' + title);
 
-        if (!this.data.isLogin && title != '意见和反馈') {//未登录，跳转到登陆界面
-            this.loginRegisterTap();
-            return;
-        }
-
         if (title == '我的资产') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-property/my-property',
             })
         } else if (title == '收到奖励') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-award/my-award',
             })
 
         } else if (title == '已省金额') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+            
             wx.navigateTo({
                 url: '/pages/my/my-save/my-save',
             })
@@ -312,13 +322,21 @@ Page({
         } else if (title == '城市合伙人') {
 
         } else if (title == '我的老友') {
-            console.log('----我的老友----');
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-friends/my-friends',
             })
 
         } else if (title == '我的店员') {
-            console.log('----我的店员----');
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-salesman/my-salesman',
             })
@@ -331,6 +349,11 @@ Page({
             })
 
         } else if (title == '我的优惠券') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+            
             wx.navigateTo({
                 url: '/pages/coupon/coupon',
             })

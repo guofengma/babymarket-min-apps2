@@ -7,7 +7,7 @@
 <!--个人资料：头像／昵称／签名／-->
 <view class="top-view">
     <view class="top-view-flex">
-    <image src="{{messageUrl}}" class="message-image" mode="aspectFit" catchtap="messageTap"></image>
+        <image src="{{messageUrl}}" class="message-image" mode="aspectFit" catchtap="messageTap"></image>
 
         <view class="profile-view" wx:if="{{isLogin}}">
             <image src="{{avatarUrl}}" class="avatar-image"></image>
@@ -86,4 +86,4 @@
     </block>
 </view>
 
-<template is="login" data="{{visiable:visiable}}"/>
+<template is="login" data="{{visiable:visiable}}" />
