@@ -16,7 +16,7 @@ Page({
         idDesp: '',
         inviteCode: '',
         isLogin: Storage.didLogin(),
-        currentMemberId:'',
+        mobile:'',
 
         orderStatusItems: [
             {
@@ -127,7 +127,7 @@ Page({
             name: '意见和反馈'
             },
             {
-                image: '/res/img/my/my-cell-feedback-icon.png',
+                image: '/res/img/my/my-cell-contact-icon.png',
                 name: '联系客服'
             }]
     },
@@ -137,7 +137,7 @@ Page({
      */
     onLoad: function (options) {
         let memberInfo = global.Storage.currentMember();
-        console.log('-------memberInfo.Id:' + memberInfo.Id);
+        console.log('-------memberInfo.Mobile:' + memberInfo.Mobile);
 
         let arry0 = [
             this.data.dict00,
@@ -166,7 +166,7 @@ Page({
             myDatasItems0: arry0,
             myDatasItems1: arry1,
 
-            currentMemberId: memberInfo.Id
+            mobile: memberInfo.Mobile
         });
 
         Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this);
