@@ -5,7 +5,7 @@
 
 <view class="root-view-more">
   <view>
-    <template is="home-ad" data="{{adArray:bodyData.adData}}" />
+    <template is="home-ad" data="{{bannerArray:bodyData.adData}}" />
     <block wx:for="{{bodyData.sortData}}" wx:key="unique" >
       <template is="cell-title" data="{{title:item.Name,position:index}}" wx:if="{{item.productData.length>0}}"/>
       <template is="cell-product" data="{{productArray:item.productData,groupPosition:index}}" wx:if="{{item.productData.length>0}}"/>
