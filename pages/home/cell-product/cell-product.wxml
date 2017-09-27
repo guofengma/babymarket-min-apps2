@@ -15,14 +15,14 @@
 
               <text class="old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>
             </view>
-            <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" />
+            <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" mode="aspectFit" />
           </view>
         </view>
       </view>
     </block>
-     <view class="product-more" wx:if="{{isMore&&productArray.length%2==1}}" catchtap="onMoreClickListener" data-id="{{categoryId}}" data-title="{{title}}" data-door="{{door}}">
+    <!-- <view class="product-more" wx:if="{{isMore&&productArray.length%2==1}}" catchtap="onMoreClickListener" data-id="{{categoryId}}" data-title="{{title}}" data-door="{{door}}">
       <text class="more-title">{{"更多"+title+"好物"}}</text>
       <image class="more-arrow" src="/res/img/home/home-product-more-arrow.png" />
-    </view> 
+    </view>  -->
   </view>
 </template>

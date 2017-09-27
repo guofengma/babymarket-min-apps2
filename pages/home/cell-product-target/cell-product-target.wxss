@@ -26,6 +26,7 @@
   flex-direction: column;
   margin-top: 30rpx;
   margin-left: 12rpx;
+  flex-grow: 1;
 }
 
 .target-info .target-name {

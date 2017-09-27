@@ -54,16 +54,18 @@
 }
 
 .info .name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   color: black;
   font-size: 28rpx;
-  white-space: nowrap;
+  -webkit-line-clamp: 2;
   text-overflow: ellipsis;
   overflow: hidden;
+  min-height: 80rpx;
 }
 
 .info .price-cart {
   display: flex;
-  margin-top: 12rpx;
 }
 
 .price-cart .price-info {
@@ -82,13 +84,14 @@
   color: #b0b1b3;
   font-size: 22rpx;
   text-decoration: line-through;
-  margin-top: 6rpx;
+  margin-top: 2rpx;
 }
 
 .price-cart .btn-cart {
   width: 55rpx;
   height: 55rpx;
   flex: none;
+  margin-top: 12rpx;
 }
 
 .product-more {

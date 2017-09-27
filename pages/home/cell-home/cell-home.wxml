@@ -18,7 +18,7 @@
         <template is="cell-product-target" data="{{productArray:item.productData,groupPosition:index,title:item.Name,targetId:item.Id}}" wx:if="{{item.productData.length>0}}" />
       </block>
       <block wx:for="{{oneSortData}}" wx:key="unique">
-        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,title:item.Name,door:0,isMore:true}}" wx:if="{{index>0}}" />
+        <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,title:item.Name,door:0,isMore:item.isMore}}" wx:if="{{index>0}}" />
         <template is="cell-product" data="{{productArray:item.productData,groupPosition:index,title:item.Name,categoryId:item.Id,door:0,isMore:true}}" wx:if="{{index>0}}" />
       </block>
     </view>
