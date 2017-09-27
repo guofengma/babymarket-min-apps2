@@ -16,6 +16,7 @@ Page({
         idDesp: '',
         inviteCode: '',
         isLogin: Storage.didLogin(),
+        currentMemberId:'',
 
         orderStatusItems: [
             {
@@ -120,16 +121,24 @@ Page({
         },
         myDatasItems0: [],
         myDatasItems1: [],
-        myDatasItems2: [{
+        myDatasItems2: [
+            {
             image: '/res/img/my/my-cell-feedback-icon.png',
             name: '意见和反馈'
-        }]
+            },
+            {
+                image: '/res/img/my/my-cell-feedback-icon.png',
+                name: '联系客服'
+            }]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let memberInfo = global.Storage.currentMember();
+        console.log('-------memberInfo.Id:' + memberInfo.Id);
+
         let arry0 = [
             this.data.dict00,
             this.data.dict01,
@@ -155,12 +164,16 @@ Page({
             'dict12.detail.amount': '0',
 
             myDatasItems0: arry0,
-            myDatasItems1: arry1
+            myDatasItems1: arry1,
+
+            currentMemberId: memberInfo.Id
         });
 
         Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this);
         Event.on('LoginOutNotic', this.loginOutDeal, this);
         Event.on('loginSuccess', this.onShow, this);
+
+        
     },
 
     /**
@@ -274,14 +287,14 @@ Page({
      * cell点击
      */
     cellTap: function (e) {
+        let title = e.currentTarget.dataset.title;
+        console.log('--------' + title);
 
-        if (!this.data.isLogin) {//未登录，跳转到登陆界面
+        if (!this.data.isLogin && title != '意见和反馈') {//未登录，跳转到登陆界面
             this.loginRegisterTap();
             return;
         }
 
-        let title = e.currentTarget.dataset.title;
-        console.log('--------' + title);
         if (title == '我的资产') {
             wx.navigateTo({
                 url: '/pages/my/my-property/my-property',

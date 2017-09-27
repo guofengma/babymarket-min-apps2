@@ -81,7 +81,7 @@
 <view class="my-flex">
     <block wx:for="{{settingDatasItems}}" wx:key="unique">
         <view class="my-cell-view" bindtap="cellSectionTwoTap" data-index="{{index}}">
-            <template is="my-cell" data="{{...item}}"></template>
+            <template is="my-cell" data="{{...item, memberId:currentMemberId}}"></template>
         </view>
     </block>
 </view>

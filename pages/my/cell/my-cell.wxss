@@ -52,3 +52,7 @@
 .hide{
     opacity: 0;
 }
+
+.contact-view{
+    margin-left: 10rpx;
+}
