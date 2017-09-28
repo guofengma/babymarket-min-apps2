@@ -489,4 +489,8 @@ Page({
             time: time
         });
     },
+
+    contactTap:function(e){
+        console.log('---------contactTap');
+    }
 })
