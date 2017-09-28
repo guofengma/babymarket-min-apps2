@@ -270,8 +270,8 @@ Page({
 
         if (title == '查看物流') {//查看物流
 
-            let trackNo = order.LogisticsNumber;
-            let companyNo = order.LogisticsCode;
+            let trackNo = order.Express_No;
+            let companyNo = order.Express_Code;
 
             let productList = order.Line;
             let count = productList.length;
@@ -289,9 +289,9 @@ Page({
                 data: deliveryInfo,
             }),
 
-                wx.navigateTo({
-                    url: '../../my/delivery-info/delivery-info'
-                })
+            wx.navigateTo({
+                url: '../../my/delivery-info/delivery-info?trackNo=' + trackNo + '&companyNo=' + companyNo
+            })
 
         } else if (title == '删除订单') {//删除订单
             let order = this.data.orderList[index];

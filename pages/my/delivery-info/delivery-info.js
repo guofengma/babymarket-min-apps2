@@ -32,7 +32,7 @@ Page({
                     companyNo: options.companyNo,
                 })
 
-                this.requestDeliveryInfo(this.data.trackNo, this.data.companyNo)
+                self.requestDeliveryInfo(self.data.trackNo, self.data.companyNo)
             }
         })
   },
