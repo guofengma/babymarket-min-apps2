@@ -10,8 +10,8 @@ Page({
     data: {
         imgUrl:'',
         companyName:'',
-        companyNo:'yd',
-        trackNo:'3972400229281',
+        companyNo:'',
+        trackNo:'',
         count:0,
         deliveryInfoList:'',
     },
@@ -27,14 +27,14 @@ Page({
                 let data = res.data;
                 self.setData({
                     imgUrl: data.imgUrl,
-                    // trackNo: options.trackNo,
+                    trackNo: options.trackNo,
                     count: data.count,
-                    // companyNo: options.companyNo,
+                    companyNo: options.companyNo,
                 })
+
+                this.requestDeliveryInfo(this.data.trackNo, this.data.companyNo)
             }
         })
-
-        this.requestDeliveryInfo(this.data.trackNo, this.data.companyNo)
   },
 
     /**
