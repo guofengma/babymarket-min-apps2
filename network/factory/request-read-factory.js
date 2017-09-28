@@ -716,7 +716,7 @@ export default class RequestReadFactory {
     }
 
     //商品收藏查询
-    static productFavRead(index) {
+    static productFavListRead(index) {
         let operation = Operation.sharedInstance().favReadOperation;
         let bodyParameters = {
             "Operation": operation,
@@ -728,6 +728,22 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '商品收藏查询';
+        req.items = ["Id", "Product_Name", "Price", "CreateTime", "ImgId", "ProductId"];
+        return req;
+    }
+
+    //商品收藏状态查询
+    static productFavRead(productId) {
+        let operation = Operation.sharedInstance().favReadOperation;
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '1',
+            "StartIndex": 0,
+            "ProductId":productId,
+            "MemberId": global.Storage.memberId(),
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '商品收藏状态查询';
         req.items = ["Id", "Product_Name", "Price", "CreateTime", "ImgId"];
         return req;
     }

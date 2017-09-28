@@ -51,6 +51,12 @@
         <image class="cart-image" src="/res/img/product-detail/product-detail-contact.png" mode="aspectFit" />
     </button>
 
+    <view class="go-cart-view fav" catchtap="onFavListener">
+        <image class="cart-image" 
+        src="{{isFav?'/res/img/product-detail/product-detail-fav-on-icon.png':'/res/img/product-detail/product-detail-fav-off-icon.png'}}" 
+        mode="aspectFit" />
+    </view>
+
     <view class="btn-two">
         <view class="btn-addcart" catchtap="onAddCartListener">
             加入购物车</view>

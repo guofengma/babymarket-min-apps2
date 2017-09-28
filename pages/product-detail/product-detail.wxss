@@ -93,6 +93,7 @@
 
 .go-cart-view.contact {
     background-color: white;
+    border-right: 2rpx solid #f1f3f4;
 }
 
 .bottom-bar .btn-two {
@@ -102,11 +103,12 @@
 
 .btn-two .btn-addcart {
     display: flex;
+    
     background-color: #ffba40;
     height: 100%;
     font-size: 35rpx;
     color: white;
-    width: 275rpx;
+    width: 225rpx;
     align-items: center;
     justify-content: center;
 }
@@ -117,7 +119,7 @@
     height: 100%;
     font-size: 35rpx;
     color: white;
-    width: 275rpx;
+    width: 225rpx;
     align-items: center;
     justify-content: center;
 }

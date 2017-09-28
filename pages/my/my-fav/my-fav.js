@@ -1,5 +1,5 @@
 // my-fav.js
-let {Tool, Storage, RequestReadFactory} = global;
+let {Tool, Storage, RequestReadFactory, Event} = global;
 
 Page({
 
@@ -19,6 +19,7 @@ Page({
    */
   onLoad: function (options) {
       this.requestData();
+      Event.on('LocalNotification_ShouldRefreshMyfavorite', this.requestData, this);
   },
 
   /**
@@ -46,7 +47,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+      Event.off('LocalNotification_ShouldRefreshMyfavorite', this.requestData);
   },
 
   /**
@@ -73,7 +74,7 @@ Page({
   },
 
   requestData: function () {
-      let r = RequestReadFactory.productFavRead(0);
+      let r = RequestReadFactory.productFavListRead(0);
       r.finishBlock = (req) => {
           let datas = req.responseObject.Datas;
           let total = req.responseObject.Total;
@@ -96,7 +97,7 @@ Page({
   },
 
   loadmore: function () {
-      let r = RequestReadFactory.productFavRead( this.data.index);
+      let r = RequestReadFactory.productFavListRead( this.data.index);
       r.finishBlock = (req) => {
           let datas = req.responseObject.Datas;
           let total = req.responseObject.Total;
@@ -122,7 +123,7 @@ Page({
   cellTap:function(e){
       let index = e.currentTarget.dataset.index;
       let datas = this.data.datas[index];
-      let productId = datas.Id;
+      let productId = datas.ProductId;
 
       wx.navigateTo({
           url: '/pages/product-detail/product-detail?productId=' + productId,

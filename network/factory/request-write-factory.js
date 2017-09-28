@@ -491,4 +491,38 @@ export default class RequestWriteFactory {
 
         return req;
     }
+
+    //新增商品收藏记录
+    static addProductFav(productId, favId) {
+        let operation = Operation.sharedInstance().favAddOperation;
+        let status = Network.sharedInstance().statusNew;
+        let params = {
+            "Operation": operation,
+            "Id": favId,
+            "MemberId": global.Storage.memberId(),
+            "ProductId": productId,
+            "FavoriteObjectType": "Product",
+            "FavoriteObjectId": productId
+        };
+
+        let req = new RequestWrite(status, 'Favorite', params, null);
+        req.name = '新增商品收藏记录';
+
+        return req;
+    }
+
+    //删除商品收藏记录
+    static delProductFav(favId) {
+        let operation = Operation.sharedInstance().favDelOperation;
+        let status = Network.sharedInstance().statusDelete;
+        let params = {
+            "Operation": operation,
+            "Id": favId
+        };
+
+        let req = new RequestWrite(status, 'Favorite', params, null);
+        req.name = '删除商品收藏记录';
+
+        return req;
+    }
 }
