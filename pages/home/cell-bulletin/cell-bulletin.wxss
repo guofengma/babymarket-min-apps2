@@ -4,16 +4,29 @@
   align-items: center;
 }
 
-.cell-bulletin .title {
-  color: #454950;
-  font-size: 36rpx;
+.cell-bulletin .view-title {
+  display: flex;
   padding: 20rpx 30rpx 20rpx 30rpx;
   border-right: 1px solid #f1f3f4;
 }
 
+.view-title .title-m {
+  color: #715329;
+  font-size: 34rpx;
+}
+
+.view-title .title-k {
+  color: white;
+  font-size: 34rpx;
+  background-color: #c40000;
+  border-radius: 6rpx;
+  padding-left: 4rpx;
+  padding-right: 4rpx;
+}
+
 .cell-bulletin .content {
   flex-grow: 1;
-  color: #5e6064;
+  color: #af8327;
   font-size: 26rpx;
   padding: 0rpx 30rpx 0rpx 30rpx;
 }

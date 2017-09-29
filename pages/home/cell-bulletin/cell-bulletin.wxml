@@ -1,6 +1,9 @@
 <template name="cell-bulletin">
   <view class="cell-bulletin">
-    <text class="title">码头快报</text>
+    <view class='view-title'>
+      <text class="title-m">码头</text>
+      <text class="title-k">快报</text>
+    </view>
     <text class="content">{{content}}</text>
   </view>
 </template>
