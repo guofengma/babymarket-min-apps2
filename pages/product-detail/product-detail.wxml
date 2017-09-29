@@ -1,61 +1,71 @@
-<import src='/pages/product-detail/ad/product-ad.wxml'/>
-<import src='slogan/product-slogan.wxml'/>
-<import src='/components/product-specification/product-specification.wxml'/>
-<import src="../../libs/wxParse/wxParse.wxml"/>
+<import src='/pages/product-detail/ad/product-ad.wxml' />
+<import src='slogan/product-slogan.wxml' />
+<import src='/components/product-specification/product-specification.wxml' />
+<import src="../../libs/wxParse/wxParse.wxml" />
 <import src='/pages/login/login.wxml' />
 
 
 <!-- <view class="root-view"> -->
-    <view class="product-info">
+<view class="product-info">
 
-        <!--广告-->
-        <template is="product-ad" data="{{adArray:images}}"/>
-    
-        <view class="info">
-            <text class="name">{{product.ShowName}}</text>
-            <text class="detail" wx:if="{{product.Subtitle.length > 0}}">{{product.Subtitle}}</text>
-            <view class="price">
-                <view class="bmpi-price">￥{{price}}</view>
-                <image class="prefix" src="/res/img/product-detail/price-prefix.png" mode="aspectFit" />
-                <view class="bmpi-old-price">{{oldPrice}}</view>
-            </view>
+    <!--广告-->
+    <template is="product-ad" data="{{adArray:images}}" />
 
-            <view class="bmpi-country-base">
-                <view class="bmpi-country">{{supplyText}}</view>
-            </view>
-
-            <view class="bmpi-express-base">
-                <view class="bmpi-location">配送费：{{product.Warehouse}} 到 {{province}}</view>
-                <view class="bmpi-express">{{expressText}}</view>
-                <view class="bmpi-tax">{{rateText}}</view>
-            </view>
-
-            <template is="product-slogan" data="{{isImport}}"/>
-             
+    <view class="info">
+        <text class="name">{{product.ShowName}}</text>
+        <text class="detail" wx:if="{{product.Subtitle.length > 0}}">{{product.Subtitle}}</text>
+        <view class="price">
+            <view class="bmpi-price">￥{{price}}</view>
+            <image class="prefix" src="/res/img/product-detail/price-prefix.png" mode="aspectFit" />
+            <view class="bmpi-old-price">{{oldPrice}}</view>
         </view>
+
+        <view class="bmpi-country-base">
+            <view class="bmpi-country">{{supplyText}}</view>
+        </view>
+
+        <view class="bmpi-express-base">
+            <view class="bmpi-location">配送费：{{product.Warehouse}} 到 {{province}}</view>
+            <view class="bmpi-express">{{expressText}}</view>
+            <view class="bmpi-tax">{{rateText}}</view>
+        </view>
+
+        <template is="product-slogan" data="{{isImport}}" />
 
     </view>
 
-    <!-- //这里data中article为bindName -->
-    <view class="product-detail-web-image">
-        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+</view>
+
+<!-- //这里data中article为bindName -->
+<view class="product-detail-web-image">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+</view>
+
+<!--底部bar-->
+<view class="bottom-bar">
+    <view class="go-cart-view shoppingcar" catchtap="onGoCartListener">
+        <image class="cart-image" src="/res/img/product-detail/product-detail-gocart.png" mode="aspectFit" />
     </view>
 
-    <!--底部bar-->
-    <view class="bottom-bar">
-        <view class="go-cart-view" catchtap="onGoCartListener">
-            <image class="cart-image" src="/res/img/product-detail/product-detail-gocart.png" mode="aspectFit" />
-            <text class="cart-name">购物车</text>
-        </view>
-        <view class="btn-two">
-            <view class="btn-addcart" catchtap="onAddCartListener">
-                加入购物车</view>
-            <view class="btn-submit" catchtap="onSubmitListener">
-                确认下单</view>
-        </view>
+    <button class="go-cart-view contact" open-type="contact">
+        <image class="cart-image" src="/res/img/product-detail/product-detail-contact.png" mode="aspectFit" />
+    </button>
+
+    <view class="go-cart-view fav" catchtap="onFavListener">
+        <image class="cart-image" 
+        src="{{isFav?'/res/img/product-detail/product-detail-fav-on-icon.png':'/res/img/product-detail/product-detail-fav-off-icon.png'}}" 
+        mode="aspectFit" />
     </view>
+
+    <view class="btn-two">
+        <view class="btn-addcart" catchtap="onAddCartListener">
+            加入购物车</view>
+        <view class="btn-submit" catchtap="onSubmitListener">
+            确认下单</view>
+    </view>
+</view>
 <!-- </view> -->
 
-<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount,specificationData}}"/>
+<template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount,specificationData}}" />
 
-<template is="login" data="{{visiable:visiable}}"/>
+<template is="login" data="{{visiable:visiable}}" />

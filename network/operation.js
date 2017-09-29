@@ -102,6 +102,8 @@ export default class Operation {
 
         //收藏
         this.favReadOperation = 'ad5b7994-a09c-0aa9-35fe-3c3b0004d9af';
+        this.favAddOperation = '23183844-883f-04c2-0a27-3c3501c7be16';
+        this.favDelOperation = '6ad78ca1-4b32-038b-3f48-3c3601d52a16';
 
         //提现
         this.withdrawAddOperation = '22572f16-f23c-0907-11f1-3e570121be67';

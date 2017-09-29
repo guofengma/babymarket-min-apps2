@@ -48,9 +48,8 @@
 }
 
 .list-title{
-    line-height: 100rpx;
-    margin-top: 20rpx;
-    padding-left: 24rpx;
+    padding: 30rpx 0rpx 30rpx 24rpx;
+    width: 726rpx;
     color: #000406;
     font-size: 34rpx;
     background: white;

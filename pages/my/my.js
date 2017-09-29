@@ -16,6 +16,7 @@ Page({
         idDesp: '',
         inviteCode: '',
         isLogin: Storage.didLogin(),
+        mobile:'',
 
         orderStatusItems: [
             {
@@ -120,16 +121,24 @@ Page({
         },
         myDatasItems0: [],
         myDatasItems1: [],
-        myDatasItems2: [{
+        myDatasItems2: [
+            {
             image: '/res/img/my/my-cell-feedback-icon.png',
             name: '意见和反馈'
-        }]
+            },
+            {
+                image: '/res/img/my/my-cell-contact-icon.png',
+                name: '联系客服'
+            }]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let memberInfo = global.Storage.currentMember();
+        console.log('-------memberInfo.Mobile:' + memberInfo.Mobile);
+
         let arry0 = [
             this.data.dict00,
             this.data.dict01,
@@ -155,12 +164,16 @@ Page({
             'dict12.detail.amount': '0',
 
             myDatasItems0: arry0,
-            myDatasItems1: arry1
+            myDatasItems1: arry1,
+
+            mobile: memberInfo.Mobile
         });
 
         Event.on('refreshMemberInfoNotice', this.updateHeaderInfo, this);
         Event.on('LoginOutNotic', this.loginOutDeal, this);
         Event.on('loginSuccess', this.onShow, this);
+
+        
     },
 
     /**
@@ -274,24 +287,34 @@ Page({
      * cell点击
      */
     cellTap: function (e) {
-
-        if (!this.data.isLogin) {//未登录，跳转到登陆界面
-            this.loginRegisterTap();
-            return;
-        }
-
         let title = e.currentTarget.dataset.title;
         console.log('--------' + title);
+
         if (title == '我的资产') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-property/my-property',
             })
         } else if (title == '收到奖励') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-award/my-award',
             })
 
         } else if (title == '已省金额') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+            
             wx.navigateTo({
                 url: '/pages/my/my-save/my-save',
             })
@@ -299,13 +322,21 @@ Page({
         } else if (title == '城市合伙人') {
 
         } else if (title == '我的老友') {
-            console.log('----我的老友----');
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-friends/my-friends',
             })
 
         } else if (title == '我的店员') {
-            console.log('----我的店员----');
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+
             wx.navigateTo({
                 url: '/pages/my/my-salesman/my-salesman',
             })
@@ -318,6 +349,11 @@ Page({
             })
 
         } else if (title == '我的优惠券') {
+            if (!this.data.isLogin) {//未登录，跳转到登陆界面
+                this.loginRegisterTap();
+                return;
+            }
+            
             wx.navigateTo({
                 url: '/pages/coupon/coupon',
             })

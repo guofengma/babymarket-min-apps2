@@ -3,31 +3,35 @@ import ProductSpecification from '../../components/product-specification/product
 import WxParse from '../../libs/wxParse/wxParse.js';
 import Login from '../login/login';
 
-let {Tool, Storage, RequestReadFactory, RequestWriteFactory} = global;
+let { Tool, Storage, RequestReadFactory, RequestWriteFactory, Event } = global;
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        product:{},
-        images:[],
-        nation:'',
-        province:'浙江',
-        express:'6',
+        product: {},
+        images: [],
+        nation: '',
+        province: '浙江',
+        express: '6',
 
-        pricePrefix:'',
-        oldPrice:'',
-        price:'',
-        rateText:'',
-        expressText:'',
-        supplyText:'',
-        isImport:'',
+        pricePrefix: '',
+        oldPrice: '',
+        price: '',
+        rateText: '',
+        expressText: '',
+        supplyText: '',
+        isImport: '',
 
         isLogin: Storage.didLogin(),
-        inviteCode:''
+        inviteCode: '',
+
+        isFav: false //商品是否被收藏
     },
-    productId:'',
+    productId: '',
+    favDatas: {},
+    favId: '',
 
     /**
      * 生命周期函数--监听页面加载
@@ -40,13 +44,13 @@ Page({
 
         // 存储邀请码
         let inviteCode = options.fromId;
-        if (Tool.isValidStr(inviteCode)){
+        if (Tool.isValidStr(inviteCode)) {
             wx.setStorageSync('fromId', inviteCode)
         }
 
         let self = this;
-        this.productSpecification = new ProductSpecification(this,this.productId);
-        this.productSpecification.finishBlock = (specificationId,product,count,price) => {
+        this.productSpecification = new ProductSpecification(this, this.productId);
+        this.productSpecification.finishBlock = (specificationId, product, count, price) => {
         };
 
         this.requestData();
@@ -93,9 +97,9 @@ Page({
         let obj = {
             title: title,
             path: path,
-            success: function(res) {
+            success: function (res) {
             },
-            fail: function(res) {
+            fail: function (res) {
             }
         };
         return obj;
@@ -118,13 +122,14 @@ Page({
 
         this.requestProductInfo();
         this.requestAttatchments();
+        this.requestFavoriteStatus();
     },
 
     //商品详情
-    requestProductInfo(){
+    requestProductInfo() {
         let r = RequestReadFactory.productDetailRead(this.productId);
         let self = this;
-        r.finishBlock = (req,firstData) => {
+        r.finishBlock = (req, firstData) => {
             if (Tool.isValidObject(firstData)) {
                 let images = this.data.images;
                 images.unshift(Tool.imageURLForId(firstData.ImgId));
@@ -139,16 +144,15 @@ Page({
                 // }
 
                 self.setData({
-                    product:firstData,
-                    images:images
+                    product: firstData,
+                    images: images
                 })
                 self.updatePrice();
                 self.requestNation(firstData.NationalKey);
                 self.requestExpressInfo();
                 self.requestLocation();
             }
-            else
-            {
+            else {
                 Tool.showAlert('商品不存在或已下架');
             }
         };
@@ -157,25 +161,25 @@ Page({
         r.addToQueue();
     },
 
-    updatePrice(){
+    updatePrice() {
         this.setData({
-            price:this.price(),
-            pricePrefix:this.pricePrefix(),
-            oldPrice:this.oldPrice(),
-            rateText:this.rateText(),
-            isImport:Tool.isTrue(this.data.product.Import)
+            price: this.price(),
+            pricePrefix: this.pricePrefix(),
+            oldPrice: this.oldPrice(),
+            rateText: this.rateText(),
+            isImport: Tool.isTrue(this.data.product.Import)
         })
     },
 
     //附件
-    requestAttatchments(){
+    requestAttatchments() {
         let r2 = RequestReadFactory.attachmentsRead(this.productId);
         let self = this;
         r2.finishBlock = (req) => {
             let imageUrls = req.responseObject.imageUrls;
             let images = this.data.images.concat(imageUrls);
             self.setData({
-                images:images
+                images: images
             });
         };
         r2.completeBlock = () => {
@@ -184,16 +188,16 @@ Page({
     },
 
     //国家信息
-    requestNation(theKey){
+    requestNation(theKey) {
         let r = RequestReadFactory.productNationRead(theKey);
         let self = this;
-        r.finishBlock = (req,data) => {
+        r.finishBlock = (req, data) => {
             if (Tool.isValidObject(data)) {
                 self.setData({
-                    nation:data.Name
+                    nation: data.Name
                 });
                 self.setData({
-                    supplyText:self.supplyText()
+                    supplyText: self.supplyText()
                 })
             }
         };
@@ -201,17 +205,17 @@ Page({
     },
 
     //运费
-    requestExpressInfo(){
-        let r = RequestReadFactory.expressRuleRead(this.data.product.StoreId,this.data.province);
+    requestExpressInfo() {
+        let r = RequestReadFactory.expressRuleRead(this.data.product.StoreId, this.data.province);
         let self = this;
 
-        r.finishBlock = (req,data) => {
+        r.finishBlock = (req, data) => {
             if (Tool.isValidObject(data)) {
                 self.setData({
-                    express:data.Express_Fee
+                    express: data.Express_Fee
                 })
                 self.setData({
-                    expressText:self.expressText(),
+                    expressText: self.expressText(),
                 })
             }
         };
@@ -221,27 +225,27 @@ Page({
     /**
      * 获取位置信息，计算运费
      */
-    requestLocation(){
+    requestLocation() {
         let self = this;
-        Tool.getLocation((res)=>{
+        Tool.getLocation((res) => {
             let province = res.originalData.result.addressComponent.province;
             self.setData({
-                province:province
+                province: province
             })
             self.requestExpressInfo();
         })
     },
 
-    pricePrefix(){
+    pricePrefix() {
         // return Storage.didLogin() ? "（老友专享）": "";
         return "（老友专享）";
     },
 
-    price(){
+    price() {
         return this.data.product.SalePrice;
     },
 
-    oldPrice(){
+    oldPrice() {
         if (this.data.product.LYPrice === this.price() || this.data.product.LYPrice == 0) {
             return "";
         }
@@ -249,20 +253,20 @@ Page({
         return '￥' + this.data.product.LYPrice;
     },
 
-    rateText(){
-        return  ((this.data.product.TaxRate === '0' || this.data.product.TaxRate === undefined) ? '' : '税率：'+parseFloat(this.data.product.TaxRate).toFixed(2) * 100 + '%');
+    rateText() {
+        return ((this.data.product.TaxRate === '0' || this.data.product.TaxRate === undefined) ? '' : '税率：' + parseFloat(this.data.product.TaxRate).toFixed(2) * 100 + '%');
     },
 
-    expressText(){
-        let {express} = this.data;
+    expressText() {
+        let { express } = this.data;
         if (express === '0' || express === undefined) {
             return '包邮';
         }
         else
-            return ''+this.data.express+'元';
+            return '' + this.data.express + '元';
     },
 
-    supplyText(){
+    supplyText() {
         if (global.Tool.isEmptyStr(this.data.product.Warehouse)) {
             return '供货';
         }
@@ -316,7 +320,7 @@ Page({
         this.productSpecification.showWithAction('Buy');
     },
 
-    homeADClicked(){
+    homeADClicked() {
 
     },
 
@@ -328,4 +332,76 @@ Page({
         this.login.show();
     },
 
+    /**
+     * 收藏
+     */
+    onFavListener: function () {
+        if (!this.data.isLogin) {//未登录
+            return;
+        }
+
+        if (this.data.isFav) {//收藏---》未收藏
+            let r = RequestWriteFactory.delProductFav(this.favId);
+            let self = this;
+            r.finishBlock = (req, firstData) => {
+
+                self.setData({
+                    isFav: false
+                });
+
+                Event.emit('LocalNotification_ShouldRefreshMyfavorite');
+
+                wx.showToast({
+                    title: '取消收藏',
+                })
+            };
+            r.completeBlock = () => {
+            };
+            r.addToQueue();
+
+        } else {//未收藏---》收藏
+            this.favId = Tool.guid();
+            let r = RequestWriteFactory.addProductFav(this.productId, this.favId);
+            let self = this;
+            r.finishBlock = (req, firstData) => {
+
+                self.setData({
+                    isFav: true
+                });
+
+                Event.emit('LocalNotification_ShouldRefreshMyfavorite');
+
+                wx.showToast({
+                    title: '已收藏',
+                })
+            };
+            r.completeBlock = () => {
+            };
+            r.addToQueue();
+        }
+    },
+
+    /**
+     * 查询收藏状态
+     */
+    requestFavoriteStatus: function () {
+        let r = RequestReadFactory.productFavRead(this.productId);
+        let self = this;
+        r.finishBlock = (req, firstData) => {
+
+            let isfav = false;
+            if (Tool.isValidObject(firstData)) {
+                isfav = true;
+                this.favDatas = firstData;
+                this.favId = firstData.Id;
+            }
+
+            this.setData({
+                isFav: isfav
+            });
+        };
+        r.completeBlock = () => {
+        };
+        r.addToQueue();
+    }
 })

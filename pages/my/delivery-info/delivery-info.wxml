@@ -14,7 +14,7 @@
     </view>
 </view>
 
-<text class="list-title">订单跟踪</text>
+<view class="list-title">订单跟踪</view>
 
 <view class="bgview">
     <view class="sepline"></view>

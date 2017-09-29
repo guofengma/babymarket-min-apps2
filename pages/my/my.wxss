@@ -13,7 +13,6 @@
 .top-view-flex{
     width: 100%;
     height: 350rpx;
-    /*background: mistyrose;*/
     display: flex;
 }
 
@@ -22,7 +21,6 @@
     height: 31rpx;
     padding: 20rpx 20rpx;
     margin-left: 10rpx;
-    /*background: red;*/
 }
 
 .setting-image{
@@ -30,7 +28,6 @@
     height: 31rpx;
     margin-right: 10rpx;
     padding: 20rpx 20rpx;
-    /*background: red;*/
 }
 
 /*个人资料*/
@@ -38,7 +35,6 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    /*background: #715329;*/
     height: 350rpx;
     width: 590rpx;
 }
@@ -190,4 +186,8 @@
   margin: 30rpx 30rpx;
   line-height: 80rpx;
   text-align: center;
+}
+
+.contact-view{
+    display: flex;
 }

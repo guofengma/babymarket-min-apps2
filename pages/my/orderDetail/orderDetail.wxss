@@ -4,15 +4,18 @@
 @import '/pages/my/cell/delivery-info-cell.wxss';
 @import '/pages/my/myOrder/settlement-cell/settlement-cell.wxss';
 
-/*订单信息*/
+.background-view{
+    width: 100%;
+}
 
+/*订单信息*/
 .top-order-info-view {
   background: white;
   height: 125rpx;
-  width: 100%;
+  width: 698rpx;
   display: flex;
   border-bottom: 20rpx solid #f5f7f7;
-  padding: 22rpx 26rpx 40rpx;
+  padding: 22rpx 26rpx 40rpx 26rpx;
 }
 
 .order-info-icon {
@@ -38,7 +41,7 @@
   background: white;
   padding: 0rpx 26rpx;
   align-items: center;
-  width: 100%;
+  width: 698rpx;
   height: 90rpx;
 }
 
@@ -63,7 +66,7 @@
 
 /*发货仓*/
 .delivery-address{
-    width: 100%;
+    width: 720rpx;
     line-height: 62rpx;
     padding-left: 30rpx;
     font-size: 24rpx;
@@ -73,7 +76,7 @@
 
 .settment-text{
     border-top: 20rpx solid #f5f7f7;
-    width: 100%;
+    width: 720rpx;
     line-height: 62rpx;
     padding-left: 30rpx;
     font-size: 24rpx;
@@ -88,7 +91,7 @@
 
 .footer-bg-view{
     width: 100%;
-    margin-bottom: 200rpx;
+    padding-bottom: 200rpx;
     margin-top: 20rpx;
     display: flex;
     justify-content: flex-end;
@@ -165,4 +168,17 @@
   padding-top: 20rpx;
   padding-bottom: 20rpx;
   background: white;
+}
+
+.contact {
+    font-size: 26rpx; 
+    color: #715329;
+    width: 120rpx;
+    line-height: 34rpx;
+    background: white;
+    padding: 0rpx;
+}
+
+button::after{
+    border: 0;
 }
