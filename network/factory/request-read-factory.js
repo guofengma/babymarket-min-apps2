@@ -167,10 +167,10 @@ export default class RequestReadFactory {
             let {Tool:t} = global;
 
             let {Datas} = req.responseObject;
-            if (t.isValidArr(Datas)) {
+            let member = global.Storage.currentMember();
+            if (t.isValidArr(Datas) && member) {
                 Datas.forEach((specification) => {
                     let _levelPrice = '';
-                    let member = global.Storage.currentMember();
 
                     let price = specification.Price;
                     if (t.isValidArr(specification.ShopLevelPrice)) {
