@@ -71,7 +71,7 @@ Page({
                 * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
                 */
                 let response = res.data;
-                let arry = response.split('<div class="Div-6">');
+                let arry = response.split('<div class="Div-7">');
                 let html = arry[1];
                 WxParse.wxParse('article', 'html', html, self, 5);
             }
