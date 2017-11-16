@@ -289,7 +289,7 @@ Page({
             return;
         }
 
-        global.Tool.switchTab('/pages/shopping-cart/shopping-cart');
+        global.Tool.navigateTo('/pages/shopping-cart/cart-list/cart-list');
     },
 
     /**
