@@ -3,6 +3,7 @@
 <import src='/components/product-specification/product-specification.wxml' />
 <import src="../../libs/wxParse/wxParse.wxml" />
 <import src='/pages/login/login.wxml' />
+<import src='/components/price-view/price-view.wxml'/>
 
 
 <!-- <view class="root-view"> -->
@@ -14,11 +15,12 @@
     <view class="info">
         <text class="name">{{product.ShowName}}</text>
         <text class="detail" wx:if="{{product.Subtitle.length > 0}}">{{product.Subtitle}}</text>
-        <view class="price">
-            <view class="bmpi-price">￥{{price}}</view>
-            <image class="prefix" src="/res/img/product-detail/price-prefix.png" mode="aspectFit" />
-            <view class="bmpi-old-price">{{oldPrice}}</view>
-        </view>
+        <!--<view class="price">-->
+            <!--<view class="bmpi-price">￥{{price}}</view>-->
+            <!--<image class="prefix" src="/res/img/product-detail/price-prefix.png" mode="aspectFit" />-->
+            <!--<view class="bmpi-old-price">{{oldPrice}}</view>-->
+        <!--</view>-->
+        <template is="price-view" data="{{level:level,price1:price1,price2:price2,price3:price3,priceStyle1,priceStyle2,priceStyle3}}"/>
 
         <view class="bmpi-country-base">
             <view class="bmpi-country">{{supplyText}}</view>

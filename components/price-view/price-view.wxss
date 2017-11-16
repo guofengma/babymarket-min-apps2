@@ -1,0 +1,16 @@
+@import '/components/price-view/price-item/price-item.wxss';
+
+
+.price-view{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    margin: 5px 10px;
+}
+
+.sep{
+    height:26px;
+    width:1px;
+    background-color:#989898;
+    margin:10px;
+}

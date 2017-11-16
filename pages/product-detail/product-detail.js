@@ -27,7 +27,14 @@ Page({
         isLogin: Storage.didLogin(),
         inviteCode: '',
 
-        isFav: false //商品是否被收藏
+        isFav: false, //商品是否被收藏,
+        priceStyle1:"color:#BD0E00;font-size:15px;text-decoration:none",
+        priceStyle2:"color:#B48134;font-size:15px;text-decoration:none",
+        priceStyle3:"color:#818181;font-size:15px;text-decoration:line-through",
+        level:2,
+        price1:'',
+        price2:'',
+        price3:'',
     },
     productId: '',
     favDatas: {},
@@ -76,6 +83,13 @@ Page({
                 WxParse.wxParse('article', 'html', html, self, 5);
             }
         })
+
+        let MemberTypeKey = global.Storage.currentMember().MemberTypeKey;
+        if (global.Storage.didLogin() && parseInt(MemberTypeKey) == 3) {
+            this.setData({
+                level:3
+            })
+        }
     },
 
     /**
@@ -145,7 +159,10 @@ Page({
 
                 self.setData({
                     product: firstData,
-                    images: images
+                    images: images,
+                    price1:firstData.AccPrice,
+                    price2:firstData.SalePrice,
+                    price3:firstData.LYPrice,
                 })
                 self.updatePrice();
                 self.requestNation(firstData.NationalKey);
@@ -196,10 +213,10 @@ Page({
                 self.setData({
                     nation: data.Name
                 });
-                self.setData({
-                    supplyText: self.supplyText()
-                })
             }
+            self.setData({
+                supplyText: self.supplyText()
+            })
         };
         r.addToQueue();
     },
@@ -275,6 +292,13 @@ Page({
         }
         else {
             return this.data.nation + '直供' + this.data.product.Warehouse + '供货';
+        }
+
+        if (this.props.nation === '中国' || window.Tool.isEmptyStr(this.props.nation)) {
+            return this.props.product.Warehouse + '供货';
+        }
+        else {
+            return this.props.nation + '直供' + this.props.product.Warehouse + '供货';
         }
     },
 

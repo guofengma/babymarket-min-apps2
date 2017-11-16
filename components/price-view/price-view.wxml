@@ -1,0 +1,19 @@
+<import src="/components/price-view/price-item/price-item.wxml"/>
+
+<template name="price-view">
+    <view class="price-view">
+        <block wx:if="{{level == 3}}">
+            <template is="price-item" data="{{price:price1,title:'合伙尊享',priceStyle:priceStyle1}}"/>
+            <view class="sep"/>
+            <template is="price-item" data="{{price:price2,title:'老友专享',priceStyle:priceStyle2}}"/>
+            <view class="sep"/>
+            <template is="price-item" data="{{price:price3,title:'市场价',priceStyle:priceStyle3}}"/>
+        </block>
+
+        <block wx:else>
+            <template is="price-item" data="{{price:price2,title:'老友专享',priceStyle:priceStyle2}}"/>
+            <view class="sep"/>
+            <template is="price-item" data="{{price:price3,title:'市场价',priceStyle:priceStyle3}}"/>
+        </block>
+    </view>
+</template>

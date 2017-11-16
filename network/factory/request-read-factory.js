@@ -117,7 +117,7 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
-        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside', 'LimitQnty'];
+        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside', 'LimitQnty','AccPrice'];
         req.preprocessCallback = (req, firstData) => {
             if (global.Tool.isValidObject(firstData)) {
                 // if (global.Storage.didLogin()) {

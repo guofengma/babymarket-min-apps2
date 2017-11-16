@@ -1,0 +1,6 @@
+<template name="price-item">
+    <view class="price-item">
+        <view class="price" style="{{priceStyle}}">{{price}}</view>
+        <view class="title" style="{{titleStyle}}">{{title}}</view>
+    </view>
+</template>

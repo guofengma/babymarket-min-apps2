@@ -4,6 +4,7 @@
 @import '/components/product-specification/product-specification.wxss';
 @import "/libs/wxParse/wxParse.wxss";
 @import '/pages/login/login.wxss';
+@import '/components/price-view/price-view.wxss';
 
 /* .root-view {
     display: flex;
@@ -127,9 +128,9 @@
  .bmpi-country-base {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
-    margin-bottom: 8px;
-    color: #7798c4;
+    margin-top: 0px;
+    margin-bottom: 4px;
+    color: #6E6E6E;
 }
 
 .bmpi-price {
