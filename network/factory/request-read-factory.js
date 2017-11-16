@@ -117,7 +117,8 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '宝贝码头商品详情';//用于日志输出
-        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside', 'LimitQnty'];
+        req.items = ['Id', 'ShowName', 'LYPrice', 'SalePrice', 'ImgId', 'Warehouse', 'Des1', 'Des', 'Tax', 'Subtitle', 'NationalKey', 'StoreId', 'TaxRate', 'Import', 'PriceInside', 'LimitQnty',
+            "AccPrice"];
         req.preprocessCallback = (req, firstData) => {
             if (global.Tool.isValidObject(firstData)) {
                 // if (global.Storage.didLogin()) {
@@ -375,7 +376,8 @@ export default class RequestReadFactory {
             "SalePrice", 
             "Subtitle", 
             "Inv", 
-            "LYPrice"
+            "LYPrice",
+            "AccPrice"
           ]
         }
       };
@@ -413,6 +415,22 @@ export default class RequestReadFactory {
           // } else {
           //   item.oldPrice = 0;
           // }
+
+          item.priceArry = [{
+              'price': item.showPrice,
+                'title': '老友专享'
+            }, {
+                  'price': item.oldPrice,
+                'title': '市场价'
+            },
+          ]
+          if(item.isLogin){//登录时，显示合伙尊享价格
+              let dict = {
+                  'price': "¥" + appendixe.AccPrice,
+                  'title': '合伙尊享'
+              }
+              item.priceArry.unshift(dict)
+          }
       };
       return req;
     }
@@ -485,7 +503,8 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '一级分类商品';
-        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import', 'Order'];
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import', 'Order',
+            "AccPrice"];
         //修改返回结果
         let that = this;
         req.preprocessCallback = (req) => {
@@ -511,7 +530,8 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '二级分类商品';
-        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import', 'Order'];
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import', 'Order',
+            "AccPrice"];
         //修改返回结果
         let that = this;
         req.preprocessCallback = (req) => {
@@ -531,7 +551,8 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '搜索商品';
-        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import'];
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import',
+            "AccPrice"];
         //修改返回结果
         let that = this;
         req.preprocessCallback = (req) => {
@@ -771,6 +792,22 @@ export default class RequestReadFactory {
             // } else {
             //     item.oldPrice = 0;
             // }
+
+                item.priceArry = [{
+                    'price': item.showPrice,
+                    'title': '老友专享'
+                }, {
+                        'price': item.oldPrice,
+                    'title': '市场价'
+                },
+                ]
+                if (item.isLogin) {//登录时，显示合伙尊享价格
+                    let dict = {
+                        'price': "¥" + item.AccPrice,
+                        'title': '合伙尊享'
+                    }
+                    item.priceArry.unshift(dict)
+                }
         });
         //9d7093c03c3fb18a9e9d8216e355f0a93ed6604d
     }
