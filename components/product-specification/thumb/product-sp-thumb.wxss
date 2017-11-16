@@ -14,7 +14,7 @@
     background-color: white;
 
     margin: 10rpx 0 10rpx 20rpx;
-    font-size: 28rpx;
+    font-size: 26rpx;
 }
 
 .product-sp-thumb-select{
@@ -26,11 +26,13 @@
     border-radius: 10rpx;
     background-color: white;
     margin: 10rpx 0 10rpx 20rpx;
-    font-size: 28rpx;
+    font-size: 26rpx;
     border: 1rpx solid #715329;
     color: #715329;
 }
 
 .product-sp-thumb-invalid{
-    border: 1rpx dashed lightgray;
+    background-color: #EEEEEE;
+    color: #8A8A8A;
+    border: 1rpx solid #EEEEEE;
 }

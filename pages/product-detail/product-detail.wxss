@@ -84,8 +84,9 @@
 }
 
 .go-cart-view .cart-image {
-    width: 32rpx;
-    height: 32rpx;
+    width: 44rpx;
+    height: 44rpx;
+    flex: none;
 }
 
 .go-cart-view.shoppingcar {
