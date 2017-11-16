@@ -1,4 +1,4 @@
-modifyAcatarmodifyAcatar// 商品详情
+// 商品详情
 import ProductSpecification from '../../components/product-specification/product-specification';
 import WxParse from '../../libs/wxParse/wxParse.js';
 import Login from '../login/login';
