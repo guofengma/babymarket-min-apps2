@@ -5,7 +5,7 @@
 
 .hot-banner-image {
   width: 100%;
-  max-height: 260rpx;
+  max-height: 300rpx;
   background-color: white;
   flex: none;
   margin-top: 15rpx;

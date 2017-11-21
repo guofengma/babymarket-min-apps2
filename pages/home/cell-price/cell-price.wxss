@@ -3,6 +3,10 @@
     height: 100%;
     display: flex;
     align-items: center;
+    margin-left: 20rpx;
+}
+
+.cell-price.center{
     justify-content: center;
 }
 
@@ -14,14 +18,13 @@
     background: #818181;
     height: 42rpx;
     width: 2rpx;
-    margin-top: 15rpx;
+    margin: 16rpx 20rpx;
 }
 
 .cell-price-line{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
 }
 
 .cell-price-line.border{

@@ -10,7 +10,7 @@
 
                     <view class="price-cart">
 
-                        <template is='cell-price' data='{{listDatas:item.priceArry,width:122}}'></template>
+                        <template is='cell-price' data='{{listDatas:item.priceArry, alignType:item.priceArry.length}}'></template>
 
                         <!--<view class="price-info">
               <view class="sale-price-panel">

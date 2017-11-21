@@ -9,7 +9,7 @@
                     <text class="target-name">{{item.ShowName}}</text>
                     <text class="target-subtitle">{{item.subtitle}}</text>
                     <view class="target-price-cart">
-                        <template is='cell-price' data='{{listDatas:item.priceArry,width:150}}'></template>
+                        <template is='cell-price' data='{{listDatas:item.priceArry}}'></template>
 
                         <!--<view class="target-price-info">
                             <text class="target-sale-price">{{item.showPrice}}</text>

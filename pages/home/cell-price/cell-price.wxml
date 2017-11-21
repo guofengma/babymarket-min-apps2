@@ -1,7 +1,7 @@
 <template name="cell-price">
-    <view class='cell-price'>
+    <view class="{{alignType == 2?'cell-price center':'cell-price'}}">
         <block wx:for='{{listDatas}}' wx:key='unique'>
-            <template is="cell-price-line" data='{{...item, index:index, width:width}}'></template>
+            <template is="cell-price-line" data='{{...item, index:index}}'></template>
         </block>
     </view>
 </template>
@@ -9,7 +9,7 @@
 <template name="cell-price-line">
     <view class='cell-price-line-bg'>
         <view class='sepline' wx:if='{{index!=0}}'></view>
-        <view class="{{index == 0 ?'cell-price-line':'cell-price-line'}}" style='width:{{width}}rpx'>
+        <view class="{{index == 0 ?'cell-price-line':'cell-price-line'}}">
             <view class='price index{{index}}'>{{price}}</view>
             <view class='title'>{{title}}</view>
         </view>

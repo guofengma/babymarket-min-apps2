@@ -61,21 +61,19 @@
     font-size: 26rpx;
     height: 35rpx;
     background: #f1ece2;
-    padding: 8rpx;
+    padding: 8rpx 20rpx;
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    text-align: center;
 }
 
 .info .price-cart {
     display: flex;
     height: 62rpx;
-    width: 370rpx;
-    margin-top: 20rpx;
+    margin: 20rpx 20rpx 0rpx 0rpx;
 }
 
 .price-cart .price-info {
