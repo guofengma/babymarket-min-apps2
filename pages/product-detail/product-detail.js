@@ -234,6 +234,10 @@ Page({
                 self.setData({
                     expressText: self.expressText(),
                 })
+            }else{
+                self.setData({
+                    expressText: '包邮'
+                })
             }
         };
         r.addToQueue();

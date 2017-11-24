@@ -24,6 +24,8 @@ Page({
         oneSortData: [],
         inviteCode: ''
     },
+    bulletinDatas:'',
+
     onLoad: function (options) {
         Event.on('loginSuccess', this.reload, this);
         Event.on('LoginOutNotic', this.reload, this);
@@ -252,7 +254,8 @@ Page({
             let bulletinArray = req.responseObject.Datas;
             if (bulletinArray.length > 0) {
                 this.setData({
-                    bulletinContent: bulletinArray[0].Title
+                    bulletinContent: bulletinArray[0].Title,
+                    bulletinDatas:bulletinArray[0]
                 });
             }
         };
@@ -405,5 +408,12 @@ Page({
         wx.navigateTo({
             url: '/pages/search/search'
         })
+    },
+
+    /**
+     * 码头快报 点击
+     */
+    bulletinTap:function(e){
+        this.onBannerAction(this.data.bulletinDatas);
     }
 })

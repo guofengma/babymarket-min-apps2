@@ -4,6 +4,6 @@
       <text class="title-m">码头</text>
       <text class="title-k">快报</text>
     </view>
-    <text class="content">{{content}}</text>
+    <text class="content" catchtap='bulletinTap'>{{content}}</text>
   </view>
 </template>
