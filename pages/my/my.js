@@ -119,6 +119,16 @@ Page({
             },
             arrowHidden: true
         },
+        dict13: {
+            image: '/res/img/my/my-cell-second-friends-icon.png',
+            name: '我的众筹',
+            detail: {
+                leftText: '共',
+                amount: '0',
+                rightText: '人'
+            },
+            arrowHidden: true
+        },
         myDatasItems0: [],
         myDatasItems1: [],
         myDatasItems2: [
@@ -145,7 +155,8 @@ Page({
             this.data.dict02,
             this.data.dict03,
             this.data.dict04,
-            this.data.dict05
+            this.data.dict05,
+            // this.data.dict13,
         ];
         let arry1 = [
             this.data.dict10,

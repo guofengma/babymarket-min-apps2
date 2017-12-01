@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "my-crowdfunding-header": "/pages/my/my-crowdfunding/header/my-crowdfunding-header"
+    }
+
+}

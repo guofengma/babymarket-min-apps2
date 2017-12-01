@@ -1,0 +1,2 @@
+/* pages/my/my-crowdfunding/my-crowdfunding.wxss */
+@import "/pages/my/my-crowdfunding/header/my-crowdfunding-header.wxss";

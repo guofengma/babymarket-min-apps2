@@ -1,0 +1,31 @@
+.award-section-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100rpx;
+    background-color: #F6F6F6;
+    padding:0 20rpx;
+}
+
+.award-section-header .left{
+    display: flex;
+    flex-direction: column;
+}
+
+.award-section-header .left .date{
+    font-size: 28rpx;
+    color: #252525;
+}
+
+.award-section-header .left .income{
+    color: #B2B2B2;
+    font-size: 24rpx;
+}
+
+.award-section-header .date-picker{
+    height: 60rpx;
+    width:60rpx
+}
+
+

@@ -1,0 +1,19 @@
+<template name="award-section-header">
+    <view class="award-section-header">
+        <view class="left">
+            <view class="date">2017年</view>
+            <view class="income">收益：￥698</view>
+        </view>
+        <!--结束日期-->
+        <picker
+                mode="date"
+                fields="month"
+                bindchange="datePickerChange"
+        >
+            <image class="date-picker" src="/res/img/my/award-date-icon.png" mode="aspectFit" />
+        </picker>
+
+    </view>
+</template>
+
+

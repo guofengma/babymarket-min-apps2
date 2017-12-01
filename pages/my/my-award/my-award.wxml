@@ -1,5 +1,6 @@
 <!--my-award.wxml-->
-<import src='/pages/my/my-award/cell/my-award-cell/my-award-cell.wxml' />
+<import src='/pages/my/my-award/cell/my-award-cell/my-award-cell.wxml'/>
+<import src='/pages/my/my-award/section/award-section-header.wxml'/>
 
 <!--top view-->
 <view class="top-view">
@@ -7,6 +8,22 @@
   <view class="balance-value">¥{{award}}</view>
 </view>
 
-<block wx:for="{{listDatas}}" wx:key="unique">
-    <template is="my-award-cell" data="{{...item}}"></template>
-</block>
+<scroll-view scroll-y class="left-wrapper" id="left">
+    <view wx:for="..." bindtap="..."></view>
+    <!--这里是左侧的类型选择-->
+</scroll-view>
+<scroll-view scroll-y
+             class="right-wrapper"
+             bindscroll="onScroll"
+             scroll-into-view="{{toView}}"
+             id="right">
+    <view wx:for="{{items}}" wx-for-item="item" class="lists" id="{{item.title}}">
+        <template is="award-section-header"/>
+        <block wx:for="{{listDatas}}" wx:key="unique">
+            <template is="my-award-cell" data="{{...item}}"></template>
+        </block>
+    </view>
+</scroll-view>
+
+
+

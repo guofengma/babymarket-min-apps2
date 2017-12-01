@@ -1,4 +1,4 @@
-.bg-view {
+.my-award-cell {
   display: flex;
   background: white;
   height: 90rpx;
@@ -7,9 +7,25 @@
   align-items: center;
 }
 
+.icon {
+    width:84rpx;
+    height:84rpx;
+    background:rgba(242,205,69,1);
+}
+
+.mid{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0 24rpx;
+}
+
 .left-view {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+    height: 100%;
 }
 
 .name {

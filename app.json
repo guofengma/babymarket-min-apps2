@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/my/my-crowdfunding/my-crowdfunding",
     "pages/home/home",
+    "pages/my/my-award/my-award",
     "pages/register/phone/register-phone",
     "pages/product-detail/product-detail",
     "pages/my/my",
@@ -26,7 +28,6 @@
     "pages/coupon/select-coupon/select-coupon",
     "pages/pay-success/pay-success",
     "pages/my/my-property/my-property",
-    "pages/my/my-award/my-award",
     "pages/my/my-save/my-save",
     "pages/my/my-qrcode/my-qrcode",
     "pages/my/withdraw/bind-alipay/bind-alipay",
