@@ -1,0 +1,5 @@
+<!--components/key-value-cell/key-value-cell.wxml-->
+<view class="key-value-cell">
+    <view class="key">{{key}}</view>
+    <view class="value">{{value}}</view>
+</view>

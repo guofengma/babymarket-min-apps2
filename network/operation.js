@@ -149,7 +149,15 @@ export default class Operation {
 
         //意见和反馈
         this.feedbackWriteOperation = 'e4295a73-e8eb-0877-0e3f-3c3501ceb312';
-        
+
+        this.operation_MyAwardRead = "6b6d2035-ed98-4fbf-bcb4-a83f0016c3bc";
+
+        //奖励日志订单汇总(CommissionLogOrderView)
+        this.operation_MyAwardDetailListRead = "6e148561-cd00-48d8-9eb6-a83f00167e98";
+
+        //返利类型(CommissionType)
+        this.operation_AwardTypeRead = "a29310bf-cc07-4f6e-a265-a83f00f91795";
+
         __instance(this);
     }
 

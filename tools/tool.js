@@ -88,7 +88,7 @@ export default class Tool {
 
     static timeStringForDateString(string, formate) {
         if ('1900-01-01 00:00:00' === string) {
-            return '空';
+            // return '空';
         }
         let date = Tool.dateFromString(string);
         let timeString = Tool.timeStringForDate(date, formate);

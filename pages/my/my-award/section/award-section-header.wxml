@@ -1,8 +1,8 @@
 <template name="award-section-header">
     <view class="award-section-header">
         <view class="left">
-            <view class="date">2017年</view>
-            <view class="income">收益：￥698</view>
+            <view class="date">{{Month}}</view>
+            <view class="income">收益：￥{{Commission}}</view>
         </view>
         <!--结束日期-->
         <picker

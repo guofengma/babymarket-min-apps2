@@ -1,3 +1,6 @@
 {
-    "navigationBarTitleText": "收到奖励"
+    "navigationBarTitleText": "收到奖励",
+    "usingComponents": {
+        "my-award-filter": "/pages/my/my-award/filter-view/my-award-filter"
+    }
 }

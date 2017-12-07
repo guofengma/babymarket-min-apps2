@@ -1,0 +1,19 @@
+<!--pages/my/my-award/filter-view/my-award-filter.wxml-->
+
+<block wx:if="{{visiable}}">
+    <view class="model-view-bg">
+        <view class="my-award-filter zoom-in">
+            <view class="title" catchtap=""><view>选择资产类型</view></view>
+            <view class="sep-line"></view>
+            <view class="content">
+                <block wx:for="{{items}}" wx:key="unique">
+                    <view class="thumb" catchtap="thumbClicked" data-index="{{index}}"><view>{{item.Name}}</view></view>
+                </block>
+            </view>
+            <view style="height:14rpx;width:100%;background-color:#E9E9EB"></view>
+            <view class="cancel" catchtap="dismiss"><view>取消</view></view>
+        </view>
+    </view>
+</block>
+
+

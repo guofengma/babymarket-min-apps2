@@ -1,0 +1,11 @@
+<!--pages/my/my-award/filter-result-view/filter-result-view.wxml-->
+<view>
+    <my-award-nav-header title="推荐奖励" imgsrc="/res/img/my/my-award-active-icon.png" value="$50.11"></my-award-nav-header>
+    <view class="sep-line"></view>
+    <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
+    <view class="sep-line"></view>
+    <filter-result-cell/>
+    <filter-result-cell/>
+    <filter-result-cell/>
+    <filter-result-cell/>
+</view>

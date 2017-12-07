@@ -5,7 +5,7 @@
   <view wx:if="{{hasList}}">
     <!--购物车商品列表-->
     <view class="cart-box">
-      <view wx:for="{{viewCarts}}" wx:key="{{index}}">
+      <view wx:for="{{viewCarts}}" wx:key="{{index}}" wx:key="unique">
         <!--商品数据布局-->
         <template is="cart-cell-group" data="{{item,groupPosition:index}}"></template>
       </view>

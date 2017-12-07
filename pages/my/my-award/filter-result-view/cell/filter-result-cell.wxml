@@ -1,0 +1,15 @@
+<!--pages/my/my-award/filter-result-view/cell/filter-result-cell.wxml-->
+<view class="filter-result-cell">
+    <image class="img"/>
+    <view class="content">
+        <view class="top">
+            <view class="title">f小芳</view>
+            <view class="price">+$50</view>
+        </view>
+
+        <view class="bottom">
+            <view class="order-no">订单号2324234242423424</view>
+            <view class="time">2017-1-2</view>
+        </view>
+    </view>
+</view>

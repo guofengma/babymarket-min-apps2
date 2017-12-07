@@ -1011,4 +1011,73 @@ export default class RequestReadFactory {
         req.name = '获取二维码';
         return req;
     }
+
+    //收到奖励一级 查询
+    static requestMyAwardWithCondition(month) {
+        let operation = Operation.sharedInstance().operation_MyAwardRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Month} DESC"
+        };
+        if (month) {
+            bodyParameters['Condition'] = "${Month} <= '"+month+"'";
+        }
+        let req = new RequestRead(bodyParameters);
+        req.name = '收到奖励一级 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
+            });
+        }
+        return req;
+    }
+
+    //收到奖励二级 查询
+    static requestMyAwardDetailListWithCondition(month) {
+        let operation = Operation.sharedInstance().operation_MyAwardDetailListRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Month} DESC"
+        };
+        if (month) {
+            bodyParameters['Condition'] = "${Month} = '"+month+"'";;
+        }
+        let req = new RequestRead(bodyParameters);
+        req.name = '收到奖励二级 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.ConfirmDate = global.Tool.timeStringForDateString(item.ConfirmDate,'YYYY-MM-DD');
+                item.OrderDate = global.Tool.timeStringForDateString(item.OrderDate,'YYYY-MM-DD');
+            });
+        }
+
+        return req;
+    }
+
+    //奖励类型 查询
+    static requestAwardType() {
+        let operation = Operation.sharedInstance().operation_AwardTypeRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Ordinal} ASC"
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '奖励类型 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+            });
+        }
+
+        return req;
+    }
 }

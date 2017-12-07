@@ -1,0 +1,40 @@
+/* pages/my/my-award/detail/nav-header/my-award-nav-header.wxss */
+.my-award-nav-header{
+    display: flex;
+    flex-direction: column;
+    height:100rpx;
+    width: 100%;
+    background-color: white;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.value{
+    font-size: 42rpx;
+    padding-right: 30rpx;
+}
+
+.title{
+    font-size: 34rpx;
+    padding-left: 16rpx;
+}
+
+.img {
+    width:60rpx;
+    height:60rpx;
+    padding-left: 30rpx;
+}
+
+

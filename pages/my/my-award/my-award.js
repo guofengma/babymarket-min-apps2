@@ -7,46 +7,10 @@ Page({
      * 页面的初始数据
      */
     data: {
-        listDatas:['','',''],
         award:'',
-        items:[
-            {
-                title:'1',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'2',
-                child:['one','two'],
-            },
-            {
-                title:'3',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'4',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'5',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'6',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'7',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'8',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-            {
-                title:'9',
-                child:['one','two','3','4','5','6','7','8','9','10','11','12','13','14'],
-            },
-        ]
+        months:null,
+        selectMonth:null,
+        isFilterVisiable:false,
     },
 
     /**
@@ -120,50 +84,105 @@ Page({
      * 收到奖励查询
      */
     requestData: function () {
-        let r = RequestReadFactory.awardRead(0);
+        // let r = RequestReadFactory.awardRead(0);
+        // r.finishBlock = (req) => {
+        //     let datas = req.responseObject.Datas;
+        //     let total = req.responseObject.Total;
+        //
+        //     let nomoredata = false;
+        //     if (datas.length >= total) {
+        //         nomoredata = true;
+        //     }
+        //     this.setData({
+        //         'listDatas': datas,
+        //         noMoreData: nomoredata,
+        //         index: datas.length
+        //     });
+        // };
+        // r.addToQueue();
+
+        let self = this;
+        let r = RequestReadFactory.requestMyAwardWithCondition(this.data.selectMonth);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
-            let total = req.responseObject.Total;
+            self.setData({
+                months:datas,
+            })
 
-            let nomoredata = false;
-            if (datas.length >= total) {
-                nomoredata = true;
+            let i = 0;
+            for (let data of self.data.months) {
+                let r2 = RequestReadFactory.requestMyAwardDetailListWithCondition(data.Month);
+                r2.finishBlock = (req2) => {
+                    let datas2 = req2.responseObject.Datas;
+                    let item = self.data.months[req2.tag];
+                    item.detailArray = datas2;
+                    self.setData({
+                        months:self.data.months,
+                    })
+                }
+                r2.addToQueue();
+                r2.tag = i;
+                i++;
             }
-            this.setData({
-                'listDatas': datas,
-                noMoreData: nomoredata,
-                index: datas.length
-            });
-        };
+        }
         r.addToQueue();
     },
 
     loadMore: function () {
-        let r = RequestReadFactory.awardRead(this.data.index);
-        r.finishBlock = (req) => {
-            let datas = req.responseObject.Datas;
-            let total = req.responseObject.Total;
-
-            let nomoredata = false;
-            if (datas.length + this.data.index >= total) {
-                nomoredata = true;
-            }
-
-            this.setData({
-                'listDatas': this.data.listDatas.concat(datas),
-                noMoreData: nomoredata,
-                index: datas.length + this.data.index
-            });
-        };
-        r.addToQueue();
+        // let r = RequestReadFactory.awardRead(this.data.index);
+        // r.finishBlock = (req) => {
+        //     let datas = req.responseObject.Datas;
+        //     let total = req.responseObject.Total;
+        //
+        //     let nomoredata = false;
+        //     if (datas.length + this.data.index >= total) {
+        //         nomoredata = true;
+        //     }
+        //
+        //     this.setData({
+        //         'listDatas': this.data.listDatas.concat(datas),
+        //         noMoreData: nomoredata,
+        //         index: datas.length + this.data.index
+        //     });
+        // };
+        // r.addToQueue();
     },
 
     datePickerChange(e){
         console.log('datePickerChange:', e.detail.value)
         this.setData({
-            index: e.detail.value
+            selectMonth: e.detail.value
+        })
+        this.requestData();
+
+    },
+
+    cellClicked(e){
+        let index = parseInt(e.currentTarget.dataset.index);
+        let section = parseInt(e.currentTarget.dataset.section);
+        let item = this.data.months[section].detailArray[index];
+        global.Tool.navigateTo('/pages/my/my-award/detail/my-award-detail?Id=' + item.Id);
+    },
+
+    dismissFilterClicked(e){
+        this.setData({
+            isFilterVisiable:false,
         })
     },
+
+    thumbClicked(e){
+        let index = e.detail.index;
+        console.log('thumbClicked:' + index);
+
+        global.Tool.navigateTo('/pages/my/my-award/filter-result-view/filter-result-view');
+        this.dismissFilterClicked();
+    },
+
+    filterClicked(){
+        this.setData({
+            isFilterVisiable:true,
+        })
+    }
 })
 
 

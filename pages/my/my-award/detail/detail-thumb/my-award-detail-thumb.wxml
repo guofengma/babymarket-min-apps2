@@ -1,0 +1,2 @@
+<!--pages/my/my-award/detail/detail-thumb/my-award-detail-thumb.wxml-->
+<view class="my-award-detail-thumb">{{title}}</view>

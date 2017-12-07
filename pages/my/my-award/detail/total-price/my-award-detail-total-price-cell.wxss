@@ -1,0 +1,24 @@
+/* pages/my/my-award/detail/total-price/my-award-detail-total-price-cell.wxss */
+
+.my-award-detail-total-price-cell{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 120rpx;
+    width: 100%;
+    background-color: white;
+}
+
+.my-award-detail-total-price-cell .title{
+    font-size: 30rpx;
+    color: #979797;
+    margin-left: 31rpx;
+}
+
+.my-award-detail-total-price-cell .value{
+    font-size: 46rpx;
+    margin-right: 28rpx;
+}
+
+

@@ -3,21 +3,33 @@
 @import '/pages/my/my-award/section/award-section-header.wxss';
 
 .top-view {
-  height: 170rpx;
-  background: #715329;
-  display: flex;
-  flex-direction: column;
-  padding-left: 30rpx;
-  padding-top: 50rpx;
+    height: 170rpx;
+    background: #715329;
+    display: flex;
+    flex-direction: column;
+    padding-left: 30rpx;
+    padding-top: 50rpx;
 }
 
 .balance-text {
-  font-size: 22rpx;
-  color: #b19e83;
+    font-size: 22rpx;
+    color: #b19e83;
 }
 
 .balance-value {
-  font-size: 80rpx;
-  color: white;
-  padding-top: 30rpx;
+    font-size: 80rpx;
+    color: white;
+    padding-top: 30rpx;
+}
+
+.top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.filter{
+    color: white;
+    font-style: 28rpx;
+    padding: 15rpx;
 }

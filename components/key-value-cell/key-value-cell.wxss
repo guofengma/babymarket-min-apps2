@@ -1,0 +1,21 @@
+/* components/key-value-cell/key-value-cell.wxss */
+
+.key-value-cell{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #979797;
+    font-size: 26rpx;
+    width: 100%;
+    height: 85rpx;
+    background-color: white;
+}
+
+.key-value-cell .key{
+    padding-left: 29rpx;
+}
+
+.key-value-cell .value{
+    padding-right: 29rpx;
+}

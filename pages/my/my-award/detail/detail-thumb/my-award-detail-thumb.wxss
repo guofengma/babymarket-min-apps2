@@ -1,0 +1,11 @@
+/* pages/my/my-award/detail/detail-thumb/my-award-detail-thumb.wxss */
+.my-award-detail-thumb{
+    border-radius: 2rpx;
+    border: 1rpx solid #96661B;
+    color: #96661B;
+    flex: 0 0 auto;
+    font-size: 20rpx;
+    padding: 6rpx 8rpx;
+    margin:0 0 16rpx 16rpx;
+    background-color: white;
+}

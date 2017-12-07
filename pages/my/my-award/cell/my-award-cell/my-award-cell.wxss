@@ -10,7 +10,6 @@
 .icon {
     width:84rpx;
     height:84rpx;
-    background:rgba(242,205,69,1);
 }
 
 .mid{
@@ -28,9 +27,20 @@
     height: 100%;
 }
 
+.name-base{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .name {
   font-size: 28rpx;
   color: #26272a;
+}
+
+.name-small{
+    font-size: 20rpx;
+    color:#A0A0A0;
+    margin-left:10rpx;
 }
 
 .source {

@@ -1,0 +1,5 @@
+<!--pages/my/my-award/detail/total-price/my-award-detail-total-price-cell.wxml-->
+<view class="my-award-detail-total-price-cell">
+    <view class="title">{{title}}</view>
+    <view class="value">￥{{value}}</view>
+</view>

@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "my-award-nav-header": "/pages/my/my-award/detail/nav-header/my-award-nav-header",
+        "filter-result-cell":"/pages/my/my-award/filter-result-view/cell/filter-result-cell"
+    }
+}
