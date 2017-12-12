@@ -1080,4 +1080,28 @@ export default class RequestReadFactory {
 
         return req;
     }
+
+    //奖励明细 查询
+    static requestMyAwardDetailWithCommissionTypeKey(key) {
+        let operation = Operation.sharedInstance().operation_MyAwardDetailRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${OrderDate} DESC",
+        };
+        if (key) {
+            bodyParameters['CommissionTypeKey'] = key;
+        }
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '奖励明细 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+            });
+        }
+
+        return req;
+    }
 }

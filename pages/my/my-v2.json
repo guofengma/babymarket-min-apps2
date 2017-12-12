@@ -1,0 +1,6 @@
+{
+    "usingComponents":{
+        "menu-cell":"/pages/my/views/menu-cell/menu-cell",
+        "my-cell":"/pages/my/views/cell/my-cell"
+    }
+}

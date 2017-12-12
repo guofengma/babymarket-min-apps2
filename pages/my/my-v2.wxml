@@ -1,0 +1,80 @@
+<!--pages/my/my-v2.wxml-->
+
+<view class="my-v2">
+    <view class="header">
+        <view class="fake-nav">
+            <image class="customer-service" src="/res/img/my/customer-service-icon.png" catchtap="customerServiceClicked"/>
+            <image class="msg" src="/res/img/my/msg-icon.png" catchtap="msgClicked"/>
+        </view>
+        <view class="content">
+            <view class="left" catchtap="profileClicked">
+                <image class="avatar" src="{{avatarUrl}}"/>
+                <view class="name-base">
+                    <view class="name">{{member.Name}}</view>
+                    <view class="job">零售合伙人</view>
+                </view>
+            </view>
+            <view class="right" catchtap="inviteClicked">
+                <image class="code-img" src="/res/img/my/v2/二维码@2x.png"/>
+                <view class="invite-code">邀请码</view>
+            </view>
+        </view>
+    </view>
+
+
+    <view class="order">
+        <view class="my-order">
+            <view class="title">我的订单</view>
+            <image class="access" src="/res/img/common/gray-access-icon.png"/>
+        </view>
+        <view class="sep-line"></view>
+
+        <view class="menu-table">
+            <menu-cell bind:menuclicked="menuClicked" index="0" title="待付款" imgsrc="/res/img/my/v2/代付款@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="1" title="待发货" imgsrc="/res/img/my/v2/代发货@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="2" title="已发货" imgsrc="/res/img/my/v2/已发货@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="3" title="去分享" imgsrc="/res/img/my/v2/去分享@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="4" title="退换货" imgsrc="/res/img/my/v2/退换／售后@2x.png"/>
+        </view>
+    </view>
+
+    <view class="service">
+        <view class="my-order">
+            <view class="title">我的服务</view>
+        </view>
+        <view class="sep-line"></view>
+
+        <view class="menu-table">
+            <menu-cell bind:menuclicked="menuClicked" index="5" title="我的资产" imgsrc="/res/img/my/v2/我的资产@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="6" title="我的奖励" imgsrc="/res/img/my/v2/奖励@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="7" title="我的众筹" imgsrc="/res/img/my/v2/众筹@2x.png"/>
+            <menu-cell bind:menuclicked="menuClicked" index="8" title="优惠券" imgsrc="/res/img/my/v2/优惠券@2x.png"/>
+        </view>
+    </view>
+
+    <view class="table">
+        <view class="sep-line"></view>
+        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/已省金额@2x.png" title="已省金额" index="0"/>
+        <view class="sep-line"></view>
+        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/授信@2x.png" title="我的授信" index="1"/>
+        <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
+        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/我的关注@2x.png" title="我的关注" index="2"/>
+        <view class="sep-line"></view>
+        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/老友俱乐部@2x.png" title="老友俱乐部" index="3"/>
+        <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
+        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/设置@2x.png" title="设置" index="4"/>
+        <view class="sep-line"></view>
+        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/意见反馈@2x.png" title="意见反馈" index="5"/>
+    </view>
+
+    <view class="footer">
+        <image class="logo" src="/res/img/common/logo.png"/>
+        <view class="slogon">分    享    最    好    的</view>
+    </view>
+</view>
+
+
+
+
+
+

@@ -24,7 +24,8 @@ Component({
         },
         thumbClicked:function (e) {
             let index = e.currentTarget.dataset.index;
-            this.triggerEvent('thumbClicked',{index,})
+            let thumb = this.data.items[index];
+            this.triggerEvent('thumbClicked',{index,thumb})
         }
     },
 

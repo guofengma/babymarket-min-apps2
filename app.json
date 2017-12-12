@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/my/my-award/filter-result-view/filter-result-view",
+    "pages/my/my-v2",
     "pages/home/home",
     "pages/my/my-award/my-award",
+    "pages/my/my-award/filter-result-view/filter-result-view",
     "pages/my/my-crowdfunding/my-crowdfunding",
     "pages/register/phone/register-phone",
     "pages/product-detail/product-detail",
@@ -98,7 +99,7 @@
         "selectedIconPath": "/res/img/tabbar/tabbar-icon-select-3.png"
       },
       {
-        "pagePath": "pages/my/my",
+        "pagePath": "pages/my/my-v2",
         "text": "我的",
         "iconPath": "/res/img/tabbar/tabbar-icon-normal-4.png",
         "selectedIconPath": "/res/img/tabbar/tabbar-icon-select-4.png"

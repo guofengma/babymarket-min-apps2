@@ -325,7 +325,7 @@ Page({
                 this.loginRegisterTap();
                 return;
             }
-            
+
             wx.navigateTo({
                 url: '/pages/my/my-save/my-save',
             })
@@ -364,7 +364,7 @@ Page({
                 this.loginRegisterTap();
                 return;
             }
-            
+
             wx.navigateTo({
                 url: '/pages/coupon/coupon',
             })

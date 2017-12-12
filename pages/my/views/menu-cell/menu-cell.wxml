@@ -1,0 +1,8 @@
+<!--pages/my/views/menu-cell/menu-cell.wxml-->
+<view class="menu-cell" catchtap="menuclicked">
+    <image class="img" src="{{imgsrc}}"/>
+    <view class="title">{{title}}</view>
+</view>
+
+
+

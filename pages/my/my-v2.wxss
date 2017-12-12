@@ -1,0 +1,159 @@
+/* pages/my/my-v2.wxss */
+
+.my-v2{
+
+}
+/*头*/
+.header{
+    display: flex;
+    flex-direction: column;
+    height: 300rpx;
+    width: 100%;
+    background:rgba(199,175,126,1);
+}
+
+.header .fake-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.header .fake-nav .msg{
+    height: 40rpx;
+    width: 40rpx;
+    padding:17rpx;
+}
+.header .fake-nav .customer-service{
+    height: 40rpx;
+    width: 40rpx;
+    padding:17rpx;
+}
+
+.header .content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 140rpx;
+    width: 100%;
+}
+
+.header .content .left{
+    display: flex;
+    flex-direction: row;
+}
+
+.header .content .left .avatar{
+    width:140rpx;
+    height:140rpx;
+    margin-left: 32rpx;
+    margin-right: 32rpx;
+    border-radius: 70rpx;
+}
+
+/*name*/
+.header  .content .name-base{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header .content  .name-base .name{
+    font-size:34rpx;
+    color:rgba(255,255,255,1);
+}
+
+.header  .content .name-base .job{
+    background:rgba(242,220,183,1);
+    border-radius: 2px;
+    padding:7rpx 14rpx;
+    margin-top: 17rpx;
+    color: #8B7547;
+    font-size: 22rpx;
+}
+
+.header .content .right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 36rpx;
+}
+
+.header .content .right .code-img{
+    height: 50rpx;
+    width: 50rpx;
+}
+
+.header .content .right .invite-code{
+    font-size:20rpx;
+    color:rgba(255,255,255,1);
+    margin-top: 10rpx;
+}
+
+.order{
+    display: flex;
+    flex-direction: column;
+}
+.order .my-order {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.my-order .title{
+    padding:40rpx 30rpx;
+    font-size: 28rpx;
+    color: #252525;
+}
+
+.order .my-order .access{
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 27rpx;
+}
+
+.menu-table {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 160rpx;
+    background-color: white;
+    margin-bottom: 19rpx;
+}
+
+.service{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.table{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.footer .logo{
+    height: 58rpx;
+    width: 224rpx;
+    margin-top: 45rpx;
+}
+
+.footer .slogon{
+    font-size: 26rpx;
+    color:rgba(151,151,151,1);
+    padding-top: 9rpx;
+    padding-bottom: 50rpx;
+}

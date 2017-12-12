@@ -3,9 +3,16 @@
     <my-award-nav-header title="推荐奖励" imgsrc="/res/img/my/my-award-active-icon.png" value="$50.11"></my-award-nav-header>
     <view class="sep-line"></view>
     <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
-    <view class="sep-line"></view>
-    <filter-result-cell/>
-    <filter-result-cell/>
-    <filter-result-cell/>
-    <filter-result-cell/>
+    <block wx:if="{{items.length > 0}}">
+        <view class="sep-line"></view>
+    </block>
+    <block wx:for="{{items}}" wx:key="">
+        <filter-result-cell
+                img=""
+                name="{{item.Title}}"
+                price="{{item.Commission}}"
+                time="{{item.ConfirmDate}}"
+                orderno="{{item.OrderNo}}"
+        />
+    </block>
 </view>

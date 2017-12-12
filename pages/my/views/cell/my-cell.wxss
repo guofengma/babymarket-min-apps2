@@ -1,0 +1,30 @@
+/* pages/my/views/cell/my-cell.wxss */
+.my-cell{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+.left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.icon{
+    height: 46rpx;
+    width: 46rpx;
+    margin: 27rpx 23rpx 27rpx 33rpx;
+}
+.access{
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 27rpx;
+}
+.title{
+    font-size:28rpx;
+    color:rgba(37,37,37,1);
+}
+
+
+

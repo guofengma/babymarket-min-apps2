@@ -172,9 +172,10 @@ Page({
 
     thumbClicked(e){
         let index = e.detail.index;
+        let thumb = e.detail.thumb;
         console.log('thumbClicked:' + index);
 
-        global.Tool.navigateTo('/pages/my/my-award/filter-result-view/filter-result-view');
+        global.Tool.navigateTo('/pages/my/my-award/filter-result-view/filter-result-view?key=' + thumb.Value);
         this.dismissFilterClicked();
     },
 

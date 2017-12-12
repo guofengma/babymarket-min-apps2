@@ -158,6 +158,9 @@ export default class Operation {
         //返利类型(CommissionType)
         this.operation_AwardTypeRead = "a29310bf-cc07-4f6e-a265-a83f00f91795";
 
+        //奖励日志(CommissionLog)
+        this.operation_MyAwardDetailRead = "82f1f24c-e796-4d4c-8afb-a75c009c282d";
+
         __instance(this);
     }
 

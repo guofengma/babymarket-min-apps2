@@ -1,16 +1,12 @@
-// pages/my/my-award/filter-result-view/cell/filter-result-cell.js
-
+// pages/my/views/cell/my-cell.js
 Component({
-
     /**
      * 组件的属性列表
      */
     properties: {
-        img:String,
-        name:String,
-        price:String,
-        time:String,
-        orderno:String
+        imgsrc:String,
+        title:String,
+        index:Number,
     },
 
     /**
@@ -24,7 +20,8 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
-    },
-
+        cellclicked:function (e) {
+            this.triggerEvent('cellclicked',{...this.data})
+        }
+    }
 })

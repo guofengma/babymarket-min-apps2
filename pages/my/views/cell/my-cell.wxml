@@ -1,0 +1,12 @@
+<!--pages/my/views/cell/my-cell.wxml-->
+<view class="my-cell" catchtap="cellclicked">
+    <view class="left">
+        <image src="{{imgsrc}}" class="icon"/>
+        <view class="title">{{title}}</view>
+    </view>
+    <image class="access" src="/res/img/common/gray-access-icon.png"/>
+</view>
+
+
+
+
