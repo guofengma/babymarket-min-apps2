@@ -2,6 +2,9 @@
 <import src='/pages/my/my-property/cell/header-cell/header-cell.wxml' />
 <import src='/pages/my/my-property/cell/my-property-cell/my-property-cell.wxml' />
 
+<import src='/pages/my/my-award/cell/my-award-cell/my-award-cell.wxml'/>
+<import src='/pages/my/my-award/section/award-section-header.wxml'/>
+
 <!--top view-->
 <view class="top-view">
     <view class="balance-text">钱包余额（元）</view>
@@ -17,11 +20,27 @@
     <view class="balance-value">¥{{thirdBalance}}</view>
 </view>
 
-<block wx:for="{{listDatas}}" wx:key="unique">
-    <template is="header-cell" data="{{datas:item}}"></template>
-    <block wx:for="{{item.Detail}}" wx:key="unique">
-        <template is="my-property-cell" data="{{datas:item}}"></template>
-    </block>
-</block>
+<scroll-view scroll-y class="left-wrapper" id="left">
+    <view wx:for="..." bindtap="..." wx:key="unique"></view>
+    <!--这里是左侧的类型选择-->
+</scroll-view>
+<scroll-view scroll-y
+             class="right-wrapper"
+             bindscroll="onScroll"
+             scroll-into-view="{{toView}}"
+             id="right">
+    <view wx:for="{{months}}" wx:for-item="item" wx:for-index="section" wx:key="" class="lists" id="{{item.title}}">
+        <template is="award-section-header" data="{{...item}}"/>
+        <block wx:for="{{item.detailArray}}" wx:key="">
+            <template is="my-award-cell" data="{{...item,title:item.Title,section,index,isProperty:true}}"></template>
+        </block>
+    </view>
+</scroll-view>
+
+<my-award-filter isProperty="true" visiable="{{isFilterVisiable}}" bind:dismissFilterClicked="dismissFilterClicked" bind:thumbClicked="thumbClicked"/>
 
 <loading hidden="{{loadingHidden}}">加载中...</loading>
+
+<view class="filter-btn" catchtap="filterBtnClicked">
+    <image style="height:62rpx;width:62rpx" src="/res/img/common/filter-btn.png"/>
+</view>

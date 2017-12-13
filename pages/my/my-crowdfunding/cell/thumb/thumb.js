@@ -1,10 +1,11 @@
-// pages/my/my-crowdfunding/header/my-crowdfunding-header.js
+// pages/my/my-crowdfunding/cell/thumb/thumb.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+      title:String,
+      value:String,
   },
 
   /**

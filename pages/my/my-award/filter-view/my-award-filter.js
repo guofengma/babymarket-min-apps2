@@ -5,7 +5,7 @@ Component({
      */
     properties: {
         visiable:Boolean,
-
+        isProperty:Boolean,
     },
 
     /**
@@ -30,7 +30,13 @@ Component({
     },
 
     ready:function () {
-        let r = global.RequestReadFactory.requestAwardType()
+        let r = null;
+        if (this.data.isProperty) {
+            r = global.RequestReadFactory.requestPropertyType()
+        }
+        else{
+            r = global.RequestReadFactory.requestAwardType()
+        }
         r.finishBlock = (req)=> {
             let datas = req.responseObject.Datas;
             this.setData({

@@ -1054,6 +1054,7 @@ export default class RequestReadFactory {
             responseData.forEach((item, index) => {
                 item.ConfirmDate = global.Tool.timeStringForDateString(item.ConfirmDate,'YYYY-MM-DD');
                 item.OrderDate = global.Tool.timeStringForDateString(item.OrderDate,'YYYY-MM-DD');
+                item.Money = parseInt(item.Money);
             });
         }
 
@@ -1072,6 +1073,27 @@ export default class RequestReadFactory {
 
         let req = new RequestRead(bodyParameters);
         req.name = '奖励类型 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+            });
+        }
+
+        return req;
+    }
+
+    //资产类型 查询
+    static requestPropertyType() {
+        let operation = Operation.sharedInstance().operation_MyPropertyTypeRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Ordinal} ASC"
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '资产类型 查询';
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
@@ -1104,4 +1126,62 @@ export default class RequestReadFactory {
 
         return req;
     }
+
+    //我的资产一级 查询
+    static requestMyPropertyWithCondition(month) {
+        let operation = Operation.sharedInstance().balanceLogMonthReadOperation;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Month} DESC"
+        };
+        if (month) {
+            bodyParameters['Condition'] = "${Month} <= '"+month+"'";
+        }
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的资产一级 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                // item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
+            });
+        }
+        return req;
+    }
+
+    //我的资产二级 查询
+    static requestMyPropertyDetailListWithCondition(month,typeKey) {
+        let operation = Operation.sharedInstance().operation_MyPropertyDetailListRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Month} DESC"
+        };
+        if (month) {
+            bodyParameters['Condition'] = "${Month} = '"+month+"'";
+            if (typeKey >= 0) {
+                bodyParameters['Condition'] = "${Month} = '"+month+"' && ${TypeKey} == '"+ typeKey +"'";
+            }
+        }
+        else if (typeKey >= 0) {
+            bodyParameters['Condition'] = "${TypeKey} == '"+ typeKey +"'";
+        }
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的资产二级 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                // item.ConfirmDate = global.Tool.timeStringForDateString(item.ConfirmDate,'YYYY-MM-DD');
+                // item.OrderDate = global.Tool.timeStringForDateString(item.OrderDate,'YYYY-MM-DD');
+                let typeImgId = item.TypeImgId;
+                item.TypeImgId = typeImgId;
+                item.typeImgSrc = global.Tool.imageURLForId(typeImgId);
+            });
+        }
+
+        return req;
+    }
+
 }

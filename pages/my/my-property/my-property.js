@@ -13,7 +13,12 @@ Page({
         noMoreData: false,
         isThirdParty: false,
         thirdBalance: '0',
-        loadingHidden:true
+        loadingHidden:true,
+
+        months:null,
+        selectMonth:null,
+        isFilterVisiable:false,
+        filterTypeKey:-1,
     },
 
     /**
@@ -102,81 +107,71 @@ Page({
       * 我的资产查询
       */
     requestData: function () {
-        let r = RequestReadFactory.myPropertyRead(0);
+        let self = this;
+        let r = global.RequestReadFactory.requestMyPropertyWithCondition(this.data.selectMonth);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
-            let total = req.responseObject.Total;
+            self.setData({
+                months:datas,
+            })
 
-            for (let i = 0; i < datas.length; i++) {
-
-                let property = datas[i];
-                if (property.Detail.length == 0) {
-                    continue;
+            let i = 0;
+            for (let data of self.data.months) {
+                let r2 = global.RequestReadFactory.requestMyPropertyDetailListWithCondition(data.Month,this.data.filterTypeKey);
+                r2.finishBlock = (req2) => {
+                    let datas2 = req2.responseObject.Datas;
+                    let item = self.data.months[req2.tag];
+                    item.detailArray = datas2;
+                    self.setData({
+                        months:self.data.months,
+                    })
                 }
-                
-                let date = property.Month;
-                let month = date.substring(0, 7);
-                property.dealMonth = month;
-
-                let details = property.Detail;
-                for (let j = 0; j < details.length; j++) {
-                    let detail = details[j];
-                    let dateTime = detail.DateTime;
-                    let date = dateTime.substring(0, 10);
-                    let time = dateTime.substring(11);
-                    detail.date = date;
-                    detail.time = time;
-                }
+                r2.addToQueue();
+                r2.tag = i;
+                i++;
             }
-
-            let nomoredata = false;
-            if (datas.length >= total) {
-                nomoredata = true;
-            }
-            this.setData({
-                'listDatas': datas,
-                noMoreData: nomoredata,
-                index: datas.length
-            });
-        };
+        }
         r.addToQueue();
+
+        let r2 = global.RequestReadFactory.requestPropertyType();
+
     },
 
     loadMore: function () {
-        let r = RequestReadFactory.myPropertyRead(this.data.index);
-        r.finishBlock = (req) => {
-            let datas = req.responseObject.Datas;
-            let total = req.responseObject.Total;
-
-            for (let i = 0; i < datas.length; i++) {
-                let property = datas[i];
-                let date = property.Month;
-                let month = date.substring(0, 7);
-                property.dealMonth = month;
-
-                let details = property.Detail;
-                for (let j = 0; j < details.length; j++) {
-                    let detail = details[j];
-                    let dateTime = detail.DateTime;
-                    let date = dateTime.substring(0, 10);
-                    let time = dateTime.substring(11);
-                    detail.date = date;
-                    detail.time = time;
-                }
-            }
-
-            let nomoredata = false;
-            if (datas.length + this.data.index >= total) {
-                nomoredata = true;
-            }
-
-            this.setData({
-                'listDatas': this.data.listDatas.concat(datas),
-                noMoreData: nomoredata,
-                index: datas.length + this.data.index
-            });
-        };
-        r.addToQueue();
+        // let r = RequestReadFactory.myPropertyRead(this.data.index);
+        // r.finishBlock = (req) => {
+        //     let datas = req.responseObject.Datas;
+        //     let total = req.responseObject.Total;
+        //
+        //     for (let i = 0; i < datas.length; i++) {
+        //         let property = datas[i];
+        //         let date = property.Month;
+        //         let month = date.substring(0, 7);
+        //         property.dealMonth = month;
+        //
+        //         let details = property.Detail;
+        //         for (let j = 0; j < details.length; j++) {
+        //             let detail = details[j];
+        //             let dateTime = detail.DateTime;
+        //             let date = dateTime.substring(0, 10);
+        //             let time = dateTime.substring(11);
+        //             detail.date = date;
+        //             detail.time = time;
+        //         }
+        //     }
+        //
+        //     let nomoredata = false;
+        //     if (datas.length + this.data.index >= total) {
+        //         nomoredata = true;
+        //     }
+        //
+        //     this.setData({
+        //         'listDatas': this.data.listDatas.concat(datas),
+        //         noMoreData: nomoredata,
+        //         index: datas.length + this.data.index
+        //     });
+        // };
+        // r.addToQueue();
     },
 
     /**
@@ -208,6 +203,44 @@ Page({
                     thirdBalance: money
                 })
             }
+        })
+    },
+
+    datePickerChange(e){
+        console.log('datePickerChange:', e.detail.value)
+        this.setData({
+            selectMonth: e.detail.value
+        })
+        this.requestData();
+    },
+
+    cellClicked(e){
+        let index = parseInt(e.currentTarget.dataset.index);
+        let section = parseInt(e.currentTarget.dataset.section);
+        let item = this.data.months[section].detailArray[index];
+        global.Tool.navigateTo('/pages/my/my-award/detail/my-award-detail?Id=' + item.Id);
+    },
+
+    dismissFilterClicked(e){
+        this.setData({
+            isFilterVisiable:false,
+        })
+    },
+
+    thumbClicked(e){
+        let index = e.detail.index;
+        let thumb = e.detail.thumb;
+        console.log('thumbClicked:' + thumb.Value);
+        this.setData({
+            filterTypeKey:parseInt(thumb.Value),
+        })
+        this.dismissFilterClicked();
+        this.requestData();
+    },
+
+    filterBtnClicked(){
+        this.setData({
+            isFilterVisiable:true,
         })
     }
 })

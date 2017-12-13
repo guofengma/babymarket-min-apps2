@@ -1,0 +1,5 @@
+<!--pages/my/my-crowdfunding/cell/thumb/thumb.wxml-->
+<view class="thumb">
+    <view class="value">{{value}}</view>
+    <view class="title">{{title}}</view>
+</view>

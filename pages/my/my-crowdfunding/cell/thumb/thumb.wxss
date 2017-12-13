@@ -1,0 +1,16 @@
+/* pages/my/my-crowdfunding/cell/thumb/thumb.wxss */
+.thumb{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.value{
+    font-size:26rpx;
+    color:rgba(81,81,81,1);
+    margin-bottom: 10rpx;
+}
+.title{
+    font-size:22rpx;
+    color:rgba(151,151,151,1);
+}

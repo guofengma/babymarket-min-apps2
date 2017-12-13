@@ -1,3 +1,6 @@
 {
-    "navigationBarTitleText": "我的资产"
+    "navigationBarTitleText": "我的资产",
+    "usingComponents": {
+        "my-award-filter": "/pages/my/my-award/filter-view/my-award-filter"
+    }
 }

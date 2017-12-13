@@ -1,7 +1,0 @@
-<!--pages/my/my-crowdfunding/header/my-crowdfunding-header.wxml-->
-<view class="my-crowdfunding-header">
-    <image class="img"/>
-    <view class="right">
-
-    </view>
-</view>

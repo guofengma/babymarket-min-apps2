@@ -157,9 +157,14 @@ export default class Operation {
 
         //返利类型(CommissionType)
         this.operation_AwardTypeRead = "a29310bf-cc07-4f6e-a265-a83f00f91795";
+        //资产类型(BalanceLogType)
+        this.operation_MyPropertyTypeRead = "69dfeeb5-230d-450d-992e-a842017d9656";
 
         //奖励日志(CommissionLog)
         this.operation_MyAwardDetailRead = "82f1f24c-e796-4d4c-8afb-a75c009c282d";
+
+        //会员钱包日志订单汇总(BalanceOrderLog)
+        this.operation_MyPropertyDetailListRead = "1067607b-d094-4393-9214-a83f0019b090";
 
         __instance(this);
     }

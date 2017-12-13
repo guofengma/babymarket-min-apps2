@@ -1,2 +1,38 @@
 <!--pages/my/my-crowdfunding/cell/my-crowdfunding-cell.wxml-->
-<text>pages/my/my-crowdfunding/cell/my-crowdfunding-cell.wxml</text>
+<view class="my-crowdfunding-cell">
+
+    <image class="img"/>
+
+    <view class="right">
+
+        <view class="title oneline">本色本色本色本色本色本色本色本色本色本色本色本色本色</view>
+
+        <view class="time-base">
+            <view class="money">认筹金额:100000</view>
+            <view class="time">2017</view>
+        </view>
+
+        <view class="progress">
+            <view class="value"></view>
+        </view>
+
+        <view class="detail-base">
+            <thumb title="余额/元" value="3106"/>
+            <thumb title="卖出/件" value="100"/>
+            <thumb title="剩余/件" value="47"/>
+        </view>
+
+        <view class="total-base">
+            <view class="left">
+                <view class="title">总回报</view>
+                <view class="price">￥9600</view>
+            </view>
+            <view class="view-detail">
+                <view>
+                    查看详情
+                </view>
+            </view>
+        </view>
+
+    </view>
+</view>

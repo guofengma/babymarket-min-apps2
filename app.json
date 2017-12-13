@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/my/my-v2",
+    "pages/my/my-crowdfunding/my-crowdfunding",
     "pages/home/home",
+    "pages/my/my-v2",
     "pages/my/my-award/my-award",
     "pages/my/my-award/filter-result-view/filter-result-view",
-    "pages/my/my-crowdfunding/my-crowdfunding",
     "pages/register/phone/register-phone",
     "pages/product-detail/product-detail",
     "pages/my/my",
@@ -60,7 +60,8 @@
     "pages/home/product-more-category/product-more-category",
     "pages/my/help/help",
     "pages/shopping-cart/cart-list/cart-list",
-    "pages/my/my-award/detail/my-award-detail"
+    "pages/my/my-award/detail/my-award-detail",
+    "pages/my/my-crowdfunding/detail/my-crowdfunding-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

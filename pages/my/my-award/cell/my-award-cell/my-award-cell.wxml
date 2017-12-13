@@ -1,17 +1,22 @@
 <template name="my-award-cell">
     <view class="my-award-cell" catchtap="cellClicked" data-index="{{index}}" data-section="{{section}}">
         <view class="left-view">
-            <image class='icon' src="/res/img/my/{{RefundMoney == '0'?'my-award-active-icon.png':'my-award-inactive-icon.png'}}"/>
+            <block wx:if="{{typeImgSrc != undefined}}">
+                <image class='icon' src="{{typeImgSrc}}"/>
+            </block>
+            <block wx:else>
+                <image class='icon' src="/res/img/my/{{RefundMoney == '0'?'my-award-active-icon.png':'my-award-inactive-icon.png'}}"/>
+            </block>
             <view class="mid">
                 <view class="name-base">
                     <text class="name">{{title}}</text>
-                    <block wx:if="{{RefundMoney != '0'}}">
+                    <block wx:if="{{RefundMoney != '0' && isProperty != true}}">
                         <text class="name-small">已退款(￥{{RefundMoney}})</text>
                     </block>
                 </view>
-                <text class="time">{{ConfirmDate}}</text>
+                <text class="time">{{isProperty ? DateTime:ConfirmDate}}</text>
             </view>
         </view>
-        <text class="amount">+{{Money}}</text>
+        <text class="amount">{{Money >= 0 ? '+':''}}{{Money}}</text>
     </view>
 </template>

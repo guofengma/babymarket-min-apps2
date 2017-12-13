@@ -1,2 +1,8 @@
 <!--pages/my/my-crowdfunding/my-crowdfunding.wxml-->
-<my-crowdfunding-header></my-crowdfunding-header>
+<view class="my-crowdfunding">
+    <my-crowdfunding-cell/>
+    <my-crowdfunding-cell/>
+    <my-crowdfunding-cell/>
+    <my-crowdfunding-cell/>
+    <my-crowdfunding-cell/>
+</view>

@@ -154,7 +154,6 @@ Page({
             selectMonth: e.detail.value
         })
         this.requestData();
-
     },
 
     cellClicked(e){

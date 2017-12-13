@@ -2,6 +2,9 @@
 @import '/pages/my/my-property/cell/header-cell/header-cell.wxss';
 @import '/pages/my/my-property/cell/my-property-cell/my-property-cell.wxss';
 
+@import '/pages/my/my-award/cell/my-award-cell/my-award-cell.wxss';
+@import '/pages/my/my-award/section/award-section-header.wxss';
+
 .top-view {
   width: 100%;
   height: 170rpx;
@@ -24,7 +27,7 @@
 .balance-value {
   font-size: 80rpx;
   color: white;
-  margin-left: 30rpx;
+    margin-left: 30rpx;
   margin-top: 30rpx;
 }
 
@@ -44,4 +47,26 @@
     background: #715329;
     padding-bottom: 50rpx;
     padding-top: 40rpx;
+}
+
+
+.filter{
+  color: white;
+  font-style: 28rpx;
+  padding: 15rpx;
+}
+
+.filter-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 170rpx;
+    right:60rpx;
+    height: 120rpx;
+    width: 120rpx;
+    background:rgba(126,127,129,1);
+    opacity:0.46;
+    border-radius: 60rpx;
 }

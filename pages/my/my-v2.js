@@ -225,6 +225,8 @@ Page({
             wx.navigateTo({
                 url: '/pages/coupon/coupon',
             })
+        } else if (title == '我的众筹') {
+            global.Tool.navigateTo('/pages/my/my-crowdfunding/my-crowdfunding');
         }
     },
 

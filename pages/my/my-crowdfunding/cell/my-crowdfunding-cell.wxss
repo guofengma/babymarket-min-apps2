@@ -1,1 +1,99 @@
 /* pages/my/my-crowdfunding/cell/my-crowdfunding-cell.wxss */
+
+.my-crowdfunding-cell{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    margin-top: 20rpx;
+}
+
+.my-crowdfunding-cell .img{
+    display: flex;
+    flex: none;
+    height: 320rpx;
+    width: 320rpx;
+    margin: 10rpx;
+    background-color: #F6F6F6;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    width: 370rpx;
+    margin:0 27rpx 0 17rpx;
+}
+
+.right .title{
+    font-size:28rpx;
+    color:rgba(81,81,81,1);
+    margin:40rpx 0rpx 12rpx 0rpx;
+}
+
+.right .time-base{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size:20rpx;
+    color:rgba(151,151,151,1);
+}
+
+.right .progress{
+    width:360rpx;
+    height:12rpx;
+    background:rgba(229,229,229,1);
+    border-radius: 6px ;
+    margin: 34rpx 0rpx 15rpx;
+}
+
+.right .progress .value{
+    width: 50%;
+    height:12rpx;
+    background:rgba(250,127,130,1);
+    border-radius: 6px ;
+}
+
+.right .detail-base{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 31rpx;
+}
+
+.right .total-base{
+    display: flex;
+    flex-direction: row;
+}
+
+.right .total-base .left {
+    display: flex;
+    flex-direction: column;
+}
+
+.right .total-base .left .title{
+    font-size:20rpx;
+    font-family:PingFang-SC-Regular;
+    color:rgba(175,56,58,1);
+}
+.right .total-base .left .price{
+
+}
+.right .total-base .view-detail{
+    width:154rpx;
+    height:44rpx;
+    border-radius: 4rpx;
+    font-size:22rpx;
+    color:rgba(175,56,58,1);
+    border: 1px solid #E57B7B;
+}
+
+.oneline{
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

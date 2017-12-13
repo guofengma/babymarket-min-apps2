@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "thumb":"/pages/my/my-crowdfunding/cell/thumb/thumb"
+  }
 }
