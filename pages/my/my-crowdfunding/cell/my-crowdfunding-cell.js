@@ -4,7 +4,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+      item:Object,
+      index:Number,
+      inList:Boolean,
   },
 
   /**
@@ -19,5 +21,8 @@ Component({
    */
   methods: {
 
+      cellclicked:function () {
+          this.triggerEvent('cellclicked',{...this.data});
+      }
   }
 })

@@ -1,2 +1,18 @@
 <!--pages/my/my-crowdfunding/detail/my-crowdfunding-detail.wxml-->
-<text>pages/my/my-crowdfunding/detail/my-crowdfunding-detail.wxml</text>
+
+<import src='/pages/my/my-award/cell/my-award-cell/my-award-cell.wxml'/>
+<import src='/pages/my/my-award/section/award-section-header.wxml'/>
+
+<my-crowdfunding-cell item="{{item}}"/>
+<scroll-view scroll-y
+             class="right-wrapper"
+             bindscroll="onScroll"
+             scroll-into-view="{{toView}}"
+             id="right">
+    <view wx:for="{{months}}" wx:for-item="item" wx:for-index="section" wx:key="" class="lists" id="{{item.title}}">
+        <template is="award-section-header" data="{{...item,Commission:item.Commissioin}}"/>
+        <block wx:for="{{item.detailArray}}" wx:key="">
+            <template is="my-award-cell" data="{{...item,title:item.BuyerName,section,index}}"></template>
+        </block>
+    </view>
+</scroll-view>

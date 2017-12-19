@@ -1,8 +1,6 @@
 <!--pages/my/my-crowdfunding/my-crowdfunding.wxml-->
 <view class="my-crowdfunding">
-    <my-crowdfunding-cell/>
-    <my-crowdfunding-cell/>
-    <my-crowdfunding-cell/>
-    <my-crowdfunding-cell/>
-    <my-crowdfunding-cell/>
+    <block wx:for="{{items}}" wx:key="">
+        <my-crowdfunding-cell bind:cellclicked="cellClicked" index="{{index}}" item="{{item}}" inList="true"/>
+    </block>
 </view>

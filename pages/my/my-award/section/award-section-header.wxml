@@ -2,7 +2,7 @@
     <view class="award-section-header">
         <view class="left">
             <view class="date">{{Month}}</view>
-            <view class="income">收益：￥{{Commission}}</view>
+            <view class="income">收益：￥{{Money}}</view>
         </view>
         <!--结束日期-->
         <picker

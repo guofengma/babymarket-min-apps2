@@ -23,6 +23,24 @@
     width: 40rpx;
     padding:17rpx;
 }
+
+.header .fake-nav .customer-btn{
+    display: flex;
+    padding:0;
+    margin: 0;
+    height: 70rpx;
+    width: 70rpx;
+    background-color:transparent;
+}
+.header .fake-nav .customer-btn::after{
+    display: flex;
+    padding:0;
+    margin: 0;
+    height: 70rpx;
+    width: 70rpx;
+    background-color:transparent;
+    border:0px solid transparent;
+}
 .header .fake-nav .customer-service{
     height: 40rpx;
     width: 40rpx;

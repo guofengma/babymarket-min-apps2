@@ -166,6 +166,21 @@ export default class Operation {
         //会员钱包日志订单汇总(BalanceOrderLog)
         this.operation_MyPropertyDetailListRead = "1067607b-d094-4393-9214-a83f0019b090";
 
+        //众筹记录(Raise)
+        this.operation_MyRaiseRead = "09aa09d8-d217-4434-937b-a83f001b7ac4";
+
+        //众筹奖励月汇总(RaiseCommissionMonth)
+        this.operation_MyRaiseCommissionMonthRead = "3c1f5579-a597-497c-afae-a843000137b8";
+
+        //众筹奖励订单汇总(RaiseCommissionOrder)
+        this.operation_MyRaiseCommissionOrderRead = "0098a7b6-2f82-407e-9ce4-a84300020148";
+
+        //订单明细查询
+        this.operation_Order_Line_Read = "e418e1cb-fe9f-002e-1cd6-3c1701937208";
+
+        //众筹订单详情回报明细(RaiseCommission)
+        this.operation_MyRaiseCommissionRead = "cbc47d01-fc31-4a3b-a3ab-a84900aaab05";
+
         __instance(this);
     }
 

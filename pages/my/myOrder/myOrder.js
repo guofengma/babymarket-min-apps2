@@ -30,18 +30,24 @@ Page({
             },
             {
                 id: 4,
-                name: '已收货',
+                name: '去分享',
             }
         ],
         nomoredata: false,
         secondArry: [],
-        time: Object
+        time: Object,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let currentIndex = parseInt(options.index);
+        if (currentIndex) {
+            this.setData({
+                currentIndex,
+            })
+        }
         this.requestData();
         Event.on('deleteOrderFinish', this.requestData, this)
         Event.on('refundSuccessNotic', this.requestData,this)

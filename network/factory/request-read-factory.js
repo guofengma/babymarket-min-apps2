@@ -1029,7 +1029,7 @@ export default class RequestReadFactory {
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
-                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
+                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM月');
             });
         }
         return req;
@@ -1052,9 +1052,9 @@ export default class RequestReadFactory {
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
-                item.ConfirmDate = global.Tool.timeStringForDateString(item.ConfirmDate,'YYYY-MM-DD');
-                item.OrderDate = global.Tool.timeStringForDateString(item.OrderDate,'YYYY-MM-DD');
-                item.Money = parseInt(item.Money);
+                item.ConfirmDate = global.Tool.timeStringForDateString(item.ConfirmDate,'MM-DD');
+                item.OrderDate = global.Tool.timeStringForDateString(item.OrderDate,'MM-DD');
+                item.Money = parseFloat(item.Money);
             });
         }
 
@@ -1144,7 +1144,7 @@ export default class RequestReadFactory {
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
-                // item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
+                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
             });
         }
         return req;
@@ -1184,4 +1184,133 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //我的众筹记录 查询
+    static requestMyRaiseWithCondition(condition) {
+        let operation = Operation.sharedInstance().operation_MyRaiseRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+        };
+        if (condition) {
+            bodyParameters['Condition'] = condition;
+        }
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的众筹记录 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.Date = global.Tool.timeStringForDateString(item.Date,'YYYY-MM-DD');
+                item.imgSrc = global.Tool.imageURLForId(item.ImgId);
+                item.progress = parseFloat(item.UsedMoney) / parseFloat(item.Money);
+            });
+        }
+
+        return req;
+    }
+
+    //我的众筹订单一级 查询
+    static requestMyRaiseAwardMonthWithCondition(month) {
+        let operation = Operation.sharedInstance().operation_MyRaiseCommissionMonthRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Month} DESC"
+        };
+        let memberId = global.Storage.currentMember().Id;
+        if (month) {
+            bodyParameters['Condition'] = "${Month} <= '"+month+"' && ${MemberId} == '"+ memberId +"'";
+        }
+        else {
+            bodyParameters['Condition'] = "${MemberId} == '"+ memberId +"'";
+        }
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的众筹订单一级 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
+            });
+        }
+        return req;
+    }
+
+    //我的众筹订单二级 查询
+    static requestMyRaiseAwardDetailWithCondition(month) {
+        let operation = Operation.sharedInstance().operation_MyRaiseCommissionOrderRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount": '999',
+            'Order':"${Date} DESC"
+        };
+
+        let memberId = global.Storage.currentMember().Id;
+        bodyParameters['Condition'] = "${Month} = '"+month+"'";
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '我的众筹订单二级 查询';
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                // item.ConfirmDate = global.Tool.timeStringForDateString(item.ConfirmDate,'YYYY-MM-DD');
+                // item.OrderDate = global.Tool.timeStringForDateString(item.OrderDate,'YYYY-MM-DD');
+                let typeImgId = item.BuyerImgId;
+                item.TypeImgId = typeImgId;
+                item.typeImgSrc = global.Tool.imageURLForId(typeImgId);
+                item.Money = item.Commissioin;
+            });
+        }
+
+        return req;
+    }
+
+    //订单明细 查询
+    static requestOrderLineWithOrderId(orderId) {
+        let operation = Operation.sharedInstance().operation_Order_Line_Read;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "OrderId":orderId
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '订单明细 查询';
+        req.items = ["Product_Name", "Qnty","Date"];
+
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.Date = global.Tool.timeStringForDateString(item.Date,'YYYY-MM-DD');
+            });
+        }
+        return req;
+    }
+
+    //众筹订单详情回报明细 查询
+    static requestMyRaiseAwardLineCondition(condition) {
+        let operation = Operation.sharedInstance().operation_MyRaiseCommissionRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount":999,
+        };
+
+        if (condition) {
+            bodyParameters['Condition'] = condition;
+        }
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '众筹订单详情回报明细 查询';
+
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+
+            });
+        }
+        return req;
+    }
 }

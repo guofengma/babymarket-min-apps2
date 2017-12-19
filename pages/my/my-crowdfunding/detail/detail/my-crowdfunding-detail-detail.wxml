@@ -1,0 +1,29 @@
+<!--pages/my/my-crowdfunding/detail/detail/my-crowdfunding-detail-detail.wxml-->
+<view class="my-award-detail">
+    <my-award-nav-header title="回报明细" imgsrc="/res/img/my/my-award-active-icon.png"></my-award-nav-header>
+    <view class="sep-line"></view>
+    <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
+    <view class="sep-line"></view>
+    <my-award-detail-total-price-cell title="回报金额" value="{{commissioin}}"></my-award-detail-total-price-cell>
+    <view class="thumb-container">
+        <block wx:for="{{items}}" wx:key="">
+            <my-award-detail-thumb title="{{item.TypeName}}:￥{{item.Commissioin}}"/>
+        </block>
+    </view>
+    <view class="sep-line"></view>
+    <key-value-cell key="我的老友" value="{{buyerName}}"/>
+
+    <view class="product-container">
+        <view class="product-name-key">购买的商品</view>
+        <view class="product-table">
+            <view class="product-cell">{{productName}}</view>
+            <view class="product-cell">数量：{{productCount}}件</view>
+        </view>
+    </view>
+    <key-value-cell key="确认收货时间" value="{{date}}"/>
+    <view class="sep-line"></view>
+
+    <view style="padding:130rpx 28rpx 0">
+        <subumit-button title="炫耀一下" bind:submitclicked="share"/>
+    </view>
+</view>

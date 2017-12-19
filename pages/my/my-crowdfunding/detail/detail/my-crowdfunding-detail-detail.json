@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "my-award-nav-header": "/pages/my/my-award/detail/nav-header/my-award-nav-header",
+        "key-value-cell":"/components/key-value-cell/key-value-cell",
+        "my-award-detail-total-price-cell":"/pages/my/my-award/detail/total-price/my-award-detail-total-price-cell",
+        "my-award-detail-thumb":"/pages/my/my-award/detail/detail-thumb/my-award-detail-thumb",
+        "subumit-button":"/components/submit-button/subumit-button"
+    }
+}

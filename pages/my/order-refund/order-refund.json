@@ -1,3 +1,6 @@
 {
-    "navigationBarTitleText": "退款"
+    "navigationBarTitleText": "退款",
+    "usingComponents":{
+        "refund-cell":"/pages/my/order-refund/cell/refund-cell"
+    }
 }

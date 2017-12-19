@@ -26,7 +26,7 @@
 .right .title{
     font-size:28rpx;
     color:rgba(81,81,81,1);
-    margin:40rpx 0rpx 12rpx 0rpx;
+    margin:30rpx 0rpx 12rpx 0rpx;
 }
 
 .right .time-base{
@@ -43,7 +43,7 @@
     height:12rpx;
     background:rgba(229,229,229,1);
     border-radius: 6px ;
-    margin: 34rpx 0rpx 15rpx;
+    margin: 24rpx 0rpx 15rpx;
 }
 
 .right .progress .value{
@@ -59,31 +59,37 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 31rpx;
+    margin-bottom: 21rpx;
 }
 
 .right .total-base{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .right .total-base .left {
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
-.right .total-base .left .title{
+.total-base .left .prompt{
     font-size:20rpx;
-    font-family:PingFang-SC-Regular;
     color:rgba(175,56,58,1);
 }
 .right .total-base .left .price{
-
+    font-size:32rpx;
+    color:rgba(175,56,58,1);
 }
 .right .total-base .view-detail{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width:154rpx;
     height:44rpx;
-    border-radius: 4rpx;
+    border-radius: 9rpx;
     font-size:22rpx;
     color:rgba(175,56,58,1);
     border: 1px solid #E57B7B;

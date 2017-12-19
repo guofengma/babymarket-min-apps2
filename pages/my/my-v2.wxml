@@ -3,7 +3,9 @@
 <view class="my-v2">
     <view class="header">
         <view class="fake-nav">
-            <image class="customer-service" src="/res/img/my/customer-service-icon.png" catchtap="customerServiceClicked"/>
+            <button class='customer-btn' open-type="contact">
+                <image class="customer-service" src="/res/img/my/customer-service-icon.png" catchtap="customerServiceClicked"/>
+            </button>
             <image class="msg" src="/res/img/my/msg-icon.png" catchtap="msgClicked"/>
         </view>
         <view class="content">
@@ -21,10 +23,9 @@
         </view>
     </view>
 
-
     <view class="order">
-        <view class="my-order">
-            <view class="title">我的订单</view>
+        <view class="my-order" catchtap="myOrderClicked">
+            <view class="title" >我的订单</view>
             <image class="access" src="/res/img/common/gray-access-icon.png"/>
         </view>
         <view class="sep-line"></view>
@@ -58,8 +59,8 @@
         <view class="sep-line"></view>
         <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/授信@2x.png" title="我的授信" index="1"/>
         <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
-        <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/我的关注@2x.png" title="我的关注" index="2"/>
-        <view class="sep-line"></view>
+        <!--<my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/我的关注@2x.png" title="我的关注" index="2"/>-->
+        <!--<view class="sep-line"></view>-->
         <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/老友俱乐部@2x.png" title="老友俱乐部" index="3"/>
         <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
         <my-cell bind:cellclicked="cellClicked" imgsrc="/res/img/my/v2/设置@2x.png" title="设置" index="4"/>

@@ -1,0 +1,72 @@
+/* pages/my/order-refund/cell/refund-cell.wxss */
+
+.refund-cell{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 381rpx;
+    background-color: white;
+}
+
+
+
+
+.top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height: 88rpx;
+}
+.top .time{
+    font-size:28rpx;
+    color:rgba(81,81,81,1);
+    padding-left: 33rpx;
+}
+.top .status{
+    font-size:26rpx;
+    padding-right: 34rpx;
+    color:rgba(175,56,58,1);
+}
+
+
+
+
+
+.content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 186rpx;
+}
+.content .left{
+    display: flex;
+    flex-direction: row;
+}
+.content .left .pic{
+    width:146rpx;
+    height:146rpx;
+    background-color: lightgray;
+}
+.content .left .title-base{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+
+.sep-line{
+    height:1px;
+    width:100%;
+    background-color:#DCDCDC;
+}
+.twoline{
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

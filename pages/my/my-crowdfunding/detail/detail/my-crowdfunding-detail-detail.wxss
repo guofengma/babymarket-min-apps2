@@ -1,0 +1,40 @@
+/* pages/my/my-crowdfunding/detail/detail/my-crowdfunding-detail-detail.wxss */
+.my-award-detail{
+    background-color: white;
+}
+
+.thumb-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: white;
+    padding-left: 13rpx;
+    padding-bottom: 32rpx;
+}
+
+.product-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #F6F6F6;
+}
+
+.product-container .product-name-key{
+    color: #979797;
+    font-size: 26rpx;
+    padding: 19rpx 31rpx;
+    flex: 0 0 auto;
+}
+
+.product-container .product-table{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 19rpx 27rpx;
+    flex: 1;
+}
+
+.product-container .product-cell{
+    color: #979797;
+    font-size: 22rpx;
+}
