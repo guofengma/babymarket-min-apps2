@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/my/myOrder/myOrder",
         "pages/my/order-refund/order-refund",
         "pages/my/my-v2",
         "pages/home/home",
@@ -11,7 +12,6 @@
         "pages/product-detail/product-detail",
         "pages/my/my",
         "pages/shopping-cart/shopping-cart",
-        "pages/my/myOrder/myOrder",
         "pages/order-confirm/order-confirm",
         "pages/my/orderDetail/orderDetail",
         "pages/my/delivery-info/delivery-info",

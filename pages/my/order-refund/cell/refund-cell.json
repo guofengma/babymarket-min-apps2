@@ -1,4 +1,6 @@
 {
-  "component": true,
-  "usingComponents": {}
+    "component": true,
+    "usingComponents": {
+        "order-cell-content":"/pages/my/myOrder/cell-order/v2/content/order-cell-content"
+    }
 }

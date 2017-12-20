@@ -1,3 +1,4 @@
+
 <import src='/pages/my/myOrder/orderLineCell/orderline-cell.wxml' /> let {Tool} = global;
 
 <template name="order-cell">
@@ -7,29 +8,39 @@
             <text class="order-status">{{items.status}}</text>
         </view>
 
+
+        <view class="sep-line"></view>
         <view class="orderlist" wx:for="{{items.Line}}" wx:key="unique">
             <view class="orderline-cell">
                 <template is="orderline-cell" data="{{datas:item}}"></template>
             </view>
         </view>
+        <view style="height:20rpx;width:100%;background-color:white"></view>
+        <view class="sep-line" style="margin-left:33rpx"></view>
 
-        <view class="total-amount">
-            <text class="goods-num">订单金额：</text>
-            <text class="amount">￥{{items.Total}}</text>
-        </view>
-
-        <!--底部按钮-->
-        <view class="bottom-button-view">
-
-            <view class="bottom-button right" wx:if="{{items.rightButtonName == '联系客服'}}" catchtap="contactTap">
-                <button class='contact' open-type="contact">联系客服</button>
+        <view class="bottom">
+            <view class="total-amount">
+                <text class="goods-num">应付：</text>
+                <text class="amount">￥{{items.Total}}</text>
             </view>
-            <view class="{{items.StatusKey == '0' ? 'bottom-button right pay': 'bottom-button right'}}" catchtap="bottomButtonTap" data-title="{{items.rightButtonName}}" data-index="{{index}}" wx:else>{{items.rightButtonName}}</view>
 
-            <view class="bottom-button mid" catchtap="bottomButtonTap" wx:if="{{!items.midButtonName == ''}}" data-title="{{items.midButtonName}}" data-index="{{index}}">{{items.midButtonName}}</view>
+            <!--底部按钮-->
+            <view class="bottom-button-view">
 
-            <view class="bottom-button left" catchtap="bottomButtonTap" wx:if="{{!items.leftButtonName == ''}}" data-title="{{items.leftButtonName}}" data-index="{{index}}">{{items.leftButtonName}}</view>
+                <view class="bottom-button right" wx:if="{{items.rightButtonName == '联系客服'}}" catchtap="contactTap">
+                    <button class='contact' open-type="contact">联系客服</button>
+                </view>
+                <view class="{{items.StatusKey == '0' ? 'bottom-button right pay': 'bottom-button right'}}" catchtap="bottomButtonTap" data-title="{{items.rightButtonName}}" data-index="{{index}}" wx:else>{{items.rightButtonName}}</view>
 
+                <view class="bottom-button mid" catchtap="bottomButtonTap" wx:if="{{!items.midButtonName == ''}}" data-title="{{items.midButtonName}}" data-index="{{index}}">{{items.midButtonName}}</view>
+
+                <view class="bottom-button left" catchtap="bottomButtonTap" wx:if="{{!items.leftButtonName == ''}}" data-title="{{items.leftButtonName}}" data-index="{{index}}">{{items.leftButtonName}}</view>
+
+            </view>
         </view>
     </view>
 </template>
+
+
+
+

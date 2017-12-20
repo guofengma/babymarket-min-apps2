@@ -1,26 +1,24 @@
 <!--pages/my/order-refund/cell/refund-cell.wxml-->
+
 <view class="refund-cell">
+
     <view class="top">
         <view class="time">2017</view>
         <view class="status">status</view>
     </view>
 
     <view class="sep-line"></view>
-    <view class="content">
-        <view class="left">
-            <image class="pic"/>
-            <view class="title-base">
-                <view class="title twoline">很顺利付电费是付首付</view>
-                <view class="specification">颜色：红色</view>
-            </view>
-        </view>
-        <view class="price-base">
-            <view class="count">x1</view>
-            <view class="price">￥129</view>
-        </view>
-    </view>
+    <order-cell-content/>
+    <view style="height:20rpx;width:100%;background-color:white"></view>
+    <view class="sep-line"></view>
 
     <view class="bottom">
-
+        <view class="type-base">
+            <image class="type-icon"/>
+            <view class="type">退款退货</view>
+        </view>
+        <view class="view-btn">
+            <view>查看详情</view>
+        </view>
     </view>
 </view>
