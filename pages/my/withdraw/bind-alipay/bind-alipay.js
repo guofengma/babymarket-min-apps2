@@ -106,7 +106,7 @@ Page({
             return;
         }
 
-        let r = RequestWriteFactory.withdrawAdd(account, name, accountSecond);
+        let r = RequestWriteFactory.bindAlipayAdd(account, name, accountSecond);
         r.finishBlock = (req) => {
 
             //刷新上一个页面
