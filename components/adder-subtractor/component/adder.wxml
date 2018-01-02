@@ -1,0 +1,22 @@
+<!--components/adder-subtractor/component/adder.wxml-->
+    <view class="adder-subtractor">
+
+        <image
+                class="subtractor"
+                mode="aspectFit"
+                src="/res/img/product-specification/adder-subtractor-sub.png"
+                catchtap="subClicked"
+        />
+        <input
+                value="{{count}}"
+                bindinput="inputOnChange"
+                type="number"
+        />
+        <image
+                class="adder"
+                mode="aspectFit"
+                src="/res/img/product-specification/adder-subtractor-adder.png"
+                catchtap="addClicked"
+        />
+
+    </view>

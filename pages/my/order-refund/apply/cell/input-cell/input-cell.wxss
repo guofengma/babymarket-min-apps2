@@ -1,0 +1,32 @@
+/* pages/my/order-refund/apply/cell/input-cell/input-cell.wxss */
+.root{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-base{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F6F6F6;
+    width:690rpx;
+    height:80rpx;
+    border-radius: 4px;
+    font-size:28rpx;
+}
+.input{
+    margin-left: 21rpx;
+    flex:1;
+}
+
+.access{
+    height: 30rpx;
+    width: 30rpx;
+    margin-right: 22rpx;
+}
+
+

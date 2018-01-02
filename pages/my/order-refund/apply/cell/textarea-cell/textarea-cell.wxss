@@ -1,0 +1,27 @@
+/* pages/my/order-refund/apply/cell/textarea-cell/textarea-cell.wxss */
+.root{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-base{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F6F6F6;
+    width:690rpx;
+    height:160rpx;
+    border-radius: 4px;
+    font-size:28rpx;
+}
+.input{
+    display: flex;
+    height: 120rpx;
+    margin: 20rpx;
+}
+
+

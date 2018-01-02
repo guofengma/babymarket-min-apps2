@@ -1,0 +1,47 @@
+/* pages/my/order-refund/apply/header/refund-apply-header.wxss */
+
+
+.time-line {
+    width: 100%;
+    height: 72rpx;
+    display: flex;
+    background-color: white;
+    align-items: center;
+}
+
+.time-line .time {
+    flex: 4 0 auto;
+    margin-left: 22rpx;
+    font-size: 26rpx;
+    color: #7d7f81;
+}
+
+.time-line .order-status {
+    flex: 1 0 auto;
+    margin-right: 22rpx;
+    font-size: 26rpx;
+    color: #AF383A;
+    text-align: right;
+}
+
+
+.root .pay{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 28rpx;
+    color: #515151;
+    height: 110rpx;
+    padding-left: 33rpx;
+    background-color: white;
+    margin-bottom: 21rpx;
+}
+
+
+
+
+.sep-line{
+    height:1px;
+    width:100%;
+    background-color:#DCDCDC;
+}

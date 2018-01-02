@@ -12,6 +12,9 @@
         <view class="sep-line"></view>
         <view class="orderlist" wx:for="{{items.Line}}" wx:key="unique">
             <view class="orderline-cell">
+                <block wx:if="{{index != 0}}">
+                    <view class="sep-line" style="margin-left:33rpx"></view>
+                </block>
                 <template is="orderline-cell" data="{{datas:item}}"></template>
             </view>
         </view>

@@ -1,0 +1,13 @@
+/* pages/my/order-refund/apply/cell/photo-cell/add-cell/add-cell.wxss */
+.root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F6F6F6;
+    color: #BABABA;
+    width: 176rpx;
+    height: 176rpx;
+    margin: 40rpx 0 0 0;
+}
+
+

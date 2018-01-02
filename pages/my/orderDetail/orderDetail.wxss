@@ -5,8 +5,97 @@
 @import '/pages/my/myOrder/settlement-cell/settlement-cell.wxss';
 
 .background-view{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 112rpx;
+}
+
+.address-header-line{
+    height: 8rpx;
     width: 100%;
 }
+.address-base{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background:rgba(255,252,237,1);
+    padding-bottom: 30rpx;
+}
+.address-base .name-base{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size:30rpx;
+    color:rgba(37,37,37,1);
+    margin: 27rpx 34rpx 19rpx;
+}
+.address-base .detail{
+    font-size:30rpx;
+    color:rgba(151,151,151,1);
+    margin: 0rpx 34rpx;
+}
+
+
+
+.status-base{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30rpx;
+    background-color: white;
+}
+.status-base .time{
+    font-size:28rpx;
+    color:rgba(81,81,81,1);
+}
+.status-base .status{
+    font-size:26rpx;
+    color:rgba(175,56,58,1);
+}
+
+
+
+
+.refund-base{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: white;
+    padding-bottom: 19rpx;
+    padding-right: 19rpx;
+}
+.refund-base .refund-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64rpx;
+    width: 170rpx;
+    font-size:28rpx;
+    color:rgba(81,81,81,1);
+    border: 1px solid #979797;
+    border-radius: 8rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+.sep-line{
+    height:1px;
+    width:100%;
+    background-color:#DCDCDC;
+}
+
+
+
 
 /*订单信息*/
 .top-order-info-view {

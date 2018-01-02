@@ -1,0 +1,25 @@
+/* pages/my/order-refund/apply/detail/refund-apply-detail.wxss */
+.root{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-base{
+
+}
+
+.adder{
+    background-color: white;
+    padding-left: 31rpx;
+}
+
+.photo-base{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 0 32rpx;
+}
+
+
+

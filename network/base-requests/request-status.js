@@ -1,7 +1,7 @@
 /**
  * Created by Patrick on 01/06/2017.
  */
-export  default class RequestStatus {}
+export default class RequestStatus {}
 RequestStatus.waiting = 'waiting';
 RequestStatus.requesting = 'requesting';
 RequestStatus.finish = 'finish';

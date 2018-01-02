@@ -181,6 +181,9 @@ export default class Operation {
         //众筹订单详情回报明细(RaiseCommission)
         this.operation_MyRaiseCommissionRead = "cbc47d01-fc31-4a3b-a3ab-a84900aaab05";
 
+        //退款原因(RefundReason)
+        this.operation_RefundReasonRead = "d8f2d996-53f4-0d49-2b4a-3e7601740c18";
+
         __instance(this);
     }
 

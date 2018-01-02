@@ -1,0 +1,113 @@
+<!--pages/my/order-refund/apply/detail/refund-apply-detail.wxml-->
+
+<view class="root">
+    <refund-apply-header line="{{line}}"/>
+    <view class="input-base">
+
+
+
+
+
+
+        <block wx:if="{{isRefundMoneyOnly}}">
+
+
+
+            <input-title-cell title="收货状态" isRequired="{{true}}"/>
+            <picker bindchange="orderStatusOnChange" value="{{index}}" range="{{orderStatusArr}}">
+                <input-cell value="{{orderStatus}}" placeholder="请选择收货状态" selectable="{{true}}"/>
+            </picker>
+
+
+
+            <view style="height:20rpx;width:100%;background:white"/>
+            <input-title-cell title="退款原因" isRequired="{{true}}"/>
+            <picker bindchange="reasonOnChange" value="{{index}}" range="{{reasonTexts}}">
+                <input-cell value="{{selectReasonText}}" placeholder="请选择退款原因" selectable="{{true}}"/>
+            </picker>
+
+
+
+
+        </block>
+        <block wx:else>
+
+
+
+            <view style="height:20rpx;width:100%;background:white"/>
+            <input-title-cell title="退货原因" isRequired="{{true}}"/>
+            <picker bindchange="bindPickerChange" value="{{index}}" range="{{reasonTexts}}">
+                <input-cell placeholder="请选择退货原因" selectable="{{true}}"/>
+            </picker>
+
+
+
+            <view style="height:20rpx;width:100%;background:white"/>
+            <input-title-cell title="申请数量" isRequired="{{true}}"/>
+
+            <view class="adder">
+                <adder
+                        count="{{innerCount}}"
+                        bind:subClicked="counterSubClicked"
+                        bind:inputOnChange="counterInputOnChange"
+                        bind:addClicked="counterAddClicked"
+                />
+            </view>
+
+
+
+        </block>
+
+
+
+
+
+
+
+        <view style="height:20rpx;width:100%;background:white"/>
+        <input-title-cell title="退款金额" isRequired="{{true}}" subtitle="最多{{129}}元"/>
+        <input-cell placeholder="请输入退款金额" selectable="{{false}}"/>
+
+        <view style="height:20rpx;width:100%;background:white"/>
+        <input-title-cell title="退款至支付宝" isRequired="{{true}}"/>
+        <input-cell placeholder="请输入支付宝账号" selectable="{{false}}"/>
+
+        <view style="height:20rpx;width:100%;background:white"/>
+        <view style="height:20rpx;width:100%;background:#F6F6F6"/>
+        <view style="height:20rpx;width:100%;background:white"/>
+        <input-title-cell title="退款说明" isRequired="{{false}}" />
+        <textarea-cell placeholder="请您在此描述详细问题（选填）"/>
+
+        <view style="height:20rpx;width:100%;background:white"/>
+        <input-title-cell title="上传凭证" isRequired="{{false}}" subtitle="最多6张"/>
+
+        <block wx:if="{{images.length > 0}}">
+            <view class="photo-base">
+                <block wx:for="{{images}}" wx:key="">
+                    <photo-thumb index="{{index}}" bind:removeclicked="photoRemoveClicked" imgsrc="{{item.localPath}}"/>
+                </block>
+                <block wx:if="{{images.length<6}}">
+                    <add-cell bind:clicked="addPhotoClicked"/>
+                </block>
+            </view>
+        </block>
+        <block wx:else>
+            <photo-cell bind:clicked="addPhotoClicked"/>
+        </block>
+        <view style="height:20rpx;width:100%;background:white"/>
+
+        <view class="sep-line"/>
+        <view style="padding:20rpx 28rpx;background:white">
+            <subumit-button title="提交" bind:submitclicked="submit" background="#AF383A"/>
+        </view>
+
+
+
+
+
+    </view>
+</view>
+
+
+
+

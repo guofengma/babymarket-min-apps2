@@ -1,0 +1,5 @@
+<!--pages/my/order-refund/apply/cell/photo-cell/thumb/photo-thumb.wxml-->
+<view class="root">
+    <image class="photo" src="{{imgsrc}}"/>
+    <image class="remove" src="/res/img/my/refund/photo-remove-icon.png" catchtap='removeclicked'/>
+</view>

@@ -1,0 +1,31 @@
+/* pages/my/order-refund/apply/cell/photo-cell/thumb/photo-thumb.wxss */
+
+.root{
+    position: relative;
+    height: 216rpx;
+    width: 216rpx;
+    background-color: white;
+}
+
+.photo{
+    position: absolute;
+    height: 176rpx;
+    width: 176rpx;
+    background-color: lightgray;
+    left:0;
+    bottom: 0;
+}
+
+.remove{
+    position: absolute;
+    height: 40rpx;
+    width: 40rpx;
+    padding: 20rpx;
+    right: 0;
+    top: 0;
+}
+
+
+
+
+

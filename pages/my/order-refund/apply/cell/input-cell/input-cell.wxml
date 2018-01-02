@@ -1,0 +1,9 @@
+<!--pages/my/order-refund/apply/cell/input-cell/input-cell.wxml-->
+<view class="root">
+    <view class="input-base">
+        <input bindinput="bindinput" class="input" placeholder="{{placeholder}}" placeholder-style="color:#BABABA" disabled="{{selectable}}" value="{{value}}"/>
+        <block wx:if="{{selectable}}">
+            <image class="access" mode="aspectFit" src="/res/img/common/common-down-arrow.png"/>
+        </block>
+    </view>
+</view>

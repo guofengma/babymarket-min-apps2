@@ -346,7 +346,7 @@ Page({
             };
             r.addToQueue();
 
-        } else if (title.match('抢先支付') != null) {//付款
+        } else if (title.match('付款') != null) {//付款
             wx.setStorage({
                 key: 'order',
                 data: order,
@@ -404,50 +404,42 @@ Page({
         item.rightButtonName = '';
 
         if (statusKey == '0') {
-            item.status = '待付款';
-            item.rightButtonName = '抢先支付 ';
+            item.rightButtonName = '付款 ';
             item.midButtonName = '取消订单';
 
         } else if (statusKey == '1') {
-            item.status = '待发货';
             item.rightButtonName = '联系客服';
-            item.midButtonName = '申请退款';
+            // item.midButtonName = '申请退款';
 
         } else if (statusKey == '2') {
-            item.status = '待收货';
             item.rightButtonName = '确认收货';
             item.midButtonName = '查看物流';
-            item.leftButtonName = '申请退款';
+            // item.leftButtonName = '申请退款';
 
         } else if (statusKey == '3') {
-            item.status = '已收货';
             item.rightButtonName = '联系客服';
             item.midButtonName = '查看物流';
 
         } else if (statusKey == '4') {
-            item.status = '已分享';
         } else if (statusKey == '5') {
-            item.status = '交易成功';
             item.rightButtonName = '查看物流';
             item.midButtonName = '删除订单';
 
         } else if (statusKey == '6') {
-            item.status = '交易关闭';
             item.rightButtonName = '删除订单';
 
         } else if (statusKey == '7') {
-            item.status = '退款中';
             item.rightButtonName = '取消退款';
 
         } else if (statusKey == '8') {
-            item.status = '退款成功';
             item.rightButtonName = '删除订单';
 
         } else if (statusKey == '9') {
-            item.status = '退款失败';
             item.rightButtonName = '联系客服';
 
         }
+
+        item.status = global.Tool.orderStatusForKey(statusKey);
 
         return item;
     },
@@ -468,7 +460,7 @@ Page({
                 if (second > 0) {//秒数>0
 
                     let countDownTime = Tool.timeStringForTimeCount(second);
-                    order.rightButtonName = '抢先支付 ' + countDownTime;
+                    order.rightButtonName = '付款 ' + countDownTime;
                     mapArry.set(i, second - 1);
 
                 } else {

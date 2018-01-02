@@ -1,9 +1,11 @@
 {
     "pages": [
+        "pages/home/home",
         "pages/my/myOrder/myOrder",
+        "pages/my/order-refund/apply/detail/refund-apply-detail",
+        "pages/my/order-refund/apply/refund-apply",
         "pages/my/order-refund/order-refund",
         "pages/my/my-v2",
-        "pages/home/home",
         "pages/my/my-crowdfunding/my-crowdfunding",
         "pages/my/my-crowdfunding/detail/my-crowdfunding-detail",
         "pages/my/my-award/my-award",

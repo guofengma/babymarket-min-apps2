@@ -1,0 +1,8 @@
+<!--pages/my/order-refund/apply/cell/input-title-cell/input-title-cell.wxml-->
+<view class="root">
+    <view class="title">{{title}}</view>
+    <block wx:if="{{isRequired}}">
+        <view class="required">*</view>
+    </block>
+    <view class="subtitle">{{subtitle}}</view>
+</view>

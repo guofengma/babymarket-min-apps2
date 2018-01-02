@@ -1,0 +1,15 @@
+<!--pages/my/order-refund/apply/refund-apply.wxml-->
+
+<view class="refund-apply">
+    <refund-apply-header line="{{line}}"/>
+    <menu-cell bind:menuClicked="menuClicked" index="0" title="退款退货" des="已收到货（包括拒收），需要退还已收到货物" icon="/res/img/my/refund/仅退款@2x.png"/>
+    <view class="sep-line"/>
+    <menu-cell bind:menuClicked="menuClicked" index="1" title="仅退款" des="未收到货，或与客服协商仅退款" icon="/res/img/my/refund/拖货退款50-50@2x.png"/>
+    <view class="tip-title">
+        订单取消后：
+    </view>
+    <tip-cell content="此订单如遇订单拆分，包邮等条件订单可能新增运费"/>
+    <tip-cell content="此订单所支付金额将退回支付宝"/>
+    <tip-cell content="此订单参加满赠券活动所送优惠券将失效"/>
+    <tip-cell content="此订单获得的奖励金额将不予发放"/>
+</view>

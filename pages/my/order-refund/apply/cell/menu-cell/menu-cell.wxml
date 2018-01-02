@@ -1,0 +1,21 @@
+<!--pages/my/order-refund/apply/cell/menu-cell/menu-cell.wxml-->
+
+
+
+<view class="root" catchtap="menuClicked">
+    <view class="left">
+        <view class="top">
+            <image class="icon" src="{{icon}}"/>
+            <view class="title">{{title}}</view>
+        </view>
+        <view class="des">
+            {{des}}
+        </view>
+    </view>
+
+    <image class="access" src="/res/img/common/common-accessory-icon.png" mode="aspectFit"/>
+</view>
+
+
+
+

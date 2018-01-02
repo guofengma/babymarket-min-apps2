@@ -1,4 +1,4 @@
 <!--components/submit-button/subumit-button.wxml-->
-<view catchtap="submitBtnClicked" data-tag="{{tag}}" class="submit-button">
+<view catchtap="submitBtnClicked" data-tag="{{tag}}" class="submit-button" style="{{style}}">
     <view>{{title}}</view>
 </view>

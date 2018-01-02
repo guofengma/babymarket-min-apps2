@@ -1,0 +1,15 @@
+<!--pages/my/order-refund/apply/header/refund-apply-header.wxml-->
+<view class="root">
+    <view style="height:23rpx;width:100%"></view>
+    <view class="time-line">
+        <text class="time">{{line.CreateTime}}</text>
+        <text class="order-status">{{line.statusText}}</text>
+    </view>
+    <view class="sep-line" style="margin-left:33rpx"/>
+    <order-cell-content line="{{line}}"/>
+    <view style="height:21rpx;width:100%;background-color:white"></view>
+    <view class="sep-line" style="margin-left:33rpx"/>
+    <view class="pay">
+        <view>实际付：￥{{line.Money}}</view>
+    </view>
+</view>

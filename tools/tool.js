@@ -3,6 +3,7 @@
  */
 
 'use strict';
+import RequestUploadTempFile from "../network/requests/request-upload-temp-file";
 
 var bmap = require('../libs/baidu-map/bmap-wx.min');
 
@@ -401,8 +402,42 @@ export default class Tool {
             sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: successCallback
-        }
-        );
+        });
+    }
+
+    // 选择图片，并上传，返回临时Id
+    static chooseAndUploadImgsFromWX(imgCount, successCallback) {
+        wx.chooseImage({
+            count: imgCount, // 默认9
+            sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来是相册还是相机，默认二者都有
+            success: function (res) {
+                var tempFilePaths = res.tempFilePaths;
+
+                let results = [];
+                let count = 0;
+                for (let localPath of tempFilePaths) {
+                    let obj = {
+                        localPath,
+                        remoteImgId:global.Tool.guid()
+                    }
+                    results.push(obj);
+                    let r = new RequestUploadTempFile(localPath);
+                    r.finishBlock = (response,tempId)=>{
+                        if (response.filePath == obj.localPath) {
+                            obj.tempId = tempId;
+                        }
+                    };
+                    r.completeBlock = ()=>{
+                        count++;
+                        if (count >= results.length) {
+                            successCallback(results);
+                        }
+                    }
+                    r.addToQueue();
+                }
+            }
+        });
     }
 
     /**
@@ -743,6 +778,39 @@ export default class Tool {
         else {
             return false;
         }
+    }
+
+    static orderStatusForKey(statusKey){
+        let status = '未知';
+        if (statusKey == '0') {
+            status = '待付款';
+        } else if (statusKey == '1') {
+            status = '待发货';
+
+        } else if (statusKey == '2') {
+            status = '待收货';
+
+        } else if (statusKey == '3') {
+            status = '已收货';
+
+        } else if (statusKey == '4') {
+            status = '已分享';
+        } else if (statusKey == '5') {
+            status = '交易成功';
+
+        } else if (statusKey == '6') {
+            status = '交易关闭';
+
+        } else if (statusKey == '7') {
+            status = '退款中';
+
+        } else if (statusKey == '8') {
+            status = '退款成功';
+
+        } else if (statusKey == '9') {
+            status = '退款失败';
+        }
+        return status;
     }
 
 }

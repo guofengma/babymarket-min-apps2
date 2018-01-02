@@ -7,6 +7,24 @@ Component({
 
         title:String,
         tag:Number,
+        style:{
+            type:String,
+            value:'',
+            observer:function () {
+                
+            }
+        },
+        background:{
+            type:String,
+            value:'',
+            observer:function (newValue,oldValue) {
+               let style = this.data.style;
+               style += 'background-color:' + newValue + ';';
+               this.setData({
+                   style,
+                })
+            }
+        }
     },
 
     /**

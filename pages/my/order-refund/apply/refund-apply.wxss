@@ -1,0 +1,7 @@
+/* pages/my/order-refund/apply/refund-apply.wxss */
+
+.tip-title{
+    font-size:28rpx;
+    color:rgba(37,37,37,1);
+    margin: 31rpx 0 29rpx 28rpx;
+}

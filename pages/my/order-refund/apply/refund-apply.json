@@ -1,0 +1,7 @@
+{
+    "usingComponents":{
+        "refund-apply-header":"/pages/my/order-refund/apply/header/refund-apply-header",
+        "menu-cell":"/pages/my/order-refund/apply/cell/menu-cell/menu-cell",
+        "tip-cell":"/pages/my/order-refund/apply/cell/tip-cell/tip-cell"
+    }
+}

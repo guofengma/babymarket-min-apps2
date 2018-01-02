@@ -72,7 +72,7 @@
 .bottom-button.right.pay {
     border: 2rpx solid #AF383A;
     color: #AF383A;
-    width: 202rpx;
+    width: 150rpx;
 }
 
 .bottom-button.mid {

@@ -1,0 +1,6 @@
+<!--pages/my/order-refund/apply/cell/textarea-cell/textarea-cell.wxml-->
+<view class="root">
+    <view class="input-base">
+        <textarea bindinput="bindinput" value="{{value}}" class="input" placeholder="{{placeholder}}" placeholder-style="color:#BABABA"/>
+    </view>
+</view>

@@ -1,0 +1,27 @@
+/* pages/my/order-refund/apply/cell/photo-cell/photo-cell.wxss */
+.bg{
+    background-color: white;
+}
+.root{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 30rpx;
+
+    width:690rpx;
+    height:178rpx;
+    background:rgba(246,246,246,1);
+    border-radius: 4px ;
+}
+.icon{
+    font-size:48rpx;
+    color:rgba(186,186,186,1);
+}
+.tip{
+    font-size:28rpx;
+    color:rgba(186,186,186,1);
+    padding: 10rpx;
+}
+
+

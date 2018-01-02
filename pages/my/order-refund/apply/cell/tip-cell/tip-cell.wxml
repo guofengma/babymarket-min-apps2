@@ -1,0 +1,5 @@
+<!--pages/my/order-refund/apply/cell/tip-cell/tip-cell.wxml-->
+<view class="root">
+    <view class="dot"/>
+    <view class="content">{{content}}</view>
+</view>

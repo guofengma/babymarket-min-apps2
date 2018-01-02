@@ -3,9 +3,9 @@
  */
 'use strict';
 
-import Tool from '../../tools/tool'
 import RequestQueue from './request-queue';
 import RequestStatus from './request-status';
+
 
 //请求基类
 export default class Request {
@@ -63,7 +63,7 @@ export default class Request {
         this.tag = 0;
 
         //请求的状态
-        this.status = RequestStatus.waiting;
+        this.requestStatus = RequestStatus.waiting;
 
         //是否有队列管理请求
         this.isManagedByQueue = false;
@@ -126,7 +126,7 @@ export default class Request {
         let that = this;
         this.body();
         this.url();
-        this.status = RequestStatus.requesting;
+        this.requestStatus = RequestStatus.requesting;
         wx.request({
             data:this._body,
             url: this._url,
@@ -138,7 +138,7 @@ export default class Request {
             success: function (res) {
 
                 if (that.managerLoadingPrompt) {
-                    Tool.hideLoading();
+                    global.Tool.hideLoading();
                 }
 
                 console.debug('<============================== 请求结束：' + that.name);
@@ -154,10 +154,10 @@ export default class Request {
                     let appendixes = that.responseObject.Appendixes;
 
                     //配置了键值映射
-                    if (Tool.isValidObject(that.appendixesKeyMap)) {
+                    if (global.Tool.isValidObject(that.appendixesKeyMap)) {
 
                         //服务器有返回appendixes
-                        if (Tool.isValidArr(appendixes)){
+                        if (global.Tool.isValidArr(appendixes)){
 
                             //第一层for
                             for (let i = 0; i < appendixes.length; i++) {
@@ -167,7 +167,7 @@ export default class Request {
                                 for (let j = 0; j < datas.length; j++) {
                                     let data = datas[j];//data
 
-                                    let keyMap = Tool.getAppendixesKeyMap(appendixe.$DataKey);
+                                    let keyMap = global.Tool.getAppendixesKeyMap(appendixe.$DataKey);
                                     let key = keyMap.key;//Employee
                                     let id = keyMap.id;//"Employee.c2f7ea6c-36fe-410b-a6d2-9f2a0119cca1"中的id值
                                     let propertyKey = that.appendixesKeyMap[key];//data的属性名，如CreatorId
@@ -176,7 +176,7 @@ export default class Request {
                                     if (data[propertyKey] === id){
 
                                         //给data对象添加appendixesMap属性
-                                        if (Tool.isEmptyObject(data.appendixesMap)) {
+                                        if (global.Tool.isEmptyObject(data.appendixesMap)) {
                                             data.appendixesMap = {};
                                         }
                                         data.appendixesMap[key] = appendixe;
@@ -192,7 +192,7 @@ export default class Request {
                     //
                     let Datas = that.responseObject.Datas;
                     let firstData = null;
-                    if (Tool.isValidArr(Datas)) {
+                    if (global.Tool.isValidArr(Datas)) {
                         firstData = Datas[0];
                     }
                     let currentCount = parseInt(that.responseObject.StartIndex) + parseInt(that.responseObject.Count);
@@ -216,7 +216,7 @@ export default class Request {
 
                     //弹窗，提示服务器错误
                     that.failBlock(that);
-                    Tool.showAlert(res.data.brief);
+                    global.Tool.showAlert(res.data.brief);
 
                     let error = res.data.brief;
                     console.debug('请求出错：'+error);
@@ -229,7 +229,10 @@ export default class Request {
                 console.debug('==============================\n\n\n');
                 //请求失败重试
                 if (that.tryCount < that.maxTryCount) {
-                    if (that.isManagedByQueue === false) {
+                    if (that.isManagedByQueue) {
+                        that.addToQueue();
+                    }
+                    else{
                         that.start();
                     }
                 }
@@ -239,11 +242,11 @@ export default class Request {
                 {
                     //弹窗，提示服务器错误
                     that.failBlock(that);
-                    Tool.showAlert('请求失败，请稍后重试')
+                    global.Tool.showAlert('请求失败，请稍后重试')
                 }
             },
             complete:function () {
-                that.status = RequestStatus.finish;
+                that.requestStatus = RequestStatus.finish;
                 that.completeBlock(that);
 
                 if (that.isManagedByQueue) {
@@ -251,7 +254,7 @@ export default class Request {
                 }
 
                 if (that.manageLoadingPrompt) {
-                    Tool.hideLoading();
+                    global.Tool.hideLoading();
                 }
             }
         });
@@ -265,7 +268,7 @@ export default class Request {
         console.debug('------------------------------\n\n\n');
 
         if (this.manageLoadingPrompt) {
-            Tool.showLoading();
+            global.Tool.showLoading();
         }
 
         return this;
@@ -275,7 +278,7 @@ export default class Request {
     url() {
 
         //没有指明url param，则用默认参数
-        if (Tool.isEmpty(this.urlParam)) {
+        if (global.Tool.isEmpty(this.urlParam)) {
             let session = '';
 
             //指定了session
@@ -291,7 +294,7 @@ export default class Request {
             };
         }
 
-        this._url = Tool.generateURL(this.baseUrl,this.urlParam);
+        this._url = global.Tool.generateURL(this.baseUrl,this.urlParam);
         return this._url;
     }
 

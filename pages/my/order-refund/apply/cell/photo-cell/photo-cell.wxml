@@ -1,0 +1,7 @@
+<!--pages/my/order-refund/apply/cell/photo-cell/photo-cell.wxml-->
+<view class="bg">
+    <view class="root" catchtap="clicked">
+        <view class="icon">+</view>
+        <view class="tip">添加图片</view>
+    </view>
+</view>

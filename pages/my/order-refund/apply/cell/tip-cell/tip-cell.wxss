@@ -1,0 +1,23 @@
+/* pages/my/order-refund/apply/cell/tip-cell/tip-cell.wxss */
+.root{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 28rpx;
+    margin-bottom: 16rpx;
+    align-items: center;
+}
+
+.dot{
+    width:8rpx;
+    height:8rpx;
+    background:rgba(151,151,151,1);
+    border-radius: 4rpx;
+    margin: 0 13rpx 0 28rpx;
+}
+.content{
+    font-size:28rpx;
+    color:rgba(151,151,151,1);
+}
+
+

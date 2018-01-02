@@ -1,14 +1,14 @@
 <!--pages/my/myOrder/cell-order/v2/content/order-cell-content.wxml-->
 <view class="content">
     <view class="left">
-        <image class="pic"/>
+        <image class="pic" src="{{line.imageUrl}}"/>
         <view class="title-base">
-            <view class="title twoline">很顺利付电很顺利付电费是付首付很顺利付电费是付首付很顺利付电费是付首付很顺利付电费是付首付很顺利付电费是付首付很顺利付电费是付首付费是付首付</view>
-            <view class="specification">颜色：1红色</view>
+            <view class="title twoline">{{line.Product_Name}}</view>
+            <view class="specification">{{line.S_Name}}</view>
         </view>
     </view>
     <view class="price-base">
-        <view class="count">x2</view>
-        <view class="price">￥129</view>
+        <view class="count">x{{line.Qnty}}</view>
+        <view class="price">￥{{line.Price}}</view>
     </view>
 </view>

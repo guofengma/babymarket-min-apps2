@@ -12,7 +12,7 @@ Page({
             mobile: '',
             detail: '',
         },
-        orderLineList: ['', '', ''],
+        orderLineList: [],
         orderId: '',
         orderDatas: '',
         deliveryInfo: '',
@@ -24,24 +24,24 @@ Page({
 
         settlementList: [
             {
-                title: '商品总额',
+                title: '应付总额',
+                value: '',
+            },
+            {
+                title: '商品总价',
+                value: '',
+            },
+            {
+                title: '运费',
+                value: '',
+            },
+            {
+                title: '税费',
                 value: '',
             },
             {
                 title: '优惠券',
                 value: '',
-            },
-            {
-                title: '物流费用',
-                value: '',
-            },
-            {
-                title: '关税',
-                value: '',
-            },
-            {
-                title: '支付方式',
-                value: '支付宝',
             },
             {
                 title: '已省金额',
@@ -268,62 +268,54 @@ Page({
         let bottomButton2Name = '';
 
         if (statusKey == '0') {//待付款
-            orderStatus = '待付款';
             orderTips = '您的订单已提交，请在30分内完成支付,超过订单自动取消';
             bottomButton0Name = '立即付款';
             bottomButton1Name = '取消订单';
 
         } else if (statusKey == '1') {//待发货
-            orderStatus = '待发货';
             orderTips = '如果较长时间未发货时，您可以联系客服：' + global.TCGlobal.CustomerServicesNumber;
             bottomButton0Name = '联系客服';
-            bottomButton1Name = '申请退款';
+            // bottomButton1Name = '申请退款';
 
         } else if (statusKey == '2') {//待收货
-            orderStatus = '待收货';
             orderTips = '请您确认收货';
             bottomButton0Name = '确认收货';
             bottomButton1Name = '查看物流';
-            bottomButton2Name = '申请退款';
+            // bottomButton2Name = '申请退款';
 
         } else if (statusKey == '3') {//待评价
-            orderStatus = '买家已收货';
             // orderTips = '请您立即分享';
             bottomButton0Name = '联系客服';
             bottomButton1Name = '查看物流';
 
         } else if (statusKey == '4') {//已评价
-            orderStatus = '已评价';
             orderTips = '您已完成评价';
             bottomButton0Name = '联系客服';
             bottomButton1Name = '查看物流';
 
         } else if (statusKey == '5') {//交易成功
-            orderStatus = '交易成功';
             orderTips = '';
             bottomButton0Name = '联系客服';
 
         } else if (statusKey == '6') {//订单关闭
-            orderStatus = '订单关闭';
             orderTips = '系统定时关单';
             bottomButton0Name = '删除订单';
 
         } else if (statusKey == '7') {//退款中
-            orderStatus = '退款中';
             orderTips = '';
             bottomButton0Name = '取消退款';
 
         } else if (statusKey == '8') {//退款成功
-            orderStatus = '退款成功';
             orderTips = '';
             bottomButton0Name = '删除订单';
 
         } else if (statusKey == '9') {//退款失败
-            orderStatus = '退款失败';
             orderTips = '';
             bottomButton0Name = '联系客服';
 
         }
+
+        orderStatus = global.Tool.orderStatusForKey(statusKey);
 
         this.setData({
             orderStatus: orderStatus,
@@ -368,11 +360,11 @@ Page({
                     detail: firstData.Address,
                 },
                 orderLineList: productList,
-                'settlementList[0].value': '¥' + firstData.Money,
-                'settlementList[1].value': '¥' + firstData.Discount,
+                'settlementList[0].value': '¥' + firstData.Total,
+                'settlementList[1].value': '¥' + firstData.Money,
                 'settlementList[2].value': '¥' + firstData.Freight,
                 'settlementList[3].value': '¥' + firstData.Tax,
-                'settlementList[4].value': payName,
+                'settlementList[4].value': '¥' + firstData.Discount,
                 'settlementList[5].value': '¥' + firstData.BuyerCommission,
             });
 
@@ -410,4 +402,21 @@ Page({
         r.addToQueue();
     },
 
+    refundClicked(e){
+        let index = e.currentTarget.dataset.index;
+        console.log('refundClicked : ' + index);
+        let line = this.data.orderLineList[parseInt(index)];
+        if (line) {
+            global.Storage.setterFor('SelectOrderLine',line);
+            global.Tool.navigateTo('/pages/my/order-refund/apply/refund-apply');
+        }
+        else{
+            console.log("line is empty");
+        }
+    }
 })
+
+
+
+
+

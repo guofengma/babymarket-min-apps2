@@ -1,0 +1,24 @@
+/* pages/my/order-refund/apply/cell/input-title-cell/input-title-cell.wxss */
+.root{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 31rpx;
+    height: 67rpx;
+    background-color: white;
+}
+.title{
+    font-size: 28rpx;
+    color: #252525;
+}
+.required{
+    font-size: 28rpx;
+    color: #AF383A;
+}
+.subtitle{
+    font-size: 22rpx;
+    color:#979797;
+    margin-left: 31rpx;
+}
+
+

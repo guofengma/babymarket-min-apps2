@@ -1,0 +1,40 @@
+/* pages/my/order-refund/apply/cell/menu-cell/menu-cell.wxss */
+
+.root{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 196rpx;
+    background-color: white;
+    font-size:32rpx;
+    color:rgba(37,37,37,1);
+}
+.left{
+    display: flex;
+    flex-direction: column;
+}
+
+.top{
+    display: flex;
+    flex-direction: row;
+}
+
+.des{
+    font-size:26rpx;
+    color:rgba(186,186,186,1);
+    margin-top: 19rpx;
+    margin-left: 31rpx;
+}
+
+.icon{
+    height: 50rpx;
+    width: 50rpx;
+    margin: 0 20rpx 0 31rpx;
+}
+.access{
+    height: 37rpx;
+    width: 37rpx;
+    margin-right: 22rpx;
+}

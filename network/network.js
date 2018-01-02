@@ -32,6 +32,8 @@ export default class Network {
         //附件
         this.attatchmentURL = this.domain + 'Libra.Web.Businesses.Attachments.GetFile.aspx';
 
+        this.attatchmentWriteURL = this.domain + 'Libra.Web.Api.ApiWriteBlob.aspx';
+
         //获取系统时间
         this.getSystemTimeURL = this.domain + "Libra.Web.AppSync.AppSyncNow.aspx";
 
