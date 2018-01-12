@@ -1,20 +1,25 @@
-// order-refund.js
-let { Tool, RequestReadFactory, RequestWriteFactory,Event } = global;
-
+// pages/my/order-refund/detail/order-refund-detail.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        items:[],
+        refundId:'',
+        refund:{},
+        line:{},
+        isBalance:false,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let refundId = options.refundId;
 
+        this.setData({
+            refundId,
+        })
     },
 
     /**
@@ -66,14 +71,25 @@ Page({
 
     },
     requestData(){
-        let r = RequestReadFactory.refundRecordRead(this.data.orderId);
-        r.finishBlock = (req, firstData) => {
-            let datas = req.responseObject.Datas;
+        let r = global.RequestReadFactory.requestRefundList(this.data.refundId);
+        r.finishBlock = (req,data)=>{
             this.setData({
-                items:datas,
+                refund:data,
+                line:{
+                    Product_Name:data.product.ProductName,
+                    imageUrl:data.product.imgsrc,
+                    S_Name:data.product.ProductSize,
+                    Qnty:data.product.Qnty,
+                    Price:data.product.Price,
+                },
+                isBalance:parseFloat(data.Balance) > 0
             })
-        };
+        }
         r.addToQueue();
-    }
-
+    },
 })
+
+
+
+
+

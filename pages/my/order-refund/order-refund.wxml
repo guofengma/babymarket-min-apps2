@@ -1,2 +1,6 @@
 <!--order-refund.wxml-->
-<refund-cell/>
+<view>
+    <block wx:for="{{items}}" wx:key="">
+        <refund-cell item="{{item}}"/>
+    </block>
+</view>

@@ -1,0 +1,68 @@
+<!--pages/my/order-refund/detail/order-refund-detail.wxml-->
+
+<view class="root">
+
+    <image class="address-header-line" src="/res/img/address/address-header-line.png"/>
+
+    <view class="address-base">
+        <view class="name-base">
+            <view>{{refund.StatusText}}</view>
+        </view>
+        <view class="detail">{{refund.CreateTime}}</view>
+    </view>
+    <view style="height:19rpx;width:100%;"></view>
+
+    <view class="info-title"><view>退款信息</view></view>
+    <view class="sep-line" style="margin-left:33rpx"></view>
+    <order-cell-content line="{{line}}"/>
+
+    <view class="settlement-base">
+        <order-settlement-cell
+                leftValue="退款总金额"
+                rightValue="￥{{refund.Money}]"
+                leftStyle="font-size:28rpx;color:rgba(37,37,37,1);"
+                rightStyle="font-size:28rpx;color:#AF383A;"
+        />
+        <order-settlement-cell
+                leftValue="{{isBalance? '我的资产':'支付宝'}}"
+                rightValue="￥{{isBalance? refund.Balance : refund.AlipayBalance}}"
+        />
+        <order-settlement-cell
+                leftValue="优惠券"
+                rightValue="￥{{refund.Coupon}}"
+        />
+        <order-settlement-cell
+                leftValue="税费"
+                rightValue="￥{{refund.TaxBalance}}"
+        />
+    </view>
+
+    <view class="reason-base">
+        <view>退款原因：{{refund.ReasonText}}</view>
+        <view>订单编号：{{refund.OrderNumber}}</view>
+        <view>申请时间：{{refund.CreateTime}}</view>
+        <view>退款编号：{{refund.SerialNumber}}</view>
+    </view>
+
+    <view class="service-base">
+        <view class="time">
+            服务时间：9:00-18:00
+        </view>
+
+        <view class="btns">
+            <view class="btn">
+                <view>在线客服</view>
+            </view>
+            <view class="btn">
+                <view>电话客服</view>
+            </view>
+        </view>
+    </view>
+    <view class="sep-line"></view>
+
+    <view class="bottom-bar">
+
+    </view>
+</view>
+
+

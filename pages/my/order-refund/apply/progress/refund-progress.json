@@ -1,0 +1,5 @@
+{
+    "usingComponents":{
+        "refund-progress-cell":"/pages/my/order-refund/apply/progress/cell/refund-progress-cell"
+    }
+}

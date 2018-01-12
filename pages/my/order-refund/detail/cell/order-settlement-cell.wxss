@@ -1,0 +1,23 @@
+/* pages/my/order-refund/detail/cell/order-settlement-cell.wxss */
+.root{
+    display: flex;
+    flex-direction: row;
+    height: 57rpx;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30rpx;
+}
+
+.left{
+    font-size:28rpx;
+    color:rgba(151,151,151,1);
+}
+
+.right{
+    font-size:28rpx;
+    color:rgba(151,151,151,1);
+}
+
+
+
+

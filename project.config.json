@@ -25,7 +25,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -38,6 +38,24 @@
 					"name": "退货退款",
 					"pathName": "pages/my/order-refund/apply/detail/refund-apply-detail",
 					"query": "type=0"
+				},
+				{
+					"id": 2,
+					"name": "退款日志",
+					"pathName": "pages/my/order-refund/apply/progress/refund-progress",
+					"query": "refundId=dbd85253-0b17-4a68-a5de-42ef39812555"
+				},
+				{
+					"id": -1,
+					"name": "退款列表",
+					"pathName": "pages/my/order-refund/order-refund",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "退款详情",
+					"pathName": "pages/my/order-refund/detail/order-refund-detail",
+					"query": "refundId=afd4cf86-471c-45aa-b31e-9520ad036595"
 				}
 			]
 		}

@@ -1,0 +1,76 @@
+/* pages/my/order-refund/apply/progress/cell/refund-progress-cell.wxss */
+
+.root{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 53rpx;
+}
+
+.line1{
+    width: 1px;
+    height: 61rpx;
+    background-color: #DCDCDC;
+}
+
+.line2{
+    width: 1px;
+    height: 100%;
+    background-color: #DCDCDC;
+}
+
+.dot{
+    width:8rpx;
+    height:8rpx;
+    border: 1px solid #AF383A;
+    border-radius: 4rpx;
+}
+
+.content-base{
+    display: flex;
+    flex-direction: column;
+    width: 636rpx;
+    background-color: white;
+    margin: 20rpx 0 0;
+    padding: 18rpx;
+}
+
+.time{
+    font-size:24rpx;
+    color:rgba(151,151,151,1);
+}
+
+.title{
+    font-size:28rpx;
+    color:rgba(37,37,37,1);
+}
+
+.content{
+    font-size:24rpx;
+    color:rgba(37,37,37,1);
+    margin: 29rpx 0 17rpx;
+}
+
+.imgs-base{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.img-title{
+    font-size:24rpx;
+    color:rgba(37,37,37,1);
+}
+
+.photo{
+    width:100rpx;
+    height:100rpx;
+    background:rgba(126,127,129,1);
+    margin: 12rpx 12rpx 12rpx 0;
+}

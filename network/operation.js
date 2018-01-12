@@ -184,6 +184,18 @@ export default class Operation {
         //退款原因(RefundReason)
         this.operation_RefundReasonRead = "d8f2d996-53f4-0d49-2b4a-3e7601740c18";
 
+        //新增退款申请
+        this.operation_RefundAdd = "a6998041-52b6-0a29-30cf-3e7800b26949";
+
+        //新增退款明细申请
+        this.operation_RefundDetailAdd = "aa9ec158-e856-4432-ac9c-a84f0179ad8e";
+
+        //退款申请处理进度(RefoundProcess)
+        this.operation_RefoundProcessRead = "ebc5acb0-31d7-0918-0a89-315201819f2c";
+
+        //退款申请(Refund)
+        this.operation_RefundRead = "18525e79-8689-4e57-9f1f-a77500182f04";
+
         __instance(this);
     }
 

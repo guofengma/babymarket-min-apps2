@@ -273,7 +273,7 @@ Page({
             global.Tool.navigateTo('/pages/my/myOrder/myOrder?index=4');
         }
         if (title == "退换货"){
-
+            global.Tool.navigateTo("/pages/my/order-refund/order-refund")
         }
         if (title == "优惠券"){
 

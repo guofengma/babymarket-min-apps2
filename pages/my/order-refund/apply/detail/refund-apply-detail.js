@@ -11,8 +11,9 @@ Page({
         orderStatusArr:["已收到货","未收到货（请确保已与客服协商同意仅退款）"],
         refundReasons:[],
         selectReasonText:'',
+        selectReasonId:'',
         reasonTexts:[],
-        innerCount:0,
+        innerCount:1,
         orderStatus:'',
         refundMoney:'',
         alipayAccount:'',
@@ -132,17 +133,19 @@ Page({
         })
     },
     reasonOnChange(e){
-        let value = e.detail.value;
-        let text = this.data.reasonTexts[parseInt(value)];
+        let index = e.detail.value;
+        let text = this.data.reasonTexts[parseInt(index)];
+        let selectReasonId = this.data.refundReasons[index].Id;
         this.setData({
             selectReasonText:text,
+            selectReasonId,
         })
     },
     refundMoneyOnChange(e){
         let value = e.detail.value;
         console.log('refundMoneyOnChange:' + value);
         this.setData({
-            refundMoney:parseFloat(value)
+            refundMoney:parseFloat(value) + ''
         });
     },
     alipayOnChange(e){
@@ -175,5 +178,63 @@ Page({
         this.setData({
             images:this.data.images,
         })
+    },
+
+    submit(e){
+        console.log('submit');
+        let T = global.Tool;
+        if (this.data.isRefundMoneyOnly) {
+            if (T.isEmptyStr(this.data.orderStatus)) {
+                T.showAlert('请选择订单状态');
+                return;
+            }
+        }
+        if (T.isEmptyStr(this.data.selectReasonId)) {
+            T.showAlert('请选择退款原因');
+            return;
+        }
+
+        if (T.isEmptyStr(this.data.refundMoney)) {
+            T.showAlert('请输入退款金额');
+            return;
+        }
+        if (T.isEmptyStr(this.data.alipayAccount)) {
+            T.showAlert('请输入支付宝账号')
+            return;
+        }
+
+        let self = this;
+        wx.showModal({
+            title: '提示',
+            content: '退款到支付宝账号：'+self.data.alipayAccount + '？',
+            success: function (res) {
+                if (res.confirm) {
+                    let body = {};
+                    body.images = self.data.images;
+                    if (self.data.type == 0) {
+                        body.refundType = self.data.type + '';
+                    }
+                    body.refundId = global.Tool.guid();
+                    body.reasonId = self.data.selectReasonId;
+                    body.amount = self.data.refundMoney;
+                    body.alipay = self.data.alipayAccount;
+                    body.qty = self.data.innerCount + '';
+                    body.refundType = self.data.isRefundMoneyOnly ? 2 : 1;//1=退货退款；2=仅退款
+                    body.orderId = self.data.line.OrderId;
+                    let r = global.RequestWriteFactory.addRefundWithParams(body);
+                    r.finishBlock = ()=>{
+                        let r2 = global.RequestWriteFactory.addRefundDetailWithParams(self.data.line.Id,body.refundId);
+                        r2.finishBlock = ()=>{
+                            global.Tool.redirectTo('/pages/my/order-refund/apply/progress/refund-progress?refundId=' + body.refundId);
+                        }
+                        r2.addToQueue();
+                    }
+                    r.addToQueue();
+                }
+            }
+        })
     }
 })
+
+
+

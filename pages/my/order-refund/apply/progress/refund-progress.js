@@ -1,12 +1,22 @@
-// order-refund.js
-let { Tool, RequestReadFactory, RequestWriteFactory,Event } = global;
+// pages/my/order-refund/apply/progress/refund-progress.js
+
+export default class RefundStatus {}
+
+RefundStatus.Processing = 1;//提交申请，等待卖家处理
+RefundStatus.Success = 2;//已退款
+RefundStatus.Reject = 3;//不同意
+RefundStatus.Waiting_Dispatch = 4;//卖家同意，等待买家寄回货物
+RefundStatus.Waiting_Refund = 5;//买家寄回货物，等待卖家处理
+RefundStatus.Revocate = 6;//买家已撤销
+Object.freeze(RefundStatus);// 冻结对象，防止修改
 
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
+        refundStatus:1,
+        refundId:'',
         items:[],
     },
 
@@ -14,7 +24,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        let refundId = options.refundId;
+        this.setData({
+            refundId,
+        })
     },
 
     /**
@@ -65,15 +78,15 @@ Page({
     onShareAppMessage: function () {
 
     },
+
     requestData(){
-        let r = RequestReadFactory.refundRecordRead(this.data.orderId);
-        r.finishBlock = (req, firstData) => {
-            let datas = req.responseObject.Datas;
+        let r = global.RequestReadFactory.requestRefundProgress(this.data.refundId);
+        r.finishBlock = (res)=>{
+            let datas = res.responseObject.Datas;
             this.setData({
                 items:datas,
             })
-        };
+        }
         r.addToQueue();
     }
-
 })

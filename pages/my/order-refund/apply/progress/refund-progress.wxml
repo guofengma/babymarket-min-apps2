@@ -1,0 +1,23 @@
+<!--pages/my/order-refund/apply/progress/refund-progress.wxml-->
+
+
+
+
+
+<view class="root">
+    <block wx:for="{{items}}" wx:key="">
+        <refund-progress-cell
+                title="{{item.Title}}"
+                content="{{item.Content}}"
+                time="{{item.DateTime}}"
+                key="{{item.ProcessKey}}"
+                type="{{item.RefundTypeKey}}"
+                imgs="{{item.RefoundDetail}}"
+        />
+    </block>
+</view>
+
+
+
+
+

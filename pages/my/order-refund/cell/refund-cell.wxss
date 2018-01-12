@@ -51,7 +51,13 @@
     width:32rpx;
     height:32rpx;
     margin: 0 14rpx 0 33rpx;
-    background-color: lightgray;
+    border: 1px solid #AF383A;
+    border-radius: 16rpx;
+    color: #AF383A;
+    font-size:21rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .bottom .type-base .type{
     font-size:28rpx;

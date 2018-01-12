@@ -976,11 +976,31 @@ export default class RequestReadFactory {
 
         let bodyParameters = {
             "Operation": operation,
-            "Condition": condition,
+            "MaxCount":'99',
+            "IsIncludeSubtables":true,
         };
+        if (orderId) {
+            bodyParameters.Condition = condition;
+        }
         let req = new RequestRead(bodyParameters);
         req.name = '退款记录查询';
-        req.items = ["Id"];
+
+
+        if (global.Tool.isEmpty(orderId)) {
+            req.preprocessCallback = (req) => {
+                let responseData = req.responseObject.Datas;
+                if (global.Tool.isValidArr(responseData)) {
+                    for (let item of responseData) {
+                        if (global.Tool.isValidArr(item.Detail)) {
+                            let product = item.Detail[0];
+                            item.product = product;
+                            item.product.imgsrc = global.Tool.imageURLForId(product.ImgId)
+                        }
+                    }
+                }
+            }
+        }
+
         return req;
     }
 
@@ -1344,6 +1364,66 @@ export default class RequestReadFactory {
                 reasonTexts.push(item.Name);
             }
             req.responseObject.reasonTexts = reasonTexts;
+        }
+        return req;
+    }
+
+    //退款申请进度 查询
+    static requestRefundProgress(refoundId) {
+        let operation = Operation.sharedInstance().operation_RefoundProcessRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount":999,
+            "RefoundId":refoundId,
+            "Order":"${DateTime} DESC",
+            "IsIncludeSubtables":true,
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款申请进度 查询';
+
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            if (global.Tool.isValidArr(responseData)) {
+                for (let item of responseData) {
+                    if (global.Tool.isValidArr(item.RefoundDetail)) {
+                        for (let imgObj of item.RefoundDetail) {
+                            imgObj.imgsrc = global.Tool.imageURLForId(imgObj.ImgId);
+                        }
+                    }
+                }
+            }
+        }
+        return req;
+    }
+
+    //退款申请记录 查询
+    static requestRefundList(refoundId) {
+        let operation = Operation.sharedInstance().operation_RefundRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount":999,
+            "Id":refoundId,
+            "Order":"${CreateTime} DESC",
+            "IsIncludeSubtables":true,
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '退款申请记录 查询询';
+
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            if (global.Tool.isValidArr(responseData)) {
+                for (let item of responseData) {
+                    if (global.Tool.isValidArr(item.Detail)) {
+                        let product = item.Detail[0];
+                        item.product = product;
+                        item.product.imgsrc = global.Tool.imageURLForId(product.ImgId)
+                    }
+                }
+            }
         }
         return req;
     }

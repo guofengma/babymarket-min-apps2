@@ -64,7 +64,9 @@
         "pages/my/help/help",
         "pages/shopping-cart/cart-list/cart-list",
         "pages/my/my-award/detail/my-award-detail",
-        "pages/my/my-crowdfunding/detail/detail/my-crowdfunding-detail-detail"
+        "pages/my/my-crowdfunding/detail/detail/my-crowdfunding-detail-detail",
+        "pages/my/order-refund/apply/progress/refund-progress",
+        "pages/my/order-refund/detail/order-refund-detail"
     ],
     "window": {
         "backgroundTextStyle": "light",

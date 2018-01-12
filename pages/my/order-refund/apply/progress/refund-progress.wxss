@@ -1,0 +1,6 @@
+/* pages/my/order-refund/apply/progress/refund-progress.wxss */
+.root{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

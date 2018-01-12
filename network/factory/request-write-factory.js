@@ -525,4 +525,72 @@ export default class RequestWriteFactory {
 
         return req;
     }
+
+    //新增退款申请
+    static addRefundWithParams(body) {
+        let operation = Operation.sharedInstance().operation_RefundAdd;
+        let status = Network.sharedInstance().statusNew;
+
+        let images = body.images;
+        let refundId = body.refundId;
+        let relevancies = [];
+        if (global.Tool.isValidArr(images)) {
+            for (let imgObj of images) {
+
+                // 文件名
+                let now = Tool.timeStringForDate(new Date(), "YYYY-MM-DD HH:mm:ss");
+                let nowTimeInterval = Tool.timeIntervalFromString(now);
+                let fileName = nowTimeInterval + '.png';
+
+                let imgId = imgObj.remoteImgId;
+                let temporaryId = imgObj.tempId;
+                let rel = {
+                    "EntityName": "Attachment",
+                    "Status": Network.sharedInstance().statusNew,
+                    "Items": {
+                        "FileName": fileName,
+                        "RelevancyId": refundId,
+                        "RelevancyType": "Refund",
+                        "RelevancyBizElement": "Attachments",
+                        "$FILE_BYTES": temporaryId,
+                        "Id": imgId,
+                    },
+                }
+                relevancies.push(rel);
+            }
+        }
+
+        let currentMemberId = global.Storage.memberId();
+        let params = {
+            "Operation": operation,
+            Id:refundId,
+            "ReasonId":body.reasonId,
+            "Money2":body.amount,
+            "Alipay":body.alipay,
+            "Quantity":body.qty,
+            "RefundTypeKey":body.refundType + '',//退款类型
+            "OrderId":body.orderId,
+            "CreatorId":currentMemberId
+        };
+
+        let req = new RequestWrite(status, 'Refund', params, operation, relevancies);
+        req.name = '新增退款申请';
+        return req;
+    }
+
+    //新增退款明细
+    static addRefundDetailWithParams(orderDetailId,primaryId) {
+        let operation = Operation.sharedInstance().operation_RefundDetailAdd;
+        let status = Network.sharedInstance().statusNew;
+
+        let params = {
+            "Operation": operation,
+            "OrderDetailId": orderDetailId,
+            "PrimaryId":primaryId
+        };
+
+        let req = new RequestWrite(status, 'RefundDetail', params, operation, null);
+        req.name = '新增退款明细';
+        return req;
+    }
 }

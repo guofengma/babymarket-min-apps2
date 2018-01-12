@@ -1,0 +1,12 @@
+<!--pages/my/order-refund/detail/cell/order-settlement-cell.wxml-->
+
+
+
+<view class="root">
+    <view class="left" style="{{leftStyle}}">{{leftValue}}</view>
+    <view class="right" style="{{rightStyle}}">{{rightValue}}</view>
+</view>
+
+
+
+

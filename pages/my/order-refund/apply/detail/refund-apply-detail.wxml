@@ -66,17 +66,17 @@
 
         <view style="height:20rpx;width:100%;background:white"/>
         <input-title-cell title="退款金额" isRequired="{{true}}" subtitle="最多{{129}}元"/>
-        <input-cell placeholder="请输入退款金额" selectable="{{false}}"/>
+        <input-cell bind:inputOnChange="refundMoneyOnChange"  placeholder="请输入退款金额" selectable="{{false}}"/>
 
         <view style="height:20rpx;width:100%;background:white"/>
         <input-title-cell title="退款至支付宝" isRequired="{{true}}"/>
-        <input-cell placeholder="请输入支付宝账号" selectable="{{false}}"/>
+        <input-cell bind:inputOnChange="alipayOnChange" placeholder="请输入支付宝账号" selectable="{{false}}"/>
 
         <view style="height:20rpx;width:100%;background:white"/>
         <view style="height:20rpx;width:100%;background:#F6F6F6"/>
         <view style="height:20rpx;width:100%;background:white"/>
         <input-title-cell title="退款说明" isRequired="{{false}}" />
-        <textarea-cell placeholder="请您在此描述详细问题（选填）"/>
+        <textarea-cell bind:inputOnChange="detailOnChange" placeholder="请您在此描述详细问题（选填）"/>
 
         <view style="height:20rpx;width:100%;background:white"/>
         <input-title-cell title="上传凭证" isRequired="{{false}}" subtitle="最多6张"/>

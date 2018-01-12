@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "order-cell-content":"/pages/my/myOrder/cell-order/v2/content/order-cell-content",
+        "order-settlement-cell":"/pages/my/order-refund/detail/cell/order-settlement-cell"
+    }
+}

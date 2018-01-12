@@ -1,0 +1,115 @@
+/* pages/my/order-refund/detail/order-refund-detail.wxss */
+
+.root{
+    display: flex;
+    flex-direction: column;
+}
+
+.address-header-line{
+    height: 8rpx;
+    width: 100%;
+}
+
+.address-base{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background:rgba(255,252,237,1);
+    padding-bottom: 30rpx;
+}
+
+.address-base .name-base{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size:30rpx;
+    color:rgba(37,37,37,1);
+    margin: 27rpx 34rpx 19rpx;
+}
+
+.address-base .detail{
+    font-size:30rpx;
+    color:rgba(151,151,151,1);
+    margin: 0rpx 34rpx;
+}
+
+.info-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 33rpx;
+    height: 88rpx;
+    width: 100%;
+    background-color: white;
+    font-size:34rpx;
+    color:rgba(37,37,37,1);
+}
+
+
+.settlement-base{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 21rpx;
+    margin-bottom:21rpx;
+}
+
+.reason-base{
+    display: flex;
+    flex-direction: column;
+    font-size:28rpx;
+    color:rgba(151,151,151,1);
+    padding: 30rpx;
+    background: white;
+}
+
+.service-base{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    margin: 20rpx 0 0;
+    padding: 0 0 40rpx;
+}
+
+.time{
+    font-size:26rpx;
+    color:rgba(151,151,151,1);
+    padding: 30rpx;
+}
+
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width:332rpx;
+    height:64rpx;
+    border-radius: 4px;
+    color:rgba(81,81,81,1);
+    border: 1px solid #979797;
+}
+
+.bottom-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 99rpx;
+    width: 100%;
+    background: white;
+}
+
+
+
+

@@ -1,0 +1,45 @@
+<!--pages/my/order-refund/apply/progress/cell/refund-progress-cell.wxml-->
+<view class="root">
+
+
+
+
+    <view class="left">
+        <view class="line1"></view>
+        <view class="dot"></view>
+        <view class="line2"></view>
+    </view>
+
+
+
+    <view class="content-base">
+
+        <view class="time">
+            {{time}}
+        </view>
+
+        <view class="title">
+            {{title}}
+        </view>
+
+        <block wx:if="{{content}}">
+            <view class="content">
+                {{content}}
+            </view>
+        </block>
+
+        <block wx:if="{{imgs.length > 0}}">
+            <view class="img-title">上传凭证：</view>
+            <view class="imgs-base">
+                <block wx:for="{{imgs}}" wx:key="">
+                    <image src="{{item.imgsrc}}" class="photo"/>
+                </block>
+            </view>
+        </block>
+
+    </view>
+
+
+
+
+</view>
