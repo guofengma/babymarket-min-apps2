@@ -82,11 +82,16 @@ Page({
                     Qnty:data.product.Qnty,
                     Price:data.product.Price,
                 },
-                isBalance:parseFloat(data.Balance) > 0
+                isBalance:parseFloat(data.product.Balance) > 0
             })
         }
         r.addToQueue();
     },
+    makePhoneCall(){
+        wx.makePhoneCall({
+            phoneNumber: global.TCGlobal.CustomerServicesNumber,
+        })
+    }
 })
 
 

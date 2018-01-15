@@ -22,7 +22,8 @@ Component({
                     })
                 }
             }
-        }
+        },
+        index:Number,
     },
 
     /**
@@ -36,6 +37,8 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
+        cellClicked:function (e) {
+            this.triggerEvent('cellclicked',{...this.data});
+        }
     }
 })

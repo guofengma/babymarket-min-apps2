@@ -74,6 +74,12 @@ Page({
             })
         };
         r.addToQueue();
+    },
+    cellClicked(e){
+        let index = e.detail.index;
+        console.log('cellClicked:' + index);
+        let data = this.data.items[parseInt(index)];
+        global.Tool.navigateTo('/pages/my/order-refund/detail/order-refund-detail?refundId=' + data.Id);
     }
 
 })

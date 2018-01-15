@@ -1,6 +1,6 @@
 <!--pages/my/order-refund/cell/refund-cell.wxml-->
 
-<view class="refund-cell">
+<view class="refund-cell" catchtap="cellClicked">
 
     <view class="top">
         <view class="time">{{item.CreateTime}}</view>

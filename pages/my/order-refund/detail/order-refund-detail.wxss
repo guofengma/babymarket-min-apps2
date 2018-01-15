@@ -95,6 +95,7 @@
     border-radius: 4px;
     color:rgba(81,81,81,1);
     border: 1px solid #979797;
+    font-size: 28rpx;
 }
 
 .bottom-bar{
@@ -111,5 +112,30 @@
 }
 
 
+.customer-btn{
+    display: flex;
+    padding:0;
+    margin: 0;
+    background-color:transparent;
 
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width:332rpx;
+    height:64rpx;
+    border-radius: 4px;
+    color:rgba(81,81,81,1);
+    border: 1px solid #979797;
+    font-size: 28rpx;
+
+}
+.customer-btn::after{
+    display: flex;
+    padding:0;
+    margin: 0;
+    height: 70rpx;
+    width: 70rpx;
+    background-color:transparent;
+    border:0px solid transparent;
+}
 

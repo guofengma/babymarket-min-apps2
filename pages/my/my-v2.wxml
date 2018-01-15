@@ -4,8 +4,8 @@
     <view class="header">
         <view class="fake-nav">
             <button class='customer-btn' open-type="contact">
-                <image class="customer-service" src="/res/img/my/customer-service-icon.png" catchtap="customerServiceClicked"/>
-            </button>
+            <image class="customer-service" src="/res/img/my/customer-service-icon.png" catchtap="customerServiceClicked"/>
+        </button>
             <image class="msg" src="/res/img/my/msg-icon.png" catchtap="msgClicked"/>
         </view>
         <view class="content">

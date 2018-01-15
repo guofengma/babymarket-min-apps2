@@ -19,21 +19,21 @@
     <view class="settlement-base">
         <order-settlement-cell
                 leftValue="退款总金额"
-                rightValue="￥{{refund.Money}]"
+                rightValue="￥{{refund.product.Money}}"
                 leftStyle="font-size:28rpx;color:rgba(37,37,37,1);"
                 rightStyle="font-size:28rpx;color:#AF383A;"
         />
         <order-settlement-cell
                 leftValue="{{isBalance? '我的资产':'支付宝'}}"
-                rightValue="￥{{isBalance? refund.Balance : refund.AlipayBalance}}"
+                rightValue="￥{{isBalance? refund.product.Balance : refund.product.AlipayBalance}}"
         />
         <order-settlement-cell
                 leftValue="优惠券"
-                rightValue="￥{{refund.Coupon}}"
+                rightValue="￥{{refund.product.Coupon}}"
         />
         <order-settlement-cell
                 leftValue="税费"
-                rightValue="￥{{refund.TaxBalance}}"
+                rightValue="￥{{refund.product.TaxBalance}}"
         />
     </view>
 
@@ -50,10 +50,11 @@
         </view>
 
         <view class="btns">
-            <view class="btn">
+            <button class='customer-btn' open-type="contact">
                 <view>在线客服</view>
-            </view>
-            <view class="btn">
+            </button>
+
+            <view class="btn" catchtap="makePhoneCall">
                 <view>电话客服</view>
             </view>
         </view>
