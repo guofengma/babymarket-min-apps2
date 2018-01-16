@@ -1,4 +1,5 @@
 <!--pages/my/my-v2.wxml-->
+<import src='/pages/login/login.wxml' />
 
 <view class="my-v2">
     <view class="header">
@@ -75,6 +76,7 @@
 </view>
 
 
+<template is="login" data="{{visiable:visiable}}" />
 
 
 

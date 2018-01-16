@@ -29,6 +29,7 @@ Page({
     onLoad: function (options) {
         Event.on('loginSuccess', this.reload, this);
         Event.on('LoginOutNotic', this.reload, this);
+        Event.on('shouldPopLoginView', this.popLoginView,this);
         this.reload();
 
         // 存储邀请码
@@ -38,6 +39,11 @@ Page({
                 wx.setStorageSync('fromId', inviteCode)
             }
         }
+    },
+
+    popLoginView(){
+        this.login = new Login(this);
+        this.login.show();
     },
 
     reload() {
@@ -53,6 +59,7 @@ Page({
     onUnload: function () {
         Event.off('loginSuccess', this.reload)
         Event.off('LoginOutNotic', this.reload);
+        Event.off('shouldPopLoginView', this.popLoginView);
     },
 
     onShow() {

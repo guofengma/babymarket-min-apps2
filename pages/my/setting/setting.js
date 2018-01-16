@@ -105,7 +105,7 @@ Page({
             this.setData({
                 isLogin: false
             })
-
+            global.Tool.switchTab('/pages/home/home');
         } else {//登录
             this.login = new Login(this);
             this.login.show();

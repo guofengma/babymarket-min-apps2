@@ -37,8 +37,17 @@ Page({
      */
     onShow: function () {
         let self = this;
+
+        let value = global.Storage.didLogin();
+        let didLogin = value && value == true ? true:false;
+
+        if (!didLogin) {
+            global.Event.emit('shouldPopLoginView');
+            global.Tool.switchTab('/pages/home/home');
+        }
+
         self.setData({
-            isLogin: global.Storage.didLogin()
+            isLogin: didLogin,
         });
     },
 

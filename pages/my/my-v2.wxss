@@ -1,5 +1,5 @@
 /* pages/my/my-v2.wxss */
-
+@import '/pages/login/login.wxss';
 .my-v2{
 
 }
