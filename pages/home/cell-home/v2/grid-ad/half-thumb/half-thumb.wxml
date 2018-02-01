@@ -1,0 +1,4 @@
+<!--pages/home/v2/grid-ad/half-thumb/half-thumb.wxml-->
+<view class="root">
+    <image class="img" src="{{img}}"/>
+</view>

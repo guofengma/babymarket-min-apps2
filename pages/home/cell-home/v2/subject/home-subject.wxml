@@ -1,0 +1,11 @@
+<!--pages/home/cell-home/v2/subject/home-subject.wxml-->
+<import src="/pages/home/cell-product/cell-product.wxml"/>
+
+<view class="root">
+    <view class="top">
+        <image class="post"/>
+    </view>
+    <view class="bottom">
+
+    </view>
+</view>

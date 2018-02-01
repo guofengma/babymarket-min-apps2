@@ -1,0 +1,16 @@
+<!--pages/home/cell-home/v2/section/home-section.wxml-->
+
+<view class="root">
+    <view class="rung"/>
+    <view class="title">{{title}}</view>
+    <view class="rung"/>
+
+    <block wx:if="{{hasMore}}">
+        <view class="more">
+            更多>>
+        </view>
+    </block>
+</view>
+
+
+

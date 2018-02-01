@@ -1,0 +1,34 @@
+/* pages/home/v2/grid-ad/grid-ad.wxss */
+
+.root{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 30rpx;
+    background-color: white;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    width: 348rpx;
+    height: 406rpx;
+    align-items: center;
+    justify-content: center;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    width: 348rpx;
+    height: 406rpx;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+

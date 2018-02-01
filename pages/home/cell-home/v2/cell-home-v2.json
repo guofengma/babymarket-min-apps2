@@ -1,0 +1,11 @@
+
+{
+    "component": true,
+    "usingComponents": {
+        "grid-ad":"/pages/home/cell-home/v2/grid-ad/grid-ad",
+        "home-subject":"/pages/home/cell-home/v2/subject/home-subject",
+        "home-section":"/pages/home/cell-home/v2/section/home-section"
+    }
+}
+
+

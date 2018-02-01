@@ -100,6 +100,8 @@ Page({
             wx.navigateTo({
                 url: '../edit-profile/modify-sign/modify-sign',
             })
+        } else if (title === '收货地址') {
+            global.Tool.navigateTo('/pages/address/address');
         }
     },
 

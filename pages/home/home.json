@@ -1,1 +1,6 @@
-{}
+{
+    "usingComponents":{
+        "cell-home":"/pages/home/cell-home/v2/cell-home-v2"
+    }
+
+}

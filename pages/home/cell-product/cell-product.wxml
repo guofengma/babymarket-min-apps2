@@ -1,8 +1,14 @@
+
 <import src='/pages/home/cell-price/cell-price.wxml' />
 
 <template name="cell-product">
     <view class="cell-product">
         <block wx:for="{{productArray}}" wx:key="unique">
+
+
+
+
+
             <view class="{{index%2==0?'product-info left':'product-info'}}" catchtap="onChildClickListener" data-group-position="{{groupPosition}}" data-child-position="{{index}}" data-id="{{item.productId}}">
                 <image mode="aspectFit" class="{{item.imageUrl.length>0?'image':'image empty'}}" src="{{item.imageUrl}}" />
                 <view class="info">
@@ -11,19 +17,14 @@
                     <view class="price-cart">
 
                         <template is='cell-price' data='{{listDatas:item.priceArry, alignType:item.priceArry.length}}'></template>
-
-                        <!--<view class="price-info">
-              <view class="sale-price-panel">
-                <text class="product-sale-price">{{item.showPrice}}</text>
-                <image class="price-image" mode="aspectFit" src="/res/img/common/comm-old-friend-price-tag.png" />
-              </view>
-
-              <text class="old-price" wx:if="{{item.oldPrice!=0}}">{{item.oldPrice}}</text>
-            </view>
-            <image class="btn-cart" src="/res/img/home/home-btn-addcart.png" catchtap="onAddCartClickListener" data-id="{{item.productId}}" mode="aspectFit" />-->
                     </view>
                 </view>
             </view>
+
+
+
+
+
         </block>
         <!-- <view class="product-more" wx:if="{{isMore&&productArray.length%2==1}}" catchtap="onMoreClickListener" data-id="{{categoryId}}" data-title="{{title}}" data-door="{{door}}">
       <text class="more-title">{{"更多"+title+"好物"}}</text>

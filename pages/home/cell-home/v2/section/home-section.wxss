@@ -1,0 +1,35 @@
+/* pages/home/cell-home/v2/section/home-section.wxss */
+
+.root{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 89rpx;
+    width: 100%;
+    background-color: white;
+}
+
+.title{
+    font-size:30rpx;
+    color:rgba(81,81,81,1);
+    padding:0 19rpx;
+}
+
+.rung{
+    width:57rpx;
+    height:1px;
+    background:rgba(151,151,151,1);
+}
+
+.more{
+    position: absolute;
+    font-size:20rpx;
+    color:rgba(151,151,151,1);
+    right: 30rpx;
+    top: 40rpx;
+}
+
+
+

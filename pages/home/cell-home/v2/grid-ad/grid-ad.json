@@ -1,0 +1,7 @@
+{
+    "component": true,
+    "usingComponents": {
+        "quarter-thumb":"/pages/home/cell-home/v2/grid-ad/quarter-thumb/quarter-thumb",
+        "half-thumb":"/pages/home/cell-home/v2/grid-ad/half-thumb/half-thumb"
+    }
+}

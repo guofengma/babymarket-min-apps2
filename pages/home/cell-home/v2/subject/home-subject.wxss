@@ -1,0 +1,24 @@
+/* pages/home/cell-home/v2/subject/home-subject.wxss */
+@import "/pages/home/cell-product/cell-product.wxss";
+
+.root{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.top{
+    height:374rpx;
+    width: 100%;
+}
+.post{
+    height: 100%;
+    width: 100%;
+}
+.bottom{
+    height:465rpx;
+    width: 100%;
+}
+
+
+
+

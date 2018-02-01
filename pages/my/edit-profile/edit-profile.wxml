@@ -19,3 +19,5 @@
     <text class="mobile-text">手机号</text>
     <text class="mobile-value">{{mobile}}</text>
   </view>
+
+<template is="edit-profile-cell" data="{{title: '收货地址',desp: ''}}"></template>
