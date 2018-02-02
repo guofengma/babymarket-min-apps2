@@ -196,6 +196,12 @@ export default class Operation {
         //退款申请(Refund)
         this.operation_RefundRead = "18525e79-8689-4e57-9f1f-a77500182f04";
 
+        //精选
+        this.operation_HotRead = "688370da-7663-4418-b703-a87800eaa2cd";
+
+        //专题
+        this.operation_SpecialTopicRead = "1120e650-629e-4af0-ab39-a650012db775";
+
         __instance(this);
     }
 

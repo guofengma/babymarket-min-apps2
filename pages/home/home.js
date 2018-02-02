@@ -22,7 +22,8 @@ Page({
         targetArray: [],
         //一级分类数据
         oneSortData: [],
-        inviteCode: ''
+        inviteCode: '',
+        selections:[],//精选
     },
     bulletinDatas:'',
 
@@ -51,6 +52,7 @@ Page({
         this.requestOneSortData();
         this.requestHomeAdData();
         this.requestHomeBulletinData();
+        this.requestHomeSelection();
     },
 
     /**
@@ -111,6 +113,17 @@ Page({
             });
         };
         task.addToQueue();
+    },
+
+    //首页精选列表
+    requestHomeSelection:function() {
+        let r = global.RequestReadFactory.requestHomeSelection();
+        r.finishBlock = (res)=>{
+            this.setData({
+                selections:res.responseObject.Datas,
+            })
+        }
+        r.addToQueue();
     },
 
     /**
@@ -364,6 +377,7 @@ Page({
         let bannerData = this.data.hotBannerArray[position];
         this.onBannerAction(bannerData);
     },
+
     /**
      * 海报跳转
      */
@@ -391,6 +405,7 @@ Page({
                 break;
         }
     },
+
     /**
      * 跳转到商品详情
      */
@@ -422,5 +437,20 @@ Page({
      */
     bulletinTap:function(e){
         this.onBannerAction(this.data.bulletinDatas);
+    },
+
+    /**
+     * 精选点击
+     * @param e
+     */
+    thumbClicked(e){
+        let {index,section} = e.detail;
+        console.log('thumbClicked:' + index, "section:" + section);
+        if (global.Tool.isValidArr(this.data.selections)){
+            let obj = this.data.selections[section].SelectDetail[index];
+            if (obj) {
+                this.onBannerAction(obj);
+            }
+        }
     }
 })

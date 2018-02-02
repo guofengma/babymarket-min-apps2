@@ -12,10 +12,15 @@
     <view>
         <template is="home-ad" data="{{bannerArray:bannerArray}}" />
         <template is="cell-bulletin" data="{{content:bulletinContent}}" />
-        <home-section title="年货精选"/>
-        <grid-ad items="{{[1,2,3,4]}}"/>
+
+        <block wx:for="{{selections}}" wx:key="">
+            <home-section title="{{item.Name}}"/>
+            <grid-ad bind:thumbClicked="thumbClicked" section="{{index}}" items="{{item.SelectDetail}}"/>
+        </block>
+
         <home-section title="专题精选" hasMore="{{true}}"/>
         <home-subject/>
+
     </view>
 </view>
 

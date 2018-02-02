@@ -23,11 +23,14 @@
                 <swiper-item>
                     <scroll-view class="scroll" scroll-y>
                         <view wx:if="{{index ==0}}">
-                            <cell-home targetArray="{{targetArray}}}}"
-                                          oneSortData="{{oneSortData}}"
-                                          bannerArray="{{bannerArray}}"
-                                          bulletinContent="{{bulletinContent}}"
-                                          hotBannerArray="{{hotBannerArray}}"
+                            <cell-home
+                                    selections="{{selections}}"
+                                    targetArray="{{targetArray}}}}"
+                                    oneSortData="{{oneSortData}}"
+                                    bannerArray="{{bannerArray}}"
+                                    bulletinContent="{{bulletinContent}}"
+                                    hotBannerArray="{{hotBannerArray}}"
+                                    bind:thumbClicked="thumbClicked"
                             />
                         </view>
                         <view wx:else>

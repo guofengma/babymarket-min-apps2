@@ -4,7 +4,8 @@ Component({
      * 组件的属性列表
      */
     properties: {
-        img:String
+        imgsrc:String,
+        index:Number,
     },
 
     /**
@@ -18,6 +19,8 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
+        thumbClicked:function (e) {
+            this.triggerEvent('thumbClicked',{...this.data});
+        }
     }
 })

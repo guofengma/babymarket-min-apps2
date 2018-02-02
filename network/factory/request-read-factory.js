@@ -1428,4 +1428,32 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //首页精选列表
+    static requestHomeSelection() {
+        let operation = Operation.sharedInstance().operation_HotRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount":999,
+            "IsIncludeSubtables":true,
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页精选列表';
+
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            if (global.Tool.isValidArr(responseData)) {
+                for (let item of responseData) {
+                    if (global.Tool.isValidArr(item.SelectDetail)) {
+                        for (let obj of item.SelectDetail) {
+                            obj.imgsrc = global.Tool.imageURLForId(obj.ImgId);
+                        }
+                    }
+                }
+            }
+        }
+        return req;
+    }
 }
+

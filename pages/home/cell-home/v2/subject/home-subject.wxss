@@ -13,10 +13,12 @@
 .post{
     height: 100%;
     width: 100%;
+    background-color: #9b9a9b;
 }
 .bottom{
     height:465rpx;
     width: 100%;
+    background-color: #5e6064;
 }
 
 

@@ -5,6 +5,7 @@ Component({
      */
     properties: {
         items:Array,
+        section:Number,
     },
 
     /**
@@ -18,6 +19,9 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
+        thumbClicked:function (e) {
+            let index = e.detail.index;
+            this.triggerEvent('thumbClicked',{...this.data,index});
+        }
     }
 })
