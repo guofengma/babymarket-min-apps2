@@ -25,6 +25,7 @@
                         <view wx:if="{{index ==0}}">
                             <cell-home
                                     selections="{{selections}}"
+                                    subjects="{{subjects}}"
                                     targetArray="{{targetArray}}}}"
                                     oneSortData="{{oneSortData}}"
                                     bannerArray="{{bannerArray}}"

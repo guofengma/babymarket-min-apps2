@@ -24,6 +24,7 @@ Page({
         oneSortData: [],
         inviteCode: '',
         selections:[],//精选
+        subjects:[],//专题
     },
     bulletinDatas:'',
 
@@ -53,6 +54,7 @@ Page({
         this.requestHomeAdData();
         this.requestHomeBulletinData();
         this.requestHomeSelection();
+        this.requestHomeSubjects();
     },
 
     /**
@@ -121,6 +123,16 @@ Page({
         r.finishBlock = (res)=>{
             this.setData({
                 selections:res.responseObject.Datas,
+            })
+        }
+        r.addToQueue();
+    },
+
+    requestHomeSubjects:function () {
+        let r = global.RequestReadFactory.requestHomeSubjects();
+        r.finishBlock = (res)=>{
+            this.setData({
+                subjects:res.responseObject.Datas,
             })
         }
         r.addToQueue();

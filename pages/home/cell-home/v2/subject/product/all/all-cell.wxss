@@ -1,0 +1,23 @@
+/* pages/home/cell-home/v2/subject/product/all/all-cell.wxss */
+.root {
+    display: inline-block;
+    width: 312rpx;
+    height: 400rpx;
+    background:rgba(235,235,235,1);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*justify-content: center;*/
+    width: 312rpx;
+    height: 460rpx;
+    flex: 0 0 auto;
+
+    font-size:24rpx;
+    color:rgba(81,81,81,1);
+}
+
+
+

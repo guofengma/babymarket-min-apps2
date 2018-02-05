@@ -1,4 +1,9 @@
 {
-  "component": true,
-  "usingComponents": {}
+    "component": true,
+    "usingComponents": {
+        "product":"/pages/home/cell-home/v2/subject/product/product",
+        "all-cell":"/pages/home/cell-home/v2/subject/product/all/all-cell"
+    }
 }
+
+

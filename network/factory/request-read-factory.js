@@ -1455,5 +1455,54 @@ export default class RequestReadFactory {
         }
         return req;
     }
+
+    //首页的专题
+    static requestHomeSubjects() {
+        let operation = Operation.sharedInstance().operation_SpecialTopicRead;
+
+        let bodyParameters = {
+            "Operation": operation,
+            "MaxCount":999,
+            "ShowInHomepage":"True",
+            "IsIncludeSubtables":true,
+        };
+
+        let req = new RequestRead(bodyParameters);
+        req.name = '首页的专题';
+
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            if (global.Tool.isValidArr(responseData)) {
+                for (let item of responseData) {
+                    item.imgsrc = global.Tool.imageURLForId(item.ImgId);
+                    if (global.Tool.isValidArr(item.ProductDetail)) {
+                        for (let obj of item.ProductDetail) {
+                            obj.imgsrc = global.Tool.imageURLForId(obj.ImgId);
+                            obj.isLogin = global.Storage.didLogin();
+                            obj.showPrice = "¥" + obj.SalePrice;
+                            obj.oldPrice = "¥" + obj.LYPrice;
+
+                            obj.priceArry = [{
+                                'price': obj.oldPrice,
+                                'title': '老友专享'
+                            }, {
+                                'price': obj.showPrice,
+                                'title': '市场价'
+                            },
+                            ]
+                            if(obj.isLogin){//登录时，显示合伙尊享价格
+                                let dict = {
+                                    'price': "¥" + obj.HSPrice,
+                                    'title': '合伙尊享'
+                                }
+                                obj.priceArry.unshift(dict)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return req;
+    }
 }
 

@@ -11,6 +11,7 @@ Component({
         bulletinContent:Array,
         hotBannerArray:Array,
         selections:Array,
+        subjects:Array,
     },
 
     /**

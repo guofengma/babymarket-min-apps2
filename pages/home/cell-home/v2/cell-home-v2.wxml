@@ -19,7 +19,9 @@
         </block>
 
         <home-section title="专题精选" hasMore="{{true}}"/>
-        <home-subject/>
+        <block wx:for="{{subjects}}" wx:key="">
+            <home-subject subject="{{item}}"/>
+        </block>
 
     </view>
 </view>

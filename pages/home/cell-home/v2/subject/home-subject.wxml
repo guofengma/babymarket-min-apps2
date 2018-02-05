@@ -3,9 +3,18 @@
 
 <view class="root">
     <view class="top">
-        <image class="post"/>
+        <image class="post" src="{{subject.imgsrc}}"/>
     </view>
-    <view class="bottom">
-
-    </view>
+    <scroll-view scroll-x="true" class="bottom">
+        <block wx:for="{{subject.ProductDetail}}" wx:key="">
+            <!--<view style="background:white;width:312rpx;height:460rpx;display:inline-block;">-->
+                <product product="{{item}}"/>
+            <!--</view>-->
+        </block>
+        <all-cell/>
+    </scroll-view>
 </view>
+
+
+
+
