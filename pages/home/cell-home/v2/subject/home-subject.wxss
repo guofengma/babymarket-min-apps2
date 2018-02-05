@@ -21,10 +21,14 @@
     white-space: nowrap;
     height:485rpx;
     width: 750rpx;
-    background-color: white;
     background:rgba(235,235,235,1);
 }
 
-
+.content{
+    display: flex;
+    flex-direction: row;
+    height:100%;
+    width: 100%;
+}
 
 

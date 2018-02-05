@@ -6,12 +6,14 @@
         <image class="post" src="{{subject.imgsrc}}"/>
     </view>
     <scroll-view scroll-x="true" class="bottom">
-        <block wx:for="{{subject.ProductDetail}}" wx:key="">
-            <!--<view style="background:white;width:312rpx;height:460rpx;display:inline-block;">-->
+        <view class="content">
+            <block wx:for="{{subject.ProductDetail}}" wx:key="">
+                <!--<view style="background:white;width:312rpx;height:460rpx;display:inline-block;">-->
                 <product product="{{item}}"/>
-            <!--</view>-->
-        </block>
-        <all-cell/>
+                <!--</view>-->
+            </block>
+            <all-cell/>
+        </view>
     </scroll-view>
 </view>
 
