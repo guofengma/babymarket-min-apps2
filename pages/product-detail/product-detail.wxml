@@ -20,7 +20,14 @@
             <!--<image class="prefix" src="/res/img/product-detail/price-prefix.png" mode="aspectFit" />-->
             <!--<view class="bmpi-old-price">{{oldPrice}}</view>-->
         <!--</view>-->
-        <template is="price-view" data="{{level:level,price1:price1,price2:price2,price3:price3,priceStyle1,priceStyle2,priceStyle3}}"/>
+        <block wx:if="{{isCrowdfunding}}">
+            <view class="crowdfunding-price">
+                ￥{{price1}}起
+            </view>
+        </block>
+        <block wx:else>
+            <template is="price-view" data="{{level:level,price1:price1,price2:price2,price3:price3,priceStyle1,priceStyle2,priceStyle3}}"/>
+        </block>
 
         <view class="bmpi-country-base">
             <view class="bmpi-country">{{supplyText}}</view>
@@ -53,17 +60,21 @@
         <image class="cart-image" src="/res/img/product-detail/product-detail-contact.png" mode="aspectFit" />
     </button>
 
-    <view class="go-cart-view fav" catchtap="onFavListener">
-        <image class="cart-image" 
-        src="{{isFav?'/res/img/product-detail/product-detail-fav-on-icon.png':'/res/img/product-detail/product-detail-fav-off-icon.png'}}" 
-        mode="aspectFit" />
-    </view>
+    <block wx:if="{{isCrowdfunding == false}}">
+        <view class="go-cart-view fav" catchtap="onFavListener">
+            <image class="cart-image"
+                   src="{{isFav?'/res/img/product-detail/product-detail-fav-on-icon.png':'/res/img/product-detail/product-detail-fav-off-icon.png'}}"
+                   mode="aspectFit" />
+        </view>
+    </block>
 
     <view class="btn-two">
-        <view class="btn-addcart" catchtap="onAddCartListener">
-            加入购物车</view>
+        <block wx:if="{{isCrowdfunding == false}}">
+            <view class="btn-addcart" catchtap="onAddCartListener">
+                加入购物车</view>
+        </block>
         <view class="btn-submit" catchtap="onSubmitListener">
-            确认下单</view>
+            {{isCrowdfunding?'立即众筹':'确认下单'}}</view>
     </view>
 </view>
 <!-- </view> -->
@@ -71,3 +82,6 @@
 <template is="product-specification" data="{{visiable:showProductSpecification,innerTitle,categoryArray,allSepcificationArray,innerCount,specificationData}}" />
 
 <template is="login" data="{{visiable:visiable}}" />
+
+
+

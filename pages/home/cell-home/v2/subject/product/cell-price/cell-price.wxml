@@ -3,7 +3,7 @@
     <block wx:for='{{listDatas}}' wx:key='unique'>
         <view class='cell-price-line-bg'>
             <view class='sepline' wx:if='{{index!=0}}'></view>
-            <view class="{{index == 0 ?'cell-price-line':'cell-price-line'}}">
+            <view class='cell-price-line'>
                 <view class='price index{{index}}'>{{item.price}}</view>
                 <view class='title'>{{item.title}}</view>
             </view>

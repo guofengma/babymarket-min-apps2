@@ -33,6 +33,6 @@ Page({
     cellClicked(e){
         let index = e.currentTarget.dataset.index;
         let data = this.data.specialData[index];
-        global.Tool.navigateTo('/pages/product-detail/product-detail?productId=' + data.ProductId);
-    }
+        global.Tool.navigateTo('/pages/special/detail/special-detail?mainId=' + data.Id);
+    },
 })

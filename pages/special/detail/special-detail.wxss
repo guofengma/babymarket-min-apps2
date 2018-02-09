@@ -1,0 +1,45 @@
+/* pages/special/detail/special-detail.wxss */
+@import "/pages/home/cell-product/cell-product.wxss";
+
+.root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post{
+    width: 100%;
+    height:374rpx;
+    background-color: white;
+    flex: none;
+}
+
+.main-title{
+    font-size:34rpx;
+    font-family:PingFang-SC-Regular;
+    color:rgba(37,37,37,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50rpx 50rpx 0;
+    background-color: white;
+    width: 100%;
+}
+
+.des{
+    display: flex;
+    align-items: center;
+
+    font-size:26rpx;
+    font-family:PingFang-SC-Regular;
+    color:rgba(151,151,151,1);
+    padding: 30rpx;
+    background-color: white;
+    width: 690rpx;
+    margin-bottom: 20rpx;
+}
+
+.collection{
+    display: block;
+}
+

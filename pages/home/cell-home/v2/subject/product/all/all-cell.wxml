@@ -1,5 +1,5 @@
 <!--pages/home/cell-home/v2/subject/product/all/all-cell.wxml-->
-<view class="root">
+<view class="root" catchtap="allCellClicked">
     <view class="content">
         <view>
             查看全部

@@ -1,15 +1,15 @@
 <template name="cell-child">
     <view class="cell-child" catchtap="cellClicked" data-index="{{index}}">
         <view wx:if="{{index>0}}" class="divide" />
-        <view class="user-info">
-            <image class="user-head" src="{{imageHeadUrl.length>0?imageHeadUrl:'/res/img/common/common-avatar-default-icon.png'}}" />
-            <text class="user-name">{{Name}}</text>
-        </view>
-        <image mode="aspectFit" class="{{imageUrl.length>0?'product-image':'product-image empty'}}" src="{{imageUrl}}" />
+        <!--<view class="user-info">-->
+            <!--<image class="user-head" src="{{imageHeadUrl.length>0?imageHeadUrl:'/res/img/common/common-avatar-default-icon.png'}}" />-->
+            <!--<text class="user-name">{{Name}}</text>-->
+        <!--</view>-->
+        <image mode="aspectFill" class="{{imageUrl.length>0?'product-image':'product-image empty'}}" src="{{imageUrl}}" />
         <view class="product-info">
             <view class="product">
                 <view class="product-title">{{Title}}</view>
-                <view class="product-price">{{PriceDes}}</view>
+                <!--<view class="product-price">{{PriceDes}}</view>-->
             </view>
             <view class="product-subtitle">{{Subtitle}}</view>
         </view>

@@ -8,7 +8,7 @@
     margin-left: 20rpx;
 }
 
-.cell-price.center{
+.cell-price .center{
     justify-content: center;
 }
 
@@ -20,7 +20,7 @@
     background: #818181;
     height: 42rpx;
     width: 2rpx;
-    margin: 16rpx 20rpx;
+    margin: 0rpx 20rpx;
 }
 
 .cell-price-line{
@@ -29,13 +29,12 @@
     justify-content: space-between;
 }
 
-.cell-price-line.border{
+.cell-price-line .border{
     border-left: 2rpx solid #818181;
 }
 
 .cell-price-line .price{
-    font-size: 30rpx;
-    color: #818181;
+    font-size: 24rpx;
 }
 
 .cell-price-line .title{
@@ -43,14 +42,15 @@
     color: #818181;
 }
 
-.price.index0{
+.index0{
     color: #bd0e00;
 }
 
-.price.index1{
+.index1{
     color: #af8327;
 }
 
-.price.index2{
+.index2{
     text-decoration: line-through;
+    color: #818181;
 }

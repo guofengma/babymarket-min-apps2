@@ -1,0 +1,22 @@
+<!--pages/special/detail/special-detail.wxml-->
+
+<import src='/pages/home/cell-product/cell-product.wxml' />
+
+<view class="root">
+
+    <image class="post" src="{{subject.imgsrc}}"/>
+    <view class="main-title">
+        <view>{{subject.Title}}</view>
+    </view>
+    <view class="des">
+        <!--<text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;{{subject.Content}}</text>-->
+        <text decode="{{true}}" space="{{true}}">{{subject.Content}}</text>
+    </view>
+
+    <view class="collection">
+        <template is="cell-product" data="{{productArray:subject.ProductDetail,groupPosition:0,title:title,categoryId:item.Id,door:1,isMore:false}}" />
+    </view>
+
+</view>
+
+

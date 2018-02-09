@@ -72,40 +72,47 @@
     background-color: white;
     position: fixed;
     bottom: 0rpx;
-    width: 100%;
+    width: 750rpx;
 }
 
 .bottom-bar .go-cart-view {
     display: flex;
     height: 100%;
-    width: 100rpx;
     align-items: center;
     justify-content: center;
 }
 
-.go-cart-view .cart-image {
+.cart-image {
     width: 44rpx;
     height: 44rpx;
     flex: none;
 }
 
-.go-cart-view.shoppingcar {
+.shoppingcar {
     border-right: 2rpx solid #f1f3f4;
+    flex: none;
+    width: 100rpx;
 }
-
-.go-cart-view.contact {
+.fav {
+    border-right: 2rpx solid #f1f3f4;
+    flex: none;
+    width: 100rpx;
+}
+.contact {
     background-color: white;
     border-right: 2rpx solid #f1f3f4;
+    flex: none;
+    width: 100rpx;
 }
 
 .bottom-bar .btn-two {
     display: flex;
     height: 100%;
+    flex: 1;
 }
 
 .btn-two .btn-addcart {
     display: flex;
-    
     background-color: #ffba40;
     height: 100%;
     font-size: 35rpx;
@@ -113,12 +120,14 @@
     width: 225rpx;
     align-items: center;
     justify-content: center;
+    flex: 1;
 }
 
 .btn-two .btn-submit {
     display: flex;
     background-color: #715329;
     height: 100%;
+    flex: 1;
     font-size: 35rpx;
     color: white;
     width: 225rpx;
@@ -189,4 +198,10 @@
 
 button::after{
     border: 0;
+}
+
+.crowdfunding-price{
+    font-size:34rpx;
+    color:rgba(199,175,126,1);
+    padding:20rpx 20rpx 0;
 }

@@ -63,6 +63,7 @@ Page({
                 value: '',
             }
         ],
+        isCrowdfunding:false,
     },
 
     /**
@@ -70,6 +71,10 @@ Page({
      */
     onLoad: function (options) {
         let self = this;
+        let isCrowdfunding = options.isCrowdfunding == 'true';
+        this.setData({
+            isCrowdfunding,
+        })
         let isInsideMember = global.Storage.isInsideMember();
         let memberInfo = global.Storage.currentMember();
         let id = global.Tool.guid();
@@ -180,8 +185,6 @@ Page({
                 self.setData({
                     loadingHidden: true,
                 });
-
-
             }
         }
         r.failBlock = (req) => {
@@ -432,7 +435,7 @@ Page({
         let Card = this.data.addressData.Card;
         let self = this;
         // 判断有无地址
-        if (num == 1) {
+        if (num == 1 || this.data.isCrowdfunding) {
             // 有地址
             if (isAirProduct && global.Tool.isEmptyStr(Card)) {
                 wx.showModal({
@@ -487,6 +490,9 @@ Page({
         let addressId = this.data.addressData.addressId;
         order.Formal = "True";
         order.Delivery_AddressId = addressId;
+        if (this.data.isCrowdfunding) {
+            addressId = global.Tool.guid();//随便生成一个id，防止服务器报错
+        }
 
         let requestData = {
             Id: order.Id,

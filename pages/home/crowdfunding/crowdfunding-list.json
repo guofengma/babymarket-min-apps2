@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "cell":"/pages/home/crowdfunding/cell/crowdfunding-list-cell"
+    }
+}

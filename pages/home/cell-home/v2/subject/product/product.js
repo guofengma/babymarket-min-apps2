@@ -5,6 +5,7 @@ Component({
      */
     properties: {
         product:Object,
+        index:Number,
 
     },
 
@@ -20,5 +21,8 @@ Component({
      */
     methods: {
 
+        subjectProductCellClicked:function (e) {
+            this.triggerEvent('subjectProductCellClicked',{...this.data});
+        }
     }
 })

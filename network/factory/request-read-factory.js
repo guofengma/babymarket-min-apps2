@@ -299,7 +299,7 @@ export default class RequestReadFactory {
       };
       let req = new RequestRead(bodyParameters);
       req.name = '首页海报查询';
-      req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name','BelowShow'];
+      req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name','BelowShow','SubjectId'];
       //修改返回结果
       req.preprocessCallback = (req) => {
         let responseData = req.responseObject.Datas;
@@ -332,7 +332,7 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '分类海报查询';
-        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name'];
+        req.items = ['Id', 'ImgId', 'LinkTypeKey', 'KeyWord', 'Url', 'ProductId', 'Name','SubjectId'];
         //修改返回结果
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
@@ -456,6 +456,7 @@ export default class RequestReadFactory {
             });
             let home = new Object();
             home.Name = "首页";
+            home.bodyData = {sortData:{}}
             responseData.unshift(home);
         }
         return req;
@@ -530,7 +531,7 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '二级分类商品';
-        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import', 'Order',
+        req.items = ['Id', 'ShowName', 'ImgId', 'SalePrice', 'LYPrice', 'PriceInside', 'Inv', 'Unit', 'Import', 'Order','Subtitle',
             "AccPrice"];
         //修改返回结果
         let that = this;
@@ -562,6 +563,29 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //搜索专题商品
+    static searchSubjectProductRead(keyword,subjectId) {
+        let operation = Operation.sharedInstance().operationSubjectSearch;
+        let condition = "${KeyWord} like %" + keyword + "% || ${ProductName} like %" + keyword + "%";
+        if (subjectId) {
+            condition = "(" + condition + ")" + "&& ${PrimaryId} = '" + subjectId + "'";
+        }
+        let bodyParameters = {
+            "Operation": operation,
+            "Condition": condition
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '搜索专题商品';
+
+        //修改返回结果
+        let that = this;
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            that.parseProductInfo(responseData);
+        }
+        return req;
+    }
+
     //热门搜索查询
     static hotSearchRead() {
         let operation = Operation.sharedInstance().searchHotReadOperation;
@@ -576,26 +600,6 @@ export default class RequestReadFactory {
         return req;
     }
 
-    //专题查询
-    static specialRead() {
-        let operation = Operation.sharedInstance().specialReadOperation;
-        let bodyParameters = {
-            "Operation": operation,
-            "Deleted": "False"
-        };
-        let req = new RequestRead(bodyParameters);
-        req.name = '专题查询';
-        req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes','ProductId'];
-        //修改返回结果
-        req.preprocessCallback = (req) => {
-            let responseData = req.responseObject.Datas;
-            responseData.forEach((item, index) => {
-                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
-                item.imageHeadUrl = global.Tool.imageURLForId(item.Img2Id);
-            });
-        }
-        return req;
-    }
 
     //查询购物车视图
     static cartViewRead() {
@@ -785,7 +789,7 @@ export default class RequestReadFactory {
         responseData.forEach((item, index) => {
             let url = global.Tool.imageURLForId(item.ImgId);
             item.imageUrl = url;
-            item.productId = item.Id;
+            item.productId = item.ProudctId ? item.ProudctId : item.Id;
             //未登录时,显示的价格为SalePrice,登陆后显示老友价（LYPrice)
             item.isLogin = global.Storage.didLogin();
             // if (item.isLogin) {
@@ -813,8 +817,12 @@ export default class RequestReadFactory {
                 },
                 ]
                 if (item.isLogin) {//登录时，显示合伙尊享价格
+                    let price = item.AccPrice;
+                    if (price == undefined) {
+                        price = item.HSPrice;
+                    }
                     let dict = {
-                        'price': "¥" + item.AccPrice,
+                        'price': "¥" + price,
                         'title': '合伙尊享'
                     }
                     item.priceArry.unshift(dict)
@@ -1456,16 +1464,43 @@ export default class RequestReadFactory {
         return req;
     }
 
+    //专题查询
+    static specialRead() {
+        let operation = Operation.sharedInstance().operation_SpecialTopicRead;
+        let bodyParameters = {
+            "Operation": operation,
+            "Deleted": "False"
+        };
+        let req = new RequestRead(bodyParameters);
+        req.name = '专题查询';
+        req.items = ['Id', 'ImgId', 'Img2Id', 'Name', 'Title', 'Subtitle', 'PriceDes','ProductId'];
+        //修改返回结果
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            responseData.forEach((item, index) => {
+                item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+                item.imageHeadUrl = global.Tool.imageURLForId(item.Img2Id);
+            });
+        }
+        return req;
+    }
+
     //首页的专题
-    static requestHomeSubjects() {
+    static requestSubjects(subjectId,showInHomepage) {
         let operation = Operation.sharedInstance().operation_SpecialTopicRead;
 
         let bodyParameters = {
             "Operation": operation,
             "MaxCount":999,
-            "ShowInHomepage":"True",
             "IsIncludeSubtables":true,
         };
+        if (subjectId) {
+            bodyParameters.Id = subjectId;
+        }
+        else{
+            bodyParameters.ShowInHomepage = showInHomepage;
+            bodyParameters.Hide = 'False';
+        }
 
         let req = new RequestRead(bodyParameters);
         req.name = '首页的专题';
@@ -1475,9 +1510,16 @@ export default class RequestReadFactory {
             if (global.Tool.isValidArr(responseData)) {
                 for (let item of responseData) {
                     item.imgsrc = global.Tool.imageURLForId(item.ImgId);
+                    item.showImgSrc = global.Tool.imageURLForId(item.ShowImgId);
+                    item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+                    let temp = item.Content.replace(/\\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+                    item.Content = temp;
                     if (global.Tool.isValidArr(item.ProductDetail)) {
                         for (let obj of item.ProductDetail) {
                             obj.imgsrc = global.Tool.imageURLForId(obj.ImgId);
+                            obj.imageUrl = global.Tool.imageURLForId(obj.ImgId);
+                            obj.ShowName = obj.ProductName;
+                            obj.productId = obj.ProudctId;
                             obj.isLogin = global.Storage.didLogin();
                             obj.showPrice = "¥" + obj.SalePrice;
                             obj.oldPrice = "¥" + obj.LYPrice;

@@ -35,6 +35,7 @@ Page({
         price1:'',
         price2:'',
         price3:'',
+        isCrowdfunding:false,
     },
     productId: '',
     favDatas: {},
@@ -46,6 +47,10 @@ Page({
     onLoad: function (options) {
 
         this.productId = options.productId;
+        let isCrowdfunding = options.isCrowdfunding == 'true';
+        this.setData({
+            isCrowdfunding,
+        })
 
         console.log(this.productId)
 
@@ -57,6 +62,7 @@ Page({
 
         let self = this;
         this.productSpecification = new ProductSpecification(this, this.productId);
+        this.productSpecification.isCrowdfunding = isCrowdfunding;
         this.productSpecification.finishBlock = (specificationId, product, count, price) => {
         };
 

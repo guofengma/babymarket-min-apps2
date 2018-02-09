@@ -1,0 +1,6 @@
+<!--pages/home/crowdfunding/crowdfunding-list.wxml-->
+<view class="root">
+    <block wx:for="{{items}}" wx:key="">
+        <cell item="{{item}}" index="{{index}}" bind:cellClicked="cellClicked"/>
+    </block>
+</view>

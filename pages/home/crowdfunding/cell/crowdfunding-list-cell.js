@@ -1,13 +1,12 @@
-// pages/home/cell-home/v2/section/home-section.js
-
+// pages/home/crowdfunding/cell/crowdfunding-list-cell.js
 Component({
-
     /**
      * 组件的属性列表
      */
     properties: {
-        title:String,
-        hasMore:String,
+        item:Object,
+        index:Number,
+
     },
 
     /**
@@ -21,10 +20,9 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
-        moreClicked:function (e) {
-            this.triggerEvent('moreClicked',{});
+        cellClicked:function (e) {
+            this.triggerEvent('cellClicked',{...this.data});
         }
-    }
 
+    }
 })

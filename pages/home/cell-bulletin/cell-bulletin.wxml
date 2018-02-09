@@ -2,7 +2,8 @@
   <view class="cell-bulletin">
     <view class='view-title'>
       <text class="title-m">码头</text>
-      <text class="title-k">快报</text>
+      <!--<text class="title-k">快报</text>-->
+      <image class="title-k" src="/res/img/home/快报.png" mode="aspectFit"/>
     </view>
     <text class="content" catchtap='bulletinTap'>{{content}}</text>
   </view>

@@ -8,7 +8,8 @@ Component({
         targetArray:Array,
         oneSortData:Array,
         bannerArray:Array,
-        bulletinContent:Array,
+        bulletinContent:String,
+        bulletinDatas:Array,
         hotBannerArray:Array,
         selections:Array,
         subjects:Array,
@@ -29,9 +30,24 @@ Component({
             let index = e.detail.index;
             let section = e.detail.section;
             this.triggerEvent('thumbClicked',{index,section});
+        },
+        allCellClicked:function (e) {
+            let index = e.detail.index;
+            this.triggerEvent('allCellClicked',{index});
+        },
+        allSubjectClicked:function (e) {
+            this.triggerEvent('allSubjectClicked',{});
+        },
+        subjectProductCellClicked:function (e) {
+            let product = e.detail.product;
+            this.triggerEvent('subjectProductCellClicked',{product})
+        },
+        bulletinTap:function (e) {
+            this.triggerEvent('bulletinTap',{});
+        },
+        homeADClicked:function (e) {
+            let index = e.currentTarget.dataset.index;
+            this.triggerEvent('homeADClicked',{index})
         }
-
     },
-
-
 })

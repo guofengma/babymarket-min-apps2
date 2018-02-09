@@ -9,18 +9,29 @@ Page({
         //搜索关键字
         keyword: null,
         //产品列表
-        productArray: null
+        productArray: null,
+        subjectId:null,
+        subject:null,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        Tool.showLoading();
-        this.setData({
-            keyword: options.keyword
-        });
-        this.requestSearchProductData(options.keyword);
+        let subjectId = options.subjectId;
+        if (subjectId) {
+            this.setData({
+                subjectId,
+            })
+            this.requestSubject();
+        }
+        else{
+            Tool.showLoading();
+            this.setData({
+                keyword: options.keyword
+            });
+            this.requestSearchProductData(options.keyword);
+        }
     },
 
     /**
@@ -28,6 +39,10 @@ Page({
     */
     requestSearchProductData: function (keyword) {
         let task = RequestReadFactory.searchProductRead(keyword);
+        // let task = RequestReadFactory.searchProductRead(keyword,this.data.subjectId);
+        if (this.data.subjectId) {
+            task = RequestReadFactory.searchSubjectProductRead(keyword,this.data.subjectId);
+        }
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
             this.setData({
@@ -36,6 +51,7 @@ Page({
         };
         task.addToQueue();
     },
+
     /**
      * 搜索框搜索
      */
@@ -44,6 +60,7 @@ Page({
         Tool.showLoading();
         this.requestSearchProductData(keyword);
     },
+
     /**
      * 列表子视图点击事件
      */
@@ -53,6 +70,7 @@ Page({
             url: '/pages/product-detail/product-detail?productId=' + productId
         })
     },
+
      /**
      * 添加到购物车
      */
@@ -66,5 +84,16 @@ Page({
         };
 
         this.productSpecification.showWithAction('ShoppingCart');
-    }
+    },
+
+    requestSubject:function (e) {
+        let r = global.RequestReadFactory.requestSubjects(this.data.subjectId);
+        r.finishBlock = (res,firstData)=>{
+            this.setData({
+                subject:firstData,
+                productArray:firstData.ProductDetail,
+            })
+        }
+        r.addToQueue();
+    },
 })

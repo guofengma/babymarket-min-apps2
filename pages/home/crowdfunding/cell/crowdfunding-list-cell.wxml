@@ -1,0 +1,34 @@
+<!--pages/home/crowdfunding/cell/crowdfunding-list-cell.wxml-->
+<view class="root" catchtap="cellClicked">
+    <image src="{{item.imageUrl}}"/>
+    <view class="right">
+
+        <view class="title">
+            <view>
+                {{item.ShowName}}
+            </view>
+        </view>
+
+        <view class="subtitle">
+            <view>
+                {{item.Subtitle}}
+            </view>
+        </view>
+
+        <view class="priice">
+            <view>
+                ￥{{item.SalePrice}}起
+            </view>
+        </view>
+
+        <view class="button">
+            <view>
+                立即众筹
+            </view>
+        </view>
+    </view>
+</view>
+
+
+
+

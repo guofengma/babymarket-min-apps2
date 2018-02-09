@@ -11,16 +11,16 @@
 <view class="cell-home">
     <view>
         <template is="home-ad" data="{{bannerArray:bannerArray}}" />
-        <template is="cell-bulletin" data="{{content:bulletinContent}}" />
+        <template is="cell-bulletin" data="{{content:bulletinContent,items:bulletinDatas}}" />
 
         <block wx:for="{{selections}}" wx:key="">
             <home-section title="{{item.Name}}"/>
             <grid-ad bind:thumbClicked="thumbClicked" section="{{index}}" items="{{item.SelectDetail}}"/>
         </block>
 
-        <home-section title="专题精选" hasMore="{{true}}"/>
+        <home-section title="专题精选" hasMore="{{true}}" bind:moreClicked="allSubjectClicked"/>
         <block wx:for="{{subjects}}" wx:key="">
-            <home-subject subject="{{item}}"/>
+            <home-subject subject="{{item}}" index="{{index}}" bind:allCellClicked="allCellClicked" bind:subjectProductCellClicked="subjectProductCellClicked"/>
         </block>
 
     </view>

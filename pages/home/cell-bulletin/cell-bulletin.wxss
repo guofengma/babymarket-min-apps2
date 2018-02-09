@@ -9,6 +9,7 @@
     display: flex;
     border-right: 1px solid #dcdedf;
     width: 165rpx;
+    flex: 0 0 auto;
 }
 
 .view-title .title-m {
@@ -20,10 +21,11 @@
 .view-title .title-k {
     color: white;
     font-size: 30rpx;
-    background-color: #c40000;
     border-radius: 6rpx;
     padding-left: 4rpx;
     padding-right: 4rpx;
+    height: 38rpx;
+    width: 76rpx;
 }
 
 .cell-bulletin .content {

@@ -10,6 +10,7 @@ export default class ProductSpecification {
         this.page = page;
 
         this.productId = productId;//商品id
+        this.isCrowdfunding = false;
         this.page.data.specificationData = null;
         this.page.data.innerCount = 1;//选择的数量
         this.selectedArray = [];//选择结果
@@ -224,13 +225,13 @@ export default class ProductSpecification {
                 image:global.Tool.imageURLForId(p.ImgId)
             }
             selectCarts.push(obj);
+            let self = this;
             wx.setStorage({
                 key: 'selectCarts',
                 data: selectCarts,
                 success: function (res) {
-                    wx.navigateTo({
-                        url: '../order-confirm/order-confirm?door=0',
-                    })
+                    let path = '/pages/order-confirm/order-confirm?door=0&isCrowdfunding=' + (self.isCrowdfunding ? 'true':'false');
+                    global.Tool.navigateTo(path)
                 }
             })
         }

@@ -25,6 +25,7 @@ Page({
         inviteCode: '',
         selections:[],//精选
         subjects:[],//专题
+        crowdfundingProducts:[],//众筹
     },
     bulletinDatas:'',
 
@@ -128,8 +129,11 @@ Page({
         r.addToQueue();
     },
 
+    /**
+     * 首页专题列表
+     */
     requestHomeSubjects:function () {
-        let r = global.RequestReadFactory.requestHomeSubjects();
+        let r = global.RequestReadFactory.requestSubjects(null,'True');
         r.finishBlock = (res)=>{
             this.setData({
                 subjects:res.responseObject.Datas,
@@ -170,10 +174,25 @@ Page({
                 if (index > 0) {
                     this.requestOneSortProductData(item.Id, item.MaxShow, index);
                 }
+
+                if (item.Name === '众筹') {
+                    let categoryId = item.Id;
+                    let maxCount = item.CategoryMaxShow;
+
+                    let task = RequestReadFactory.homeTwoSortProductRead(categoryId, maxCount);
+                    task.finishBlock = (req) => {
+                        let responseData = req.responseObject.Datas;
+                        this.setData({
+                            crowdfundingProducts: responseData
+                        });
+                    };
+                    task.addToQueue();
+                }
             });
         };
         task.addToQueue();
     },
+
     /**
      * 请求一级分类里面产品数据
      */
@@ -369,11 +388,15 @@ Page({
             }
         }
     },
+
     /**
      * 首页海报点击
      */
     homeADClicked: function (e) {
-        let position = e.currentTarget.dataset.index;
+        let position = e.detail.index;
+        if (position == undefined) {
+            position = e.currentTarget.dataset.index;
+        }
         let currentTab = this.data.currentTab;
         let bannerData = this.data.bannerArray[position];
         if (currentTab > 0) {
@@ -395,6 +418,7 @@ Page({
      */
     onBannerAction: function (bannerData) {
         let self = this;
+        console.log('onBannerAction:' + bannerData.LinkTypeKey);
         switch (bannerData.LinkTypeKey) {
             case "1":
                 // 搜索
@@ -406,12 +430,14 @@ Page({
                 break;
             case "3":
                 // 活动落地页,专题
+                self.navigateToSubject(bannerData.SubjectId);
                 break;
             case "4":
                 // 网页
                 break;
             case "5":
                 // 分类搜索
+                self.navigateToCategory(bannerData.CategoryId);
                 break;
             default:
                 break;
@@ -452,6 +478,31 @@ Page({
     },
 
     /**
+     * 专题跳转
+     */
+    navigateToSubject:function (subjectId) {
+        global.Tool.navigateTo('/pages/search/search-result/search-result?subjectId=' + subjectId);
+        // global.Tool.navigateTo('/pages/special/detail/special-detail?mainId=' + subjectId);
+    },
+
+    /**
+     * 分类跳转
+     */
+    navigateToCategory:function (categoryId) {
+        // let i = 0;
+        // for (let item of this.data.oneSortData) {
+        //     if (categoryId != undefined && categoryId === item.Id) {
+        //         break;
+        //     }
+        //     i++;
+        // }
+        // this.setData({
+        //     currentTab: i
+        // });
+        // console.log('navigateToCategory index: ' + i + ' id: ' + categoryId);
+    },
+
+    /**
      * 精选点击
      * @param e
      */
@@ -464,5 +515,34 @@ Page({
                 this.onBannerAction(obj);
             }
         }
+    },
+
+    //专题查看全部
+    allCellClicked(e){
+        let index = e.detail.index;
+        console.log('allCellClicked:' + index);
+        let subject = this.data.subjects[parseInt(index)];
+        this.navigateToSubject(subject.Id);
+    },
+
+    //更多专题
+    allSubjectClicked(){
+        global.Tool.switchTab('/pages/special/special-activity');
+    },
+
+    //专题商品点击
+    subjectProductCellClicked(e){
+        let product = e.detail.product;
+        global.Tool.navigateTo('/pages/product-detail/product-detail?productId=' + product.ProudctId)
+    },
+
+    /**
+     * 众筹点击
+     * @param e
+     */
+    cellClicked:function (e) {
+        let index = e.detail.index;
+        let product = this.data.crowdfundingProducts[parseInt(index)];
+        global.Tool.navigateTo('/pages/product-detail/product-detail?productId=' + product.Id + '&isCrowdfunding=true');
     }
 })

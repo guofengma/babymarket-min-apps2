@@ -1,21 +1,23 @@
 <!--pages/home/cell-home/v2/subject/home-subject.wxml-->
 <import src="/pages/home/cell-product/cell-product.wxml"/>
 
-<view class="root">
-    <view class="top">
-        <image class="post" src="{{subject.imgsrc}}"/>
-    </view>
-    <scroll-view scroll-x="true" class="bottom">
-        <view class="content">
-            <block wx:for="{{subject.ProductDetail}}" wx:key="">
-                <!--<view style="background:white;width:312rpx;height:460rpx;display:inline-block;">-->
-                <product product="{{item}}"/>
-                <!--</view>-->
-            </block>
-            <all-cell/>
+<block wx:if="{{subject.ProductDetail.length>0}}">
+    <view class="root">
+        <view class="top" catchtap="postClicked">
+            <image class="post" src="{{subject.showImgSrc}}"/>
         </view>
-    </scroll-view>
-</view>
+        <scroll-view scroll-x="true" class="bottom">
+            <view class="content">
+                <block wx:for="{{subject.ProductDetail}}" wx:key="">
+                    <!--<view style="background:white;width:312rpx;height:460rpx;display:inline-block;">-->
+                    <product product="{{item}}" bind:subjectProductCellClicked="subjectProductCellClicked"/>
+                    <!--</view>-->
+                </block>
+                <all-cell bind:allCellClicked="allCellClicked" index="{{index}}"/>
+            </view>
+        </scroll-view>
+    </view>
+</block>
 
 
 

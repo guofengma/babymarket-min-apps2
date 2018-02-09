@@ -6,13 +6,16 @@
 <view class="main">
 
     <!--选择订单地址-->
-    <view class="order-address" catchtap="selectAddress">
-        <image src="/res/img/my/my-order-detail-address-icon.png" class="order-address-icon" mode="aspectFit"></image>
-        <view class="order-address-info">
-            <template is="address-info" data="{{...addressData}}"></template>
+    <block wx:if="{{isCrowdfunding == false}}">
+        <view class="order-address" catchtap="selectAddress">
+            <image src="/res/img/my/my-order-detail-address-icon.png" class="order-address-icon" mode="aspectFit"></image>
+
+            <view class="order-address-info">
+                <template is="address-info" data="{{...addressData}}"></template>
+            </view>
+            <image src="/res/img/my/my-address-arrow-icon.png" class="order-address-arrow" mode="aspectFit"></image>
         </view>
-        <image src="/res/img/my/my-address-arrow-icon.png" class="order-address-arrow" mode="aspectFit"></image>
-    </view>
+    </block>
 
     <!--订单商品列表-->
     <view class="order-list" wx:for="{{orders}}" wx:key="{{index}}">

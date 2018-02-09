@@ -30,10 +30,18 @@
                                     oneSortData="{{oneSortData}}"
                                     bannerArray="{{bannerArray}}"
                                     bulletinContent="{{bulletinContent}}"
+                                    bulletinDatas="{{bulletinDatas}}"
                                     hotBannerArray="{{hotBannerArray}}"
                                     bind:thumbClicked="thumbClicked"
+                                    bind:allCellClicked="allCellClicked"
+                                    bind:allSubjectClicked="allSubjectClicked"
+                                    bind:subjectProductCellClicked="subjectProductCellClicked"
+                                    bind:homeADClicked="homeADClicked"
                             />
                         </view>
+                        <block wx:elif="{{item.Name==='众筹'}}">
+                            <crowdfunding-list items="{{crowdfundingProducts}}" bind:cellClicked="cellClicked"/>
+                        </block>
                         <view wx:else>
                             <template is="cell-sort" data="{{...item}}" />
                         </view>

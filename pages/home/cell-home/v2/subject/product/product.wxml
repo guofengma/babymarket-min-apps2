@@ -1,6 +1,6 @@
 <!--pages/home/cell-home/v2/subject/product/product.wxml-->
 
-<view class="root" catchtap="">
+<view class="root" catchtap="subjectProductCellClicked">
     <image mode="aspectFit" class="{{product.imgsrc.length>0?'image':'image empty'}}" src="{{product.imgsrc}}" />
     <view class="info">
         <text class="name">{{product.ProductName}}</text>

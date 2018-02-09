@@ -202,6 +202,9 @@ export default class Operation {
         //专题
         this.operation_SpecialTopicRead = "1120e650-629e-4af0-ab39-a650012db775";
 
+        //专题商品搜索
+        this.operationSubjectSearch = '5bc4728c-e3c2-4392-9b15-a87800bc0599';
+
         __instance(this);
     }
 

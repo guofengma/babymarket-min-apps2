@@ -9,7 +9,7 @@ Component({
             observer:function (newValue,oldValue){
             }
         },
-
+        index:Number,
     },
 
     /**
@@ -23,6 +23,16 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
+        allCellClicked:function (e) {
+            let index = e.detail.index;
+            this.triggerEvent('allCellClicked',{index});
+        },
+        postClicked:function (e) {
+            this.triggerEvent('allCellClicked',{index:this.data.index});
+        },
+        subjectProductCellClicked:function (e) {
+            let product = e.detail.product;
+            this.triggerEvent('subjectProductCellClicked',{product})
+        }
     }
 })
