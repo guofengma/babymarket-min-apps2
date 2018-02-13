@@ -501,7 +501,7 @@ Page({
             UseBalance: order.UseBalance,
             UseCredit: order.UseCredit,
             Delivery_AddressId: addressId,
-            addressId: this.data.addressData.addressId,
+            addressId: addressId,
             Formal: "True",
 
         };

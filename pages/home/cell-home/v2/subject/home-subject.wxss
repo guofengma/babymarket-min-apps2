@@ -5,6 +5,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #F6F6F6;
 }
 .top{
     height:374rpx;
@@ -21,7 +22,6 @@
     white-space: nowrap;
     height:485rpx;
     width: 750rpx;
-    background:rgba(235,235,235,1);
 }
 
 .content{

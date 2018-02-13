@@ -489,7 +489,30 @@ export default class RequestReadFactory {
         };
         let req = new RequestRead(bodyParameters);
         req.name = '首页-二级分类';
-        req.items = ['Id', 'Name', 'ImgId', 'Description','CategoryMaxShow'];
+        req.items = ['Id', 'Name', 'ImgId', 'Description','CategoryMaxShow','IconId'];
+        req.preprocessCallback = (req) => {
+            let responseData = req.responseObject.Datas;
+            let count = responseData.length;
+
+            let width = '';
+            let lineCount = 4;
+            if (count % 3 == 0){
+                lineCount = 3;
+            }
+            else if (count == 2) {
+                lineCount = 2;
+            }
+            else{
+                lineCount = 4;
+            }
+            width = 720 / lineCount;
+            console.log('homeTwoSortRead width : ' + width);
+
+            responseData.forEach((item, index) => {
+                item.iconUrl = global.Tool.imageURLForId(item.IconId);
+                item.width = width;
+            });
+        }
         return req;
     }
 
@@ -1250,20 +1273,20 @@ export default class RequestReadFactory {
     }
 
     //我的众筹订单一级 查询
-    static requestMyRaiseAwardMonthWithCondition(month) {
+    static requestMyRaiseAwardMonthWithCondition(raiseId,month) {
         let operation = Operation.sharedInstance().operation_MyRaiseCommissionMonthRead;
 
         let bodyParameters = {
             "Operation": operation,
             "MaxCount": '999',
-            'Order':"${Month} DESC"
+            'Order':"${Month} DESC",
         };
         let memberId = global.Storage.currentMember().Id;
         if (month) {
-            bodyParameters['Condition'] = "${Month} <= '"+month+"' && ${MemberId} == '"+ memberId +"'";
+            bodyParameters['Condition'] = "${Month} <= '"+month+"' && ${MemberId} == '"+ memberId + "' && ${RaiseId} = '" + raiseId + "'";
         }
         else {
-            bodyParameters['Condition'] = "${MemberId} == '"+ memberId +"'";
+            bodyParameters['Condition'] = "${MemberId} == '"+ memberId + "' && ${RaiseId} = '" + raiseId + "'";
         }
         let req = new RequestRead(bodyParameters);
         req.name = '我的众筹订单一级 查询';
@@ -1277,7 +1300,7 @@ export default class RequestReadFactory {
     }
 
     //我的众筹订单二级 查询
-    static requestMyRaiseAwardDetailWithCondition(month) {
+    static requestMyRaiseAwardDetailWithCondition(raiseId,month) {
         let operation = Operation.sharedInstance().operation_MyRaiseCommissionOrderRead;
 
         let bodyParameters = {
@@ -1287,7 +1310,7 @@ export default class RequestReadFactory {
         };
 
         let memberId = global.Storage.currentMember().Id;
-        bodyParameters['Condition'] = "${Month} = '"+month+"'";
+        bodyParameters['Condition'] = "${Month} = '"+month+"' && ${RaiseId} = '" + raiseId + "'";
 
         let req = new RequestRead(bodyParameters);
         req.name = '我的众筹订单二级 查询';
@@ -1469,7 +1492,8 @@ export default class RequestReadFactory {
         let operation = Operation.sharedInstance().operation_SpecialTopicRead;
         let bodyParameters = {
             "Operation": operation,
-            "Deleted": "False"
+            "Deleted": "False",
+            'Hide':'False',
         };
         let req = new RequestRead(bodyParameters);
         req.name = '专题查询';
@@ -1515,6 +1539,7 @@ export default class RequestReadFactory {
                     let temp = item.Content.replace(/\\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
                     item.Content = temp;
                     if (global.Tool.isValidArr(item.ProductDetail)) {
+                        let showProducts = [];
                         for (let obj of item.ProductDetail) {
                             obj.imgsrc = global.Tool.imageURLForId(obj.ImgId);
                             obj.imageUrl = global.Tool.imageURLForId(obj.ImgId);
@@ -1539,6 +1564,12 @@ export default class RequestReadFactory {
                                 }
                                 obj.priceArry.unshift(dict)
                             }
+                            if (obj.Show == 'True' && showProducts.length < 5) {
+                                showProducts.push(obj);
+                            }
+                        }
+                        if (showInHomepage == 'True') {
+                            item.ProductDetail = showProducts;
                         }
                     }
                 }

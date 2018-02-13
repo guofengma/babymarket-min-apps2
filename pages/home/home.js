@@ -430,7 +430,7 @@ Page({
                 break;
             case "3":
                 // 活动落地页,专题
-                self.navigateToSubject(bannerData.SubjectId);
+                self.navigateToSubject(bannerData.SubjectId,true);
                 break;
             case "4":
                 // 网页
@@ -480,9 +480,13 @@ Page({
     /**
      * 专题跳转
      */
-    navigateToSubject:function (subjectId) {
-        global.Tool.navigateTo('/pages/search/search-result/search-result?subjectId=' + subjectId);
-        // global.Tool.navigateTo('/pages/special/detail/special-detail?mainId=' + subjectId);
+    navigateToSubject:function (subjectId,isAd = false) {
+        if (isAd) {
+            global.Tool.navigateTo('/pages/search/search-result/search-result?subjectId=' + subjectId);
+        }
+        else{
+            global.Tool.navigateTo('/pages/special/detail/special-detail?mainId=' + subjectId);
+        }
     },
 
     /**
@@ -544,5 +548,16 @@ Page({
         let index = e.detail.index;
         let product = this.data.crowdfundingProducts[parseInt(index)];
         global.Tool.navigateTo('/pages/product-detail/product-detail?productId=' + product.Id + '&isCrowdfunding=true');
-    }
+    },
+
+    cellSortMenuCellClicked:function (e) {
+        let id = e.currentTarget.dataset.id;
+        let name = e.currentTarget.dataset.name;
+        console.log('cellSortMenuCellClicked:' + id);
+
+        global.Tool.navigateTo('/pages/home/product-more-category/product-more-category?id=' + id + "&title=" + name);
+    },
 })
+
+
+

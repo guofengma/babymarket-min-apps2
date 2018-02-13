@@ -10,11 +10,13 @@
     border-right: 1px solid #dcdedf;
     width: 165rpx;
     flex: 0 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .view-title .title-m {
-    color: #715329;
-    font-size: 32rpx;
+    color: #252525;
+    font-size: 30rpx;
     height: 40rpx;
 }
 

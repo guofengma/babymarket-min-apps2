@@ -70,7 +70,7 @@ Page({
     },
     requestData: function () {
         let self = this;
-        let r = global.RequestReadFactory.requestMyRaiseAwardMonthWithCondition(this.data.selectMonth);
+        let r = global.RequestReadFactory.requestMyRaiseAwardMonthWithCondition(this.data.item.Id,this.data.selectMonth);
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
             self.setData({
@@ -79,7 +79,7 @@ Page({
 
             let i = 0;
             for (let data of self.data.months) {
-                let r2 = global.RequestReadFactory.requestMyRaiseAwardDetailWithCondition(data.Month);
+                let r2 = global.RequestReadFactory.requestMyRaiseAwardDetailWithCondition(this.data.item.Id,data.Month);
                 r2.finishBlock = (req2) => {
                     let datas2 = req2.responseObject.Datas;
                     let item = self.data.months[req2.tag];

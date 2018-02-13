@@ -7,6 +7,13 @@
 <template name="cell-sort">
     <view class="cell-sort">
         <template is="home-ad" data="{{bannerArray:bodyData.adData}}" />
+        <view class="menu-container">
+            <view class='menu-root'>
+                <block wx:for="{{bodyData.sortData}}" wx:key="">
+                    <template is='cell-sort-menu-cell' data="{{cid:item.Id,width:item.width,imgsrc:item.iconUrl,name:item.Name,index:index}}" />
+                </block>
+            </view>
+        </view>
         <block wx:for="{{bodyData.sortData}}" wx:key="unique">
             <view wx:if="{{item.productData.length>0}}">
                 <template is="cell-title" data="{{title:item.Name,position:index,categoryId:item.Id,door:1,isMore:item.isMore}}" />
@@ -14,6 +21,23 @@
             </view>
         </block>
         <text class="more-bottom">———\t\t更多内容, 敬请期待\t\t———</text>
+    </view>
+</template>
+
+
+
+<template name='cell-sort-menu-cell'>
+    <view
+            class='cell-sort-menu-cell'
+            catchtap="cellSortMenuCellClicked"
+            data-id="{{cid}}"
+            data-name="{{name}}"
+            style="width:{{width}}rpx;"
+    >
+        <image class="icon" src='{{imgsrc}}' mode="aspectFit"/>
+        <view class='title'>
+            <view>{{name}}</view>
+        </view>
     </view>
 </template>
 

@@ -1,6 +1,8 @@
 <!--pages/home/cell-home/v2/cell-home-v2.wxml-->
+
         <!--广告位-->
 <import src='/pages/home/ad/home-ad.wxml' />
+
         <!--码头快报-->
 <import src='/pages/home/cell-bulletin/cell-bulletin.wxml' />
 <import src='/pages/home/cell-title/cell-title.wxml' />
@@ -12,17 +14,17 @@
     <view>
         <template is="home-ad" data="{{bannerArray:bannerArray}}" />
         <template is="cell-bulletin" data="{{content:bulletinContent,items:bulletinDatas}}" />
-
+        <view class="sep"></view>
         <block wx:for="{{selections}}" wx:key="">
             <home-section title="{{item.Name}}"/>
             <grid-ad bind:thumbClicked="thumbClicked" section="{{index}}" items="{{item.SelectDetail}}"/>
         </block>
-
+        <view class="sep"></view>
         <home-section title="专题精选" hasMore="{{true}}" bind:moreClicked="allSubjectClicked"/>
         <block wx:for="{{subjects}}" wx:key="">
             <home-subject subject="{{item}}" index="{{index}}" bind:allCellClicked="allCellClicked" bind:subjectProductCellClicked="subjectProductCellClicked"/>
+            <view class="sep"></view>
         </block>
-
     </view>
 </view>
 

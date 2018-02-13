@@ -3,7 +3,6 @@
     display: inline-block;
     width: 312rpx;
     height: 100%;
-    background:rgba(235,235,235,1);
 }
 
 .content {
@@ -14,9 +13,11 @@
     width: 312rpx;
     height: 460rpx;
     flex: 0 0 auto;
+    margin: 14rpx;
 
     font-size:24rpx;
     color:rgba(81,81,81,1);
+    background:#EBEBEB;
 }
 
 

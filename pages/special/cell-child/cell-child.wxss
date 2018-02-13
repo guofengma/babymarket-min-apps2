@@ -31,7 +31,7 @@
 
 .product-image {
   width: 100%;
-  height: 400rpx;
+  height: 374rpx;
   background-color: white;
   flex: none;
 }
