@@ -10,9 +10,9 @@
              scroll-into-view="{{toView}}"
              id="right">
     <view wx:for="{{months}}" wx:for-item="item" wx:for-index="section" wx:key="" class="lists" id="{{item.title}}">
-        <template is="award-section-header" data="{{...item,Commission:item.Commissioin}}"/>
+        <template is="award-section-header" data="{{...item,index:section,Money:item.Commissioin}}"/>
         <block wx:for="{{item.detailArray}}" wx:key="">
-            <template is="my-award-cell" data="{{...item,title:item.BuyerName,section,index}}"></template>
+            <template is="my-award-cell" data="{{...item,TypeName:item.BuyerName,section,index}}"></template>
         </block>
     </view>
 </scroll-view>

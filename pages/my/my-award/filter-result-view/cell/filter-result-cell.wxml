@@ -4,7 +4,7 @@
     <view class="content">
         <view class="top">
             <view class="title">{{name}}</view>
-            <view class="price">+￥{{price}}</view>
+            <view class="price">+ {{price}}</view>
         </view>
 
         <view class="bottom">

@@ -21,9 +21,9 @@
              scroll-into-view="{{toView}}"
              id="right">
     <view wx:for="{{months}}" wx:for-item="item" wx:for-index="section" wx:key="" class="lists" id="{{item.title}}">
-        <template is="award-section-header" data="{{...item}}"/>
+        <template is="award-section-header" data="{{...item,index:section}}"/>
         <block wx:for="{{item.detailArray}}" wx:key="">
-            <template is="my-award-cell" data="{{...item,title:'码头奖励',section,index}}"></template>
+            <template is="my-award-cell" data="{{...item,TypeName:'码头奖励',section,index}}"></template>
         </block>
     </view>
 </scroll-view>

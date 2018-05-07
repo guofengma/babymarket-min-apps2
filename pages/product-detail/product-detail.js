@@ -85,7 +85,8 @@ Page({
                 */
                 let response = res.data;
                 let arry = response.split('<div class="Div-7">');
-                let html = arry[1];
+                //console.log(arry);
+                let html = arry[1].split('<script>')[0];
                 WxParse.wxParse('article', 'html', html, self, 5);
             }
         })

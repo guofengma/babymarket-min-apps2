@@ -4,33 +4,24 @@
     <view class="sep-line"></view>
     <view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
     <view class="sep-line"></view>
-    <my-award-detail-total-price-cell title="奖励金额" value="50.11"></my-award-detail-total-price-cell>
+    <my-award-detail-total-price-cell title="奖励金额" value="{{award}}"></my-award-detail-total-price-cell>
     <view class="thumb-container">
-        <my-award-detail-thumb title="城市合伙人奖励:￥51.55"/>
-        <my-award-detail-thumb title="城励:￥51.55"/>
-        <my-award-detail-thumb title="城市合伙人奖励:￥51.55"/>
-        <my-award-detail-thumb title="城市合:￥51.55"/>
-        <my-award-detail-thumb title="城市励:￥51.55"/>
-        <my-award-detail-thumb title="城市:￥51.55"/>
-        <my-award-detail-thumb title="城市励:￥51.55"/>
-        <my-award-detail-thumb title="城市合伙人奖励:￥51.55"/>
-        <my-award-detail-thumb title="城市合励:￥51.55"/>
+        <block wx:for="{{datas}}" wx:key='unique'>
+           <my-award-detail-thumb title="{{item.Type+': ¥'+ item.Commission}}"/>
+        </block>
     </view>
     <view class="sep-line"></view>
-    <key-value-cell key="我的老友" value="小芳"/>
+    <key-value-cell key="我的老友" value="{{datas[0].BuyerName}}"/>
 
     <view class="product-container">
         <view class="product-name-key">购买的商品</view>
         <view class="product-table">
-            <view class="product-cell">是连接方式杋杋是否是发首付</view>
-            <view class="product-cell">是连接方式杋杋是否是发首付</view>
-            <view class="product-cell">是连接方式杋杋是否是发首付</view>
-            <view class="product-cell">是连接方式杋杋是否是发首付</view>
-            <view class="product-cell">是连接方式杋杋是否是发首付</view>
+            <view class="product-cell">{{orderInfo.Product_Name}}</view>
+            <view class="product-cell">数量{{orderInfo.Qnty}}件</view>
         </view>
     </view>
-    <key-value-cell key="订单创建时间" value="2017"/>
-    <key-value-cell key="奖励到账时间" value="未到账 "/>
+    <key-value-cell key="{{door== '1'? '奖励生成时间':'资产生成时间'}}" value="{{datas[0].OrderDate}}"/>
+    <key-value-cell key="{{door== '1'? '奖励到账时间':'资产到账时间'}}" value="{{datas[0].ConfirmDate}} "/>
     <view class="sep-line"></view>
 
     <view style="padding:130rpx 28rpx 0">

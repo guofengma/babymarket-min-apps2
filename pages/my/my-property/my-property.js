@@ -218,7 +218,7 @@ Page({
         let index = parseInt(e.currentTarget.dataset.index);
         let section = parseInt(e.currentTarget.dataset.section);
         let item = this.data.months[section].detailArray[index];
-        global.Tool.navigateTo('/pages/my/my-award/detail/my-award-detail?Id=' + item.Id);
+        global.Tool.navigateTo('/pages/my/my-award/detail/my-award-detail?Id=' + item.OrderId + '&door=0&award=' + item.Money);
     },
 
     dismissFilterClicked(e){

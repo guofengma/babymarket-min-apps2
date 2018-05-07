@@ -5,9 +5,10 @@
             <view class="income">收益：￥{{Money}}</view>
         </view>
         <!--结束日期-->
-        <picker
+        <picker wx:if="{{index == 0}}"
                 mode="date"
                 fields="month"
+                start ='2016-01'
                 bindchange="datePickerChange"
         >
             <image class="date-picker" src="/res/img/my/award-date-icon.png" mode="aspectFit" />

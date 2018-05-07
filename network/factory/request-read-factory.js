@@ -888,15 +888,21 @@ export default class RequestReadFactory {
     }
 
     //收到的奖励查询
-    static awardRead(index) {
+    static awardRead(index,Id) {
         let operation = Operation.sharedInstance().awardReadOperation;
 
         let bodyParameters = {
             "Operation": operation,
             "Order": "${OrderDate} DESC",
             "MaxCount": '20',
-            "StartIndex": index,
+            //"StartIndex": index,
         };
+        if(index){
+          bodyParameters.StartIndex = index
+        }
+        if(Id){
+          bodyParameters['Condition'] = "${OrderId} = '" + Id + "'";;
+        }
         let req = new RequestRead(bodyParameters);
         req.name = '收到的奖励查询';
         return req;
@@ -1098,7 +1104,7 @@ export default class RequestReadFactory {
     }
 
     //收到奖励二级 查询
-    static requestMyAwardDetailListWithCondition(month) {
+    static requestMyAwardDetailListWithCondition(month,Id) {
         let operation = Operation.sharedInstance().operation_MyAwardDetailListRead;
 
         let bodyParameters = {
@@ -1107,7 +1113,10 @@ export default class RequestReadFactory {
             'Order':"${Month} DESC"
         };
         if (month) {
-            bodyParameters['Condition'] = "${Month} = '"+month+"'";;
+            bodyParameters['Condition'] = "${Month} = '"+month+"'";
+        }
+        if(Id){
+          bodyParameters['Condition'] = "${Id} = '" + Id + "'";
         }
         let req = new RequestRead(bodyParameters);
         req.name = '收到奖励二级 查询';
@@ -1206,7 +1215,8 @@ export default class RequestReadFactory {
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
-                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM-DD');
+                item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM');
+                item.Money = item.Sum
             });
         }
         return req;
@@ -1323,6 +1333,7 @@ export default class RequestReadFactory {
                 item.TypeImgId = typeImgId;
                 item.typeImgSrc = global.Tool.imageURLForId(typeImgId);
                 item.Money = item.Commissioin;
+                item.ConfirmDate = global.Tool.timeStringForDateString(item.Date, 'MM月DD日 HH:mm');
             });
         }
 

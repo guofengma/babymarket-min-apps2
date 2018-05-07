@@ -18,7 +18,7 @@ export default class Network {
 
         //域名
         this.domain = 'https://www.babymarkt.com.cn/';
-        // this.domain = 'http://202.91.250.138/bbmt/';
+        //this.domain = 'http://202.91.250.138/bbmt/';
 
         //读取
         this.readURL = this.domain + 'Libra.Web.AppSync.AppSyncBatchReadData2.aspx';

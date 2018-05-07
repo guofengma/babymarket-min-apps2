@@ -7,6 +7,7 @@ Page({
     data: {
         key:null,
         items:null,
+        value:'',
     },
 
     /**
@@ -72,8 +73,13 @@ Page({
         let self = this;
         r.finishBlock = (req) => {
             let datas = req.responseObject.Datas;
+            let value = 0
+            for(let i=0;i<datas.length;i++){
+              value += Number(datas[i].Commission)
+            }
             self.setData({
                 items:datas,
+                value:value
             })
         }
         r.addToQueue();
