@@ -69,12 +69,33 @@ Page({
     onReachBottom: function () {
 
     },
-
+    share(Id){
+      //global.Tool.navigateTo('/pages/share/share');
+    },
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-
+    onShareAppMessage: function (res) {
+      wx.showShareMenu({
+        withShareTicket: true
+      })
+      //let memberInfo = global.Storage.currentMember()
+      return {
+        title: '妹子图片',
+        path: '/pages/share/share',
+        //imageUrl: "/images/1.jpg",
+        success: (res) => {
+          console.log("转发成功", res);
+        },
+        fail: (res) => {
+          console.log("转发失败", res);
+        }
+      }  
+      // return {
+      //   title: '老友码头',
+      //   desc: '老友码头，分享最好的',
+      //   path: '/pages/share/share?amount=' + this.data.commissioin + '&type=5&fromId=' + memberInfo.InvitationCode + '&imgId=' + memberInfo.PictureId
+      // }
     },
 
     requestData(){

@@ -18,8 +18,10 @@
                 <template is="orderline-cell" data="{{datas:item}}"></template>
             </view>
         </view>
-        <view style="height:20rpx;width:100%;background-color:white"></view>
-        <view class="sep-line" style="margin-left:33rpx"></view>
+        <view class='sep'>
+          <!-- <view style="height:20rpx;width:100%;background-color:white"></view> -->
+          <view class="sep-line"></view>
+        </view>
 
         <view class="bottom">
             <view class="total-amount">

@@ -48,8 +48,13 @@
 .content .price-base .count{
     margin-bottom: 20rpx;
 }
-
-
+.order-cell{
+  width: 100%;
+  box-sizing: border-box;
+}
+.sep{
+  padding-left: 33rpx;
+}
 
 
 

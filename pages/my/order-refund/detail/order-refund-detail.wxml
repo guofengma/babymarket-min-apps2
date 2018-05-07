@@ -12,8 +12,12 @@
     </view>
     <view style="height:19rpx;width:100%;"></view>
 
-    <view class="info-title"><view>退款信息</view></view>
-    <view class="sep-line" style="margin-left:33rpx"></view>
+    <view class="info-title">
+      <view>退款信息</view>
+    </view>
+    <view class='sep'>
+      <view class="sep-line" ></view>
+    </view>
     <order-cell-content line="{{line}}"/>
 
     <view class="settlement-base">

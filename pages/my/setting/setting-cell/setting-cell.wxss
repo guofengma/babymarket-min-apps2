@@ -4,6 +4,7 @@
     align-items: center;
     height: 96rpx;
     border-bottom: 2rpx solid #f1f3f4;
+    background:#fff;
 }
 
 .arrow{

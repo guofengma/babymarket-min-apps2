@@ -154,3 +154,12 @@ button::after{
     width:100%;
     background-color:#DCDCDC;
 }
+.order-cell{
+  width: 100%;
+  box-sizing: border-box;
+}
+.sep{
+  padding-left: 33rpx;
+  background: #fff;
+  padding-top: 20rpx;
+}
