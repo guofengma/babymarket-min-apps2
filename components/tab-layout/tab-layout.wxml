@@ -2,7 +2,7 @@
 <template name="tab-layout">
   <scroll-view class="tab-layout" scroll-x>
     <view class="tab-layout-view">
-      <view class="{{index==currentTab?'tab select':'tab'}}" catchtap="onTabChangeListener" wx:for="{{items}}" data-current="{{index}}" style="{{items.length<8?'flex-grow: 1;':'flex-grow: 0;'}}" wx:key="unique">{{item.Name}}</view>
+      <view class="{{index==currentTab?'tab select':'tab'}}" catchtap="onTabChangeListener" wx:for="{{items}}" data-current="{{index}}" style="{{items.length<8?'flex-grow: 1;':'flex-grow: 0;'}}" wx:key="unique" >{{item.Name}}</view>
     </view>
   </scroll-view>
 </template>

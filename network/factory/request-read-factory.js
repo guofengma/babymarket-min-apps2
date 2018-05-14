@@ -453,6 +453,9 @@ export default class RequestReadFactory {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
                 item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+                if(item.Name == '保健'){
+                  responseData.splice(index, 1);
+                }
             });
             let home = new Object();
             home.Name = "首页";
@@ -1192,6 +1195,7 @@ export default class RequestReadFactory {
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
+              item.BuyerImgId = global.Tool.imageURLForId(item.BuyerImgId,'/res/img/common/default-userImge.png');
             });
         }
 
@@ -1216,7 +1220,8 @@ export default class RequestReadFactory {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
                 item.Month = global.Tool.timeStringForDateString(item.Month,'YYYY-MM');
-                item.Money = item.Sum
+                //item.Money = item.Sum
+                item.Expend = item.Expend.slice(1)
             });
         }
         return req;
@@ -1250,6 +1255,7 @@ export default class RequestReadFactory {
                 let typeImgId = item.TypeImgId;
                 item.TypeImgId = typeImgId;
                 item.typeImgSrc = global.Tool.imageURLForId(typeImgId);
+              
             });
         }
 
@@ -1351,12 +1357,13 @@ export default class RequestReadFactory {
 
         let req = new RequestRead(bodyParameters);
         req.name = '订单明细 查询';
-        req.items = ["Product_Name", "Qnty","Date"];
+        req.items = ["Product_Name", "Qnty", "Date", 'CreateTime', 'order_stateKey','OrderNo'];
 
         req.preprocessCallback = (req) => {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
                 item.Date = global.Tool.timeStringForDateString(item.Date,'YYYY-MM-DD');
+                item.stateKey= global.Tool.orderStatusForKey(item.order_stateKey)
             });
         }
         return req;
@@ -1588,5 +1595,24 @@ export default class RequestReadFactory {
         }
         return req;
     }
+    // 提现记录
+    static withdrawReadOperation(Id) {
+      let operation = Operation.sharedInstance().withdrawReadOperation;
+      let bodyParameters = {
+        "Operation": operation,
+        "Id": Id
+      };
+      let req = new RequestRead(bodyParameters);
+      req.name = '订单明细 查询';
+      req.items = ["Post", "CreateTime", "PostTime", 'Alipay'];
+      req.preprocessCallback = (req) => {
+        let responseData = req.responseObject.Datas;
+        responseData.forEach((item, index) => {
+          item.type = item.Post == 'Ture' ? '已到账' : '未到账'
+        });
+      }
+      return req;
+    }
+
 }
 

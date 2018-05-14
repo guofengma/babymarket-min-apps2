@@ -69,7 +69,8 @@
     "pages/my/order-refund/detail/order-refund-detail",
     "pages/special/detail/special-detail",
     "pages/home/crowdfunding/crowdfunding-list",
-    "pages/share/share"
+    "pages/share/share",
+    "pages/my/my-property/expend-detail/expend-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

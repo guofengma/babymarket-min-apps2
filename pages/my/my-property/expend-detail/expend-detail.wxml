@@ -1,0 +1,12 @@
+<!--pages/my/my-property/expend-detail/expend-detail.wxml-->
+<my-award-nav-header title="{{queryString.typeName}}" imgsrc="{{queryString.typeImgSrc}}"></my-award-nav-header>
+<view class="sep-line"></view>
+<view style="height:42rpx;width:100%;background-color:#F6F6F6"></view>
+<view class="sep-line"></view>
+<my-award-detail-total-price-cell title="{{queryString.key == 2? '提现金额':'付款金额'}}" value="{{queryString.award}}"></my-award-detail-total-price-cell>
+<view  class='infos'>
+  <view class='line'wx:for="{{datas}}" wx:for-item="item" wx:for-index="section" wx:key="">
+    <view>{{item.title}}</view>
+    <view class='content'>{{item.content}}</view>
+  </view>
+</view>

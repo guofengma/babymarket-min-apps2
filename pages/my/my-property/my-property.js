@@ -218,7 +218,19 @@ Page({
         let index = parseInt(e.currentTarget.dataset.index);
         let section = parseInt(e.currentTarget.dataset.section);
         let item = this.data.months[section].detailArray[index];
-        global.Tool.navigateTo('/pages/my/my-award/detail/my-award-detail?Id=' + item.OrderId + '&door=0&award=' + item.Money);
+        let key = item.TypeKey
+        if(key == 1){
+          global.Tool.navigateTo('/pages/my/my-award/detail/my-award-detail?Id=' + item.OrderId + '&door=0&award=' + item.Money);
+        } else{
+          let Id = ''
+          if (item.TypeKey == 3) {
+            Id = item.ShoppingOrderId
+          } else if (item.TypeKey == 2) {
+            Id = item.CashApplyId
+          }
+          global.Tool.navigateTo('/pages/my/my-property/expend-detail/expend-detail?Id=' + Id + '&award=' + item.Money + '&typeImgSrc=' + item.TypeImgId + '&typeName=' + item.TypeName + '&key=' + item.TypeKey);
+        }
+        
     },
 
     dismissFilterClicked(e){

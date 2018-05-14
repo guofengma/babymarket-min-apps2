@@ -8,7 +8,7 @@
     </block>
     <block wx:for="{{items}}" wx:key="">
         <filter-result-cell
-                img=""
+                img="{{item.BuyerImgId}}"
                 name="{{item.Title}}"
                 price="{{item.Commission}}"
                 time="{{item.ConfirmDate}}"

@@ -10,13 +10,14 @@
             <view class="mid">
                 <view class="name-base">
                     <text class="name">{{TypeName}}</text>
-                    <block wx:if="{{RefundMoney != undefined && RefundMoney != '0' && isProperty != undefined && isProperty != true}}">
+                    <!-- && isProperty != undefined && isProperty != true  -->
+                    <block wx:if="{{RefundMoney != undefined && RefundMoney != '0'}}">
                         <text class="name-small">已退款(￥{{RefundMoney}})</text>
                     </block>
                 </view>
                 <text class="time">{{isProperty ? DateTime:ConfirmDate}}</text>
             </view>
         </view>
-        <text class="amount">{{Money >= 0 ? '+':''}}{{Money}}元</text>
+        <text class="amount">{{IsExpend == 'True' ? '-':'+'}}{{Money}}元</text>
     </view>
 </template>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "my-award-nav-header": "/pages/my/my-award/detail/nav-header/my-award-nav-header",
+    "my-award-detail-total-price-cell": "/pages/my/my-award/detail/total-price/my-award-detail-total-price-cell"
+  }
+}

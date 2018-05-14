@@ -50,6 +50,7 @@ Page({
     },
 
     reload() {
+        this.memberInfoRead()
         this.requestTargetData();
         this.requestOneSortData();
         this.requestHomeAdData();
@@ -68,10 +69,8 @@ Page({
     },
 
     onShow() {
-        let r = RequestReadFactory.memberInfoRead();
-        r.addToQueue();
+        
     },
-
     /**
      * 用户点击右上角分享
      */
@@ -97,6 +96,10 @@ Page({
             }
         };
         return obj;
+    },
+    memberInfoRead: function () {
+      let r = RequestReadFactory.memberInfoRead();
+      r.addToQueue();
     },
     /**
      * 获取标签数据
@@ -171,7 +174,7 @@ Page({
 
             //循环请求分类的产品
             responseData.forEach((item, index) => {
-                if (index > 0) {
+              if (index > 0) {
                     this.requestOneSortProductData(item.Id, item.MaxShow, index);
                 }
 

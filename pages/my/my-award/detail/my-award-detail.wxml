@@ -24,7 +24,7 @@
     <key-value-cell key="{{door== '1'? '奖励到账时间':'资产到账时间'}}" value="{{datas[0].ConfirmDate}} "/>
     <view class="sep-line"></view>
 
-    <view style="padding:130rpx 28rpx 0">
+    <!-- <view style="padding:130rpx 28rpx 0">
         <subumit-button title="炫耀一下" bind:submitclicked="share"/>
-    </view>
+    </view> -->
 </view>

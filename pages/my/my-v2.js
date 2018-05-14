@@ -23,32 +23,39 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        let member = global.Storage.currentMember();
-        this.setData({
-            member,
-            avatarUrl:global.Tool.imageURLForId(member.PictureId),
-        });
+      if (this.data.isLogin){
+         let member = global.Storage.currentMember();
 
-        this.requestData();
+         this.setData({
+           member,
+           avatarUrl: global.Tool.imageURLForId(member.PictureId),
+         });
+
+         this.requestData();
+       }
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        let self = this;
-
+        // let self = this;
         let value = global.Storage.didLogin();
         let didLogin = value && value == true ? true:false;
-
+        this.setData({
+          isLogin: didLogin,
+        });
         if (!didLogin) {
             global.Event.emit('shouldPopLoginView');
             global.Tool.switchTab('/pages/home/home');
-        }
+        } else{
+          let member = global.Storage.currentMember();
 
-        self.setData({
-            isLogin: didLogin,
-        });
+          this.setData({
+            member,
+            avatarUrl: global.Tool.imageURLForId(member.PictureId),
+          });
+        }
     },
 
     /**

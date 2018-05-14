@@ -14,7 +14,8 @@
 .img{
     height: 60rpx;
     width: 60rpx;
-    background-color: red;
+    border-radius: 60rpx;
+    /* background-color: red; */
     flex: 0 0 auto;
     margin:0 14rpx 0 30rpx;
 }

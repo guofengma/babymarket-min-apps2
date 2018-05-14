@@ -86,6 +86,7 @@ Page({
         let r = RequestReadFactory.qrcodeRead(url, 320);
         r.finishBlock = (req) => {
             let data = req.responseObject.data;
+            console.log(data)
             let image = "https://app.xgrowing.com/node/imgs/wxqrcode/" + data.img_id;
             this.setData({
                 qrImage: image
