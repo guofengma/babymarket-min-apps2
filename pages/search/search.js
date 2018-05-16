@@ -14,10 +14,12 @@ Page({
      */
     onLoad: function (options) {
         Tool.showLoading();
-        this.setData({
-            historySearchData: Storage.getHistorySearch()
-        });
         this.requestHotSearchData();
+    },
+    onShow:function(){
+      this.setData({
+        historySearchData: Storage.getHistorySearch()
+      });
     },
     /**
      * 获取热门搜索数据
@@ -46,7 +48,7 @@ Page({
      */
     onKeywordListener: function (e) {
         let keyword = e.currentTarget.dataset.keyword;
-        //先判断keyword是否在历史记录中
+        //先判断keyword是否在历史记录中 
         let historySearchData = this.data.historySearchData;
         let historyKeyword = undefined;
         if (historySearchData == undefined) {
@@ -73,6 +75,12 @@ Page({
     },
     onConfirmAction:function(e){
       let keyword = e.detail.value;
+      if (Storage.getHistorySearch() == undefined){
+        Storage.setHistorySearch([keyword]);
+      } else {
+        let arr = Storage.getHistorySearch().unshift(keyword);
+      }
+     
       //跳到搜索结果
       wx.navigateTo({
         url: '/pages/search/search-result/search-result?keyword=' + keyword

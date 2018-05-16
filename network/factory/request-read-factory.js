@@ -453,6 +453,7 @@ export default class RequestReadFactory {
             let responseData = req.responseObject.Datas;
             responseData.forEach((item, index) => {
                 item.imageUrl = global.Tool.imageURLForId(item.ImgId);
+                // 公司没有保健品的证书 要去掉 不然无法发布
                 if(item.Name == '保健'){
                   responseData.splice(index, 1);
                 }

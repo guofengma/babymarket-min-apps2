@@ -45,6 +45,13 @@ Page({
         }
         task.finishBlock = (req) => {
             let responseData = req.responseObject.Datas;
+            let datas = []
+            responseData.forEach((item, index) => {
+              if (item.ShowName.indexOf('保健') == -1) {
+                datas.push(item)
+              }
+            })
+            responseData = datas
             this.setData({
                 productArray: responseData
             });
