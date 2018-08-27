@@ -73,7 +73,7 @@
     "pages/my/my-property/expend-detail/expend-detail"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "Black",
     "navigationBarBackgroundColor": "#715329",
     "navigationBarTitleText": "老友码头",
     "navigationBarTextStyle": "#ffffff",

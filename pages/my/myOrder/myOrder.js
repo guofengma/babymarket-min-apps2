@@ -147,7 +147,7 @@ Page({
                     let now = Tool.timeStringForDate(new Date(), "YYYY-MM-DD HH:mm:ss");
                     let nowTimeInterval = Tool.timeIntervalFromString(now);
                     let duration = 30 * 60 - (nowTimeInterval - timeInterval);
-
+                    console.log(duration)
                     secondMap.set(index, duration);
                 }
             });
@@ -456,6 +456,7 @@ Page({
         for (let i = 0; i < orderArry.length; i++) {
             let order = orderArry[i];
             if (order.StatusKey == '0') {
+              console.log(that.data.secondArry)
                 let second = mapArry.get(i);
                 if (second > 0) {//秒数>0
 
@@ -477,7 +478,7 @@ Page({
         var time = setTimeout(function () {
             that.countdown(that);
         }, 1000)
-
+        
         let arry = this.data.dataArry;
         arry.splice(this.data.currentIndex, 1, orderArry);
 
